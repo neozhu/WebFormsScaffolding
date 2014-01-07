@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScaffoldingSampleOutput", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFormsServerCRUD", "ScaffoldingSampleOutput\WebFormsServerCRUD\WebFormsServerCRUD.csproj", "{1A894F62-C258-4DAB-B43B-9F1D25B9D7C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFormsServerCRUDBootstrap", "ScaffoldingSampleOutput\WebFormsServerCRUDBootstrap\WebFormsServerCRUDBootstrap.csproj", "{FFFF61EC-3556-46F1-81FD-8AFC60CDF8DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +19,16 @@ Global
 		{1A894F62-C258-4DAB-B43B-9F1D25B9D7C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A894F62-C258-4DAB-B43B-9F1D25B9D7C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A894F62-C258-4DAB-B43B-9F1D25B9D7C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFFF61EC-3556-46F1-81FD-8AFC60CDF8DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFFF61EC-3556-46F1-81FD-8AFC60CDF8DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFFF61EC-3556-46F1-81FD-8AFC60CDF8DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFFF61EC-3556-46F1-81FD-8AFC60CDF8DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1A894F62-C258-4DAB-B43B-9F1D25B9D7C0} = {0B2C04D2-837F-41D2-A64D-5731202DEBAC}
+		{FFFF61EC-3556-46F1-81FD-8AFC60CDF8DD} = {0B2C04D2-837F-41D2-A64D-5731202DEBAC}
 	EndGlobalSection
 EndGlobal
