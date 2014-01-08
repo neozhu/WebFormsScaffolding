@@ -20,20 +20,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
-    <script>
-        function launch_modal(id) {
-            console.log(id);
-            // Hide all modals using class if required.
-            $('.modal').modal('hide');
-            $('#' + id).modal('show');
-        }
-</script>
-
     <h1>List Movies</h1>
 
     <p>
-        <a class="btn btn-primary" onclick="launch_modal('createModal');">Create New</a>
+        <a class="btn btn-primary" onclick="$('#createModal').modal()">Create New</a>
     </p>
 
     <!-- List -->
@@ -71,7 +61,7 @@
             <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:LinkButton CssClass="btn btn-default btn-xs" CommandName="Select" Text="Details" OnClientClick="launch_modal('detailsModal');"  runat="server" />
+                        <asp:LinkButton CssClass="btn btn-default btn-xs" CommandName="Select" Text="Details" OnClientClick="$('#detailsModal').modal()"  runat="server" />
                     </td>
                     <td><asp:DynamicControl DataField="Id" runat="server" /></td>
                     <td><asp:DynamicControl DataField="Title" runat="server" /></td>

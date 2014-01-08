@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.ModelBinding;
@@ -33,14 +34,27 @@ namespace WebFormsServerCRUDBootstrap.Movies
             return repository.Find<Movie>(id);
         }
 
-        public void Create_InsertItem()
+        public void CreateForm_InsertItem()
         {
             var item = new WebFormsServerCRUDBootstrap.Models.Movie();
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {
-                // Save changes here
+                try
+                {
+                    repository.Add<Movie>(item);
+                    repository.SaveChanges();
 
+                    Response.Redirect("Default.aspx");
+                }
+                catch (ValidationException valEx)
+                {
+                    ModelState.AddModelError(String.Empty, valEx.Message);
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError(String.Empty, "Could not insert record.");
+                }
             }
         }
         

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -18,14 +19,17 @@ namespace WebFormsServerCRUDBootstrap.Models
 
         [Required(ErrorMessage = "You must enter a movie title.")]
         [StringLength(30, ErrorMessage = "Movie title maximum length is 30 chracters.")]
+        [Description("Enter the title of the movie.")]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "You must enter a movie director.")]
+        [Description("Enter the full name of the movie director.")]
         public string Director { get; set; }
 
         [Display(Name = "Ticket Price")]
         [DataType(DataType.Currency)]
         [Required(ErrorMessage = "You must enter a ticket price.")]
+        [Description("Enter the ticket price (without the $).")]
         public decimal TicketPrice { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

@@ -13,21 +13,37 @@ namespace WebFormsServerCRUDBootstrap {
 
             Label1.Text = Column.DisplayName;
 
+
             if (Column.MaxLength < 20) {
                 TextBox1.Columns = Column.MaxLength;
             }
-            TextBox1.ToolTip = Column.Description;
+            Description.Text = Column.Description;
     
-            SetUpValidator(RequiredFieldValidator1);
-            SetUpValidator(RegularExpressionValidator1);
-            SetUpValidator(DynamicValidator1);
+            //SetUpValidator(RequiredFieldValidator1);
+            //SetUpValidator(RegularExpressionValidator1);
+            //SetUpValidator(DynamicValidator1);
+
+            //if (!RequiredFieldValidator1.IsValid)
+            //{
+            //    Div1.Attributes["class"] = "form-group has-error";
+            //}
 
             // Add bootstrap glyph
             //RequiredFieldValidator1.Text = "<span class='glyphicon glyphicon-warning-sign'></span>";
-            RequiredFieldValidator1.Text = "<span class='help-block'>A block of help text that breaks onto a new line and may extend beyond one line.</span>";
+            //RequiredFieldValidator1.Text = "<span class='help-block'>A block of help text that breaks onto a new line and may extend beyond one line.</span>";
  
         }
-    
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            var isValid = this.Page.ModelState.IsValidField(Column.Name);
+            Div1.Attributes["class"] = isValid ? "form-group" : "form-group has-error";
+            
+            base.OnPreRender(e);
+        }
+       
+
+
         protected override void OnDataBinding(EventArgs e) {
             base.OnDataBinding(e);
             if(Column.MaxLength > 0) {
