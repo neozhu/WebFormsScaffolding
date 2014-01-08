@@ -9,33 +9,21 @@ using System.Web.UI.WebControls;
 namespace WebFormsServerCRUDBootstrap {
     public partial class Text_EditField : System.Web.DynamicData.FieldTemplateUserControl {
         protected void Page_Load(object sender, EventArgs e) {
-
-
+            // Get form label from modelDisplayName attribute
             Label1.Text = Column.DisplayName;
 
-
+            // Set maxlength of TextBox
             if (Column.MaxLength < 20) {
                 TextBox1.Columns = Column.MaxLength;
             }
+
+            // Get help text from model Description attribute
             Description.Text = Column.Description;
-    
-            //SetUpValidator(RequiredFieldValidator1);
-            //SetUpValidator(RegularExpressionValidator1);
-            //SetUpValidator(DynamicValidator1);
-
-            //if (!RequiredFieldValidator1.IsValid)
-            //{
-            //    Div1.Attributes["class"] = "form-group has-error";
-            //}
-
-            // Add bootstrap glyph
-            //RequiredFieldValidator1.Text = "<span class='glyphicon glyphicon-warning-sign'></span>";
-            //RequiredFieldValidator1.Text = "<span class='help-block'>A block of help text that breaks onto a new line and may extend beyond one line.</span>";
- 
         }
 
         protected override void OnPreRender(EventArgs e)
         {
+            // if validation error then apply bootstrap has-error CSS class
             var isValid = this.Page.ModelState.IsValidField(Column.Name);
             Div1.Attributes["class"] = isValid ? "form-group" : "form-group has-error";
             

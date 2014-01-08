@@ -13,6 +13,15 @@ namespace WebFormsServerCRUDBootstrap.Movies {
     public partial class Default {
         
         /// <summary>
+        /// CreateButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton CreateButton;
+        
+        /// <summary>
         /// MoviesList control.
         /// </summary>
         /// <remarks>
@@ -22,6 +31,15 @@ namespace WebFormsServerCRUDBootstrap.Movies {
         protected global::System.Web.UI.WebControls.ListView MoviesList;
         
         /// <summary>
+        /// CreateFormDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CreateFormDiv;
+        
+        /// <summary>
         /// CreateForm control.
         /// </summary>
         /// <remarks>
@@ -29,6 +47,15 @@ namespace WebFormsServerCRUDBootstrap.Movies {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FormView CreateForm;
+        
+        /// <summary>
+        /// CreateFormSuccessDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CreateFormSuccessDiv;
         
         /// <summary>
         /// DetailsForm control.

@@ -32,6 +32,11 @@ namespace WebFormsServerCRUDBootstrap.Models
         [Description("Enter the ticket price (without the $).")]
         public decimal TicketPrice { get; set; }
 
+        [Display(Name="In Theaters")]
+        [Description("Check if movie is already in theaters.")]
+        public bool InTheaters { get; set; }
+
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var results = new List<ValidationResult>();
