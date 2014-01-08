@@ -11,7 +11,7 @@ namespace WebFormsServerCRUDBootstrap.Movies
 {
 
 
-    public partial class DetailsDialog
+    public partial class Create
     {
     }
 }

@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace WebFormsServerCRUDBootstrap.Movies
 {
-    public partial class List : System.Web.UI.UserControl
+    public partial class Create : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {

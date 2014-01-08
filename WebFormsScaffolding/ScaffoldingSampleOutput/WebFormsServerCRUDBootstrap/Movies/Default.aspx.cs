@@ -32,6 +32,17 @@ namespace WebFormsServerCRUDBootstrap.Movies
             }
             return repository.Find<Movie>(id);
         }
+
+        public void Create_InsertItem()
+        {
+            var item = new WebFormsServerCRUDBootstrap.Models.Movie();
+            TryUpdateModel(item);
+            if (ModelState.IsValid)
+            {
+                // Save changes here
+
+            }
+        }
         
 
      

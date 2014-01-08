@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebFormsServerCRUDBootstrap.Movies.Default" %>
-<%@ Register TagPrefix="user" TagName="List" Src="List.ascx" %>    
+<%@ Register TagPrefix="user" TagName="Create" Src="Create.ascx" %>    
 <%@ Register TagPrefix="user" TagName="Details" Src="Details.ascx" %>    
 <%@ Register TagPrefix="user" TagName="Update" Src="Update.ascx" %>    
 
@@ -14,20 +14,30 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="../Scripts/jquery-2.0.3.min.js"></script>
-    <script src="../Scripts/bootstrap.min.js"></script>
+  
+    <link href="Scaffolding.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <h1>List Movies (<%: DateTime.Now %>)</h1>
+
+    <script>
+        function launch_modal(id) {
+            console.log(id);
+            // Hide all modals using class if required.
+            $('.modal').modal('hide');
+            $('#' + id).modal('show');
+        }
+</script>
+
+    <h1>List Movies</h1>
 
     <p>
-        <a class="btn btn-primary"  href="Create.aspx">Create New</a>
+        <a class="btn btn-primary" onclick="launch_modal('createModal');">Create New</a>
     </p>
 
     <!-- List -->
-     <asp:UpdatePanel UpdateMode="Conditional" runat="server">
+     <asp:UpdatePanel runat="server">
         <ContentTemplate>
 
         <asp:ListView
@@ -61,7 +71,7 @@
             <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:LinkButton CssClass="btn btn-default btn-xs" CommandName="Select" Text="Details" OnClientClick="$('#detailsDialog').modal()"  runat="server" />
+                        <asp:LinkButton CssClass="btn btn-default btn-xs" CommandName="Select" Text="Details" OnClientClick="launch_modal('detailsModal');"  runat="server" />
                     </td>
                     <td><asp:DynamicControl DataField="Id" runat="server" /></td>
                     <td><asp:DynamicControl DataField="Title" runat="server" /></td>
@@ -77,12 +87,31 @@
     </asp:UpdatePanel>
 
 
-
+    
     <!-- Modal Dialog for Create form-->
-
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <asp:UpdatePanel UpdateMode="Conditional" runat="server">
+                <ContentTemplate>
+                    <asp:FormView 
+                        ID="CreateForm"
+                        RenderOuterTable="false"
+                        DefaultMode="Insert"
+                        ItemType="WebFormsServerCRUDBootstrap.Models.Movie" 
+                        InsertMethod="CreateForm_InsertItem" 
+                        runat="server">
+                        <InsertItemTemplate>
+                            <user:Create runat="server" />
+                        </InsertItemTemplate>
+                    </asp:FormView>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
+        
 
     <!-- Modal Dialog for Details and Update forms -->
-    <div class="modal fade" id="detailsDialog" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <asp:UpdatePanel UpdateMode="Conditional" runat="server">
                 <Triggers>

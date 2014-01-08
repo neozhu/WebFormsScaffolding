@@ -9,6 +9,10 @@ using System.Web.UI.WebControls;
 namespace WebFormsServerCRUDBootstrap {
     public partial class Text_EditField : System.Web.DynamicData.FieldTemplateUserControl {
         protected void Page_Load(object sender, EventArgs e) {
+
+
+            Label1.Text = Column.DisplayName;
+
             if (Column.MaxLength < 20) {
                 TextBox1.Columns = Column.MaxLength;
             }
@@ -17,6 +21,11 @@ namespace WebFormsServerCRUDBootstrap {
             SetUpValidator(RequiredFieldValidator1);
             SetUpValidator(RegularExpressionValidator1);
             SetUpValidator(DynamicValidator1);
+
+            // Add bootstrap glyph
+            //RequiredFieldValidator1.Text = "<span class='glyphicon glyphicon-warning-sign'></span>";
+            RequiredFieldValidator1.Text = "<span class='help-block'>A block of help text that breaks onto a new line and may extend beyond one line.</span>";
+ 
         }
     
         protected override void OnDataBinding(EventArgs e) {

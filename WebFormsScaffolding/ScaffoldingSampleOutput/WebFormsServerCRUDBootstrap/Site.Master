@@ -10,8 +10,15 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:ScriptManager runat="server">
-
+         <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="jquery" />
+                 <asp:ScriptReference Name="bootstrap" />
+                
+                <%--Site Scripts--%>
+            </Scripts>
         </asp:ScriptManager>
     <div class="container body-content">
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
