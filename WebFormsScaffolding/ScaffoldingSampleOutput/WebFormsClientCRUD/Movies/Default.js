@@ -2,58 +2,110 @@
 /// <reference path="~/Scripts/knockout-3.0.0.js" />
 /// <reference path="Scaffolding.WebForms.js" />
 
-function Movie() {
-    this.Title = ko.observable('');
-    this.Director = ko.observable('');
-    this.TicketPrice = ko.observable(0);
-
-    this.reset = function () {
-        this.Title('');
-        this.Director('');
-        this.TicketPrice(0);
-    };
+function Movie(movie) {
+    this.Id = movie ? ko.observable(movie.Id) : ko.observable();
+    this.Title = movie?ko.observable(movie.Title):ko.observable();
+    this.Director = movie?ko.observable(movie.Director):ko.observable();
+    this.TicketPrice = movie?ko.observable(movie.TicketPrice):ko.observable();
 }
 
-var defaultViewModel = {
+function DefaultViewModel() {
+    var self = this;
+
+    this.selectedMovie = ko.observable();
+    this.movieToUpdate = ko.observable();
+    this.movieToCreate = ko.observable();
+
+    this.movieModal = ko.observable(false);
+
+    this.showPane = function (pane) {
+        self.detailsPane(pane == 'details');
+        self.createPane(pane == 'create');
+        self.updatePane(pane == 'update');
+    },
+
+    this.hideMovieModal = function () {
+        self.movieModal(false);
+    };
+
+    /* Details */
+    this.detailsPane = ko.observable(true);
+
+    this.showMovieDetails = function (item) {
+        self.selectedMovie(item);
+        self.movieModal(true);
+        self.showPane('details');
+    };
+
+
 
     /* List */
-    movies: ko.observableArray(),
+    this.movies = ko.observableArray();
     
-    getMovies: function () {
-        var self = this;
+    this.getMovies = function () {
         Scaffolding.WebForms.invokeAction('/Api/Movies').done(function (movies) {
-            self.movies(movies);
+            $.each(movies, function (index, movie) {
+                self.movies.push(new Movie(movie));
+            });
         });
     },
 
+
+
+    /* Update */
+    this.updatePane = ko.observable(false);
+
+    this.movieToUpdateValidationErrors = ko.observableArray();
+
+    this.showMovieUpdate = function() {
+        self.movieToUpdate(ko.toJS(self.selectedMovie));
+        self.movieToUpdateValidationErrors([]);
+        self.showPane('update');
+    };
+
+
+    this.updateMovie = function () {
+        // Make the Ajax call
+        var data = ko.toJSON(this.movieToUpdate);
+        Scaffolding.WebForms.invokeAction('/Api/Movies', 'PUT', data).done(function (movieUpdate) {
+            // success!
+            self.selectedMovie().Title(movieUpdate.Title);
+            self.selectedMovie().Director(movieUpdate.Director);
+            self.selectedMovie().TicketPrice(movieUpdate.TicketPrice);
+
+            self.showPane('details');
+        }).fail(function (errors) {
+            self.movieToUpdateValidationErrors(errors);
+        });
+    };
+
     /* Create */
-    createModal: ko.observable(false),
+    this.createPane = ko.observable(false);
 
-    movieToCreate: new Movie(),
+    this.movieToCreateValidationErrors = ko.observableArray();
 
-    movieToCreateValidationErrors: ko.observableArray(),
+    this.showCreate = function() {
+        self.selectedMovie(new Movie());
+        self.movieToCreateValidationErrors([]);
 
-    showCreateModal: function() {
-        this.movieToCreate.reset();
-        this.movieToCreateValidationErrors([]);
-        this.createModal(true);
-    },
+        self.showPane('create');
+    };
 
-    hideCreateModal: function() {
-        this.createModal(false);
-    },
-
-    create: function () {
-        var self = this;
-        var data = ko.toJSON(this.movieToCreate);
+    this.createMovie = function () {
+        var data = ko.toJSON(this.selectedMovie);
         
         Scaffolding.WebForms.invokeAction('/Api/Movies', 'POST', data).done(function(movieCreated) {
             // success!
-            self.hideCreateModal();
+            self.showPane('details');
             self.getMovies();
         }).fail(function (errors) {
             self.movieToCreateValidationErrors(errors);
         });
-    }
+    };
+
+
+
 };
+
+var defaultViewModel = new DefaultViewModel();
 

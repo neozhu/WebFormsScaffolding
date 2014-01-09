@@ -1,13 +1,18 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebFormsClientCRUD.Movies.Default" %>
+<%@ Register TagPrefix="user" TagName="Details" Src="Details.ascx" %>
+<%@ Register TagPrefix="user" TagName="Update" Src="Update.ascx" %>
+<%@ Register TagPrefix="user" TagName="Create" Src="Create.ascx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
+                <th></th>
                 <th>Title</th>
                 <th>Director</th>
                 <th>Ticket Price</th>
@@ -15,6 +20,9 @@
         </thead>
         <tbody data-bind="foreach: movies">
             <tr>
+                <td>
+                    <button class="btn btn-default btn-xs" data-bind="click:$root.showMovieDetails">Details</button> 
+                </td>
                 <td data-bind="text:Title"></td>
                 <td data-bind="text:Director"></td>
                 <td data-bind="text:TicketPrice"></td>
@@ -23,56 +31,23 @@
     </table>
 
     <p>
-        <button class="btn btn-default" data-bind="click:showCreateModal">Create New</button>
+        <button class="btn btn-default" data-bind="click:showMovieDetails">Create New</button>
     </p>
 
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-bind="showModal: createModal">
+    <div class="modal fade" id="movieModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-bind="showModal: movieModal">
       <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Create Movie</h4>
-          </div>
-
-          <div class="modal-body">
-            
-            <div class="alert alert-danger" data-bind="visible:movieToCreateValidationErrors().length">
-             <ul data-bind="foreach: movieToCreateValidationErrors">
-                 <li data-bind="text: errorMessage"></li>
-             </ul>
-            </div>
-
-             <form class="form-horizontal" role="form">
-             
-                  <div class="form-group">
-                    <label for="Title" class="col-sm-3 control-label">Title</label>
-                    <div class="col-sm-9">
-                      <input id="Title" data-bind="value:movieToCreate.Title" type="text" class="form-control" placeholder="Title" />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="Director" class="col-sm-3 control-label">Director</label>
-                    <div class="col-sm-9">
-                      <input id="Director" data-bind="value:movieToCreate.Director" type="text" class="form-control" placeholder="Director" />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="title" class="col-sm-3 control-label">Ticket Price</label>
-                    <div class="col-sm-9">
-                      <input id="Ticket Price" data-bind="value:movieToCreate.TicketPrice" type="text" class="form-control" placeholder="Ticket Price" />
-                    </div>
-                  </div>
-
-             </form>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-bind="click:hideCreateModal">Close</button>
-            <button type="button" class="btn btn-primary" data-bind="click:create">Save changes</button>
-          </div>
 
 
-        </div>
+        <%-- Details Pane --%>
+        <user:Details runat="server" />
+
+        <%-- Update Pane --%>
+        <user:Update runat="server" />
+
+        <%--  Create Pane  --%>        
+        <user:Create runat="server" />
+
+
       </div>
     </div>
 

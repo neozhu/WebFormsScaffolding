@@ -37,8 +37,15 @@ namespace WebFormsClientCRUD.Controllers.Api
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        [ValidateModel]
+        public HttpResponseMessage Put(Movie movieToUpdate)
         {
+            var original = repository.Find<Movie>(movieToUpdate.Id);
+            original.Title = movieToUpdate.Title;
+            original.Director = movieToUpdate.Director;
+            original.TicketPrice = movieToUpdate.TicketPrice;
+            repository.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.OK, original);
         }
 
         // DELETE api/<controller>/5
