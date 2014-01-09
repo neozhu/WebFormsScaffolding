@@ -73,7 +73,7 @@ namespace WebFormsServerCRUDBootstrap.Movies
                 {
                     ModelState.AddModelError(String.Empty, valEx.Message);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     ModelState.AddModelError(String.Empty, "Could not insert record.");
                 }
