@@ -128,6 +128,7 @@ namespace WebFormsServerCRUDBootstrap.Movies
                 repository.Remove<Movie>(id);
                 repository.SaveChanges();
 
+                // Ensure that we don't end up on an empty page
                 MoviesList.DataBind();
             }
             catch (ValidationException valEx)

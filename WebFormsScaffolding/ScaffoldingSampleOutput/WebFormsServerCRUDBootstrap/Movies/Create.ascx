@@ -5,6 +5,7 @@
     </div>
     <div class="modal-body">
         <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
+
         <asp:DynamicControl DataField="Title" Mode="Insert" runat="server" />
         <asp:DynamicControl DataField="Director" Mode="Insert" runat="server" />
         <asp:DynamicControl DataField="TicketPrice" Mode="Insert" runat="server" />

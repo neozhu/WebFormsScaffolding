@@ -24,6 +24,7 @@
         ItemType="WebFormsServerCRUD.Models.Movie"
         DataKeyNames="Id"
         SelectMethod="MoviesList_GetData"
+        DeleteMethod="MoviesList_DeleteItem"
         runat="server">
         <LayoutTemplate>
             <table>
@@ -52,7 +53,7 @@
                 <td>
                     <a href="Details.aspx?id=<%#:Item.Id %>">Details</a>
                     <a href="Update.aspx?id=<%#:Item.Id %>">Edit</a>
-                    <a href="Delete.aspx?id=<%#:Item.Id %>">Delete</a>
+                    <asp:LinkButton CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete this record?')"  runat="server" />                    
                 </td>
                 <td><asp:DynamicControl DataField="Id" runat="server" /></td>
                 <td><asp:DynamicControl DataField="Title" runat="server" /></td>
