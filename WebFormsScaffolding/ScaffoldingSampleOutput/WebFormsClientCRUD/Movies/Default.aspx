@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="user" TagName="Details" Src="Details.ascx" %>
 <%@ Register TagPrefix="user" TagName="Update" Src="Update.ascx" %>
 <%@ Register TagPrefix="user" TagName="Create" Src="Create.ascx" %>
+<%@ Register TagPrefix="user" TagName="Delete" Src="Delete.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
@@ -9,34 +10,43 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
+    
+    <div data-bind="visible: loading">
+        Loading movies...
+    </div>
+
     <table class="table table-striped">
         <thead>
             <tr>
                 <th></th>
+                <th>Id</th>
                 <th>Title</th>
                 <th>Director</th>
                 <th>Ticket Price</th>
             </tr>
         </thead>
-        <tbody data-bind="foreach: movies">
+        <tbody data-bind="foreach: movies, visible:!loading()">
             <tr>
                 <td>
                     <button class="btn btn-default btn-xs" data-bind="click:$root.showMovieDetails">Details</button> 
+                    <button class="btn btn-danger btn-xs" data-bind="click: $root.showMovieDelete">Delete</button> 
                 </td>
+                <td data-bind="text: Id"></td>
                 <td data-bind="text:Title"></td>
                 <td data-bind="text:Director"></td>
                 <td data-bind="text:TicketPrice"></td>
             </tr>
         </tbody>
+       
     </table>
 
+
     <p>
-        <button class="btn btn-default" data-bind="click:showMovieDetails">Create New</button>
+        <button class="btn btn-default" data-bind="click:showMovieCreate">Create New</button>
     </p>
 
     <div class="modal fade" id="movieModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-bind="showModal: movieModal">
       <div class="modal-dialog">
-
 
         <%-- Details Pane --%>
         <user:Details runat="server" />
@@ -47,6 +57,8 @@
         <%--  Create Pane  --%>        
         <user:Create runat="server" />
 
+        <%--  Delete Pane  --%>        
+        <user:Delete runat="server" />
 
       </div>
     </div>

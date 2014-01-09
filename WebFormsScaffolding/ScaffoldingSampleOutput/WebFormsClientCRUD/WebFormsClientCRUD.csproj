@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Movies\Create.ascx" />
+    <Content Include="Movies\Delete.ascx" />
     <Content Include="Movies\Details.ascx" />
     <Content Include="Movies\Update.ascx" />
     <Content Include="packages.config" />
@@ -144,6 +145,13 @@
     </Compile>
     <Compile Include="Movies\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Movies\Delete.ascx.cs">
+      <DependentUpon>Delete.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Movies\Delete.ascx.designer.cs">
+      <DependentUpon>Delete.ascx</DependentUpon>
     </Compile>
     <Compile Include="Movies\Details.ascx.cs">
       <DependentUpon>Details.ascx</DependentUpon>

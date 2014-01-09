@@ -16,12 +16,16 @@ function DefaultViewModel() {
     this.movieToUpdate = ko.observable();
     this.movieToCreate = ko.observable();
 
+
+    this.loading = ko.observable(false);
+
     this.movieModal = ko.observable(false);
 
     this.showPane = function (pane) {
         self.detailsPane(pane == 'details');
         self.createPane(pane == 'create');
         self.updatePane(pane == 'update');
+        self.deletePane(pane == 'delete');
     },
 
     this.hideMovieModal = function () {
@@ -43,9 +47,11 @@ function DefaultViewModel() {
     this.movies = ko.observableArray();
     
     this.getMovies = function () {
+        self.loading(true);
         Scaffolding.WebForms.invokeAction('/Api/Movies').done(function (movies) {
             $.each(movies, function (index, movie) {
                 self.movies.push(new Movie(movie));
+                self.loading(false);
             });
         });
     },
@@ -84,26 +90,55 @@ function DefaultViewModel() {
 
     this.movieToCreateValidationErrors = ko.observableArray();
 
-    this.showCreate = function() {
-        self.selectedMovie(new Movie());
+    this.showMovieCreate = function() {
+        self.movieToCreate(new Movie());
         self.movieToCreateValidationErrors([]);
 
+        self.movieModal(true);
         self.showPane('create');
     };
 
     this.createMovie = function () {
-        var data = ko.toJSON(this.selectedMovie);
+        var data = ko.toJSON(this.movieToCreate);
         
         Scaffolding.WebForms.invokeAction('/Api/Movies', 'POST', data).done(function(movieCreated) {
             // success!
+            self.selectedMovie(new Movie());
+            self.selectedMovie().Id(movieCreated.Id);
+            self.selectedMovie().Title(movieCreated.Title);
+            self.selectedMovie().Director(movieCreated.Director);
+            self.selectedMovie().TicketPrice(movieCreated.TicketPrice);
+
+            self.movies.push(self.selectedMovie());
             self.showPane('details');
-            self.getMovies();
         }).fail(function (errors) {
             self.movieToCreateValidationErrors(errors);
         });
     };
 
+    /* Delete */
+    this.deletePane = ko.observable(false);
 
+    this.movieToDeleteValidationErrors = ko.observableArray();
+
+
+    this.showMovieDelete = function(item) {
+        self.selectedMovie(item);
+        self.movieModal(true);
+        self.showPane('delete');
+    };
+
+    this.deleteMovie = function () {
+        var data = ko.toJSON(this.selectedMovie);
+
+        Scaffolding.WebForms.invokeAction('/Api/Movies', 'DELETE', data).done(function (movieCreated) {
+            self.movies.remove(self.selectedMovie());
+            self.hideMovieModal();
+        }).fail(function (errors) {
+            self.movieToDeleteValidationErrors(errors);
+        });
+
+    };
 
 };
 

@@ -49,8 +49,11 @@ namespace WebFormsClientCRUD.Controllers.Api
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(Movie movieToDelete)
         {
+            repository.Remove<Movie>(movieToDelete.Id);
+            repository.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.OK, movieToDelete);
         }
     }
 }

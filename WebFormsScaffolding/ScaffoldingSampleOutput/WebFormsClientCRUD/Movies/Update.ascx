@@ -32,7 +32,7 @@
             <div class="form-group">
             <label for="title" class="col-sm-3 control-label">Ticket Price</label>
             <div class="col-sm-9">
-                <input id="Ticket Price" data-bind="value:TicketPrice" type="text" class="form-control" placeholder="Ticket Price" />
+                <input id="Ticket Price" data-bind="value:TicketPrice" type="number" class="form-control" placeholder="Ticket Price" />
             </div>
             </div>
 
@@ -40,7 +40,7 @@
 
     </div>
     <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-bind="click: hideMovieModal">Close</button>
+    <button type="button" class="btn btn-default" data-bind="click:hideMovieModal">Close</button>
     <button type="button" class="btn btn-primary" data-bind="click:updateMovie">Save changes</button>
     </div>
 
