@@ -1,0 +1,89 @@
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="aspx" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.Boolean" name="IsContentPage" #>
+<#@ parameter type="System.Boolean" name="IsContentMobilePage" #>
+<#@ parameter type="System.String" name="MasterPageFile" #>
+<#@ parameter type="System.String" name="MobileMasterPageFile" #>
+<#@ parameter type="System.Array" name="SectionNames" #>
+<#@ parameter type="System.String" name="PrimarySectionName" #>
+<#@ parameter type="System.String" name="PrimaryKeyName" #>
+<#@ parameter type="System.MarshalByRefObject" name="ViewDataType" #>
+<#@ parameter type="System.String" name="ViewDataTypeName" #>
+<#@ parameter type="System.String" name="DBContextType" #>
+<#@ parameter type="System.String" name="DBContextNamespace" #>
+<#@ parameter type="System.String" name="PluralizedName" #>
+<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
+<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
+<#
+if(IsContentPage) {
+#>
+<%@ Page Title="<#= ViewDataTypeName #>Insert" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Insert.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Insert" %>
+
+<asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
+<#
+} else {
+#>
+<%@ Page Title="<#= ViewDataTypeName #>Insert" Language="C#" CodeBehind="Insert.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Insert" %>
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form runat="server" id="form1">
+<#
+    PushIndent("    ");
+}
+#>
+    <div>
+        <h2>Insert</h2>
+        <asp:ValidationSummary runat="server" CssClass="text-error" />
+        <asp:FormView runat="server"
+            ItemType="<#=fullModelName#>" DefaultMode="Insert"
+            InsertItemPosition="FirstItem" InsertMethod="InsertItem"
+            OnItemCommand="ItemCommand" RenderOuterTable="false">
+            <InsertItemTemplate>
+                <fieldset class="form-horizontal">
+				<legend><#= ViewDataTypeName #></legend>
+                    <asp:DynamicEntity runat="server" Mode="Insert" />
+                    <div class="form-actions no-color">
+                    <asp:Button runat="server" ID="InsertButton" CommandName="Insert" Text="Insert" CssClass="btn" />
+                    <asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn" />
+					</div>
+                </fieldset>
+            </InsertItemTemplate>
+        </asp:FormView>
+    </div>
+<#
+// The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
+#>
+<#
+if(IsContentPage) {
+#>
+</asp:Content>
+<#
+} else if(!IsContentPage) {
+    ClearIndent();
+#>
+    </form>
+</body>
+</html>
+<#
+}
+#>

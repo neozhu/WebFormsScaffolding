@@ -1,0 +1,188 @@
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="aspx" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ assembly name="EnvDTE" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ import namespace="System" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.Boolean" name="IsContentPage" #>
+<#@ parameter type="System.Boolean" name="IsContentMobilePage" #>
+<#@ parameter type="System.String" name="MasterPageFile" #>
+<#@ parameter type="System.String" name="MobileMasterPageFile" #>
+<#@ parameter type="System.Array" name="SectionNames" #>
+<#@ parameter type="System.String" name="PrimarySectionName" #>
+<#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.PropertyMetadata" name="PrimaryKeyMetadata" #>
+<#@ parameter type="System.MarshalByRefObject" name="ViewDataType" #>
+<#@ parameter type="System.String" name="ViewDataTypeName" #>
+<#@ parameter type="System.String" name="DBContextType" #>
+<#@ parameter type="System.String" name="DBContextNamespace" #>
+<#@ parameter type="System.String" name="PluralizedName" #>
+<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
+<# var PrimaryKeyName = PrimaryKeyMetadata.PropertyName; #>
+<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
+<#
+if(IsContentPage) {
+#>
+<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Default" ViewStateMode="Disabled" %>
+<%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
+
+<asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
+<#
+} else {
+#>
+<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Default" ViewStateMode="Disabled" %>
+
+<%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form runat="server" id="form1">
+<#
+    PushIndent("    ");
+}
+#>
+    <h2><#= PluralizedName #> List</h2>
+    <p>
+        <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
+    </p>
+    <div>
+        <asp:ListView runat="server"
+            DataKeyNames="<#= PrimaryKeyName #>" ItemType="<#=fullModelName#>"
+            AutoGenerateColumns="false"
+            AllowPaging="true" AllowSorting="true"
+            SelectMethod="GetData">
+            <EmptyDataTemplate>
+                There are no entries found for <#= PluralizedName #>
+            </EmptyDataTemplate>
+            <LayoutTemplate>
+                <table class="table">
+                    <thead>
+                        <tr>
+<#
+List<ModelProperty> properties = GetModelProperties(viewDataType, includeUnbindableProperties: true);
+foreach (ModelProperty property in properties) {
+    if (!property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+                            <th><#= property.Name #></th>
+<#
+    }
+}
+#>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr runat="server" id="itemPlaceholder" />
+                    </tbody>
+                </table>
+            </LayoutTemplate>
+            <ItemTemplate>
+                <tr>
+<#
+ properties = GetModelProperties(viewDataType, includeUnbindableProperties: true);
+ foreach (ModelProperty property in properties) {
+    if (!property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+                    <td>
+                        <asp:DynamicControl runat="server" DataField="<#= property.Name #>" ID="<#= property.Name #>" Mode="ReadOnly" />
+                    </td>
+<#
+    }
+}
+#>
+                    <td>
+                        <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#= ViewDataTypeName #>/Edit", Item.<#= PrimaryKeyName #>) %>' Text="Edit" /> | 
+                        <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#= ViewDataTypeName #>/Delete", Item.<#= PrimaryKeyName #>) %>' Text="Delete" />
+                    </td>
+                </tr>
+            </ItemTemplate>
+        </asp:ListView>
+    </div>
+<#
+// The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
+#>
+<#
+if(IsContentPage) {
+#>
+</asp:Content>
+<#
+} else if(!IsContentPage) {
+    ClearIndent();
+#>
+    </form>
+</body>
+</html>
+<#
+}
+#>
+<#+
+// Describes the information about a property on the model
+class ModelProperty {
+    public string Name { get; set; }
+	public EnvDTE.CodeTypeRef Type { get; set; }
+    public bool IsPrimaryKey { get; set; }
+	public bool IsForeignKey { get; set; }
+	public bool IsReadOnly { get; set; }
+}
+
+// Change this list to include any non-primitive types you think should be eligible to be edited using a textbox
+static Type[] bindableNonPrimitiveTypes = new[] {
+    typeof(string),
+    typeof(decimal),
+    typeof(Guid),
+    typeof(DateTime),
+    typeof(DateTimeOffset),
+    typeof(TimeSpan),
+};
+
+// Call this to get the list of properties in the model. Change this to modify or add your
+// own default formatting for display values.
+List<ModelProperty> GetModelProperties(EnvDTE.CodeType typeInfo, bool includeUnbindableProperties) {
+
+    List<ModelProperty> results = GetEligibleProperties(typeInfo, includeUnbindableProperties);
+	
+    return results;
+}
+
+// Helper
+List<ModelProperty> GetEligibleProperties(EnvDTE.CodeType typeInfo, bool includeUnbindableProperties) {
+    List<ModelProperty> results = new List<ModelProperty>();
+	if (typeInfo != null) {
+		foreach (var prop in typeInfo.GetPublicMembers().OfType<EnvDTE.CodeProperty>()) {
+			if (prop.HasPublicGetter() && !prop.IsIndexerProperty() && (includeUnbindableProperties || IsBindableType(prop.Type))) {
+				results.Add(new ModelProperty {
+					Name = prop.Name,
+					Type = prop.Type,
+					IsPrimaryKey = PrimaryKeyMetadata.PropertyName == prop.Name,
+					IsForeignKey = false,
+					IsReadOnly = !prop.HasPublicSetter()
+				});
+			}
+		}
+	}
+
+    return results;
+}
+
+// Helper
+bool IsBindableType(EnvDTE.CodeTypeRef type) {
+    return type.IsPrimitiveType() || bindableNonPrimitiveTypes.Any(x => type.IsMatchForReflectionType(x));
+}
+#>

@@ -1,0 +1,83 @@
+﻿<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="aspx.cs" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.Boolean" name="IsContentPage" #>
+<#@ parameter type="System.Boolean" name="IsContentMobilePage" #>
+<#@ parameter type="System.String" name="MasterPageFile" #>
+<#@ parameter type="System.String" name="MobileMasterPageFile" #>
+<#@ parameter type="System.Array" name="SectionNames" #>
+<#@ parameter type="System.String" name="PrimarySectionName" #>
+<#@ parameter type="System.String" name="PrimaryKeyName" #>
+<#@ parameter type="System.MarshalByRefObject" name="ViewDataType" #>
+<#@ parameter type="System.String" name="ViewDataTypeName" #>
+<#@ parameter type="System.String" name="DBContextType" #>
+<#@ parameter type="System.String" name="DBContextNamespace" #>
+<#@ parameter type="System.String" name="PluralizedName" #>
+<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
+<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+<# if(!string.IsNullOrEmpty(Namespace)) { #>
+using <#= Namespace #>;
+<# } #>
+<# if(!string.IsNullOrEmpty(DBContextNamespace) && (DBContextNamespace != Namespace)) { #>
+using <#= DBContextNamespace #>;
+<# } #>
+
+namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
+{
+    public partial class Insert : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        // This is the Insert method to insert the entered <#=ViewDataTypeName#> item
+        // USAGE: <asp:FormView InsertMethod="InsertItem">
+        public void InsertItem()
+        {
+            using (var context = new <#= DBContextType #>())
+            {
+                var item = new <#=ViewDataTypeName#>();
+
+                TryUpdateModel(item);
+
+                if (ModelState.IsValid)
+                {
+                    // Save changes
+                    context.<#= PluralizedName #>.Add(item);
+                    context.SaveChanges();
+
+                    Response.Redirect("Default");
+                }
+            }
+        }
+
+        protected void ItemCommand(object sender, FormViewCommandEventArgs e)
+        {
+            if (e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
+            {
+                Response.Redirect("Default");
+            }
+        }
+    }
+}
