@@ -127,34 +127,19 @@
     <value>Data _context class:</value>
   </data>
   <data name="DesktopContentPlaceholderIdLabel_Content" xml:space="preserve">
-    <value>Des_ktop master page placeholder ID:</value>
-  </data>
-  <data name="DesktopViewsCheckBox_Content" xml:space="preserve">
-    <value>Generate _desktop views</value>
+    <value>Master page placeholder ID:</value>
   </data>
   <data name="DesktopViewsLabel_Content" xml:space="preserve">
-    <value>Master page for deskto_p views:</value>
+    <value>Master page:</value>
   </data>
   <data name="Error_DesktopMasterPageRequired" xml:space="preserve">
-    <value>Please select a desktop master page from the list</value>
-  </data>
-  <data name="Error_MobileMasterPageRequired" xml:space="preserve">
-    <value>Please select a mobile master page from the list</value>
+    <value>Please select a master page from the list</value>
   </data>
   <data name="Error_ModelTypeRequired" xml:space="preserve">
     <value>Please select a model class from the list</value>
   </data>
   <data name="Error_PlaceholderIdRequired" xml:space="preserve">
     <value>Please enter the ID of the placeholder control to place the generated content in</value>
-  </data>
-  <data name="MobileContentPlaceholderIdLabel_Content" xml:space="preserve">
-    <value>Mobile master page placeh_older ID:</value>
-  </data>
-  <data name="MobileViewsCheckBox_Content" xml:space="preserve">
-    <value>Generate _mobile views</value>
-  </data>
-  <data name="MobileViewsLabel_Content" xml:space="preserve">
-    <value>Master page for mo_bile views:</value>
   </data>
   <data name="ModelTypeLabel_Content" xml:space="preserve">
     <value>Model cla_ss:</value>

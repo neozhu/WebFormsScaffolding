@@ -31,7 +31,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
 
             _context = context;
 
-            _generateDesktopPages = true;
         }
 
         private DelegateCommand _okCommand;
@@ -204,47 +203,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
             }
         }
 
-        private bool _generateDesktopPages;
-
-        public bool GenerateDesktopPages
-        {
-            get { return _generateDesktopPages; }
-            set
-            {
-                Validate();
-
-                if (value == _generateDesktopPages)
-                {
-                    return;
-                }
-
-                _generateDesktopPages = value;
-                OnPropertyChanged();
-                OnPropertyChanged(m => m.DesktopMasterPage);
-                OnPropertyChanged(m => m.DesktopPlaceholderId);
-            }
-        }
-
-        private bool _generateMobilePages;
-
-        public bool GenerateMobilePages
-        {
-            get { return _generateMobilePages; }
-            set
-            {
-                Validate();
-
-                if (value == _generateMobilePages)
-                {
-                    return;
-                }
-
-                _generateMobilePages = value;
-                OnPropertyChanged();
-                OnPropertyChanged(m => m.MobileMasterPage);
-                OnPropertyChanged(m => m.MobilePlaceholderId);
-            }
-        }
 
         private string _desktopMasterPage;
 
@@ -286,44 +244,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
             }
         }
 
-        private string _mobileMasterPage;
-
-        public string MobileMasterPage
-        {
-            get { return _mobileMasterPage; }
-            set
-            {
-                Validate();
-
-                if (value == _mobileMasterPage)
-                {
-                    return;
-                }
-
-                _mobileMasterPage = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _mobilePlaceholderId;
-
-        public string MobilePlaceholderId
-        {
-            get { return _mobilePlaceholderId; }
-            set
-            {
-                Validate();
-
-                if (value == _mobilePlaceholderId)
-                {
-                    return;
-                }
-
-                _mobilePlaceholderId = value;
-
-                OnPropertyChanged();
-            }
-        }
 
         private bool _overwriteViews;
 
@@ -391,13 +311,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
             }
         }
 
-        public IEnumerable<String> MobileMasterPagePaths
-        {
-            get
-            {
-                return MasterPagePaths;
-            }
-        }
 
         private IEnumerable<string> MasterPagePaths
         {
@@ -441,9 +354,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
             if (ShouldValidate(propertyName, currentPropertyName))
             {
                 ClearError(currentPropertyName);
-                if (GenerateDesktopPages &&
-                    (String.IsNullOrWhiteSpace(DesktopMasterPage) ||
-                    !DesktopMasterPagePaths.Contains(DesktopMasterPage)))
+                if (String.IsNullOrWhiteSpace(DesktopMasterPage) ||
+                    !DesktopMasterPagePaths.Contains(DesktopMasterPage))
                 {
                     AddError(currentPropertyName, WebFormsScaffolderDialogResources.Error_DesktopMasterPageRequired);
                 }
@@ -454,38 +366,12 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
             if (ShouldValidate(propertyName, currentPropertyName))
             {
                 ClearError(currentPropertyName);
-                if (GenerateDesktopPages &&
-                    String.IsNullOrWhiteSpace(DesktopPlaceholderId))
+                if (String.IsNullOrWhiteSpace(DesktopPlaceholderId))
                 {
                     AddError(currentPropertyName, WebFormsScaffolderDialogResources.Error_PlaceholderIdRequired);
                 }
             }
 
-            // MobileMasterPage
-            currentPropertyName = PropertyName(m => m.MobileMasterPage);
-            if (ShouldValidate(propertyName, currentPropertyName))
-            {
-                ClearError(currentPropertyName);
-
-                if (GenerateMobilePages &&
-                    (String.IsNullOrEmpty(MobileMasterPage) ||
-                    !MobileMasterPagePaths.Contains(MobileMasterPage)))
-                {
-                    AddError(currentPropertyName, WebFormsScaffolderDialogResources.Error_MobileMasterPageRequired);
-                }
-            }
-
-            // MobilePlaceholderId
-            currentPropertyName = PropertyName(m => m.MobilePlaceholderId);
-            if (ShouldValidate(propertyName, currentPropertyName))
-            {
-                ClearError(currentPropertyName);
-                if (GenerateMobilePages &&
-                    String.IsNullOrWhiteSpace(MobilePlaceholderId))
-                {
-                    AddError(currentPropertyName, WebFormsScaffolderDialogResources.Error_PlaceholderIdRequired);
-                }
-            }
         }
 
         private void LoadMasterPagePaths()
@@ -493,12 +379,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
             _masterPagePaths = ProjectPaths.Where(path => String.Equals(Path.GetExtension(path), ".master", StringComparison.OrdinalIgnoreCase))
                 .ToList();
             _desktopMasterPage = _masterPagePaths.FirstOrDefault(path => !path.EndsWith(".mobile.master", StringComparison.OrdinalIgnoreCase));
-            _mobileMasterPage = _masterPagePaths.FirstOrDefault(path => path.EndsWith(".mobile.master", StringComparison.OrdinalIgnoreCase))
-                ?? _desktopMasterPage;
 
             // Extract these from the content of the master pages themselves when selected by the user: Tracked by 721707.
             _desktopPlaceholderId = "MainContent";
-            _mobilePlaceholderId = "MainContent";
         }
 
         // Do a breadth first search for project paths.

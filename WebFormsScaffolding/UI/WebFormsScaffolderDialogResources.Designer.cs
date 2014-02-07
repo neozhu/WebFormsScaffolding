@@ -88,7 +88,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Des_ktop master page placeholder ID:.
+        ///   Looks up a localized string similar to Master page placeholder ID:.
         /// </summary>
         public static string DesktopContentPlaceholderIdLabel_Content {
             get {
@@ -97,16 +97,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate _desktop views.
-        /// </summary>
-        public static string DesktopViewsCheckBox_Content {
-            get {
-                return ResourceManager.GetString("DesktopViewsCheckBox_Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Master page for deskto_p views:.
+        ///   Looks up a localized string similar to Master page:.
         /// </summary>
         public static string DesktopViewsLabel_Content {
             get {
@@ -115,20 +106,11 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select a desktop master page from the list.
+        ///   Looks up a localized string similar to Please select a master page from the list.
         /// </summary>
         public static string Error_DesktopMasterPageRequired {
             get {
                 return ResourceManager.GetString("Error_DesktopMasterPageRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please select a mobile master page from the list.
-        /// </summary>
-        public static string Error_MobileMasterPageRequired {
-            get {
-                return ResourceManager.GetString("Error_MobileMasterPageRequired", resourceCulture);
             }
         }
         
@@ -147,33 +129,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         public static string Error_PlaceholderIdRequired {
             get {
                 return ResourceManager.GetString("Error_PlaceholderIdRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mobile master page placeh_older ID:.
-        /// </summary>
-        public static string MobileContentPlaceholderIdLabel_Content {
-            get {
-                return ResourceManager.GetString("MobileContentPlaceholderIdLabel_Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Generate _mobile views.
-        /// </summary>
-        public static string MobileViewsCheckBox_Content {
-            get {
-                return ResourceManager.GetString("MobileViewsCheckBox_Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Master page for mo_bile views:.
-        /// </summary>
-        public static string MobileViewsLabel_Content {
-            get {
-                return ResourceManager.GetString("MobileViewsLabel_Content", resourceCulture);
             }
         }
         

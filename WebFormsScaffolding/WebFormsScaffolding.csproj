@@ -139,14 +139,6 @@
     <None Include="Templates\WebFormsViewScaffolder\Insert.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsViewScaffolder\Mobile\Default.mobile.aspx.cs.t4" />
-    <None Include="Templates\WebFormsViewScaffolder\Mobile\Default.mobile.cs.t4" />
-    <None Include="Templates\WebFormsViewScaffolder\Mobile\Delete.mobile.aspx.cs.t4" />
-    <None Include="Templates\WebFormsViewScaffolder\Mobile\Delete.mobile.cs.t4" />
-    <None Include="Templates\WebFormsViewScaffolder\Mobile\Edit.mobile.aspx.cs.t4" />
-    <None Include="Templates\WebFormsViewScaffolder\Mobile\Edit.mobile.cs.t4" />
-    <None Include="Templates\WebFormsViewScaffolder\Mobile\Insert.mobile.aspx.cs.t4" />
-    <None Include="Templates\WebFormsViewScaffolder\Mobile\Insert.mobile.cs.t4" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

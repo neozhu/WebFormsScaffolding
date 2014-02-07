@@ -38,12 +38,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
                 GenerateCode(_viewModel.ModelType.CodeType,
                     _viewModel.DbContextModelType.TypeName,
-                    _viewModel.GenerateDesktopPages,
-                    _viewModel.GenerateMobilePages,
                     _viewModel.DesktopMasterPage ?? String.Empty,
                     _viewModel.DesktopPlaceholderId,
-                    _viewModel.MobileMasterPage ?? String.Empty,
-                    _viewModel.MobilePlaceholderId,
                     _viewModel.OverwriteViews);
             }
             finally
@@ -54,12 +50,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
         private void GenerateCode(CodeType modelType,
                                  string dbContextTypeName,
-                                 bool generateDesktopViews = true,
-                                 bool generateMobileViews = false,
                                  string masterPage = null,
                                  string desktopPlaceholderId = null,
-                                 string mobileMasterPage = null,
-                                 string mobilePlaceholderId = null,
                                  bool overwriteViews = true)
         {
             Project project = Context.ActiveProject;
@@ -92,10 +84,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 viewCodeGenerator.GenerateCode(modelType, dbContext,
                     efMetadata: efMetadata,
                     actionName: view,
-                    generateDesktopViews: generateDesktopViews,
-                    generateMobileViews: generateMobileViews,
                     masterPage: masterPage,
-                    mobileMasterPage: mobileMasterPage,
                     sectionNames: sectionNames,
                     primarySectionName: desktopPlaceholderId,
                     overwrite: overwriteViews);
@@ -189,11 +178,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             NuGetPackage dynamicDataTemplateInstallData = new NuGetPackage("Microsoft.AspNet.DynamicDataTemplates.CS", "1.0.0-beta1", repository);
             Context.Packages.Add(dynamicDataTemplateInstallData);
 
-            if (_viewModel.GenerateMobilePages)
-            {
-                NuGetPackage jqueryMobileInstallData = new NuGetPackage("jQuery.mobile", "1.2.0", repository);
-                Context.Packages.Add(jqueryMobileInstallData);
-            }
         }
     }
 }
