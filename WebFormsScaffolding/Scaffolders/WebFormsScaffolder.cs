@@ -8,6 +8,8 @@ using Microsoft.AspNet.Scaffolding.EntityFramework;
 using Microsoft.AspNet.Scaffolding.NuGet;
 using Microsoft.AspNet.Scaffolding.WebForms.UI;
 using Microsoft.AspNet.Scaffolding.Core.Metadata;
+using Microsoft.AspNet.Scaffolding.WebForms.Utils;
+
 
 namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 {
@@ -134,9 +136,21 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
             if (reflectedModelType == null)
             {
-                throw new InvalidOperationException(Resources.WebFormsScaffolder_ProjectNotBuilt);
+                // let's try building when reflected type is null
+                var visualStudioUtils = new VisualStudioUtils();
+                visualStudioUtils.BuildCurrentProject();
+
+                // if the model STILL does not exist after building then give up and throw
+                reflectedModelType = GetReflectionType(modelType.FullName);
+                if (reflectedModelType == null)
+                {
+                    throw new InvalidOperationException(Resources.WebFormsScaffolder_ProjectNotBuilt);
+                }
             }
         }
+
+
+
 
         private Type GetReflectionType(string typeName)
         {
