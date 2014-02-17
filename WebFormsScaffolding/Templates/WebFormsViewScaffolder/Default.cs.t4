@@ -18,9 +18,7 @@
 <#@ parameter type="System.String" name="DefaultNamespace" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.Boolean" name="IsContentPage" #>
-<#@ parameter type="System.Boolean" name="IsContentMobilePage" #>
 <#@ parameter type="System.String" name="MasterPageFile" #>
-<#@ parameter type="System.String" name="MobileMasterPageFile" #>
 <#@ parameter type="System.Array" name="SectionNames" #>
 <#@ parameter type="System.String" name="PrimarySectionName" #>
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.PropertyMetadata" name="PrimaryKeyMetadata" #>

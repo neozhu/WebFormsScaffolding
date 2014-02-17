@@ -33,10 +33,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                                 CodeType dbContext,
                                 ModelMetadata efMetadata,
                                 string actionName,
-                                bool generateDesktopViews = true,
-                                bool generateMobileViews = false,
                                 string masterPage = "",
-                                string mobileMasterPage = "",
                                 string[] sectionNames = null,
                                 string primarySectionName = "",
                                 bool overwrite = false)
@@ -62,14 +59,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             string dbContextNameSpace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
 
             List<string> actionTemplates = new List<string>();
-            if (generateDesktopViews)
-            {
-                actionTemplates.AddRange(new string[] { actionName, actionName + ".aspx" });
-            }
-            if (generateMobileViews)
-            {
-                actionTemplates.AddRange(new string[] { actionName + ".mobile", actionName + ".mobile.aspx" });
-            }
+            actionTemplates.AddRange(new string[] { actionName, actionName + ".aspx" });
 
             // Scaffold aspx page and code behind
             foreach (string action in actionTemplates)
@@ -84,9 +74,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"DefaultNamespace", project.GetDefaultNamespace()},
                         {"Namespace", modelNameSpace},
                         {"IsContentPage", !String.IsNullOrEmpty(masterPage)},
-                        {"IsContentMobilePage", !String.IsNullOrEmpty(mobileMasterPage)},
                         {"MasterPageFile", masterPage},
-                        {"MobileMasterPageFile", mobileMasterPage},
                         {"SectionNames", sectionNames},
                         {"PrimarySectionName", primarySectionName},
                         {"PrimaryKeyMetadata", primaryKey},
