@@ -187,18 +187,22 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
         private void AddDynamicDataEntityTemplates()
         {
-            var entityTemplates = new[] { "Default_Insert", "Default_Insert.ascx" };
+            var entityTemplates = new[] { 
+                "Default", "Default.ascx", "Default.ascx.designer", 
+                "Default_Insert", "Default_Insert.ascx", "Default_Insert.ascx.designer"
+            };
             var entityTemplatesPath = "DynamicData\\EntityTemplates";
             Project project = Context.ActiveProject;
 
             foreach (var entityTemplate in entityTemplates)
             {
+                var templatePath = Path.Combine(entityTemplatesPath, entityTemplate);
                 var outputPath = Path.Combine(entityTemplatesPath, entityTemplate);
 
                 AddFileFromTemplate(
                     project: project,
                     outputPath: outputPath,
-                    templateName: entityTemplate,
+                    templateName: templatePath,
                     templateParameters: new Dictionary<string, object>() 
                     {
                         {"DefaultNamespace", project.GetDefaultNamespace()}
@@ -210,17 +214,20 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
 
         private void AddDynamicDataFieldTemplates() {
-            var fieldTemplates = new[] { "Text_Edit", "Text_Edit.ascx"};
+            var fieldTemplates = new[] { 
+                "Text_Edit", "Text_Edit.ascx", "Text_Edit.ascx.designer"
+            };
             var fieldTemplatesPath = "DynamicData\\FieldTemplates";                
             Project project = Context.ActiveProject;
 
             foreach (var fieldTemplate in fieldTemplates) {
+                var templatePath = Path.Combine(fieldTemplatesPath, fieldTemplate);
                 var outputPath = Path.Combine(fieldTemplatesPath, fieldTemplate);
 
                 AddFileFromTemplate(
                     project:project,
                     outputPath:outputPath,
-                    templateName: fieldTemplate,
+                    templateName: templatePath,
                     templateParameters: new Dictionary<string, object>() 
                     {
                         {"DefaultNamespace", project.GetDefaultNamespace()}
@@ -268,10 +275,11 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             foreach (string action in actionTemplates)
             {
                 Project project = Context.ActiveProject;
-
+                var templatePath = Path.Combine("WebForms", action);
+                
                 AddFileFromTemplate(project,
                     outputPath,
-                    templateName: action,
+                    templateName: templatePath,
                     templateParameters: new Dictionary<string, object>() 
                     {
                         {"DefaultNamespace", project.GetDefaultNamespace()},

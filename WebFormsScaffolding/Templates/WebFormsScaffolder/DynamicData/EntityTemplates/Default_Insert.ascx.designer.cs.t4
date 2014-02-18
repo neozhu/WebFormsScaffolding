@@ -1,5 +1,5 @@
 ﻿<#@ Template Language="C#" HostSpecific="True"  #>
-<#@ Output Extension="ascx" #>
+<#@ Output Extension="cs" #>
 
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>

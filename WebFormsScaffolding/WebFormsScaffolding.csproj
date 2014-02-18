@@ -87,6 +87,15 @@
     <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Insert.ascx.designer.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Compile Include="UI\BindBehavior.cs" />
     <Compile Include="UI\DelegateCommand.cs" />
     <Compile Include="UI\FocusBehavior.cs" />
@@ -148,28 +157,28 @@
       <LastGenOutput>Text_Edit.ascx1.txt</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\Default.aspx.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\WebForms\Default.aspx.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\Default.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\WebForms\Default.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\Delete.aspx.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\WebForms\Delete.aspx.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\Delete.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\WebForms\Delete.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\Edit.aspx.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\WebForms\Edit.aspx.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\Edit.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\WebForms\Edit.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\Insert.aspx.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\WebForms\Insert.aspx.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\Insert.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\WebForms\Insert.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
