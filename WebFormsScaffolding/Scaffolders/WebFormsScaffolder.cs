@@ -9,14 +9,13 @@ using Microsoft.AspNet.Scaffolding.NuGet;
 using Microsoft.AspNet.Scaffolding.WebForms.UI;
 using Microsoft.AspNet.Scaffolding.Core.Metadata;
 using Microsoft.AspNet.Scaffolding.WebForms.Utils;
+using System.IO;
 
 
 namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 {
     public class WebFormsScaffolder : CodeGenerator
     {
-        //Should this change according to VS version? Tracked by 716268.
-        private static readonly string WebToolsNugetPackagesRegistryKeyNamePrefix = "WebFormsVS";
 
         private WebFormsCodeGeneratorViewModel _viewModel;
 
@@ -80,10 +79,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
             foreach (string view in views)
             {
-                WebFormsViewScaffolderFactory factory = new WebFormsViewScaffolderFactory();
-                WebFormsViewScaffolder viewCodeGenerator = (WebFormsViewScaffolder)factory.CreateInstance(Context);
-
-                viewCodeGenerator.GenerateCode(modelType, dbContext,
+                AddWebFormsViewTemplates(modelType, dbContext,
                     efMetadata: efMetadata,
                     actionName: view,
                     masterPage: masterPage,
@@ -92,7 +88,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     overwrite: overwriteViews);
             }
 
-            AddNuGetDependenciesForGeneratedCode();
+
+            AddDynamicDataTemplates();
         }
 
         // Passing the dialog to this method so that all scaffolder UIs
@@ -177,21 +174,127 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             return (TService)ServiceProvider.GetService(typeof(TService));
         }
 
-        private void AddNuGetDependenciesForGeneratedCode()
+
+
+        private void AddDynamicDataTemplates()
         {
-            if (_viewModel == null)
-            {
-                throw new InvalidOperationException(Resources.WebFormsScaffolder_ShowUIAndValidateNotCalled);
-            }
-            
-            Version vsVersion = Context.ServiceProvider.GetService<IVisualStudioInformation>().Version;
-            string nugetRepositoryRegistryKey = WebToolsNugetPackagesRegistryKeyNamePrefix + vsVersion.Major;
-
-            NuGetRegistryRepository repository = new NuGetRegistryRepository(nugetRepositoryRegistryKey, isPreUnzipped: true);
-
-            NuGetPackage dynamicDataTemplateInstallData = new NuGetPackage("Microsoft.AspNet.DynamicDataTemplates.CS", "1.0.0-beta1", repository);
-            Context.Packages.Add(dynamicDataTemplateInstallData);
+            AddDynamicDataEntityTemplates();
+            AddDynamicDataFieldTemplates();
 
         }
+
+
+
+        private void AddDynamicDataEntityTemplates()
+        {
+            var entityTemplates = new[] { "Default_Insert", "Default_Insert.ascx" };
+            var entityTemplatesPath = "DynamicData\\EntityTemplates";
+            Project project = Context.ActiveProject;
+
+            foreach (var entityTemplate in entityTemplates)
+            {
+                var outputPath = Path.Combine(entityTemplatesPath, entityTemplate);
+
+                AddFileFromTemplate(
+                    project: project,
+                    outputPath: outputPath,
+                    templateName: entityTemplate,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()}
+                    },
+                    skipIfExists: true);
+            }
+        }
+
+
+
+        private void AddDynamicDataFieldTemplates() {
+            var fieldTemplates = new[] { "Text_Edit", "Text_Edit.ascx"};
+            var fieldTemplatesPath = "DynamicData\\FieldTemplates";                
+            Project project = Context.ActiveProject;
+
+            foreach (var fieldTemplate in fieldTemplates) {
+                var outputPath = Path.Combine(fieldTemplatesPath, fieldTemplate);
+
+                AddFileFromTemplate(
+                    project:project,
+                    outputPath:outputPath,
+                    templateName: fieldTemplate,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()}
+                    },
+                    skipIfExists: true);
+            }
+        }
+
+
+
+
+        private void AddWebFormsViewTemplates(CodeType modelType,
+                                CodeType dbContext,
+                                ModelMetadata efMetadata,
+                                string actionName,
+                                string masterPage = "",
+                                string[] sectionNames = null,
+                                string primarySectionName = "",
+                                bool overwrite = false)
+        {
+            if (modelType == null)
+            {
+                throw new ArgumentNullException("modelType");
+            }
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException("dbContext");
+            }
+            if (String.IsNullOrEmpty(actionName))
+            {
+                throw new ArgumentException(Resources.WebFormsViewScaffolder_EmptyActionName, "actionName");
+            }
+
+            PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
+            string pluralizedName = efMetadata.EntitySetName;
+
+            string outputPath = Path.Combine(modelType.Name, actionName);
+            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            string dbContextNameSpace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
+
+            List<string> actionTemplates = new List<string>();
+            actionTemplates.AddRange(new string[] { actionName, actionName + ".aspx" });
+
+            // Scaffold aspx page and code behind
+            foreach (string action in actionTemplates)
+            {
+                Project project = Context.ActiveProject;
+
+                AddFileFromTemplate(project,
+                    outputPath,
+                    templateName: action,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()},
+                        {"Namespace", modelNameSpace},
+                        {"IsContentPage", !String.IsNullOrEmpty(masterPage)},
+                        {"MasterPageFile", masterPage},
+                        {"SectionNames", sectionNames},
+                        {"PrimarySectionName", primarySectionName},
+                        {"PrimaryKeyMetadata", primaryKey},
+                        {"PrimaryKeyName", primaryKey.PropertyName},
+                        {"ViewDataType", modelType},
+                        {"ViewDataTypeName", modelType.Name},
+                        {"DBContextType", dbContext.Name},
+                        {"DBContextNamespace", dbContextNameSpace},
+                        {"PluralizedName", pluralizedName}
+                    },
+                    skipIfExists: !overwrite);
+            }
+
+        }
+
+
+
+
     }
 }

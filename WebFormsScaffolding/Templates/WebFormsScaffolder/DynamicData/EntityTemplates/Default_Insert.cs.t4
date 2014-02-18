@@ -1,0 +1,24 @@
+﻿<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="ascx" #>
+
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+<%@ Control Language="C#" CodeBehind="Default_Insert.ascx.cs" Inherits="<#= DefaultNamespace #>.Default_InsertEntityTemplate" %>
+
+<%@ Reference Control="~/DynamicData/EntityTemplates/Default.ascx" %>
+
+<asp:EntityTemplate runat="server" ID="EntityTemplate1">
+    <ItemTemplate>
+        <div class="control-group">
+        <asp:Label ID="Label1" runat="server" OnInit="Label_Init" OnPreRender="Label_PreRender" CssClass="control-label" />
+        <div class="controls">
+            <asp:DynamicControl runat="server" ID="DynamicControl" Mode="Insert" OnInit="DynamicControl_Init" />
+        </div>
+        </div>
+    </ItemTemplate>
+</asp:EntityTemplate>

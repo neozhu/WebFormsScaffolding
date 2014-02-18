@@ -55,6 +55,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -73,8 +75,18 @@
     </Compile>
     <Compile Include="Scaffolders\WebFormsScaffolder.cs" />
     <Compile Include="Scaffolders\WebFormsScaffolderFactory.cs" />
-    <Compile Include="Scaffolders\WebFormsViewScaffolder.cs" />
-    <Compile Include="Scaffolders\WebFormsViewScaffolderFactory.cs" />
+    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Insert.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text_Edit.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Insert.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Insert.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Compile Include="UI\BindBehavior.cs" />
     <Compile Include="UI\DelegateCommand.cs" />
     <Compile Include="UI\FocusBehavior.cs" />
@@ -103,7 +115,6 @@
     <Compile Include="Utils\VisualStudioUtils.cs" />
     <Compile Include="VsConstants.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -129,30 +140,41 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Templates\WebFormsViewScaffolder\Default.aspx.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text_Edit.ascx.cs.t4">
+      <LastGenOutput>Text_Edit.ascx.cs1.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsViewScaffolder\Default.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text_Edit.cs.t4">
+      <LastGenOutput>Text_Edit.ascx1.txt</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsViewScaffolder\Delete.aspx.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\Default.aspx.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsViewScaffolder\Delete.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\Default.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsViewScaffolder\Edit.aspx.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\Delete.aspx.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsViewScaffolder\Edit.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\Delete.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsViewScaffolder\Insert.aspx.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\Edit.aspx.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsViewScaffolder\Insert.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\Edit.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\WebFormsScaffolder\Insert.aspx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\Insert.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
