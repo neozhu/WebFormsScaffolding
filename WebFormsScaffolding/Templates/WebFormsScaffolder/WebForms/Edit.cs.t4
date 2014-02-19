@@ -55,8 +55,6 @@ if(IsContentPage) {
 }
 #>
     <div>
-        <h2>Edit</h2>
-        <asp:ValidationSummary runat="server" CssClass="text-error" />
         <asp:FormView runat="server"
             ItemType="<#=fullModelName#>" DefaultMode="Edit" DataKeyNames="<#= PrimaryKeyName #>"
             UpdateMethod="UpdateItem" SelectMethod="GetItem"
@@ -66,11 +64,14 @@ if(IsContentPage) {
             </EmptyDataTemplate>
             <EditItemTemplate>
                 <fieldset class="form-horizontal">
-                    <legend><#= ViewDataTypeName #></legend>
+                    <legend>Edit <#= ViewDataTypeName #></legend>
+					<asp:ValidationSummary runat="server" CssClass="text-error" />
                     <asp:DynamicEntity runat="server" Mode="Edit" />
-                    <div class="form-actions no-color">
-                    <asp:Button runat="server" ID="UpdateButton" CommandName="Update" Text="Update" CssClass="btn" />
-                    <asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn" />
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+							<asp:Button runat="server" ID="UpdateButton" CommandName="Update" Text="Update" CssClass="btn btn-primary" />
+							<asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn btn-default" />
+						</div>
 					</div>
                 </fieldset>
             </EditItemTemplate>

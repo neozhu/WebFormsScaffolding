@@ -55,9 +55,7 @@ if(IsContentPage) {
 }
 #>
     <div>
-        <h2>Delete</h2>
         <h3>Are you sure want to delete this <#= ViewDataTypeName #>?</h3>
-        <asp:ValidationSummary runat="server" CssClass="text-error" />
         <asp:FormView runat="server"
             ItemType="<#=fullModelName#>" DataKeyNames="<#= PrimaryKeyName #>"
             DeleteMethod="DeleteItem" SelectMethod="GetItem"
@@ -67,11 +65,16 @@ if(IsContentPage) {
             </EmptyDataTemplate>
             <ItemTemplate>
                 <fieldset class="form-horizontal">
-                    <legend><#= ViewDataTypeName #></legend>
-                    <asp:DynamicEntity runat="server" Mode="ReadOnly" />
-                 	<div class="form-actions no-color">
-                    <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Delete" CssClass="btn" />
-                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="btn" />
+                    <legend>Delete <#= ViewDataTypeName #></legend>
+					<asp:DynamicEntity runat="server" Mode="ReadOnly" />
+                 	<div class="row">
+					  &nbsp;
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Delete" CssClass="btn btn-danger" />
+							<asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="btn btn-default" />
+						</div>
 					</div>
                 </fieldset>
             </ItemTemplate>

@@ -13,11 +13,11 @@
 <%@ Reference Control="~/DynamicData/EntityTemplates/Default.ascx" %>
 <asp:EntityTemplate runat="server" ID="EntityTemplate1">
     <ItemTemplate>
-            <div class="control-group">
-            <asp:Label ID="Label1" runat="server" OnInit="Label_Init" OnPreRender="Label_PreRender" CssClass="control-label" />
-            <div class="controls">
-            <asp:DynamicControl runat="server" ID="DynamicControl" Mode="Edit" OnInit="DynamicControl_Init" />
-            </div>
+            <div class="form-group">
+				<asp:Label ID="Label1" runat="server" OnInit="Label_Init" OnPreRender="Label_PreRender" CssClass="col-sm-2 control-label" />
+				<div class="col-sm-10">
+					<asp:DynamicControl runat="server" ID="DynamicControl" Mode="Edit" OnInit="DynamicControl_Init" />
+				</div>
             </div>
     </ItemTemplate>
 </asp:EntityTemplate>
