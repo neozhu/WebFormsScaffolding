@@ -75,7 +75,145 @@
     </Compile>
     <Compile Include="Scaffolders\WebFormsScaffolder.cs" />
     <Compile Include="Scaffolders\WebFormsScaffolderFactory.cs" />
+    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Edit.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Insert.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Boolean.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Boolean.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Boolean.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Boolean_Edit.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Boolean_Edit.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Boolean_Edit.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Children.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Children.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Children.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Children_Insert.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Children_Insert.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Children_Insert.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\DateTime.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\DateTime.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\DateTime.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\DateTime_Edit.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\DateTime_Edit.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\DateTime_Edit.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Decimal_Edit.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Decimal_Edit.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Decimal_Edit.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\EmailAddress.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\EmailAddress.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\EmailAddress.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Enumeration.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Enumeration.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Enumeration.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Enumeration_Edit.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Enumeration_Edit.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Enumeration_Edit.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey_Edit.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey_Edit.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey_Edit.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Integer_Edit.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Integer_Edit.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Integer_Edit.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\MultilineText_Edit.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\MultilineText_Edit.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\MultilineText_Edit.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text_Edit.ascx.designer.cs.t4">
@@ -94,6 +232,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Edit.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Edit.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="UI\BindBehavior.cs" />
@@ -155,6 +299,24 @@
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text_Edit.cs.t4">
       <LastGenOutput>Text_Edit.ascx1.txt</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Url.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Url.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Url.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Url_Edit.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Url_Edit.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Url_Edit.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\WebForms\Default.aspx.cs.t4">

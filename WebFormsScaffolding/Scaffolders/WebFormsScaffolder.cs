@@ -189,6 +189,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         {
             var entityTemplates = new[] { 
                 "Default", "Default.ascx", "Default.ascx.designer", 
+                "Default_Edit", "Default_Edit.ascx", "Default_Edit.ascx.designer",
                 "Default_Insert", "Default_Insert.ascx", "Default_Insert.ascx.designer"
             };
             var entityTemplatesPath = "DynamicData\\EntityTemplates";
@@ -215,7 +216,24 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
         private void AddDynamicDataFieldTemplates() {
             var fieldTemplates = new[] { 
-                "Text_Edit", "Text_Edit.ascx", "Text_Edit.ascx.designer"
+                "Boolean", "Boolean.ascx.designer", "Boolean.ascx",
+                "Boolean_Edit", "Boolean_Edit.ascx.designer", "Boolean_Edit.ascx",
+                "Children", "Children.ascx.designer", "Children.ascx",
+                "Children_Insert", "Children_Insert.ascx.designer", "Children_Insert.ascx",
+                "DateTime", "DateTime.ascx.designer", "DateTime.ascx",
+                "DateTime_Edit", "DateTime_Edit.ascx.designer", "DateTime_Edit.ascx",
+                "Decimal_Edit", "Decimal_Edit.ascx.designer", "Decimal_Edit.ascx",
+                "EmailAddress", "EmailAddress.ascx.designer", "EmailAddress.ascx",
+                "Enumeration", "Enumeration.ascx.designer", "Enumeration.ascx",
+                "Enumeration_Edit", "Enumeration_Edit.ascx.designer", "Enumeration_Edit.ascx",
+                "ForeignKey", "ForeignKey.ascx.designer", "ForeignKey.ascx",
+                "ForeignKey_Edit", "ForeignKey_Edit.ascx.designer", "ForeignKey_Edit.ascx",
+                "Integer_Edit", "Integer_Edit.ascx.designer", "Integer_Edit.ascx",
+                "MultilineText_Edit", "MultilineText_Edit.ascx.designer", "MultilineText_Edit.ascx",
+                "Text", "Text.ascx.designer", "Text.ascx",
+                "Text_Edit", "Text_Edit.ascx.designer", "Text_Edit.ascx",
+                "Url", "Url.ascx.designer", "Url.ascx",
+                "Url_Edit", "Url_Edit.ascx.designer", "Url_Edit.ascx"
             };
             var fieldTemplatesPath = "DynamicData\\FieldTemplates";                
             Project project = Context.ActiveProject;

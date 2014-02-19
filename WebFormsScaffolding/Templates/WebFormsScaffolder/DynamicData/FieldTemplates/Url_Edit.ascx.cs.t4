@@ -1,4 +1,4 @@
-﻿<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="cs" #>
 
 <#@ assembly name="System.Core" #>
@@ -7,8 +7,6 @@
 <#@ import namespace="System.Collections.Generic" #>
 
 <#@ parameter type="System.String" name="DefaultNamespace" #>
-
-
 
 using System;
 using System.Collections.Specialized;
@@ -20,7 +18,7 @@ using System.Web.UI.WebControls;
 
 namespace <#= DefaultNamespace #>
 {
-    public partial class Text_EditField : System.Web.DynamicData.FieldTemplateUserControl
+    public partial class Url_EditField : System.Web.DynamicData.FieldTemplateUserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,6 +27,10 @@ namespace <#= DefaultNamespace #>
                 TextBox1.Columns = Column.MaxLength;
             }
             TextBox1.ToolTip = Column.Description;
+
+            SetUpValidator(RequiredFieldValidator1);
+            SetUpValidator(RegularExpressionValidator1);
+            SetUpValidator(DynamicValidator1);
         }
 
         protected override void OnDataBinding(EventArgs e)

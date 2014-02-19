@@ -51,7 +51,7 @@ if(IsContentPage) {
 #>
     <div>
         <h2>Insert</h2>
-        <asp:ValidationSummary runat="server" CssClass="text-error" />
+        <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
         <asp:FormView runat="server"
             ItemType="<#=fullModelName#>" DefaultMode="Insert"
             InsertItemPosition="FirstItem" InsertMethod="InsertItem"
@@ -60,9 +60,11 @@ if(IsContentPage) {
                 <fieldset class="form-horizontal">
 				<legend><#= ViewDataTypeName #></legend>
                     <asp:DynamicEntity runat="server" Mode="Insert" />
-                    <div class="form-actions no-color">
-                    <asp:Button runat="server" ID="InsertButton" CommandName="Insert" Text="Insert" CssClass="btn" />
-                    <asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn" />
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <asp:Button runat="server" ID="InsertButton" CommandName="Insert" Text="Insert" CssClass="btn btn-primary" />
+                            <asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn btn-default" />
+                        </div>
 					</div>
                 </fieldset>
             </InsertItemTemplate>
