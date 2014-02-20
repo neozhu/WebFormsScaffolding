@@ -26,8 +26,6 @@ namespace <#= DefaultNamespace #> {
                 PopulateListControl(DropDownList1);
             }
     
-            SetUpValidator(RequiredFieldValidator1);
-            SetUpValidator(DynamicValidator1);
         }
     
         protected override void OnDataBinding(EventArgs e) {

@@ -27,10 +27,6 @@ namespace <#= DefaultNamespace #>
                 TextBox1.Columns = Column.MaxLength;
             }
             TextBox1.ToolTip = Column.Description;
-
-            SetUpValidator(RequiredFieldValidator1);
-            SetUpValidator(RegularExpressionValidator1);
-            SetUpValidator(DynamicValidator1);
         }
 
         protected override void OnDataBinding(EventArgs e)

@@ -24,15 +24,6 @@ namespace <#= DefaultNamespace #> {
     public partial class Decimal_EditField {
         
         protected global::System.Web.UI.WebControls.TextBox TextBox1;
-        
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
-        
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
-        
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
-        
-        protected global::System.Web.DynamicData.DynamicValidator DynamicValidator1;
+
     }
 }

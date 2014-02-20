@@ -24,11 +24,5 @@ namespace <#= DefaultNamespace #> {
     public partial class MultilineText_EditField {
         
         protected global::System.Web.UI.WebControls.TextBox TextBox1;
-        
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
-        
-        protected global::System.Web.DynamicData.DynamicValidator DynamicValidator1;
     }
 }
