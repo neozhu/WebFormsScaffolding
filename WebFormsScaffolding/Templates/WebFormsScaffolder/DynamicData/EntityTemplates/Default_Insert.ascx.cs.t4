@@ -14,6 +14,7 @@ using System.Linq;
 using System.Web;
 using System.Web.DynamicData;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace <#= DefaultNamespace #> {
@@ -47,6 +48,21 @@ namespace <#= DefaultNamespace #> {
             DynamicControl dynamicControl = (DynamicControl)sender;
             dynamicControl.DataField = currentColumn.Name;
         }
+
+
+		protected void Div1_PreRender(object sender, EventArgs e)
+        {
+            var Div1 = (HtmlGenericControl)sender;
+
+            // get column
+            DynamicControl dynamicControl = (DynamicControl)Div1.FindControl("DynamicControl");
+            var columnName = dynamicControl.DataField;
+
+            // if validation error then apply bootstrap has-error CSS class
+            var isValid = this.Page.ModelState.IsValidField(columnName);
+            Div1.Attributes["class"] = isValid ? "form-group" : "form-group has-error";
+        }
+
     
     }
 }
