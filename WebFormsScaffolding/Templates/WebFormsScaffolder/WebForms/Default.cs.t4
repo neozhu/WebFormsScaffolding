@@ -78,7 +78,7 @@ if(IsContentPage) {
                     <thead>
                         <tr>
 <#
-List<ModelProperty> properties = GetModelProperties(viewDataType, includeUnbindableProperties: true);
+List<ModelProperty> properties = GetModelProperties(viewDataType, includeUnbindableProperties: false);
 foreach (ModelProperty property in properties) {
     if (!property.IsPrimaryKey && !property.IsForeignKey) {
 #>
