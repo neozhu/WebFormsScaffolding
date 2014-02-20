@@ -49,7 +49,7 @@
             <Setter Property="Height" Value="23" />
         </Style>
         <Style TargetType="StackPanel" x:Key="Section">
-            <Setter Property="Margin" Value="0,0,0,10" />
+            <Setter Property="Margin" Value="20,0,0,10" />
         </Style>
     </Window.Resources>
     <Grid Margin="12">
@@ -81,8 +81,11 @@
                       TextSearch.TextPath="DisplayName"
                       Text="{Binding DbContextModelTypeName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
             </ComboBox>
-            
-            <StackPanel Style="{StaticResource Section}">
+
+            <CheckBox Content="{x:Static self:WebFormsScaffolderDialogResources.UseMasterPage}" 
+                      IsChecked="{Binding UseMasterPage}" />
+
+            <StackPanel Style="{StaticResource Section}" IsEnabled="{Binding UseMasterPage}">
                 <Label Content="{x:Static self:WebFormsScaffolderDialogResources.DesktopViewsLabel_Content}" 
                        Target="{Binding ElementName=siteMasterComboBox}" />
                 <ComboBox Name="siteMasterComboBox" 

@@ -150,4 +150,7 @@
   <data name="Title" xml:space="preserve">
     <value>Add Web Forms Pages</value>
   </data>
+  <data name="UseMasterPage" xml:space="preserve">
+    <value>Use Master Page</value>
+  </data>
 </root>

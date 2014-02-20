@@ -30,7 +30,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
             }
 
             _context = context;
-
+            _useMasterPage = true;
         }
 
         private DelegateCommand _okCommand;
@@ -204,6 +204,29 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
         }
 
 
+        private bool _useMasterPage;
+
+        public bool UseMasterPage
+        {
+            get { return _useMasterPage; }
+            set
+            {
+                Validate();
+
+                if (value == _useMasterPage)
+                {
+                    return;
+                }
+
+                _useMasterPage = value;
+                OnPropertyChanged();
+                OnPropertyChanged(m => m.UseMasterPage);
+                OnPropertyChanged(m => m.DesktopPlaceholderId);
+            }
+        }
+
+
+
         private string _desktopMasterPage;
 
         public string DesktopMasterPage
@@ -354,7 +377,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
             if (ShouldValidate(propertyName, currentPropertyName))
             {
                 ClearError(currentPropertyName);
-                if (String.IsNullOrWhiteSpace(DesktopMasterPage) ||
+                if (UseMasterPage &&
+                    String.IsNullOrWhiteSpace(DesktopMasterPage) ||
                     !DesktopMasterPagePaths.Contains(DesktopMasterPage))
                 {
                     AddError(currentPropertyName, WebFormsScaffolderDialogResources.Error_DesktopMasterPageRequired);
@@ -366,7 +390,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
             if (ShouldValidate(propertyName, currentPropertyName))
             {
                 ClearError(currentPropertyName);
-                if (String.IsNullOrWhiteSpace(DesktopPlaceholderId))
+                if (UseMasterPage &&
+                    String.IsNullOrWhiteSpace(DesktopPlaceholderId))
                 {
                     AddError(currentPropertyName, WebFormsScaffolderDialogResources.Error_PlaceholderIdRequired);
                 }

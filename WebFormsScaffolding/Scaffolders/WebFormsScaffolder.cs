@@ -37,11 +37,14 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             {
                 Mouse.OverrideCursor = Cursors.Wait;
 
-                GenerateCode(_viewModel.ModelType.CodeType,
+                GenerateCode(
+                    _viewModel.ModelType.CodeType,
                     _viewModel.DbContextModelType.TypeName,
+                    _viewModel.UseMasterPage,
                     _viewModel.DesktopMasterPage ?? String.Empty,
                     _viewModel.DesktopPlaceholderId,
-                    _viewModel.OverwriteViews);
+                    _viewModel.OverwriteViews
+                );
             }
             finally
             {
@@ -51,6 +54,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
         private void GenerateCode(CodeType modelType,
                                  string dbContextTypeName,
+                                 bool useMasterPage,
                                  string masterPage = null,
                                  string desktopPlaceholderId = null,
                                  bool overwriteViews = true)
@@ -82,6 +86,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 AddWebFormsViewTemplates(modelType, dbContext,
                     efMetadata: efMetadata,
                     actionName: view,
+                    useMasterPage: useMasterPage,
                     masterPage: masterPage,
                     sectionNames: sectionNames,
                     primarySectionName: desktopPlaceholderId,
@@ -261,6 +266,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                                 CodeType dbContext,
                                 ModelMetadata efMetadata,
                                 string actionName,
+                                bool useMasterPage,
                                 string masterPage = "",
                                 string[] sectionNames = null,
                                 string primarySectionName = "",
@@ -302,7 +308,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     {
                         {"DefaultNamespace", project.GetDefaultNamespace()},
                         {"Namespace", modelNameSpace},
-                        {"IsContentPage", !String.IsNullOrEmpty(masterPage)},
+                        {"IsContentPage", useMasterPage},
                         {"MasterPageFile", masterPage},
                         {"SectionNames", sectionNames},
                         {"PrimarySectionName", primarySectionName},

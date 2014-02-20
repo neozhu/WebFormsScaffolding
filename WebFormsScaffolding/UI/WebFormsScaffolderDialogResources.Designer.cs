@@ -158,5 +158,14 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Master Page.
+        /// </summary>
+        public static string UseMasterPage {
+            get {
+                return ResourceManager.GetString("UseMasterPage", resourceCulture);
+            }
+        }
     }
 }
