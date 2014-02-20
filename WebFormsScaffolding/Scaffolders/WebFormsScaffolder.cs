@@ -134,20 +134,16 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 throw new InvalidOperationException(Resources.WebFormsScaffolder_SelectDbContextType);
             }
 
-            Type reflectedModelType = GetReflectionType(modelType.FullName);
+            // always force the project to build so we have a compiled
+            // model that we can use with the Entity Framework
+            var visualStudioUtils = new VisualStudioUtils();
+            visualStudioUtils.BuildProject(Context.ActiveProject);
 
+
+            Type reflectedModelType = GetReflectionType(modelType.FullName);
             if (reflectedModelType == null)
             {
-                // let's try building when reflected type is null
-                var visualStudioUtils = new VisualStudioUtils();
-                visualStudioUtils.BuildCurrentProject();
-
-                // if the model STILL does not exist after building then give up and throw
-                reflectedModelType = GetReflectionType(modelType.FullName);
-                if (reflectedModelType == null)
-                {
-                    throw new InvalidOperationException(Resources.WebFormsScaffolder_ProjectNotBuilt);
-                }
+                throw new InvalidOperationException(Resources.WebFormsScaffolder_ProjectNotBuilt);
             }
         }
 

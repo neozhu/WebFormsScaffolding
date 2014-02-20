@@ -20,28 +20,15 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Utils
             this._dte = Package.GetGlobalService(typeof(DTE)) as DTE2;
         }
 
-        internal void BuildCurrentProject()
+        internal void BuildProject(Project project)
         {
             var solutionConfiguration = _dte.Solution.SolutionBuild.ActiveConfiguration.Name;
-            var activeProject = GetActiveProject();
-            if (activeProject == null)
+            if (project == null)
             {
-                throw new NullReferenceException("active project");
+                throw new NullReferenceException("project");
             }
 
-            _dte.Solution.SolutionBuild.BuildProject(solutionConfiguration, activeProject.FullName, true);
-        }
-
-        internal Project GetActiveProject()
-        {
-            Project activeProject = null;
-            Array activeSolutionProjects = _dte.ActiveSolutionProjects as Array;
-            if (activeSolutionProjects != null && activeSolutionProjects.Length > 0)
-            {
-                activeProject = activeSolutionProjects.GetValue(0) as Project;
-            }
-
-            return activeProject;
+            _dte.Solution.SolutionBuild.BuildProject(solutionConfiguration, project.FullName, true);
         }
 
 
