@@ -22,7 +22,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class NewDataContextDialogResources {
+    public class NewDataContextDialogResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.AspNet.Scaffolding.WebForms.UI.NewDataContextDialogResources", typeof(NewDataContextDialogResources).Assembly);
@@ -51,7 +51,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string CancelButton_Content {
+        public static string CancelButton_Content {
             get {
                 return ResourceManager.GetString("CancelButton_Content", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         /// <summary>
         ///   Looks up a localized string similar to Please ensure the DbContext class name includes a namespace, e.g. MyApplication.Models.SampleDbContext.
         /// </summary>
-        internal static string Error_DataContextNameRequiresPeriod {
+        public static string Error_DataContextNameRequiresPeriod {
             get {
                 return ResourceManager.GetString("Error_DataContextNameRequiresPeriod", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         /// <summary>
         ///   Looks up a localized string similar to Please enter a name for the new DbContext class.
         /// </summary>
-        internal static string Error_NewDataContextRequired {
+        public static string Error_NewDataContextRequired {
             get {
                 return ResourceManager.GetString("Error_NewDataContextRequired", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         /// <summary>
         ///   Looks up a localized string similar to New data _context type:.
         /// </summary>
-        internal static string NewDataContextLabel_Content {
+        public static string NewDataContextLabel_Content {
             get {
                 return ResourceManager.GetString("NewDataContextLabel_Content", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
-        internal static string OkButton_Content {
+        public static string OkButton_Content {
             get {
                 return ResourceManager.GetString("OkButton_Content", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         /// <summary>
         ///   Looks up a localized string similar to New Data Context.
         /// </summary>
-        internal static string Title {
+        public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
