@@ -70,7 +70,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generates ASP.NET Web Forms pages for read/write operations based on a given data model..
+        ///   Looks up a localized string similar to Generates ASP.NET Web Forms pages for inserting, editing, deleting, and listing entities from an Entity Framework data context and model class..
         /// </summary>
         internal static string WebFormsScaffolder_Description {
             get {
@@ -79,7 +79,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Web Forms pages with read/write actions, using Entity Framework.
+        ///   Looks up a localized string similar to Web Forms pages for inserting, editing, deleting, and listing entities using the Entity Framework.
         /// </summary>
         internal static string WebFormsScaffolder_Name {
             get {

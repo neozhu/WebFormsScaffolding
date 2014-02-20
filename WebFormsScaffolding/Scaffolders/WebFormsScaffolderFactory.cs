@@ -54,7 +54,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 id: typeof(WebFormsScaffolder).Name,
                 icon: null,
                 gestures: null,
-                categories: new[] { "Common/WebForms" }
+                categories: new[] { "Common/Web Forms" }
                 );              
         }
     }
