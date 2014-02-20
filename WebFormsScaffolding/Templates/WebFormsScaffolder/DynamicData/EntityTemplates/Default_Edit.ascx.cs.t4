@@ -21,12 +21,22 @@ namespace <#= DefaultNamespace #> {
     public partial class Default_EditEntityTemplate : System.Web.DynamicData.EntityTemplateUserControl {
         private MetaColumn currentColumn;
     
+		// exclude Id or ModelId column from scaffolding
+	    private bool ShouldScaffold(MetaColumn column) {
+            var columnName = column.Name.ToLower();
+            var tableName = this.Table.Name.ToLower();
+            return columnName != "id" && columnName != tableName + "id";
+        }
+
+
         protected override void OnLoad(EventArgs e) {
             foreach (MetaColumn column in Table.GetScaffoldColumns(Mode, ContainerType)) {
-                currentColumn = column;
-                Control item = new DefaultEntityTemplate._NamingContainer();
-                EntityTemplate1.ItemTemplate.InstantiateIn(item);
-                EntityTemplate1.Controls.Add(item);
+				if (ShouldScaffold(column)) {
+					currentColumn = column;
+					Control item = new DefaultEntityTemplate._NamingContainer();
+					EntityTemplate1.ItemTemplate.InstantiateIn(item);
+					EntityTemplate1.Controls.Add(item);
+				}
             }
         }
     
