@@ -65,7 +65,7 @@ if(IsContentPage) {
             <EditItemTemplate>
                 <fieldset class="form-horizontal">
                     <legend>Edit <#= ViewDataTypeName #></legend>
-					<asp:ValidationSummary runat="server" CssClass="text-error" />
+					<asp:ValidationSummary runat="server" CssClass="alert alert-danger"  />
                     <asp:DynamicEntity runat="server" Mode="Edit" />
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
