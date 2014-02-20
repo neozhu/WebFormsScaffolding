@@ -49,9 +49,13 @@ if(IsContentPage) {
 <html>
 <head runat="server">
     <title></title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
 <body>
     <form runat="server" id="form1">
+	<div class="container body-content">
 <#
     PushIndent("    ");
 }
@@ -124,7 +128,12 @@ if(IsContentPage) {
 } else if(!IsContentPage) {
     ClearIndent();
 #>
+	</div>
     </form>
+
+	<!-- Bootstrap JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
 </body>
 </html>
 <#
