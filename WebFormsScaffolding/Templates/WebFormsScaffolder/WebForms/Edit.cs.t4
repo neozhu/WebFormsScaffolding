@@ -32,15 +32,12 @@ if(IsContentPage) {
 #>
 <%@ Page Title="<#= ViewDataTypeName #>Edit" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Edit.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Edit" %>
 
-<%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
-
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
 <#
 } else {
 #>
 <%@ Page Title="<#= ViewDataTypeName #>Edit" Language="C#" CodeBehind="Edit.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Edit" %>
 
-<%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 
 <!DOCTYPE html>
 
@@ -65,7 +62,7 @@ if(IsContentPage) {
             UpdateMethod="UpdateItem" SelectMethod="GetItem"
             OnItemCommand="ItemCommand" RenderOuterTable="false">
             <EmptyDataTemplate>
-                Cannot find the <#= ViewDataTypeName #> with <#= PrimaryKeyName #> <%: Request.GetFriendlyUrlSegments()[0] %>
+                Cannot find the <#= ViewDataTypeName #> with <#= PrimaryKeyName #> <%: Request.QueryString["<#= PrimaryKeyName #>"] %>
             </EmptyDataTemplate>
             <EditItemTemplate>
                 <fieldset class="form-horizontal">

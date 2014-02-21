@@ -27,11 +27,11 @@
 <#@ parameter type="System.String" name="PluralizedName" #>
 <# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
 <# var fullModelName = Namespace+"."+ViewDataTypeName; #>
-using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 <# if(!string.IsNullOrEmpty(Namespace)) { #>
@@ -64,12 +64,12 @@ namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
                     context.SaveChanges();
                 }
             }
-            Response.Redirect("../Default");
+            Response.Redirect("Default.aspx");
         }
 
         // This is the Select methd to selects a single <#=ViewDataTypeName#> item with the id
         // USAGE: <asp:FormView SelectMethod="GetItem">
-        public <#= ViewDataTypeName#> GetItem([FriendlyUrlSegmentsAttribute(0)]int? <#= PrimaryKeyName #>)
+        public <#= ViewDataTypeName#> GetItem([QueryString]int? <#= PrimaryKeyName #>)
         {
             if (<#= PrimaryKeyName #> == null)
             {
@@ -86,7 +86,7 @@ namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
         {
             if (e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
             {
-                Response.Redirect("../Default");
+                Response.Redirect("Default.aspx");
             }
         }
     }

@@ -378,8 +378,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
             {
                 ClearError(currentPropertyName);
                 if (UseMasterPage &&
-                    String.IsNullOrWhiteSpace(DesktopMasterPage) ||
-                    !DesktopMasterPagePaths.Contains(DesktopMasterPage))
+                    (String.IsNullOrWhiteSpace(DesktopMasterPage) ||
+                    !DesktopMasterPagePaths.Contains(DesktopMasterPage)))
                 {
                     AddError(currentPropertyName, WebFormsScaffolderDialogResources.Error_DesktopMasterPageRequired);
                 }

@@ -32,7 +32,6 @@ if(IsContentPage) {
 #>
 <%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Delete" %>
 
-<%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
 <#
@@ -40,7 +39,6 @@ if(IsContentPage) {
 #>
 <%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Delete" %>
 
-<%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 
 <!DOCTYPE html>
 
@@ -65,7 +63,7 @@ if(IsContentPage) {
             DeleteMethod="DeleteItem" SelectMethod="GetItem"
             OnItemCommand="ItemCommand" RenderOuterTable="false">
             <EmptyDataTemplate>
-                Cannot find the <#= ViewDataTypeName #> with <#= PrimaryKeyName #> <%: Request.GetFriendlyUrlSegments()[0] %>
+                Cannot find the <#= ViewDataTypeName #> with <#= PrimaryKeyName #> <%: Request.QueryString["<#= PrimaryKeyName #>"] %>
             </EmptyDataTemplate>
             <ItemTemplate>
                 <fieldset class="form-horizontal">

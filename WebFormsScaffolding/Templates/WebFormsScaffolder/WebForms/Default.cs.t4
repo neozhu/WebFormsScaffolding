@@ -42,7 +42,6 @@ if(IsContentPage) {
 #>
 <%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Default" ViewStateMode="Disabled" %>
 
-<%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 
 <!DOCTYPE html>
 
@@ -62,7 +61,7 @@ if(IsContentPage) {
 #>
     <h2><#= PluralizedName #> List</h2>
     <p>
-        <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
+        <asp:HyperLink runat="server" NavigateUrl="Insert.aspx" Text="Create new" />
     </p>
     <div>
         <asp:ListView runat="server"
@@ -110,8 +109,8 @@ foreach (ModelProperty property in properties) {
 }
 #>
                     <td>
-                        <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#= ViewDataTypeName #>/Edit", Item.<#= PrimaryKeyName #>) %>' Text="Edit" /> | 
-                        <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#= ViewDataTypeName #>/Delete", Item.<#= PrimaryKeyName #>) %>' Text="Delete" />
+                        <a href="Edit.aspx?<#= PrimaryKeyName #>=<%#: Item.<#= PrimaryKeyName #>%>">Edit</a> | 
+                        <a href="Delete.aspx?<#= PrimaryKeyName #>=<%#: Item.<#= PrimaryKeyName #>%>">Delete</a>
                     </td>
                 </tr>
             </ItemTemplate>

@@ -65,7 +65,7 @@ namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
                     context.<#= PluralizedName #>.Add(item);
                     context.SaveChanges();
 
-                    Response.Redirect("Default");
+                    Response.Redirect("Default.aspx");
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
         {
             if (e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
             {
-                Response.Redirect("Default");
+                Response.Redirect("Default.aspx");
             }
         }
     }
