@@ -27,6 +27,8 @@ public class Movie
 
 Next, right-click in the Solution Explorer window and select Add, New Scaffolded Item. From the Add Scaffold dialog, select the Web Forms Scaffolder and click the Add button.
 
+![Add New Scaffolded Item](/READMEImages/AddNewScaffoldedItem.png "Add, New Scaffolded Item")
+
 Use the Web Forms Scaffolder dialog to set several important options for the scaffolder. Select a model class, an Entity Framework data context, and a Master Page.
 
 After you click the Add button, the Web Forms Scaffolder adds a new folder that contains Default.aspx, Delete.aspx, Edit.aspx, and Insert.aspx pages. The Web Forms Scaffolder also creates a DynamicData folder that contains Entity and Field templates.
