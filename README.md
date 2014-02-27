@@ -9,6 +9,8 @@ The Web Forms Scaffolder requires Visual Studio 2013. It supports both C# and Vi
 
 You can install the Web Forms Scaffolder directly from within Visual Studio. Select the menu option Tools, Extensions and Updates, and install the Web Forms Scaffolder.
 
+![Install Web Forms Scaffolder](/READMEImages/Install.png "Install Web Forms Scaffolder")
+
 ## Using the Web Forms Scaffolder
 
 First, you need to create the model class that you want to scaffold. For example, here is a simple Movie class:
@@ -29,7 +31,9 @@ Next, right-click in the Solution Explorer window and select Add, New Scaffolded
 
 ![Add New Scaffolded Item](/READMEImages/AddNewScaffoldedItem.png "Add, New Scaffolded Item")
 
-Use the Web Forms Scaffolder dialog to set several important options for the scaffolder. Select a model class, an Entity Framework data context, and a Master Page.
+Use the Add Web Forms Pages dialog to set several important options for the scaffolder. Select a model class, an Entity Framework data context, and a Master Page.
+
+![Add Web Forms Pages Dialog](/READMEImages/AddWebFormsPages.png "Add Web Forms Pages Dialog")
 
 After you click the Add button, the Web Forms Scaffolder adds a new folder that contains Default.aspx, Delete.aspx, Edit.aspx, and Insert.aspx pages. The Web Forms Scaffolder also creates a DynamicData folder that contains Entity and Field templates.
 
