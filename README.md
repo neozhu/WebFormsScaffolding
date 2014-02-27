@@ -3,6 +3,8 @@ ASP.NET Web Forms Scaffolding
 
 _Scaffolding for Web Forms in Visual Studio 2013_. Given a model class, the Web Forms Scaffolder generates List, Insert, Edit, and Delete pages. The Web Forms Scaffolder uses the Entity Framework, Twitter Bootstrap, and Dynamic Data.
 
+![Insert Movie](/READMEImages/InsertMovie.png "Insert Movie")
+
 ## Installing the Web Forms Scaffolder
 
 The Web Forms Scaffolder requires Visual Studio 2013. It supports both C# and Visual Basic .NET.
@@ -20,9 +22,21 @@ public class Movie
 {
     public int Id { get; set; }
 
+    [Required(ErrorMessage="Movie title is required.")]
     public string Title { get; set; }
 
+    [Required(ErrorMessage="Movie director is required.")]
     public string Director { get; set; }
+
+    [DataType(DataType.MultilineText)]
+    public string Comments { get; set; }
+
+    public int Count { get; set; }
+
+    public decimal Price { get; set; }
+
+    [Display(Name="Release Date")]
+    public DateTime ReleaseDate { get; set; }
 }
 
 ```
