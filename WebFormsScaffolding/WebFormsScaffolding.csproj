@@ -68,6 +68,11 @@
   <ItemGroup>
     <Compile Include="IServiceProviderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.fr-FR.Designer.cs">
+      <DependentUpon>Resources.fr-FR.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -247,6 +252,11 @@
     <Compile Include="UI\NewDataContextDialog.xaml.cs">
       <DependentUpon>NewDataContextDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\NewDataContextDialogResources.fr-FR.Designer.cs">
+      <DependentUpon>NewDataContextDialogResources.fr-FR.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="UI\NewDataContextDialogResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -260,6 +270,11 @@
     <Compile Include="UI\WebFormsScaffolderDialog.xaml.cs">
       <DependentUpon>WebFormsScaffolderDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\WebFormsScaffolderDialogResources.fr-FR.Designer.cs">
+      <DependentUpon>WebFormsScaffolderDialogResources.fr-FR.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="UI\WebFormsScaffolderDialogResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -269,13 +284,25 @@
     <Compile Include="VsConstants.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources.fr-FR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.fr-FR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\NewDataContextDialogResources.fr-FR.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NewDataContextDialogResources.fr-FR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\NewDataContextDialogResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NewDataContextDialogResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WebFormsScaffolderDialogResources.fr-FR.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WebFormsScaffolderDialogResources.fr-FR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\WebFormsScaffolderDialogResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
