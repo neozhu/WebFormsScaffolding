@@ -284,7 +284,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
             string pluralizedName = efMetadata.EntitySetName;
 
-            string outputPath = Path.Combine(modelType.Name, actionName);
+            string outputPath = Path.Combine(GetSelectionRelativePath(), modelType.Name, actionName);
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             string dbContextNameSpace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
 
@@ -296,13 +296,13 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             {
                 Project project = Context.ActiveProject;
                 var templatePath = Path.Combine("WebForms", action);
-                
+                var defaultNamespace = GetDefaultNamespace() + "." + modelType.Name;
                 AddFileFromTemplate(project,
                     outputPath,
                     templateName: templatePath,
                     templateParameters: new Dictionary<string, object>() 
                     {
-                        {"DefaultNamespace", project.GetDefaultNamespace()},
+                        {"DefaultNamespace", defaultNamespace},
                         {"Namespace", modelNameSpace},
                         {"IsContentPage", useMasterPage},
                         {"MasterPageFile", masterPage},
@@ -322,7 +322,22 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         }
 
 
+        // Returns the relative path of the folder selected in Visual Studio or an empty 
+        // string if no folder is selected.
+        protected string GetSelectionRelativePath()
+        {
+            return Context.ActiveProjectItem == null ? String.Empty : ProjectItemUtils.GetProjectRelativePath(Context.ActiveProjectItem);
+        }
 
+
+        // If a Visual Studio folder is selected then returns the folder's namespace, otherwise
+        // returns the project namespace.
+        protected string GetDefaultNamespace()
+        {
+            return Context.ActiveProjectItem == null 
+                ? Context.ActiveProject.GetDefaultNamespace() 
+                : Context.ActiveProjectItem.GetDefaultNamespace();
+        }
 
     }
 }

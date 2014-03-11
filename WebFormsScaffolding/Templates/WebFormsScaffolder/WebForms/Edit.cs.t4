@@ -30,13 +30,13 @@
 <#
 if(IsContentPage) {
 #>
-<%@ Page Title="<#= ViewDataTypeName #>Edit" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Edit.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Edit" %>
+<%@ Page Title="<#= ViewDataTypeName #>Edit" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Edit.aspx.cs" Inherits="<#= DefaultNamespace #>.Edit" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
 <#
 } else {
 #>
-<%@ Page Title="<#= ViewDataTypeName #>Edit" Language="C#" CodeBehind="Edit.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Edit" %>
+<%@ Page Title="<#= ViewDataTypeName #>Edit" Language="C#" CodeBehind="Edit.aspx.cs" Inherits="<#= DefaultNamespace #>.Edit" %>
 
 
 <!DOCTYPE html>

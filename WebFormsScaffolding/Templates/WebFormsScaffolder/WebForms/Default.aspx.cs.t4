@@ -40,7 +40,7 @@ using <#= Namespace #>;
 using <#= DBContextNamespace #>;
 <# } #>
 
-namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
+namespace <#= DefaultNamespace #>
 {
     public partial class Default : System.Web.UI.Page
     {
@@ -51,7 +51,7 @@ namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
 
         // Model binding method to get List of <#=ViewDataTypeName#> entries
         // USAGE: <asp:ListView SelectMethod="GetData">
-        public IQueryable<<#=ViewDataTypeName#>> GetData()
+        public IQueryable<<#=fullModelName#>> GetData()
         {
             var context = new <#= DBContextType #>();
 

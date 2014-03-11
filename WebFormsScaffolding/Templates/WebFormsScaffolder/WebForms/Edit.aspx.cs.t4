@@ -41,7 +41,7 @@ using <#= Namespace #>;
 using <#= DBContextNamespace #>;
 <# } #>
 
-namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
+namespace <#= DefaultNamespace #>
 {
     public partial class Edit : System.Web.UI.Page
     {

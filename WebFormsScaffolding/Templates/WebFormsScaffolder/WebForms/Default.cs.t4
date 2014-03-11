@@ -33,14 +33,14 @@
 <#
 if(IsContentPage) {
 #>
-<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Default" ViewStateMode="Disabled" %>
+<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" ViewStateMode="Disabled" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
 <#
 } else {
 #>
-<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Default" ViewStateMode="Disabled" %>
+<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" ViewStateMode="Disabled" %>
 
 
 <!DOCTYPE html>

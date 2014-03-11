@@ -265,6 +265,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WebFormsScaffolderDialogResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ProjectItemUtils.cs" />
     <Compile Include="Utils\VisualStudioUtils.cs" />
     <Compile Include="VsConstants.cs" />
   </ItemGroup>

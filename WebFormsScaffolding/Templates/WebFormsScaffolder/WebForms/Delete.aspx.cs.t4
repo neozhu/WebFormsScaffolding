@@ -41,7 +41,7 @@ using <#= Namespace #>;
 using <#= DBContextNamespace #>;
 <# } #>
 
-namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
+namespace <#= DefaultNamespace #>
 {
     public partial class Delete : System.Web.UI.Page
     {
@@ -69,7 +69,7 @@ namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
 
         // This is the Select methd to selects a single <#=ViewDataTypeName#> item with the id
         // USAGE: <asp:FormView SelectMethod="GetItem">
-        public <#= ViewDataTypeName#> GetItem([QueryString]int? <#= PrimaryKeyName #>)
+        public <#= fullModelName#> GetItem([QueryString]int? <#= PrimaryKeyName #>)
         {
             if (<#= PrimaryKeyName #> == null)
             {

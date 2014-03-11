@@ -30,14 +30,14 @@
 <#
 if(IsContentPage) {
 #>
-<%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Delete" %>
+<%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.Delete" %>
 
 
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
 <#
 } else {
 #>
-<%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Delete" %>
+<%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.Delete" %>
 
 
 <!DOCTYPE html>

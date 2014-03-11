@@ -40,7 +40,7 @@ using <#= Namespace #>;
 using <#= DBContextNamespace #>;
 <# } #>
 
-namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
+namespace <#= DefaultNamespace #>
 {
     public partial class Insert : System.Web.UI.Page
     {
@@ -55,7 +55,7 @@ namespace <#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions
         {
             using (var context = new <#= DBContextType #>())
             {
-                var item = new <#=ViewDataTypeName#>();
+                var item = new <#=fullModelName#>();
 
                 TryUpdateModel(item);
 

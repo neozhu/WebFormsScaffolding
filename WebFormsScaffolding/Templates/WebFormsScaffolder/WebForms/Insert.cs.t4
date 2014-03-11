@@ -30,13 +30,13 @@
 <#
 if(IsContentPage) {
 #>
-<%@ Page Title="<#= ViewDataTypeName #>Insert" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Insert.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Insert" %>
+<%@ Page Title="<#= ViewDataTypeName #>Insert" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Insert.aspx.cs" Inherits="<#= DefaultNamespace #>.Insert" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
 <#
 } else {
 #>
-<%@ Page Title="<#= ViewDataTypeName #>Insert" Language="C#" CodeBehind="Insert.aspx.cs" Inherits="<#= DefaultNamespace #>.<#=ViewDataTypeName#>Actions.Insert" %>
+<%@ Page Title="<#= ViewDataTypeName #>Insert" Language="C#" CodeBehind="Insert.aspx.cs" Inherits="<#= DefaultNamespace #>.Insert" %>
 <!DOCTYPE html>
 
 <html>
