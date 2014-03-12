@@ -38,9 +38,7 @@ if(IsContentPage) {
 #>
 <%@ Page Title="<#= ViewDataTypeName #>Edit" Language="C#" CodeBehind="Edit.aspx.cs" Inherits="<#= DefaultNamespace #>.Edit" %>
 
-
 <!DOCTYPE html>
-
 <html>
 <head runat="server">
     <title></title>
@@ -57,6 +55,7 @@ if(IsContentPage) {
 }
 #>
     <div>
+		<p>&nbsp;</p>
         <asp:FormView runat="server"
             ItemType="<#=fullModelName#>" DefaultMode="Edit" DataKeyNames="<#= PrimaryKeyName #>"
             UpdateMethod="UpdateItem" SelectMethod="GetItem"

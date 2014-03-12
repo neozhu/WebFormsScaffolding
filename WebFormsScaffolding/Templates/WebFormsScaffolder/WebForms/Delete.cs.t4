@@ -32,16 +32,13 @@ if(IsContentPage) {
 #>
 <%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.Delete" %>
 
-
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
 <#
 } else {
 #>
 <%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.Delete" %>
 
-
 <!DOCTYPE html>
-
 <html>
 <head runat="server">
     <title></title>
@@ -57,6 +54,7 @@ if(IsContentPage) {
 }
 #>
     <div>
+		<p>&nbsp;</p>
         <h3>Are you sure want to delete this <#= ViewDataTypeName #>?</h3>
         <asp:FormView runat="server"
             ItemType="<#=fullModelName#>" DataKeyNames="<#= PrimaryKeyName #>"

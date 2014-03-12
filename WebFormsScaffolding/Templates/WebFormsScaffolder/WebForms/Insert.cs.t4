@@ -55,6 +55,7 @@ if(IsContentPage) {
 }
 #>
     <div>
+		<p>&nbsp;</p>
         <asp:FormView runat="server"
             ItemType="<#=fullModelName#>" DefaultMode="Insert"
             InsertItemPosition="FirstItem" InsertMethod="InsertItem"
