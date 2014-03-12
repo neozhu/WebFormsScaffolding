@@ -21,10 +21,16 @@ namespace <#= DefaultNamespace #> {
     public partial class Default_InsertEntityTemplate : System.Web.DynamicData.EntityTemplateUserControl {
         private MetaColumn currentColumn;
     
-		// exclude Id or ModelId column from scaffolding
+		// exclude [Key] or Id or ModelId column from scaffolding
 	    private bool ShouldScaffold(MetaColumn column) {
-            var columnName = column.Name.ToLower();
-            var tableName = this.Table.Name.ToLower();
+			// [key] attribute
+			if (column.IsPrimaryKey) {
+				return false;
+			}
+
+			// convention
+            var columnName = column.Name.ToLowerInvariant();
+            var tableName = this.Table.Name.ToLowerInvariant();
             return columnName != "id" && columnName != tableName + "id";
         }
 
