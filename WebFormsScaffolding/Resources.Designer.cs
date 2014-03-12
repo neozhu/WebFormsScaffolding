@@ -79,7 +79,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Web Forms pages for inserting, editing, deleting, and listing entities using the Entity Framework.
+        ///   Looks up a localized string similar to Web Forms Pages using Entity Framework.
         /// </summary>
         internal static string WebFormsScaffolder_Name {
             get {

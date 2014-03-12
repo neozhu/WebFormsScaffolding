@@ -124,7 +124,7 @@
     <value>Generates ASP.NET Web Forms pages for inserting, editing, deleting, and listing entities from an Entity Framework data context and model class.</value>
   </data>
   <data name="WebFormsScaffolder_Name" xml:space="preserve">
-    <value>Web Forms pages for inserting, editing, deleting, and listing entities using the Entity Framework</value>
+    <value>Web Forms Pages using Entity Framework</value>
   </data>
   <data name="WebFormsScaffolder_ProjectNotBuilt" xml:space="preserve">
     <value>Unable to load the model type. If the project is not built, try building the project.</value>
