@@ -49,7 +49,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             return new CodeGeneratorInformation(
                 displayName: Resources.WebFormsScaffolder_Name,
                 description: Resources.WebFormsScaffolder_Description,
-                author: "Microsoft",
+                author: "Outercurve Foundation",
                 version: new Version(1, 0, 0, 0),
                 id: typeof(WebFormsScaffolder).Name,
                 icon: null,
