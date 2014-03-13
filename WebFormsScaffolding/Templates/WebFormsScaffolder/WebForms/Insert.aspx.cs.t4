@@ -20,6 +20,7 @@
 <#@ parameter type="System.Array" name="SectionNames" #>
 <#@ parameter type="System.String" name="PrimarySectionName" #>
 <#@ parameter type="System.String" name="PrimaryKeyName" #>
+<#@ parameter type="System.String" name="PrimaryKeyType" #>
 <#@ parameter type="System.MarshalByRefObject" name="ViewDataType" #>
 <#@ parameter type="System.String" name="ViewDataTypeName" #>
 <#@ parameter type="System.String" name="DBContextType" #>

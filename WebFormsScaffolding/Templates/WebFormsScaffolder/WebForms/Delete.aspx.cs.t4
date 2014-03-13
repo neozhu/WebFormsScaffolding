@@ -20,6 +20,7 @@
 <#@ parameter type="System.Array" name="SectionNames" #>
 <#@ parameter type="System.String" name="PrimarySectionName" #>
 <#@ parameter type="System.String" name="PrimaryKeyName" #>
+<#@ parameter type="System.String" name="PrimaryKeyType" #>
 <#@ parameter type="System.MarshalByRefObject" name="ViewDataType" #>
 <#@ parameter type="System.String" name="ViewDataTypeName" #>
 <#@ parameter type="System.String" name="DBContextType" #>
@@ -52,7 +53,7 @@ namespace <#= DefaultNamespace #>
 
         // This is the Delete methd to delete the selected <#=ViewDataTypeName#> item
         // USAGE: <asp:FormView DeleteMethod="DeleteItem">
-        public void DeleteItem(int <#= PrimaryKeyName #>)
+        public void DeleteItem(<#= PrimaryKeyType #> <#= PrimaryKeyName #>)
         {
             using (var context = new <#= DBContextType #>())
             {
@@ -69,7 +70,7 @@ namespace <#= DefaultNamespace #>
 
         // This is the Select methd to selects a single <#=ViewDataTypeName#> item with the id
         // USAGE: <asp:FormView SelectMethod="GetItem">
-        public <#= fullModelName#> GetItem([QueryString]int? <#= PrimaryKeyName #>)
+        public <#= fullModelName#> GetItem([QueryString]<#= PrimaryKeyType #> ? <#= PrimaryKeyName #>)
         {
             if (<#= PrimaryKeyName #> == null)
             {

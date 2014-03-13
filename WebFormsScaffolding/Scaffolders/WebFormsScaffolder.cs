@@ -323,6 +323,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"PrimarySectionName", primarySectionName},
                         {"PrimaryKeyMetadata", primaryKey},
                         {"PrimaryKeyName", primaryKey.PropertyName},
+                        {"PrimaryKeyType", primaryKey.ShortTypeName},
                         {"ViewDataType", modelType},
                         {"ViewDataTypeName", modelType.Name},
                         {"DBContextType", dbContext.Name},
