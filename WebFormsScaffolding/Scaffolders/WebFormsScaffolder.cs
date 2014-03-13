@@ -81,6 +81,12 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             // Extract these from the selected master page : Tracked by 721707
             var sectionNames = new[] { "HeadContent", "MainContent" };
 
+            // Add folder for views. This is necessary to display an error when the folder already exists but 
+            // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
+            string outputPath = Path.Combine(GetSelectionRelativePath(), modelType.Name);
+            AddFolder(Context.ActiveProject, outputPath);
+
+            // Now add each view
             foreach (string view in views)
             {
                 AddWebFormsViewTemplates(modelType, dbContext,
@@ -93,7 +99,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     overwrite: overwriteViews);
             }
 
-
+            // Add the Dynamic Data Entity and Field templates
             AddDynamicDataTemplates();
         }
 
@@ -196,6 +202,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             var entityTemplatesPath = "DynamicData\\EntityTemplates";
             Project project = Context.ActiveProject;
 
+            // Add the folder
+            AddFolder(Context.ActiveProject, entityTemplatesPath);
+
             foreach (var entityTemplate in entityTemplates)
             {
                 var templatePath = Path.Combine(entityTemplatesPath, entityTemplate);
@@ -238,6 +247,10 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             };
             var fieldTemplatesPath = "DynamicData\\FieldTemplates";                
             Project project = Context.ActiveProject;
+
+
+            // Add the folder
+            AddFolder(Context.ActiveProject, fieldTemplatesPath);
 
             foreach (var fieldTemplate in fieldTemplates) {
                 var templatePath = Path.Combine(fieldTemplatesPath, fieldTemplate);
