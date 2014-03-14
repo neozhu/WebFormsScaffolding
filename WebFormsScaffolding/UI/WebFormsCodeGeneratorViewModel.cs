@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using EnvDTE;
 using Microsoft.AspNet.Scaffolding.EntityFramework;
+using EnvDTE80;
 
 namespace Microsoft.AspNet.Scaffolding.WebForms.UI
 {
@@ -296,15 +297,32 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
                     ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
                     Project project = _context.ActiveProject;
 
+
                     var modelTypes = codeTypeService
                                         .GetAllCodeTypes(project)
-                                        .Where(codeType => codeType.IsValidWebProjectEntityType())
+                                        .Where(codeType => codeType.IsValidWebProjectEntityType() && IsReallyValidWebProjectEntityType(codeType))
                                         .Select(codeType => new ModelType(codeType));
                     _modelTypeCollection = new ObservableCollection<ModelType>(modelTypes);
                 }
                 return _modelTypeCollection;
             }
         }
+
+
+        private bool IsReallyValidWebProjectEntityType(CodeType codeType)
+        {
+            return !IsAbstract(codeType);
+        }
+
+        private bool IsAbstract(CodeType codeType) {
+            CodeClass2 codeClass2 = codeType as CodeClass2;
+            if (codeClass2 != null) {
+                return codeClass2.IsAbstract;
+            } else {
+                return false;
+            }
+        }
+
 
         public ObservableCollection<ModelType> DataContextTypeCollection
         {
