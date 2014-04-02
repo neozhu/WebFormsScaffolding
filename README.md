@@ -1,13 +1,15 @@
 ASP.NET Web Forms Scaffolding
 ===================
 
+ -- [View the ASP.NET Web Forms Scaffolder at the Visual Studio Gallery](http://visualstudiogallery.msdn.microsoft.com/a6c3614f-83be-4749-afbc-8da394b6ea86) --
+
 _Scaffolding for Web Forms in Visual Studio 2013_. Given a model class, the Web Forms Scaffolder generates List, Insert, Edit, and Delete pages. The Web Forms Scaffolder uses the Entity Framework, Twitter Bootstrap, and Dynamic Data.
 
 ![Insert Movie](/READMEImages/InsertMovie.png "Insert Movie")
 
 ## Installing the Web Forms Scaffolder
 
-The Web Forms Scaffolder requires Visual Studio 2013. It supports both C# and Visual Basic .NET.
+The Web Forms Scaffolder requires Visual Studio 2013 _Update 2_. It supports both C# and Visual Basic .NET.
 
 You can install the Web Forms Scaffolder directly from within Visual Studio. Select the menu option Tools, Extensions and Updates, and install the Web Forms Scaffolder.
 
