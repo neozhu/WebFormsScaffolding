@@ -5,7 +5,7 @@
     <DisplayName>Web Forms Scaffolding</DisplayName>
     <Description xml:space="preserve">Generates ASP.NET Web Forms pages for inserting, editing, deleting, and listing entities from an Entity Framework data context and model class.</Description>
     <MoreInfo>https://github.com/Superexpert/WebFormsScaffolding</MoreInfo>
-    <License>Apache 2.0</License>
+    <License>LICENSE.txt</License>
     <Tags>Web Forms Scaffolder, Web Forms</Tags>
   </Metadata>
   <Installation>
