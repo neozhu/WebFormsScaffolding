@@ -176,6 +176,15 @@
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Enumeration_Edit.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Label.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Label.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Label.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey.ascx.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -283,6 +292,12 @@
     <Compile Include="Utils\ProjectItemUtils.cs" />
     <Compile Include="Utils\VisualStudioUtils.cs" />
     <Compile Include="VsConstants.cs" />
+    <None Include="Templates\WebFormsScaffolder\WebForms\Imports.include.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\WebForms\ModelMetadataFunctions.cs.include.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.fr-FR.resx">

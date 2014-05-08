@@ -18,9 +18,8 @@
 namespace <#= DefaultNamespace #> {
     
     
-    public partial class ForeignKey_EditField {
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+    public partial class LabelField {
+        
         protected global::System.Web.UI.WebControls.Label Label1;
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
     }
 }

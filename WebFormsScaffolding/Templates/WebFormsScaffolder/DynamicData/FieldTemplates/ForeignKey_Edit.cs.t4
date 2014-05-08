@@ -7,6 +7,17 @@
 <#@ parameter type="System.String" name="DefaultNamespace" #>
 <%@ Control Language="C#" CodeBehind="ForeignKey_Edit.ascx.cs" Inherits="<#= DefaultNamespace #>.ForeignKey_EditField" %>
 
-<asp:DropDownList ID="DropDownList1" runat="server" CssClass="DDDropDown">
-</asp:DropDownList>
+<div id="Div1" runat="server" class="form-group">
+    <asp:Label ID="Label1" runat="server" CssClass="col-sm-2 control-label" />
+    <div class="col-sm-3">
+		<asp:DropDownList 
+			ID="DropDownList1"
+			SelectMethod="GetData"
+			DataTextField="<%#DataTextField%>"
+			DataValueField="<%#DataValueField%>"
+			SelectedValue="<%# FieldValueString %>"
+			CssClass="form-control"
+			Runat="server" />
+    </div>
+</div>
 

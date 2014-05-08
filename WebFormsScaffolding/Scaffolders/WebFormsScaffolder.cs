@@ -86,11 +86,15 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             string outputPath = Path.Combine(GetSelectionRelativePath(), modelType.Name);
             AddFolder(Context.ActiveProject, outputPath);
 
+            // Generate dictionary for related entities
+            var relatedModels = GetRelatedModelDictionary(efMetadata);
+
             // Now add each view
             foreach (string view in views)
             {
                 AddWebFormsViewTemplates(modelType, dbContext,
                     efMetadata: efMetadata,
+                    relatedModels: relatedModels,
                     actionName: view,
                     useMasterPage: useMasterPage,
                     masterPage: masterPage,
@@ -99,8 +103,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     overwrite: overwriteViews);
             }
 
-            // Add the Dynamic Data Entity and Field templates
-            AddDynamicDataTemplates();
+            // Add the Dynamic Data Field templates
+            AddDynamicDataFieldTemplates(dbContext);
         }
 
         // Passing the dialog to this method so that all scaffolder UIs
@@ -183,48 +187,13 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
 
 
-        private void AddDynamicDataTemplates()
-        {
-            AddDynamicDataEntityTemplates();
-            AddDynamicDataFieldTemplates();
-
-        }
 
 
 
-        private void AddDynamicDataEntityTemplates()
-        {
-            var entityTemplates = new[] { 
-                "Default", "Default.ascx", "Default.ascx.designer", 
-                "Default_Edit", "Default_Edit.ascx", "Default_Edit.ascx.designer",
-                "Default_Insert", "Default_Insert.ascx", "Default_Insert.ascx.designer"
-            };
-            var entityTemplatesPath = "DynamicData\\EntityTemplates";
-            Project project = Context.ActiveProject;
 
-            // Add the folder
-            AddFolder(Context.ActiveProject, entityTemplatesPath);
-
-            foreach (var entityTemplate in entityTemplates)
-            {
-                var templatePath = Path.Combine(entityTemplatesPath, entityTemplate);
-                var outputPath = Path.Combine(entityTemplatesPath, entityTemplate);
-
-                AddFileFromTemplate(
-                    project: project,
-                    outputPath: outputPath,
-                    templateName: templatePath,
-                    templateParameters: new Dictionary<string, object>() 
-                    {
-                        {"DefaultNamespace", project.GetDefaultNamespace()}
-                    },
-                    skipIfExists: true);
-            }
-        }
-
-
-
-        private void AddDynamicDataFieldTemplates() {
+        private void AddDynamicDataFieldTemplates(                                
+            CodeType dbContext
+        ) {
             var fieldTemplates = new[] { 
                 "Boolean", "Boolean.ascx.designer", "Boolean.ascx",
                 "Boolean_Edit", "Boolean_Edit.ascx.designer", "Boolean_Edit.ascx",
@@ -256,13 +225,18 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 var templatePath = Path.Combine(fieldTemplatesPath, fieldTemplate);
                 var outputPath = Path.Combine(fieldTemplatesPath, fieldTemplate);
 
+                string dbContextNameSpace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
+
+
                 AddFileFromTemplate(
                     project:project,
                     outputPath:outputPath,
                     templateName: templatePath,
                     templateParameters: new Dictionary<string, object>() 
                     {
-                        {"DefaultNamespace", project.GetDefaultNamespace()}
+                        {"DefaultNamespace", project.GetDefaultNamespace()},
+                        {"DBContextType", dbContext.Name},
+                        {"DBContextNamespace", dbContextNameSpace}
                     },
                     skipIfExists: true);
             }
@@ -274,6 +248,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         private void AddWebFormsViewTemplates(CodeType modelType,
                                 CodeType dbContext,
                                 ModelMetadata efMetadata,
+                                IDictionary<string, RelatedModelMetadata> relatedModels,
                                 string actionName,
                                 bool useMasterPage,
                                 string masterPage = "",
@@ -328,7 +303,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"ViewDataTypeName", modelType.Name},
                         {"DBContextType", dbContext.Name},
                         {"DBContextNamespace", dbContextNameSpace},
-                        {"PluralizedName", pluralizedName}
+                        {"PluralizedName", pluralizedName},
+                        {"ModelMetadata", efMetadata},
+                        {"RelatedModels", relatedModels}
                     },
                     skipIfExists: !overwrite);
             }
@@ -352,6 +329,24 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 ? Context.ActiveProject.GetDefaultNamespace() 
                 : Context.ActiveProjectItem.GetDefaultNamespace();
         }
+
+
+        // Create a dictionary that maps foreign keys to related models. We only care about associations
+        // with a single key (so we can display in a DropDownList)
+        protected IDictionary<string, RelatedModelMetadata> GetRelatedModelDictionary(ModelMetadata efMetadata)
+        {
+            var dict = new Dictionary<string, RelatedModelMetadata>();
+
+            foreach (var relatedEntity in efMetadata.RelatedEntities)
+            {
+                if (relatedEntity.ForeignKeyPropertyNames.Count() == 1)
+                {
+                    dict[relatedEntity.ForeignKeyPropertyNames[0]] = relatedEntity;
+                }
+            }
+            return dict;
+        }
+
 
     }
 }

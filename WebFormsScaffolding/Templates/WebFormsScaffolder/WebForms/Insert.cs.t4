@@ -1,30 +1,6 @@
 <#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="aspx" #>
-<#@ assembly name="System.ComponentModel.DataAnnotations" #>
-<#@ assembly name="System.Core" #>
-<#@ assembly name="System.Data.Entity" #>
-<#@ assembly name="System.Data.Linq" #>
-<#@ assembly name="EnvDTE" #>
-<#@ import namespace="System" #>
-<#@ import namespace="System.Collections" #>
-<#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.ComponentModel.DataAnnotations" #>
-<#@ import namespace="System.Data.Linq.Mapping" #>
-<#@ import namespace="System.Data.Objects.DataClasses" #>
-<#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Reflection" #>
-<#@ parameter type="System.String" name="DefaultNamespace" #>
-<#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.Boolean" name="IsContentPage" #>
-<#@ parameter type="System.String" name="MasterPageFile" #>
-<#@ parameter type="System.Array" name="SectionNames" #>
-<#@ parameter type="System.String" name="PrimarySectionName" #>
-<#@ parameter type="System.String" name="PrimaryKeyName" #>
-<#@ parameter type="System.MarshalByRefObject" name="ViewDataType" #>
-<#@ parameter type="System.String" name="ViewDataTypeName" #>
-<#@ parameter type="System.String" name="DBContextType" #>
-<#@ parameter type="System.String" name="DBContextNamespace" #>
-<#@ parameter type="System.String" name="PluralizedName" #>
+<#@ include file="Imports.include.t4" #>
 <# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
 <# var fullModelName = Namespace+"."+ViewDataTypeName; #>
 <#
@@ -64,7 +40,28 @@ if(IsContentPage) {
                 <fieldset class="form-horizontal">
 				<legend>Insert <#= ViewDataTypeName #></legend>
 		        <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
-                    <asp:DynamicEntity runat="server" Mode="Insert" />
+
+<# 
+					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+					  if (ShouldEdit(property)) {
+					    if (property.IsForeignKey) { 
+							var relatedModel = RelatedModels[property.PropertyName];
+#>
+							<asp:DynamicControl Mode="Insert" 
+								DataField="<#=property.PropertyName#>" 
+								DataTypeName="<#=relatedModel.TypeName#>" 
+								DataTextField="<#=relatedModel.DisplayPropertyName#>" 
+								DataValueField="<#=relatedModel.PrimaryKeyNames[0]#>" 
+								UIHint="ForeignKey" runat="server" />
+<# 
+					    } else { 
+#>
+						    <asp:DynamicControl Mode="Insert" DataField="<#=property.PropertyName#>" runat="server" />
+<#
+					    } 
+					  }
+					} 
+#>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <asp:Button runat="server" ID="InsertButton" CommandName="Insert" Text="Insert" CssClass="btn btn-primary" />
@@ -97,3 +94,6 @@ if(IsContentPage) {
 <#
 }
 #>
+
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

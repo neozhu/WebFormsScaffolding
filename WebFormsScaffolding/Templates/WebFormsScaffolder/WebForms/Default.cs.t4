@@ -1,34 +1,7 @@
 <#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="aspx" #>
-<#@ assembly name="System.ComponentModel.DataAnnotations" #>
-<#@ assembly name="System.Core" #>
-<#@ assembly name="System.Data.Entity" #>
-<#@ assembly name="System.Data.Linq" #>
-<#@ assembly name="EnvDTE" #>
-<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
-<#@ import namespace="System" #>
-<#@ import namespace="Microsoft.AspNet.Scaffolding" #>
-<#@ import namespace="System.Collections" #>
-<#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.ComponentModel.DataAnnotations" #>
-<#@ import namespace="System.Data.Linq.Mapping" #>
-<#@ import namespace="System.Data.Objects.DataClasses" #>
-<#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Reflection" #>
-<#@ parameter type="System.String" name="DefaultNamespace" #>
-<#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.Boolean" name="IsContentPage" #>
-<#@ parameter type="System.String" name="MasterPageFile" #>
-<#@ parameter type="System.Array" name="SectionNames" #>
-<#@ parameter type="System.String" name="PrimarySectionName" #>
-<#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.PropertyMetadata" name="PrimaryKeyMetadata" #>
-<#@ parameter type="System.MarshalByRefObject" name="ViewDataType" #>
-<#@ parameter type="System.String" name="ViewDataTypeName" #>
-<#@ parameter type="System.String" name="DBContextType" #>
-<#@ parameter type="System.String" name="DBContextNamespace" #>
-<#@ parameter type="System.String" name="PluralizedName" #>
+<#@ include file="Imports.include.t4" #>
 <# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
-<# var PrimaryKeyName = PrimaryKeyMetadata.PropertyName; #>
 <# var fullModelName = Namespace+"."+ViewDataTypeName; #>
 <#
 if(IsContentPage) {
@@ -77,14 +50,15 @@ if(IsContentPage) {
                     <thead>
                         <tr>
 <#
-List<ModelProperty> properties = GetModelProperties(viewDataType, includeUnbindableProperties: false);
-foreach (ModelProperty property in properties) {
-    if (!property.IsPrimaryKey && !property.IsForeignKey) {
+					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+					  if (ShouldDisplay(property)) {
 #>
-                            <th><#= property.Name #></th>
+                            <th>
+								<asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" Mode="ReadOnly" UIHint="Label" />
+							</th>
 <#
-    }
-}
+					  }
+					}
 #>
                             <th>&nbsp;</th>
                         </tr>
@@ -97,20 +71,28 @@ foreach (ModelProperty property in properties) {
             <ItemTemplate>
                 <tr>
 <#
- properties = GetModelProperties(viewDataType, includeUnbindableProperties: true);
- foreach (ModelProperty property in properties) {
-    if (!property.IsPrimaryKey && !property.IsForeignKey) {
+					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+					  if (ShouldDisplay(property)) {
+					    if (property.IsForeignKey) { 
+							var relatedModel = RelatedModels[property.PropertyName];
 #>
-                    <td>
-                        <asp:DynamicControl runat="server" DataField="<#= property.Name #>" ID="<#= property.Name #>" Mode="ReadOnly" />
-                    </td>
+							<td>
+								Foreign:<asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" ID="<#= property.PropertyName #>" Mode="ReadOnly" />
+							</td>
 <#
-    }
-}
+					    } else {
+#>
+							<td>
+								<asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" ID="<#= property.PropertyName #>" Mode="ReadOnly" />
+							</td>
+<#
+						}
+					  }
+					}
 #>
                     <td>
-                        <a href="Edit.aspx?<#= PrimaryKeyName #>=<%#: Item.<#= PrimaryKeyName #>%>">Edit</a> | 
-                        <a href="Delete.aspx?<#= PrimaryKeyName #>=<%#: Item.<#= PrimaryKeyName #>%>">Delete</a>
+                        <a href="Edit.aspx?<#= GetPrimaryKeyName() #>=<%#: Item.<#= GetPrimaryKeyName() #>%>">Edit</a> | 
+                        <a href="Delete.aspx?<#= GetPrimaryKeyName() #>=<%#: Item.<#= GetPrimaryKeyName() #>%>">Delete</a>
                     </td>
                 </tr>
             </ItemTemplate>
@@ -138,57 +120,6 @@ if(IsContentPage) {
 <#
 }
 #>
-<#+
-// Describes the information about a property on the model
-class ModelProperty {
-    public string Name { get; set; }
-	public EnvDTE.CodeTypeRef Type { get; set; }
-    public bool IsPrimaryKey { get; set; }
-	public bool IsForeignKey { get; set; }
-	public bool IsReadOnly { get; set; }
-}
 
-// Change this list to include any non-primitive types you think should be eligible to be edited using a textbox
-static Type[] bindableNonPrimitiveTypes = new[] {
-    typeof(string),
-    typeof(decimal),
-    typeof(Guid),
-    typeof(DateTime),
-    typeof(DateTimeOffset),
-    typeof(TimeSpan),
-};
 
-// Call this to get the list of properties in the model. Change this to modify or add your
-// own default formatting for display values.
-List<ModelProperty> GetModelProperties(EnvDTE.CodeType typeInfo, bool includeUnbindableProperties) {
-
-    List<ModelProperty> results = GetEligibleProperties(typeInfo, includeUnbindableProperties);
-	
-    return results;
-}
-
-// Helper
-List<ModelProperty> GetEligibleProperties(EnvDTE.CodeType typeInfo, bool includeUnbindableProperties) {
-    List<ModelProperty> results = new List<ModelProperty>();
-	if (typeInfo != null) {
-		foreach (var prop in typeInfo.GetPublicMembers().OfType<EnvDTE.CodeProperty>()) {
-			if (prop.HasPublicGetter() && !prop.IsIndexerProperty() && (includeUnbindableProperties || IsBindableType(prop.Type))) {
-				results.Add(new ModelProperty {
-					Name = prop.Name,
-					Type = prop.Type,
-					IsPrimaryKey = PrimaryKeyMetadata.PropertyName == prop.Name,
-					IsForeignKey = false,
-					IsReadOnly = !prop.HasPublicSetter()
-				});
-			}
-		}
-	}
-
-    return results;
-}
-
-// Helper
-bool IsBindableType(EnvDTE.CodeTypeRef type) {
-    return type.IsPrimitiveType() || bindableNonPrimitiveTypes.Any(x => type.IsMatchForReflectionType(x));
-}
-#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

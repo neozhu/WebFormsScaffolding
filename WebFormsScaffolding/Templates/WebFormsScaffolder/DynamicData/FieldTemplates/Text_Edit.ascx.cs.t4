@@ -24,6 +24,9 @@ namespace <#= DefaultNamespace #>
                 TextBox1.Columns = Column.MaxLength;
             }
             TextBox1.ToolTip = Column.Description;
+
+			Label1.Text = Column.DisplayName;
+		
         }
 
         protected override void OnDataBinding(EventArgs e)
@@ -47,6 +50,7 @@ namespace <#= DefaultNamespace #>
                 return TextBox1;
             }
         }
+
 
     }
 }
