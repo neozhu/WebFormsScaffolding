@@ -33,7 +33,7 @@ namespace Samples.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<ApplicationDbContext>());
+            Database.SetInitializer(new DatabaseInitializer());
         }
 
         public static ApplicationDbContext Create()
@@ -44,6 +44,10 @@ namespace Samples.Models
         public System.Data.Entity.DbSet<Samples.Simple.Movie> Movies { get; set; }
 
         public System.Data.Entity.DbSet<Samples.Validation.Book> Books { get; set; }
+
+        public System.Data.Entity.DbSet<Samples.Associations.Category> Categories { get; set; }
+
+        public System.Data.Entity.DbSet<Samples.Associations.Product> Products { get; set; }
 
     }
 }

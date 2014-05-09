@@ -149,3 +149,5 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
+Samples/App_Data/aspnet-Samples-20140509103137.mdf
+Samples/App_Data/aspnet-Samples-20140509103137_log.ldf

@@ -34,6 +34,15 @@ namespace Samples {
         }
 
 		
+		// show bootstrap has-error
+		protected void Page_PreRender(object sender, EventArgs e)
+        {
+            // if validation error then apply bootstrap has-error CSS class
+            var isValid = this.Page.ModelState.IsValidField(Column.Name);
+            Div1.Attributes["class"] = isValid ? "form-group" : "form-group has-error";
+        }
+
+
         protected override void ExtractValues(IOrderedDictionary dictionary)
         {
             // If it's an empty string, change it to null

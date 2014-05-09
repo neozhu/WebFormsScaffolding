@@ -153,6 +153,14 @@
     <Content Include="2_Validation\Book\Delete.aspx" />
     <Content Include="2_Validation\Book\Edit.aspx" />
     <Content Include="2_Validation\Book\Insert.aspx" />
+    <Content Include="3_Associations\Category\Default.aspx" />
+    <Content Include="3_Associations\Category\Delete.aspx" />
+    <Content Include="3_Associations\Category\Edit.aspx" />
+    <Content Include="3_Associations\Category\Insert.aspx" />
+    <Content Include="3_Associations\Product\Default.aspx" />
+    <Content Include="3_Associations\Product\Delete.aspx" />
+    <Content Include="3_Associations\Product\Edit.aspx" />
+    <Content Include="3_Associations\Product\Insert.aspx" />
     <Content Include="About.aspx" />
     <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\Forgot.aspx" />
@@ -271,6 +279,40 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="2_Validation\Book\Insert.aspx.cs">
+      <DependentUpon>Insert.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="3_Associations\Category.cs" />
+    <Compile Include="3_Associations\Category\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="3_Associations\Category\Delete.aspx.cs">
+      <DependentUpon>Delete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="3_Associations\Category\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="3_Associations\Category\Insert.aspx.cs">
+      <DependentUpon>Insert.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="3_Associations\Product.cs" />
+    <Compile Include="3_Associations\Product\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="3_Associations\Product\Delete.aspx.cs">
+      <DependentUpon>Delete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="3_Associations\Product\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="3_Associations\Product\Insert.aspx.cs">
       <DependentUpon>Insert.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -526,8 +568,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="3_Associations\" />
-    <Folder Include="4_Enumerations\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>

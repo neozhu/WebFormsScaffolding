@@ -80,12 +80,6 @@
     </Compile>
     <Compile Include="Scaffolders\WebFormsScaffolder.cs" />
     <Compile Include="Scaffolders\WebFormsScaffolderFactory.cs" />
-    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Edit.ascx.designer.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Insert.ascx.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Boolean.ascx.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -231,27 +225,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text_Edit.ascx.designer.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Insert.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Insert.ascx.designer.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default.ascx.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default.ascx.designer.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Edit.ascx.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\EntityTemplates\Default_Edit.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="UI\BindBehavior.cs" />
