@@ -208,6 +208,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 "ForeignKey", "ForeignKey.ascx.designer", "ForeignKey.ascx",
                 "ForeignKey_Edit", "ForeignKey_Edit.ascx.designer", "ForeignKey_Edit.ascx",
                 "Integer_Edit", "Integer_Edit.ascx.designer", "Integer_Edit.ascx",
+                "FieldLabel", "FieldLabel.ascx.designer", "FieldLabel.ascx",
                 "MultilineText_Edit", "MultilineText_Edit.ascx.designer", "MultilineText_Edit.ascx",
                 "Text", "Text.ascx.designer", "Text.ascx",
                 "Text_Edit", "Text_Edit.ascx.designer", "Text_Edit.ascx",

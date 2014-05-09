@@ -18,7 +18,7 @@
 namespace <#= DefaultNamespace #> {
     
     
-    public partial class LabelField {
+    public partial class FieldLabelField {
         
         protected global::System.Web.UI.WebControls.Label Label1;
     }

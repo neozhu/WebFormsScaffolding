@@ -54,7 +54,7 @@ if(IsContentPage) {
 					  if (ShouldDisplay(property)) {
 #>
                             <th>
-								<asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" Mode="ReadOnly" UIHint="Label" />
+								<asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" Mode="ReadOnly" UIHint="FieldLabel" />
 							</th>
 <#
 					  }
@@ -77,7 +77,7 @@ if(IsContentPage) {
 							var relatedModel = RelatedModels[property.PropertyName];
 #>
 							<td>
-								Foreign:<asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" ID="<#= property.PropertyName #>" Mode="ReadOnly" />
+								<%#: Item.<#=relatedModel.AssociationPropertyName#>.<#=relatedModel.DisplayPropertyName#> %>
 							</td>
 <#
 					    } else {

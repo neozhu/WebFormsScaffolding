@@ -40,14 +40,6 @@ namespace <#= DefaultNamespace #> {
 
         protected void Page_PreRender(object sender, EventArgs e) {
 			Label1.Text = Column.DisplayName;
-
-            if (DropDownList1.Items.Count == 0)
-            {
-                if (Mode == DataBoundControlMode.Insert || !Column.IsRequired)
-                {
-                    DropDownList1.Items.Insert(0, new ListItem("[Not Set]", ""));
-                }
-            }
         }
 
 		

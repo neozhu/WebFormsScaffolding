@@ -176,13 +176,13 @@
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Enumeration_Edit.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Label.ascx.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\FieldLabel.ascx.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Label.ascx.designer.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\FieldLabel.ascx.designer.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Label.cs.t4">
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\FieldLabel.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey.ascx.cs.t4">

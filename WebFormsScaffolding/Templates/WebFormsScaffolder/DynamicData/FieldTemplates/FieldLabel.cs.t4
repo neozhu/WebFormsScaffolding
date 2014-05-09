@@ -5,7 +5,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="DefaultNamespace" #>
-<%@ Control Language="C#" CodeBehind="Boolean.ascx.cs" Inherits="<#= DefaultNamespace #>.BooleanField" %>
+<%@ Control Language="C#" CodeBehind="Boolean.ascx.cs" Inherits="<#= DefaultNamespace #>.FieldLabelField" %>
 
 <asp:Label runat="server" ID="Label1" />
 

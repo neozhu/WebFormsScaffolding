@@ -15,9 +15,12 @@
 			SelectMethod="GetData"
 			DataTextField="<%#DataTextField%>"
 			DataValueField="<%#DataValueField%>"
-			SelectedValue="<%# FieldValueString %>"
+			SelectedValue="<%#FieldValueString%>"
 			CssClass="form-control"
-			Runat="server" />
+            AppendDataBoundItems="true"
+			Runat="server">
+                <asp:ListItem Text="Select An Option" Value=""></asp:ListItem>
+            </asp:DropDownList>
     </div>
 </div>
 
