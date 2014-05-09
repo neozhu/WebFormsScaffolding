@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadMe", "ReadMe", "{8A2A07
 		ReadMe.txt = ReadMe.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples.csproj", "{3F5048B1-721E-4A3E-97B3-D5AD61565ED9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{2E36C552-5DD3-4556-B882-956A3663ED2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E36C552-5DD3-4556-B882-956A3663ED2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E36C552-5DD3-4556-B882-956A3663ED2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F5048B1-721E-4A3E-97B3-D5AD61565ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F5048B1-721E-4A3E-97B3-D5AD61565ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F5048B1-721E-4A3E-97B3-D5AD61565ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F5048B1-721E-4A3E-97B3-D5AD61565ED9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
