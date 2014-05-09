@@ -30,7 +30,7 @@ namespace Samples._3_Associations.Product
 
                 if (item != null)
                 {
-                    _repo.Delete<Samples.Associations.Product>(item);
+                    _repo.Delete<Samples.Associations.Product>(Id);
                     _repo.SaveChanges();
                 }
             }
@@ -48,7 +48,11 @@ namespace Samples._3_Associations.Product
 
             using (_repo)
             {
-                return _repo.Find<Samples.Associations.Product>(Id);
+
+			            return _repo.Query<Samples.Associations.Product>().Where(m => m.Id == Id).Include(m => m.Category).FirstOrDefault();
+
+
+                //return _repo.Find<Samples.Associations.Product>(Id);
             }
         }
 

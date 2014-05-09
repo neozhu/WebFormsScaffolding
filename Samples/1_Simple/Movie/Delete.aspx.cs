@@ -30,7 +30,7 @@ namespace Samples._1_Simple.Movie
 
                 if (item != null)
                 {
-                    _repo.Delete<Samples.Simple.Movie>(item);
+                    _repo.Delete<Samples.Simple.Movie>(Id);
                     _repo.SaveChanges();
                 }
             }

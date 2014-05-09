@@ -15,7 +15,41 @@
             <ItemTemplate>
                 <fieldset class="form-horizontal">
                     <legend>Delete Product</legend>
-					<asp:DynamicEntity runat="server" Mode="ReadOnly" />
+
+							<div class="row">
+								<div class="col-sm-2 text-right">
+									<strong><asp:DynamicControl runat="server" DataField="Id" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+								</div>
+								<div class="col-sm-2">
+									<asp:DynamicControl runat="server" DataField="Id" ID="Id" Mode="ReadOnly" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2 text-right">
+									<strong><asp:DynamicControl runat="server" DataField="Name" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+								</div>
+								<div class="col-sm-2">
+									<asp:DynamicControl runat="server" DataField="Name" ID="Name" Mode="ReadOnly" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2 text-right">
+									<strong><asp:DynamicControl runat="server" DataField="Price" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+								</div>
+								<div class="col-sm-2">
+									<asp:DynamicControl runat="server" DataField="Price" ID="Price" Mode="ReadOnly" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2 text-right">
+									<strong><asp:DynamicControl runat="server" DataField="CategoryId" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+								</div>
+								<div class="col-sm-2">
+									<%#: Item.Category.Name %>
+								</div>
+							</div>
+
+
                  	<div class="row">
 					  &nbsp;
 					</div>
@@ -30,3 +64,5 @@
         </asp:FormView>
     </div>
 </asp:Content>
+
+

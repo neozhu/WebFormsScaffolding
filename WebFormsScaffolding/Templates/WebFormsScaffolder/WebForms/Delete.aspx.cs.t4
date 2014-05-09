@@ -38,7 +38,7 @@ namespace <#= DefaultNamespace #>
 
                 if (item != null)
                 {
-                    _repo.Delete<<#=fullModelName #>>(item);
+                    _repo.Delete<<#=fullModelName #>>(<#= PrimaryKeyName #>);
                     _repo.SaveChanges();
                 }
             }
@@ -56,7 +56,16 @@ namespace <#= DefaultNamespace #>
 
             using (_repo)
             {
-                return _repo.Find<<#=fullModelName #>>(<#= PrimaryKeyName #>);
+
+			<#  
+				var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+				var includeExpressions = "";
+				includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include(m => m.{0})", property.AssociationPropertyName)));
+			#>
+            return _repo.Query<<#=fullModelName #>>().Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=includeExpressions #>.FirstOrDefault();
+
+
+                //return _repo.Find<<#=fullModelName #>>(<#= PrimaryKeyName #>);
             }
         }
 
