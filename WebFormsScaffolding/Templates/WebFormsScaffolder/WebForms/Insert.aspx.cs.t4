@@ -1,31 +1,6 @@
 ﻿<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="aspx.cs" #>
-<#@ assembly name="System.ComponentModel.DataAnnotations" #>
-<#@ assembly name="System.Core" #>
-<#@ assembly name="System.Data.Entity" #>
-<#@ assembly name="System.Data.Linq" #>
-<#@ assembly name="EnvDTE" #>
-<#@ import namespace="System" #>
-<#@ import namespace="System.Collections" #>
-<#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.ComponentModel.DataAnnotations" #>
-<#@ import namespace="System.Data.Linq.Mapping" #>
-<#@ import namespace="System.Data.Objects.DataClasses" #>
-<#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Reflection" #>
-<#@ parameter type="System.String" name="DefaultNamespace" #>
-<#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.Boolean" name="IsContentPage" #>
-<#@ parameter type="System.String" name="MasterPageFile" #>
-<#@ parameter type="System.Array" name="SectionNames" #>
-<#@ parameter type="System.String" name="PrimarySectionName" #>
-<#@ parameter type="System.String" name="PrimaryKeyName" #>
-<#@ parameter type="System.String" name="PrimaryKeyType" #>
-<#@ parameter type="System.MarshalByRefObject" name="ViewDataType" #>
-<#@ parameter type="System.String" name="ViewDataTypeName" #>
-<#@ parameter type="System.String" name="DBContextType" #>
-<#@ parameter type="System.String" name="DBContextNamespace" #>
-<#@ parameter type="System.String" name="PluralizedName" #>
+<#@ include file="Imports.include.t4" #>
 <# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
 <# var fullModelName = Namespace+"."+ViewDataTypeName; #>
 using System;
@@ -37,14 +12,17 @@ using System.Web.UI.WebControls;
 <# if(!string.IsNullOrEmpty(Namespace)) { #>
 using <#= Namespace #>;
 <# } #>
-<# if(!string.IsNullOrEmpty(DBContextNamespace) && (DBContextNamespace != Namespace)) { #>
-using <#= DBContextNamespace #>;
+<# if(!string.IsNullOrEmpty(GenericRepositoryNamespace) && (GenericRepositoryNamespace != Namespace)) { #>
+using <#= GenericRepositoryNamespace #>;
 <# } #>
 
 namespace <#= DefaultNamespace #>
 {
     public partial class Insert : System.Web.UI.Page
     {
+
+		protected IGenericRepository _repo = new GenericRepository();
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -54,7 +32,7 @@ namespace <#= DefaultNamespace #>
         // USAGE: <asp:FormView InsertMethod="InsertItem">
         public void InsertItem()
         {
-            using (var context = new <#= DBContextType #>())
+            using (_repo)
             {
                 var item = new <#=fullModelName#>();
 
@@ -63,8 +41,8 @@ namespace <#= DefaultNamespace #>
                 if (ModelState.IsValid)
                 {
                     // Save changes
-                    context.<#= PluralizedName #>.Add(item);
-                    context.SaveChanges();
+                    _repo.Add<<#= fullModelName #>>(item);
+                    _repo.SaveChanges();
 
                     Response.Redirect("Default.aspx");
                 }

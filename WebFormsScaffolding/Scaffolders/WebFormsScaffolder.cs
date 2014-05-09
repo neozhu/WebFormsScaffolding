@@ -86,15 +86,19 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             string outputPath = Path.Combine(GetSelectionRelativePath(), modelType.Name);
             AddFolder(Context.ActiveProject, outputPath);
 
+            // GenericRepository namespace
+            var genericRepositoryNamespace = Context.ActiveProject.Name + ".Models";
+
             // Generate dictionary for related entities
             var relatedModels = GetRelatedModelDictionary(efMetadata);
 
             // Now add each view
             foreach (string view in views)
             {
-                AddWebFormsViewTemplates(modelType, dbContext,
+                AddWebFormsViewTemplates(modelType, 
                     efMetadata: efMetadata,
                     relatedModels: relatedModels,
+                    genericRepositoryNamespace: genericRepositoryNamespace,
                     actionName: view,
                     useMasterPage: useMasterPage,
                     masterPage: masterPage,
@@ -103,8 +107,11 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     overwrite: overwriteViews);
             }
 
+            // Ensure the Generic Repository
+            AddGenericRepository(dbContext, genericRepositoryNamespace);
+
             // Add the Dynamic Data Field templates
-            AddDynamicDataFieldTemplates(dbContext);
+            AddDynamicDataFieldTemplates(genericRepositoryNamespace);
         }
 
         // Passing the dialog to this method so that all scaffolder UIs
@@ -192,7 +199,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
 
         private void AddDynamicDataFieldTemplates(                                
-            CodeType dbContext
+            string genericRepositoryNamespace
         ) {
             var fieldTemplates = new[] { 
                 "Boolean", "Boolean.ascx.designer", "Boolean.ascx",
@@ -218,7 +225,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             var fieldTemplatesPath = "DynamicData\\FieldTemplates";                
             Project project = Context.ActiveProject;
 
-
             // Add the folder
             AddFolder(Context.ActiveProject, fieldTemplatesPath);
 
@@ -226,7 +232,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 var templatePath = Path.Combine(fieldTemplatesPath, fieldTemplate);
                 var outputPath = Path.Combine(fieldTemplatesPath, fieldTemplate);
 
-                string dbContextNameSpace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
 
 
                 AddFileFromTemplate(
@@ -236,8 +241,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     templateParameters: new Dictionary<string, object>() 
                     {
                         {"DefaultNamespace", project.GetDefaultNamespace()},
-                        {"DBContextType", dbContext.Name},
-                        {"DBContextNamespace", dbContextNameSpace}
+                        {"GenericRepositoryNamespace", genericRepositoryNamespace}
                     },
                     skipIfExists: true);
             }
@@ -245,11 +249,32 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
 
 
+        private void AddGenericRepository(CodeType dbContext, string genericRepositoryNamespace)
+        {
+            Project project = Context.ActiveProject;
+            string dbContextNameSpace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
+
+            // Add the folder
+            AddFolder(Context.ActiveProject, "Models");
+
+            AddFileFromTemplate(
+                project: project,
+                outputPath: "Models\\GenericRepository",
+                templateName: "Models\\GenericRepository",
+                templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"Namespace", genericRepositoryNamespace},
+                        {"DBContextType", dbContext.Name},
+                        {"DBContextNamespace", dbContextNameSpace}
+                    },
+                skipIfExists: true);
+        }
+
 
         private void AddWebFormsViewTemplates(CodeType modelType,
-                                CodeType dbContext,
                                 ModelMetadata efMetadata,
                                 IDictionary<string, RelatedModelMetadata> relatedModels,
+                                string genericRepositoryNamespace,
                                 string actionName,
                                 bool useMasterPage,
                                 string masterPage = "",
@@ -261,10 +286,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             {
                 throw new ArgumentNullException("modelType");
             }
-            if (dbContext == null)
-            {
-                throw new ArgumentNullException("dbContext");
-            }
             if (String.IsNullOrEmpty(actionName))
             {
                 throw new ArgumentException(Resources.WebFormsViewScaffolder_EmptyActionName, "actionName");
@@ -275,7 +296,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
             string outputPath = Path.Combine(GetSelectionRelativePath(), modelType.Name, actionName);
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
-            string dbContextNameSpace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
 
             List<string> actionTemplates = new List<string>();
             actionTemplates.AddRange(new string[] { actionName, actionName + ".aspx" });
@@ -302,8 +322,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"PrimaryKeyType", primaryKey.ShortTypeName},
                         {"ViewDataType", modelType},
                         {"ViewDataTypeName", modelType.Name},
-                        {"DBContextType", dbContext.Name},
-                        {"DBContextNamespace", dbContextNameSpace},
+                        {"GenericRepositoryNamespace", genericRepositoryNamespace},
                         {"PluralizedName", pluralizedName},
                         {"ModelMetadata", efMetadata},
                         {"RelatedModels", relatedModels}

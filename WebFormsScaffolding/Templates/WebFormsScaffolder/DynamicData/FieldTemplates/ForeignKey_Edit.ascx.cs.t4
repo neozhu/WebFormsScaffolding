@@ -5,8 +5,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="DefaultNamespace" #>
-<#@ parameter type="System.String" name="DBContextType" #>
-<#@ parameter type="System.String" name="DBContextNamespace" #>
+<#@ parameter type="System.String" name="GenericRepositoryNamespace" #>
 using System;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +14,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Linq;
-using <#= DBContextNamespace #>;
+using <#= GenericRepositoryNamespace #>;
 
 namespace <#= DefaultNamespace #> {
 
@@ -23,6 +22,7 @@ namespace <#= DefaultNamespace #> {
 
     public partial class ForeignKey_EditField : System.Web.DynamicData.FieldTemplateUserControl {
 
+		protected IGenericRepository _repo = new GenericRepository();
 
 		public string DataTypeName { get; set; }
 
@@ -33,12 +33,11 @@ namespace <#= DefaultNamespace #> {
 		
         public IQueryable GetData()
         {
-            var context = new <#= DBContextType #>();
-			var entitySetType = Type.GetType(this.DataTypeName);
-            return context.Set(entitySetType);
+			return _repo.Query(this.DataTypeName);
         } 
 
-        protected void Page_PreRender(object sender, EventArgs e) {
+
+        protected void Page_Load(object sender, EventArgs e) {
 			Label1.Text = Column.DisplayName;
         }
 

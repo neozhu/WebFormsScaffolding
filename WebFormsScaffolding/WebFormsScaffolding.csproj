@@ -292,6 +292,9 @@
     <Compile Include="Utils\ProjectItemUtils.cs" />
     <Compile Include="Utils\VisualStudioUtils.cs" />
     <Compile Include="VsConstants.cs" />
+    <None Include="Templates\WebFormsScaffolder\Models\GenericRepository.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\WebFormsScaffolder\WebForms\Imports.include.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
