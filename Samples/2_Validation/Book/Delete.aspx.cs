@@ -30,7 +30,7 @@ namespace Samples._2_Validation.Book
 
                 if (item != null)
                 {
-                    _repo.Delete<Samples.Validation.Book>(item);
+                    _repo.Delete<Samples.Validation.Book>(Id);
                     _repo.SaveChanges();
                 }
             }
@@ -48,7 +48,8 @@ namespace Samples._2_Validation.Book
 
             using (_repo)
             {
-                return _repo.Find<Samples.Validation.Book>(Id);
+
+				            return _repo.Query<Samples.Validation.Book>().Where(m => m.Id == Id).FirstOrDefault();
             }
         }
 

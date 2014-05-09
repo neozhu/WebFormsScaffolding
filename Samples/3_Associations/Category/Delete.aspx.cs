@@ -30,7 +30,7 @@ namespace Samples._3_Associations.Category
 
                 if (item != null)
                 {
-                    _repo.Delete<Samples.Associations.Category>(item);
+                    _repo.Delete<Samples.Associations.Category>(Id);
                     _repo.SaveChanges();
                 }
             }
@@ -48,7 +48,8 @@ namespace Samples._3_Associations.Category
 
             using (_repo)
             {
-                return _repo.Find<Samples.Associations.Category>(Id);
+
+				            return _repo.Query<Samples.Associations.Category>().Where(m => m.Id == Id).FirstOrDefault();
             }
         }
 

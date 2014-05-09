@@ -62,10 +62,7 @@ namespace <#= DefaultNamespace #>
 				var includeExpressions = "";
 				includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include(m => m.{0})", property.AssociationPropertyName)));
 			#>
-            return _repo.Query<<#=fullModelName #>>().Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=includeExpressions #>.FirstOrDefault();
-
-
-                //return _repo.Find<<#=fullModelName #>>(<#= PrimaryKeyName #>);
+	            return _repo.Query<<#=fullModelName #>>().Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=includeExpressions #>.FirstOrDefault();
             }
         }
 

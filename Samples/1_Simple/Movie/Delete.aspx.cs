@@ -48,7 +48,8 @@ namespace Samples._1_Simple.Movie
 
             using (_repo)
             {
-                return _repo.Find<Samples.Simple.Movie>(Id);
+
+				            return _repo.Query<Samples.Simple.Movie>().Where(m => m.Id == Id).FirstOrDefault();
             }
         }
 

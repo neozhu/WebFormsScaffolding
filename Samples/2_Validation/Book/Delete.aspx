@@ -15,7 +15,49 @@
             <ItemTemplate>
                 <fieldset class="form-horizontal">
                     <legend>Delete Book</legend>
-					<asp:DynamicEntity runat="server" Mode="ReadOnly" />
+
+							<div class="row">
+								<div class="col-sm-2 text-right">
+									<strong><asp:DynamicControl runat="server" DataField="Id" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+								</div>
+								<div class="col-sm-2">
+									<asp:DynamicControl runat="server" DataField="Id" ID="Id" Mode="ReadOnly" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2 text-right">
+									<strong><asp:DynamicControl runat="server" DataField="Title" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+								</div>
+								<div class="col-sm-2">
+									<asp:DynamicControl runat="server" DataField="Title" ID="Title" Mode="ReadOnly" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2 text-right">
+									<strong><asp:DynamicControl runat="server" DataField="UnitsInStock" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+								</div>
+								<div class="col-sm-2">
+									<asp:DynamicControl runat="server" DataField="UnitsInStock" ID="UnitsInStock" Mode="ReadOnly" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2 text-right">
+									<strong><asp:DynamicControl runat="server" DataField="Comments" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+								</div>
+								<div class="col-sm-2">
+									<asp:DynamicControl runat="server" DataField="Comments" ID="Comments" Mode="ReadOnly" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2 text-right">
+									<strong><asp:DynamicControl runat="server" DataField="InStock" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+								</div>
+								<div class="col-sm-2">
+									<asp:DynamicControl runat="server" DataField="InStock" ID="InStock" Mode="ReadOnly" />
+								</div>
+							</div>
+
+
                  	<div class="row">
 					  &nbsp;
 					</div>
@@ -30,3 +72,5 @@
         </asp:FormView>
     </div>
 </asp:Content>
+
+
