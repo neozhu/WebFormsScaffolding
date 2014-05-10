@@ -25,5 +25,12 @@ string GetPrimaryKeyName() {
     return (ModelMetadata.PrimaryKeys != null && ModelMetadata.PrimaryKeys.Count() == 1) ? ModelMetadata.PrimaryKeys[0].PropertyName : null;
 }
 
+// Returns the Includes required to get all related entities.
+// For example, .Include(m => m.Actor).Include(m => m.Category) 
+string GetIncludeExpressions() {
+	var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+	var includeExpressions = "";
+	return String.Join("", relatedProperties.Values.Select(property => String.Format(".Include(m => m.{0})", property.AssociationPropertyName)));
+}
 
 #>

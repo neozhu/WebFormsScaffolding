@@ -31,12 +31,10 @@ namespace <#= DefaultNamespace #>
         // USAGE: <asp:ListView SelectMethod="GetData">
         public IQueryable<<#=fullModelName#>> GetData()
         {
-<#  
-	var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
-	var includeExpressions = "";
-    includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include(m => m.{0})", property.AssociationPropertyName)));
-#>
-            return _repo.Query<<#=fullModelName #>>()<#=includeExpressions #>;
+            return _repo.Query<<#=fullModelName #>>()<#=GetIncludeExpressions() #>;
         }
     }
 }
+
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

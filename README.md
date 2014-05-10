@@ -110,7 +110,7 @@ The Web Forms Scaffolder takes advantage of Twitter Bootstrap for styling the pa
 
 ## Samples
 
-This GitHub project includes a Visual Studio Project named Samples that contains three samples of the generated
+This	 GitHub project includes a Visual Studio Project named Samples that contains three samples of the generated
 content from the Web Forms Scaffolder:
 
 * 1_Simple - Contains sample generated content for a simple Movie class.

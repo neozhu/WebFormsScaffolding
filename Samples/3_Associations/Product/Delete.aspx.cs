@@ -48,8 +48,7 @@ namespace Samples._3_Associations.Product
 
             using (_repo)
             {
-
-				            return _repo.Query<Samples.Associations.Product>().Where(m => m.Id == Id).Include(m => m.Category).FirstOrDefault();
+	            return _repo.Query<Samples.Associations.Product>().Where(m => m.Id == Id).Include(m => m.Category).FirstOrDefault();
             }
         }
 
@@ -62,3 +61,6 @@ namespace Samples._3_Associations.Product
         }
     }
 }
+
+
+

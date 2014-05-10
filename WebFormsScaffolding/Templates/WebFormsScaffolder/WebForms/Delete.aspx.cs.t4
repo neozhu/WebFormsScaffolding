@@ -56,13 +56,7 @@ namespace <#= DefaultNamespace #>
 
             using (_repo)
             {
-
-			<#  
-				var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
-				var includeExpressions = "";
-				includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include(m => m.{0})", property.AssociationPropertyName)));
-			#>
-	            return _repo.Query<<#=fullModelName #>>().Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=includeExpressions #>.FirstOrDefault();
+	            return _repo.Query<<#=fullModelName #>>().Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=GetIncludeExpressions() #>.FirstOrDefault();
             }
         }
 
@@ -75,3 +69,6 @@ namespace <#= DefaultNamespace #>
         }
     }
 }
+
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>
