@@ -36,7 +36,7 @@ namespace Samples._3_Associations.Product
                     _repo.Add<Samples.Associations.Product>(item);
                     _repo.SaveChanges();
 
-                    Response.Redirect("Default.aspx");
+                    Response.Redirect("Default");
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace Samples._3_Associations.Product
         {
             if (e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
             {
-                Response.Redirect("Default.aspx");
+                Response.Redirect("Default");
             }
         }
     }

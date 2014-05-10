@@ -44,7 +44,7 @@ namespace <#= DefaultNamespace #>
                     _repo.Add<<#= fullModelName #>>(item);
                     _repo.SaveChanges();
 
-                    Response.Redirect("Default.aspx");
+                    Response.Redirect("Default");
                 }
             }
         }
@@ -53,7 +53,7 @@ namespace <#= DefaultNamespace #>
         {
             if (e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
             {
-                Response.Redirect("Default.aspx");
+                Response.Redirect("Default");
             }
         }
     }

@@ -294,8 +294,10 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
             string pluralizedName = efMetadata.EntitySetName;
 
-            string outputPath = Path.Combine(GetSelectionRelativePath(), modelType.Name, actionName);
+            string outputFolder = Path.Combine(GetSelectionRelativePath(), modelType.Name);
+            string outputPath = Path.Combine(outputFolder, actionName);
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            string relativePath = outputFolder.Replace(@"\", @"/");
 
             List<string> actionTemplates = new List<string>();
             actionTemplates.AddRange(new string[] { actionName, actionName + ".aspx" });
@@ -311,6 +313,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     templateName: templatePath,
                     templateParameters: new Dictionary<string, object>() 
                     {
+                        {"RelativePath", relativePath},
                         {"DefaultNamespace", defaultNamespace},
                         {"Namespace", modelNameSpace},
                         {"IsContentPage", useMasterPage},

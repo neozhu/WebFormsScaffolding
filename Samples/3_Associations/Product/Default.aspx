@@ -5,7 +5,7 @@
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <h2>Products List</h2>
     <p>
-        <asp:HyperLink runat="server" NavigateUrl="Insert.aspx" Text="Create new" />
+        <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
     </p>
     <div>
         <asp:ListView runat="server"
@@ -55,8 +55,8 @@
 								<%#: Item.Category.Name %>
 							</td>
                     <td>
-                        <a href="Edit.aspx?Id=<%#: Item.Id%>">Edit</a> | 
-                        <a href="Delete.aspx?Id=<%#: Item.Id%>">Delete</a>
+					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/3_Associations/Product/Edit", Item.Id) %>' Text="Edit" /> | 
+                        <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/3_Associations/Product/Delete", Item.Id) %>' Text="Delete" />
                     </td>
                 </tr>
             </ItemTemplate>

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Associations;
 using Samples.Models;
 
@@ -34,12 +35,12 @@ namespace Samples._3_Associations.Product
                     _repo.SaveChanges();
                 }
             }
-            Response.Redirect("Default.aspx");
+            Response.Redirect("../Default");
         }
 
         // This is the Select methd to selects a single Product item with the id
         // USAGE: <asp:FormView SelectMethod="GetItem">
-        public Samples.Associations.Product GetItem([QueryString]int ? Id)
+        public Samples.Associations.Product GetItem([FriendlyUrlSegmentsAttribute(0)]int? Id)
         {
             if (Id == null)
             {
@@ -56,7 +57,7 @@ namespace Samples._3_Associations.Product
         {
             if (e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
             {
-                Response.Redirect("Default.aspx");
+                Response.Redirect("../Default");
             }
         }
     }

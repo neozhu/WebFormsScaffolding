@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 <# if(!string.IsNullOrEmpty(Namespace)) { #>
 using <#= Namespace #>;
 <# } #>
@@ -42,12 +43,12 @@ namespace <#= DefaultNamespace #>
                     _repo.SaveChanges();
                 }
             }
-            Response.Redirect("Default.aspx");
+            Response.Redirect("../Default");
         }
 
         // This is the Select methd to selects a single <#=ViewDataTypeName#> item with the id
         // USAGE: <asp:FormView SelectMethod="GetItem">
-        public <#= fullModelName#> GetItem([QueryString]<#= PrimaryKeyType #> ? <#= PrimaryKeyName #>)
+        public <#= fullModelName#> GetItem([FriendlyUrlSegmentsAttribute(0)]<#=PrimaryKeyType#>? <#= PrimaryKeyName #>)
         {
             if (<#= PrimaryKeyName #> == null)
             {
@@ -64,7 +65,7 @@ namespace <#= DefaultNamespace #>
         {
             if (e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
             {
-                Response.Redirect("Default.aspx");
+                Response.Redirect("../Default");
             }
         }
     }

@@ -34,7 +34,7 @@ if(IsContentPage) {
 #>
     <h2><#= PluralizedName #> List</h2>
     <p>
-        <asp:HyperLink runat="server" NavigateUrl="Insert.aspx" Text="Create new" />
+        <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
     </p>
     <div>
         <asp:ListView runat="server"
@@ -91,8 +91,8 @@ if(IsContentPage) {
 					}
 #>
                     <td>
-                        <a href="Edit.aspx?<#= GetPrimaryKeyName() #>=<%#: Item.<#= GetPrimaryKeyName() #>%>">Edit</a> | 
-                        <a href="Delete.aspx?<#= GetPrimaryKeyName() #>=<%#: Item.<#= GetPrimaryKeyName() #>%>">Delete</a>
+					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Edit", Item.<#= GetPrimaryKeyName() #>) %>' Text="Edit" /> | 
+                        <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Delete", Item.<#= GetPrimaryKeyName() #>) %>' Text="Delete" />
                     </td>
                 </tr>
             </ItemTemplate>
