@@ -1,4 +1,11 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true"  CodeBehind="Url_Edit.ascx.cs" Inherits="Samples.Url_EditField" %>
+﻿<%@ Control Language="C#" CodeBehind="Url_Edit.ascx.cs" Inherits="Samples.Url_EditField" %>
 
-<asp:TextBox ID="TextBox1" runat="server" Text='<%# FieldValueEditString %>' Columns="10" TextMode="Url" CssClass="form-control"></asp:TextBox>
+
+<div id="Div1" runat="server" class="form-group">
+    <asp:Label ID="Label1" runat="server" CssClass="col-sm-2 control-label" />
+    <div class="col-sm-3">
+		<asp:TextBox ID="TextBox1" type="url" runat="server" Text='<%# FieldValueEditString %>' CssClass="form-control DDTextBox"></asp:TextBox>
+    </div>
+</div>
+
 

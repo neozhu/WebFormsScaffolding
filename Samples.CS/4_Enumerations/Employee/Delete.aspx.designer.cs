@@ -8,12 +8,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Samples {
+namespace Samples._4_Enumerations.Employee {
     
     
-    public partial class Enumeration_EditField {
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
-        protected global::System.Web.UI.WebControls.Label Label1;
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+    public partial class Delete {
+        
+        /// <summary>
+        /// form1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
     }
 }

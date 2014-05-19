@@ -49,6 +49,8 @@ namespace Samples.Models
 
         public System.Data.Entity.DbSet<Samples.Associations.Product> Products { get; set; }
 
+        public System.Data.Entity.DbSet<Samples.Enumerations.Employee> Employees { get; set; }
+
     }
 }
 

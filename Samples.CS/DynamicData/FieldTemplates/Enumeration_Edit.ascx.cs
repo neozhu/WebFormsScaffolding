@@ -11,16 +11,27 @@ namespace Samples {
         private Type _enumType;
     
         protected void Page_Load(object sender, EventArgs e) {
+			Label1.Text = Column.DisplayName;
             DropDownList1.ToolTip = Column.Description;
     
             if (DropDownList1.Items.Count == 0) {
                 if (Mode == DataBoundControlMode.Insert || !Column.IsRequired) {
-                    DropDownList1.Items.Add(new ListItem("[Not Set]", String.Empty));
+                    DropDownList1.Items.Add(new ListItem("Select An Option", String.Empty));
                 }
                 PopulateListControl(DropDownList1);
             }
         }
     
+			
+		// show bootstrap has-error
+		protected void Page_PreRender(object sender, EventArgs e)
+        {
+            // if validation error then apply bootstrap has-error CSS class
+            var isValid = this.Page.ModelState.IsValidField(Column.Name);
+            Div1.Attributes["class"] = isValid ? "form-group" : "form-group has-error";
+        }
+
+
         protected override void OnDataBinding(EventArgs e) {
             base.OnDataBinding(e);
     

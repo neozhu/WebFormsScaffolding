@@ -161,6 +161,10 @@
     <Content Include="3_Associations\Product\Delete.aspx" />
     <Content Include="3_Associations\Product\Edit.aspx" />
     <Content Include="3_Associations\Product\Insert.aspx" />
+    <Content Include="4_Enumerations\Employee\Default.aspx" />
+    <Content Include="4_Enumerations\Employee\Delete.aspx" />
+    <Content Include="4_Enumerations\Employee\Edit.aspx" />
+    <Content Include="4_Enumerations\Employee\Insert.aspx" />
     <Content Include="About.aspx" />
     <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\Forgot.aspx" />
@@ -364,6 +368,37 @@
     <Compile Include="3_Associations\Product\Insert.aspx.designer.cs">
       <DependentUpon>Insert.aspx</DependentUpon>
     </Compile>
+    <Compile Include="4_Enumerations\Employee.cs" />
+    <Compile Include="4_Enumerations\Employee\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="4_Enumerations\Employee\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="4_Enumerations\Employee\Delete.aspx.cs">
+      <DependentUpon>Delete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="4_Enumerations\Employee\Delete.aspx.designer.cs">
+      <DependentUpon>Delete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="4_Enumerations\Employee\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="4_Enumerations\Employee\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="4_Enumerations\Employee\Insert.aspx.cs">
+      <DependentUpon>Insert.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="4_Enumerations\Employee\Insert.aspx.designer.cs">
+      <DependentUpon>Insert.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="4_Enumerations\Region.cs" />
+    <Compile Include="4_Enumerations\SalaryLevel.cs" />
     <Compile Include="Account\Confirm.aspx.cs">
       <DependentUpon>Confirm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
