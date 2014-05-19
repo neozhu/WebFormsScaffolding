@@ -11,12 +11,16 @@ using Samples.Models;
 
 namespace Samples.CS.Models {
 
+	// Use the Generic Repository for database access (don't use the DbContext directly)
+	// Using the Generic Repository enhances the testability and maintainability of your app.
     public class GenericRepository : IGenericRepository {
 
+		// This should be the one and only place in your app that you refer
+		// to the DbContext
         private ApplicationDbContext _dataContext = new ApplicationDbContext();
 
         /// <summary>
-        /// Generic query method
+        /// Generic query method.
         /// </summary>
         public IQueryable<T> Query<T>() where T : class {
             return _dataContext.Set<T>().AsQueryable();
@@ -25,8 +29,8 @@ namespace Samples.CS.Models {
 
 		
         /// <summary>
-        /// Non Generic query method
-        /// Use model type name instead of model type
+        /// Non-Generic query method
+        /// (Use model type name instead of model type)
         /// </summary>
         public IQueryable Query(string entityTypeName)
         {
@@ -50,7 +54,9 @@ namespace Samples.CS.Models {
             _dataContext.Set<T>().Add(entityToCreate);
         }
 
-
+        /// <summary>
+        /// Delete existing entity
+        /// </summary>
         public void Delete<T>(params object[] keyValues) where T : class {
             var entity = this.Find<T>(keyValues);
             _dataContext.Set<T>().Remove(entity);
@@ -87,7 +93,7 @@ namespace Samples.CS.Models {
 	
     /// <summary>
     /// This class promotes the Include() method from the entity framework so it
-	/// can be used at a higher layer. You might not want to reference in the Entity Framework
+	/// can be used at a higher layer. You might not want to reference the Entity Framework
 	/// in your presentation layer.
     /// </summary>
     public static class GenericRepositoryExtensions
@@ -97,6 +103,9 @@ namespace Samples.CS.Models {
         }
     }
 
+    /// <summary>
+    /// Program against abstractions (IGenericRepository) and not concrete classes (GenericRepository)
+    /// </summary>
     public interface IGenericRepository:IDisposable {
         System.Linq.IQueryable<T> Query<T>() where T : class;
         System.Linq.IQueryable Query(string entityTypeName);

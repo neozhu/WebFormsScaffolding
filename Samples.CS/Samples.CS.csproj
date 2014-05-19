@@ -249,25 +249,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="1_Simple\Movie.cs" />
-    <Compile Include="1_Simple\Movie\Default.aspx.aspx.cs">
+    <Compile Include="1_Simple\Movie\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="1_Simple\Movie\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="1_Simple\Movie\Delete.aspx.aspx.cs">
+    <Compile Include="1_Simple\Movie\Delete.aspx.cs">
+      <DependentUpon>Delete.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="1_Simple\Movie\Delete.aspx.designer.cs">
       <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
-    <Compile Include="1_Simple\Movie\Edit.aspx.aspx.cs">
+    <Compile Include="1_Simple\Movie\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="1_Simple\Movie\Edit.aspx.designer.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
-    <Compile Include="1_Simple\Movie\Insert.aspx.aspx.cs">
+    <Compile Include="1_Simple\Movie\Insert.aspx.cs">
+      <DependentUpon>Insert.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="1_Simple\Movie\Insert.aspx.designer.cs">
@@ -278,55 +282,83 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="2_Validation\Book\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="2_Validation\Book\Delete.aspx.cs">
       <DependentUpon>Delete.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="2_Validation\Book\Delete.aspx.designer.cs">
+      <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
     <Compile Include="2_Validation\Book\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="2_Validation\Book\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="2_Validation\Book\Insert.aspx.cs">
       <DependentUpon>Insert.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="2_Validation\Book\Insert.aspx.designer.cs">
+      <DependentUpon>Insert.aspx</DependentUpon>
     </Compile>
     <Compile Include="3_Associations\Category.cs" />
     <Compile Include="3_Associations\Category\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="3_Associations\Category\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="3_Associations\Category\Delete.aspx.cs">
       <DependentUpon>Delete.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="3_Associations\Category\Delete.aspx.designer.cs">
+      <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
     <Compile Include="3_Associations\Category\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="3_Associations\Category\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="3_Associations\Category\Insert.aspx.cs">
       <DependentUpon>Insert.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="3_Associations\Category\Insert.aspx.designer.cs">
+      <DependentUpon>Insert.aspx</DependentUpon>
+    </Compile>
     <Compile Include="3_Associations\Product.cs" />
-    <Compile Include="3_Associations\Product\Default.aspx.aspx.cs">
+    <Compile Include="3_Associations\Product\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="3_Associations\Product\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="3_Associations\Product\Delete.aspx.aspx.cs">
+    <Compile Include="3_Associations\Product\Delete.aspx.cs">
+      <DependentUpon>Delete.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="3_Associations\Product\Delete.aspx.designer.cs">
       <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
-    <Compile Include="3_Associations\Product\Edit.aspx.aspx.cs">
+    <Compile Include="3_Associations\Product\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="3_Associations\Product\Edit.aspx.designer.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
-    <Compile Include="3_Associations\Product\Insert.aspx.aspx.cs">
+    <Compile Include="3_Associations\Product\Insert.aspx.cs">
+      <DependentUpon>Insert.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="3_Associations\Product\Insert.aspx.designer.cs">
