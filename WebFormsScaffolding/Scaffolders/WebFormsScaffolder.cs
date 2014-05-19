@@ -14,10 +14,15 @@ using System.IO;
 
 namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 {
+    // This class performs all of the work of scaffolding. The methods are executed in the
+    // following order:
+    // 1) ShowUIAndValidate() - displays the Visual Studio dialog for setting scaffolding options
+    // 2) Validate() - validates the model collected from the dialog
+    // 3) GenerateCode() - if all goes well, generates the scaffolding output from the templates
     public class WebFormsScaffolder : CodeGenerator
     {
-
-        private WebFormsCodeGeneratorViewModel _viewModel;
+       
+        private WebFormsCodeGeneratorViewModel _codeGeneratorViewModel;
 
         internal WebFormsScaffolder(CodeGenerationContext context, CodeGeneratorInformation information)
             : base(context, information)
@@ -25,102 +30,16 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
         }
 
-        public override void GenerateCode()
-        {
-            if (_viewModel == null)
-            {
-                throw new InvalidOperationException(Resources.WebFormsScaffolder_ShowUIAndValidateNotCalled);
-            }
 
-            Cursor currentCursor = Mouse.OverrideCursor;
-            try
-            {
-                Mouse.OverrideCursor = Cursors.Wait;
-
-                GenerateCode(
-                    _viewModel.ModelType.CodeType,
-                    _viewModel.DbContextModelType.TypeName,
-                    _viewModel.UseMasterPage,
-                    _viewModel.DesktopMasterPage ?? String.Empty,
-                    _viewModel.DesktopPlaceholderId,
-                    _viewModel.OverwriteViews
-                );
-            }
-            finally
-            {
-                Mouse.OverrideCursor = currentCursor;
-            }
-        }
-
-        private void GenerateCode(CodeType modelType,
-                                 string dbContextTypeName,
-                                 bool useMasterPage,
-                                 string masterPage = null,
-                                 string desktopPlaceholderId = null,
-                                 bool overwriteViews = true)
-        {
-            Project project = Context.ActiveProject;
-            Debug.Assert(project != null);
-
-            if (modelType == null)
-            {
-                throw new ArgumentNullException("modelType");
-            }
-
-            IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
-            ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
-
-            ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
-            //After the above step the dbContext must have been created.
-            CodeType dbContext = codeTypeService.GetCodeType(project, dbContextTypeName);
-
-            Debug.Assert(dbContext != null, "Something wrong - the dbContext scaffolding failed...");
-
-            var views = new[] { "Default", "Insert", "Edit", "Delete" };
-
-            // Extract these from the selected master page : Tracked by 721707
-            var sectionNames = new[] { "HeadContent", "MainContent" };
-
-            // Add folder for views. This is necessary to display an error when the folder already exists but 
-            // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
-            string outputPath = Path.Combine(GetSelectionRelativePath(), modelType.Name);
-            AddFolder(Context.ActiveProject, outputPath);
-
-            // GenericRepository namespace
-            var genericRepositoryNamespace = Context.ActiveProject.Name + ".Models";
-
-            // Generate dictionary for related entities
-            var relatedModels = GetRelatedModelDictionary(efMetadata);
-
-            // Now add each view
-            foreach (string view in views)
-            {
-                AddWebFormsViewTemplates(modelType, 
-                    efMetadata: efMetadata,
-                    relatedModels: relatedModels,
-                    genericRepositoryNamespace: genericRepositoryNamespace,
-                    actionName: view,
-                    useMasterPage: useMasterPage,
-                    masterPage: masterPage,
-                    sectionNames: sectionNames,
-                    primarySectionName: desktopPlaceholderId,
-                    overwrite: overwriteViews);
-            }
-
-            // Ensure the Generic Repository
-            AddGenericRepository(dbContext, genericRepositoryNamespace);
-
-            // Add the Dynamic Data Field templates
-            AddDynamicDataFieldTemplates(genericRepositoryNamespace);
-        }
-
+        // Shows the Visual Studio dialog that collects scaffolding options
+        // from the user.
         // Passing the dialog to this method so that all scaffolder UIs
         // are modal is still an open question and tracked by bug 578173.
         public override bool ShowUIAndValidate()
         {
-            _viewModel = new WebFormsCodeGeneratorViewModel(Context);
+            _codeGeneratorViewModel = new WebFormsCodeGeneratorViewModel(Context);
 
-            WebFormsScaffolderDialog window = new WebFormsScaffolderDialog(_viewModel);
+            WebFormsScaffolderDialog window = new WebFormsScaffolderDialog(_codeGeneratorViewModel);
             bool? isOk = window.ShowModal();
 
             if (isOk == true)
@@ -131,12 +50,13 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             return (isOk == true);
         }
 
-
-
+        // Validates the model returned by the Visual Studio dialog.
+        // We always force a Visual Studio build so we have a model
+        // that we can use with the Entity Framework.
         private void Validate()
         {
-            CodeType modelType = _viewModel.ModelType.CodeType;
-            ModelType dbContextType = _viewModel.DbContextModelType;
+            CodeType modelType = _codeGeneratorViewModel.ModelType.CodeType;
+            ModelType dbContextType = _codeGeneratorViewModel.DbContextModelType;
             string dbContextTypeName = (dbContextType != null)
                 ? dbContextType.TypeName
                 : null;
@@ -164,9 +84,271 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             }
         }
 
+        // Top-level method that generates all of the scaffolding output from the templates.
+        // Shows a busy wait mouse cursor while working.
+        public override void GenerateCode()
+        {
+            var project = Context.ActiveProject;
+            var selectionRelativePath = GetSelectionRelativePath();
+
+            if (_codeGeneratorViewModel == null)
+            {
+                throw new InvalidOperationException(Resources.WebFormsScaffolder_ShowUIAndValidateNotCalled);
+            }
+
+            Cursor currentCursor = Mouse.OverrideCursor;
+            try
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+
+                GenerateCode(project, selectionRelativePath, this._codeGeneratorViewModel);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = currentCursor;
+            }
+        }
+
+        // Collects the common data needed by all of the scaffolded output and generates:
+        // 1) GenericRepository
+        // 2) Dynamic Data Field Templates
+        // 3) Web Forms Pages
+        private void GenerateCode(Project project, string selectionRelativePath, WebFormsCodeGeneratorViewModel codeGeneratorViewModel)
+        {
+            // Get Model Type
+            var modelType = codeGeneratorViewModel.ModelType.CodeType;
+
+            // Get the dbContext
+            string dbContextTypeName = codeGeneratorViewModel.DbContextModelType.TypeName;
+            ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
+            CodeType dbContext = codeTypeService.GetCodeType(project, dbContextTypeName);
+
+            // Get the Entity Framework Meta Data
+            IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
+            ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
+
+
+            // Get the generic repository namespace
+            var genericRepositoryNamespace = project.Name + ".Models";
+
+            // Ensure the Generic Repository
+            EnsureGenericRepository(project, dbContext, genericRepositoryNamespace);
+
+            // Ensure the Dynamic Data Field templates
+            EnsureDynamicDataFieldTemplates(project, genericRepositoryNamespace);
+
+            // Add Web Forms Pages from Templates
+            AddWebFormsPages(
+                project, 
+                selectionRelativePath,
+                genericRepositoryNamespace, 
+                modelType, 
+                efMetadata, 
+                codeGeneratorViewModel.UseMasterPage, 
+                codeGeneratorViewModel.DesktopMasterPage, 
+                codeGeneratorViewModel.DesktopPlaceholderId, 
+                codeGeneratorViewModel.OverwriteViews
+           );
+        }
+
+
+        // A single generic repository is created no matter how many models are scaffolded 
+        // with the Web Forms scaffolder. This generic repository is added to the Models folder. 
+        private void EnsureGenericRepository(Project project, CodeType dbContext, string genericRepositoryNamespace)
+        {
+            string dbContextNameSpace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
+
+            // Add the folder
+            AddFolder(project, "Models");
+
+            AddFileFromTemplate(
+                project: project,
+                outputPath: "Models\\GenericRepository",
+                templateName: "Models\\GenericRepository",
+                templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"Namespace", genericRepositoryNamespace},
+                        {"DBContextType", dbContext.Name},
+                        {"DBContextNamespace", dbContextNameSpace}
+                    },
+                skipIfExists: true);
+        }
+
+
+        // A set of Dynamic Data field templates is created that support Bootstrap
+        private void EnsureDynamicDataFieldTemplates(Project project, string genericRepositoryNamespace)
+        {
+            var fieldTemplates = new[] { 
+                "Boolean", "Boolean.ascx.designer", "Boolean.ascx",
+                "Boolean_Edit", "Boolean_Edit.ascx.designer", "Boolean_Edit.ascx",
+                "Children", "Children.ascx.designer", "Children.ascx",
+                "Children_Insert", "Children_Insert.ascx.designer", "Children_Insert.ascx",
+                "DateTime", "DateTime.ascx.designer", "DateTime.ascx",
+                "DateTime_Edit", "DateTime_Edit.ascx.designer", "DateTime_Edit.ascx",
+                "Decimal_Edit", "Decimal_Edit.ascx.designer", "Decimal_Edit.ascx",
+                "EmailAddress", "EmailAddress.ascx.designer", "EmailAddress.ascx",
+                "Enumeration", "Enumeration.ascx.designer", "Enumeration.ascx",
+                "Enumeration_Edit", "Enumeration_Edit.ascx.designer", "Enumeration_Edit.ascx",
+                "ForeignKey", "ForeignKey.ascx.designer", "ForeignKey.ascx",
+                "ForeignKey_Edit", "ForeignKey_Edit.ascx.designer", "ForeignKey_Edit.ascx",
+                "Integer_Edit", "Integer_Edit.ascx.designer", "Integer_Edit.ascx",
+                "FieldLabel", "FieldLabel.ascx.designer", "FieldLabel.ascx",
+                "MultilineText_Edit", "MultilineText_Edit.ascx.designer", "MultilineText_Edit.ascx",
+                "Text", "Text.ascx.designer", "Text.ascx",
+                "Text_Edit", "Text_Edit.ascx.designer", "Text_Edit.ascx",
+                "Url", "Url.ascx.designer", "Url.ascx",
+                "Url_Edit", "Url_Edit.ascx.designer", "Url_Edit.ascx"
+            };
+            var fieldTemplatesPath = "DynamicData\\FieldTemplates";
+
+            // Add the folder
+            AddFolder(project, fieldTemplatesPath);
+
+            foreach (var fieldTemplate in fieldTemplates)
+            {
+                var templatePath = Path.Combine(fieldTemplatesPath, fieldTemplate);
+                var outputPath = Path.Combine(fieldTemplatesPath, fieldTemplate);
 
 
 
+                AddFileFromTemplate(
+                    project: project,
+                    outputPath: outputPath,
+                    templateName: templatePath,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()},
+                        {"GenericRepositoryNamespace", genericRepositoryNamespace}
+                    },
+                    skipIfExists: true);
+            }
+        }
+
+
+        // Generates all of the Web Forms Pages (Default Insert, Edit, Delete), 
+        private void AddWebFormsPages(
+            Project project, 
+            string selectionRelativePath,
+            string genericRepositoryNamespace,
+            CodeType modelType,
+            ModelMetadata efMetadata,
+            bool useMasterPage,
+            string masterPage = null,
+            string desktopPlaceholderId = null,
+            bool overwriteViews = true
+        )
+        {
+
+            if (modelType == null)
+            {
+                throw new ArgumentNullException("modelType");
+            }
+
+            // Generate dictionary for related entities
+            var relatedModels = GetRelatedModelDictionary(efMetadata);
+
+
+            var webForms = new[] { "Default", "Insert", "Edit", "Delete" };
+
+            // Extract these from the selected master page : Tracked by 721707
+            var sectionNames = new[] { "HeadContent", "MainContent" };
+
+            // Add folder for views. This is necessary to display an error when the folder already exists but 
+            // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
+            string outputFolderPath = Path.Combine(selectionRelativePath, modelType.Name);
+            AddFolder(Context.ActiveProject, outputFolderPath);
+
+
+            // Now add each view
+            foreach (string webForm in webForms)
+            {
+                AddWebFormsViewTemplates(
+                    outputFolderPath: outputFolderPath,
+                    modelType: modelType,
+                    efMetadata: efMetadata,
+                    relatedModels: relatedModels,
+                    genericRepositoryNamespace: genericRepositoryNamespace,
+                    webFormsName: webForm,
+                    useMasterPage: useMasterPage,
+                    masterPage: masterPage,
+                    sectionNames: sectionNames,
+                    primarySectionName: desktopPlaceholderId,
+                    overwrite: overwriteViews);
+            }
+        }
+
+
+
+
+        private void AddWebFormsViewTemplates(
+                                string outputFolderPath,
+                                CodeType modelType,
+                                ModelMetadata efMetadata,
+                                IDictionary<string, RelatedModelMetadata> relatedModels,
+                                string genericRepositoryNamespace,
+                                string webFormsName,
+                                bool useMasterPage,
+                                string masterPage = "",
+                                string[] sectionNames = null,
+                                string primarySectionName = "",
+                                bool overwrite = false
+        )
+        {
+            if (modelType == null)
+            {
+                throw new ArgumentNullException("modelType");
+            }
+            if (String.IsNullOrEmpty(webFormsName))
+            {
+                throw new ArgumentException(Resources.WebFormsViewScaffolder_EmptyActionName, "webFormsName");
+            }
+
+            PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
+            string pluralizedName = efMetadata.EntitySetName;
+
+            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            string relativePath = outputFolderPath.Replace(@"\", @"/");
+
+            List<string> webFormsTemplates = new List<string>();
+            webFormsTemplates.AddRange(new string[] { webFormsName, webFormsName + ".aspx", webFormsName + ".aspx.designer" });
+
+            // Scaffold aspx page and code behind
+            foreach (string webForm in webFormsTemplates)
+            {
+                Project project = Context.ActiveProject;
+                var templatePath = Path.Combine("WebForms", webForm);
+                string outputPath = Path.Combine(outputFolderPath, webForm);
+
+                var defaultNamespace = GetDefaultNamespace() + "." + modelType.Name;
+                AddFileFromTemplate(project,
+                    outputPath,
+                    templateName: templatePath,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"RelativePath", relativePath},
+                        {"DefaultNamespace", defaultNamespace},
+                        {"Namespace", modelNameSpace},
+                        {"IsContentPage", useMasterPage},
+                        {"MasterPageFile", masterPage},
+                        {"SectionNames", sectionNames},
+                        {"PrimarySectionName", primarySectionName},
+                        {"PrimaryKeyMetadata", primaryKey},
+                        {"PrimaryKeyName", primaryKey.PropertyName},
+                        {"PrimaryKeyType", primaryKey.ShortTypeName},
+                        {"ViewDataType", modelType},
+                        {"ViewDataTypeName", modelType.Name},
+                        {"GenericRepositoryNamespace", genericRepositoryNamespace},
+                        {"PluralizedName", pluralizedName},
+                        {"ModelMetadata", efMetadata},
+                        {"RelatedModels", relatedModels}
+                    },
+                    skipIfExists: !overwrite);
+            }
+
+        }
+
+
+        // Called to ensure that the project was compiled successfully
         private Type GetReflectionType(string typeName)
         {
             return GetService<IReflectedTypesService>().GetType(Context.ActiveProject, typeName);
@@ -198,142 +380,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
 
 
-        private void AddDynamicDataFieldTemplates(                                
-            string genericRepositoryNamespace
-        ) {
-            var fieldTemplates = new[] { 
-                "Boolean", "Boolean.ascx.designer", "Boolean.ascx",
-                "Boolean_Edit", "Boolean_Edit.ascx.designer", "Boolean_Edit.ascx",
-                "Children", "Children.ascx.designer", "Children.ascx",
-                "Children_Insert", "Children_Insert.ascx.designer", "Children_Insert.ascx",
-                "DateTime", "DateTime.ascx.designer", "DateTime.ascx",
-                "DateTime_Edit", "DateTime_Edit.ascx.designer", "DateTime_Edit.ascx",
-                "Decimal_Edit", "Decimal_Edit.ascx.designer", "Decimal_Edit.ascx",
-                "EmailAddress", "EmailAddress.ascx.designer", "EmailAddress.ascx",
-                "Enumeration", "Enumeration.ascx.designer", "Enumeration.ascx",
-                "Enumeration_Edit", "Enumeration_Edit.ascx.designer", "Enumeration_Edit.ascx",
-                "ForeignKey", "ForeignKey.ascx.designer", "ForeignKey.ascx",
-                "ForeignKey_Edit", "ForeignKey_Edit.ascx.designer", "ForeignKey_Edit.ascx",
-                "Integer_Edit", "Integer_Edit.ascx.designer", "Integer_Edit.ascx",
-                "FieldLabel", "FieldLabel.ascx.designer", "FieldLabel.ascx",
-                "MultilineText_Edit", "MultilineText_Edit.ascx.designer", "MultilineText_Edit.ascx",
-                "Text", "Text.ascx.designer", "Text.ascx",
-                "Text_Edit", "Text_Edit.ascx.designer", "Text_Edit.ascx",
-                "Url", "Url.ascx.designer", "Url.ascx",
-                "Url_Edit", "Url_Edit.ascx.designer", "Url_Edit.ascx"
-            };
-            var fieldTemplatesPath = "DynamicData\\FieldTemplates";                
-            Project project = Context.ActiveProject;
-
-            // Add the folder
-            AddFolder(Context.ActiveProject, fieldTemplatesPath);
-
-            foreach (var fieldTemplate in fieldTemplates) {
-                var templatePath = Path.Combine(fieldTemplatesPath, fieldTemplate);
-                var outputPath = Path.Combine(fieldTemplatesPath, fieldTemplate);
 
 
-
-                AddFileFromTemplate(
-                    project:project,
-                    outputPath:outputPath,
-                    templateName: templatePath,
-                    templateParameters: new Dictionary<string, object>() 
-                    {
-                        {"DefaultNamespace", project.GetDefaultNamespace()},
-                        {"GenericRepositoryNamespace", genericRepositoryNamespace}
-                    },
-                    skipIfExists: true);
-            }
-        }
-
-
-
-        private void AddGenericRepository(CodeType dbContext, string genericRepositoryNamespace)
-        {
-            Project project = Context.ActiveProject;
-            string dbContextNameSpace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
-
-            // Add the folder
-            AddFolder(Context.ActiveProject, "Models");
-
-            AddFileFromTemplate(
-                project: project,
-                outputPath: "Models\\GenericRepository",
-                templateName: "Models\\GenericRepository",
-                templateParameters: new Dictionary<string, object>() 
-                    {
-                        {"Namespace", genericRepositoryNamespace},
-                        {"DBContextType", dbContext.Name},
-                        {"DBContextNamespace", dbContextNameSpace}
-                    },
-                skipIfExists: true);
-        }
-
-
-        private void AddWebFormsViewTemplates(CodeType modelType,
-                                ModelMetadata efMetadata,
-                                IDictionary<string, RelatedModelMetadata> relatedModels,
-                                string genericRepositoryNamespace,
-                                string actionName,
-                                bool useMasterPage,
-                                string masterPage = "",
-                                string[] sectionNames = null,
-                                string primarySectionName = "",
-                                bool overwrite = false)
-        {
-            if (modelType == null)
-            {
-                throw new ArgumentNullException("modelType");
-            }
-            if (String.IsNullOrEmpty(actionName))
-            {
-                throw new ArgumentException(Resources.WebFormsViewScaffolder_EmptyActionName, "actionName");
-            }
-
-            PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
-            string pluralizedName = efMetadata.EntitySetName;
-
-            string outputFolder = Path.Combine(GetSelectionRelativePath(), modelType.Name);
-            string outputPath = Path.Combine(outputFolder, actionName);
-            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
-            string relativePath = outputFolder.Replace(@"\", @"/");
-
-            List<string> actionTemplates = new List<string>();
-            actionTemplates.AddRange(new string[] { actionName, actionName + ".aspx" });
-
-            // Scaffold aspx page and code behind
-            foreach (string action in actionTemplates)
-            {
-                Project project = Context.ActiveProject;
-                var templatePath = Path.Combine("WebForms", action);
-                var defaultNamespace = GetDefaultNamespace() + "." + modelType.Name;
-                AddFileFromTemplate(project,
-                    outputPath,
-                    templateName: templatePath,
-                    templateParameters: new Dictionary<string, object>() 
-                    {
-                        {"RelativePath", relativePath},
-                        {"DefaultNamespace", defaultNamespace},
-                        {"Namespace", modelNameSpace},
-                        {"IsContentPage", useMasterPage},
-                        {"MasterPageFile", masterPage},
-                        {"SectionNames", sectionNames},
-                        {"PrimarySectionName", primarySectionName},
-                        {"PrimaryKeyMetadata", primaryKey},
-                        {"PrimaryKeyName", primaryKey.PropertyName},
-                        {"PrimaryKeyType", primaryKey.ShortTypeName},
-                        {"ViewDataType", modelType},
-                        {"ViewDataTypeName", modelType.Name},
-                        {"GenericRepositoryNamespace", genericRepositoryNamespace},
-                        {"PluralizedName", pluralizedName},
-                        {"ModelMetadata", efMetadata},
-                        {"RelatedModels", relatedModels}
-                    },
-                    skipIfExists: !overwrite);
-            }
-
-        }
 
 
         // Returns the relative path of the folder selected in Visual Studio or an empty 

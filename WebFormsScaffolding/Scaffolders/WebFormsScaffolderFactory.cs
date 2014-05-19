@@ -16,6 +16,10 @@ using Microsoft.AspNet.Scaffolding.WebForms.UI;
 
 namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 {    
+
+    // This is where everything with the scaffolder is kicked off. The factory
+    // returns a WebFormsScaffolder when a project meets the requirements.
+
     [Export(typeof(CodeGeneratorFactory))]
     public class WebFormsScaffolderFactory : CodeGeneratorFactory
     {
@@ -30,10 +34,11 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             return new WebFormsScaffolder(context, Information);
         }
       
-        // We support CSharp WAPs targetting atleast .NetFramework 4.5 or above.
+        // We support CSharp WAPs targetting at least .Net Framework 4.5 or above.
+        // We DON'T currently support VB
         public override bool IsSupported(CodeGenerationContext codeGenerationContext)
         {
-            if (ProjectLanguage.CSharp.Equals(codeGenerationContext.ActiveProject.GetCodeLanguage()))
+            if (ProjectLanguage.CSharp.Equals(codeGenerationContext.ActiveProject.GetCodeLanguage()) )
             {
                 FrameworkName targetFramework = codeGenerationContext.ActiveProject.GetTargetFramework();
                 return (targetFramework != null) &&
@@ -55,7 +60,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 icon: null,
                 gestures: null,
                 categories: new[] { "Common/Web Forms" }
-                );              
+            );              
         }
     }
 }
