@@ -9,10 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Samples._3_Associations.Category {
-    
-    
     public partial class Delete {
-        
         /// <summary>
         /// form1 control.
         /// </summary>

@@ -1,7 +1,5 @@
-﻿
-<%@ Page Title="CategoryList" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Samples._3_Associations.Category.Default" ViewStateMode="Disabled" %>
+﻿<%@ Page Title="CategoryList" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Samples._3_Associations.Category.Default" ViewStateMode="Disabled" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
-
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <h2>Categories List</h2>
     <p>
@@ -51,6 +49,4 @@
         </asp:ListView>
     </div>
 </asp:Content>
-
-
 

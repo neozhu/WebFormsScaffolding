@@ -1,6 +1,4 @@
-﻿
-<%@ Page Title="BookInsert" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Insert.aspx.cs" Inherits="Samples._2_Validation.Book.Insert" %>
-
+﻿<%@ Page Title="BookInsert" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Insert.aspx.cs" Inherits="Samples._2_Validation.Book.Insert" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
@@ -12,7 +10,6 @@
                 <fieldset class="form-horizontal">
 				<legend>Insert Book</legend>
 		        <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
-
 						    <asp:DynamicControl Mode="Insert" DataField="Title" runat="server" />
 						    <asp:DynamicControl Mode="Insert" DataField="UnitsInStock" runat="server" />
 						    <asp:DynamicControl Mode="Insert" DataField="Comments" runat="server" />

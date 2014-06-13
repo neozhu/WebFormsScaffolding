@@ -5,13 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Samples.Simple;
-using Samples.CS.Models;
+using Samples.Models;
 
 namespace Samples._1_Simple.Movie
 {
     public partial class Default : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +21,7 @@ namespace Samples._1_Simple.Movie
         // USAGE: <asp:ListView SelectMethod="GetData">
         public IQueryable<Samples.Simple.Movie> GetData()
         {
-            return _repo.Query<Samples.Simple.Movie>();
+            return _db.Movies;
         }
     }
 }

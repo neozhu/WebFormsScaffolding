@@ -25,7 +25,8 @@
 <#@ parameter type="System.String" name="PrimaryKeyType" #>
 <#@ parameter type="System.MarshalByRefObject" name="ViewDataType" #>
 <#@ parameter type="System.String" name="ViewDataTypeName" #>
-<#@ parameter type="System.String" name="GenericRepositoryNamespace" #>
+<#@ parameter type="System.String" name="DbContextNamespace" #>
+<#@ parameter type="System.String" name="DbContextTypeName" #>
 <#@ parameter type="System.String" name="PluralizedName" #>
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.RelatedModelMetadata>" name="RelatedModels" #>

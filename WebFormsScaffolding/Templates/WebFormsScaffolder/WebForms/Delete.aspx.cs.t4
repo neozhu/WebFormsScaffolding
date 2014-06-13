@@ -10,19 +10,20 @@ using System.Web;
 using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 <# if(!string.IsNullOrEmpty(Namespace)) { #>
 using <#= Namespace #>;
 <# } #>
-<# if(!string.IsNullOrEmpty(GenericRepositoryNamespace) && (GenericRepositoryNamespace != Namespace)) { #>
-using <#= GenericRepositoryNamespace #>;
+<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != Namespace)) { #>
+using <#= DbContextNamespace #>;
 <# } #>
 
 namespace <#= DefaultNamespace #>
 {
     public partial class Delete : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected <#=DbContextTypeName #> _db = new <#=DbContextTypeName#>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,14 +33,14 @@ namespace <#= DefaultNamespace #>
         // USAGE: <asp:FormView DeleteMethod="DeleteItem">
         public void DeleteItem(<#= PrimaryKeyType #> <#= PrimaryKeyName #>)
         {
-            using (_repo)
+            using (_db)
             {
-                var item = _repo.Find<<#=fullModelName #>>(<#= PrimaryKeyName #>);
+                var item = _db.<#=PluralizedName#>.Find(<#= PrimaryKeyName #>);
 
                 if (item != null)
                 {
-                    _repo.Delete<<#=fullModelName #>>(<#= PrimaryKeyName #>);
-                    _repo.SaveChanges();
+                    _db.<#=PluralizedName#>.Remove(item);
+                    _db.SaveChanges();
                 }
             }
             Response.Redirect("../Default");
@@ -54,9 +55,9 @@ namespace <#= DefaultNamespace #>
                 return null;
             }
 
-            using (_repo)
+            using (_db)
             {
-	            return _repo.Query<<#=fullModelName #>>().Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=GetIncludeExpressions() #>.FirstOrDefault();
+	            return _db.<#=PluralizedName #>.Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=GetIncludeExpressions() #>.FirstOrDefault();
             }
         }
 

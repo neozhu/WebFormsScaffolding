@@ -5,13 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Samples.Simple;
-using Samples.CS.Models;
+using Samples.Models;
 
 namespace Samples._1_Simple.Movie
 {
     public partial class Insert : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,7 +22,7 @@ namespace Samples._1_Simple.Movie
         // USAGE: <asp:FormView InsertMethod="InsertItem">
         public void InsertItem()
         {
-            using (_repo)
+            using (_db)
             {
                 var item = new Samples.Simple.Movie();
 
@@ -31,8 +31,8 @@ namespace Samples._1_Simple.Movie
                 if (ModelState.IsValid)
                 {
                     // Save changes
-                    _repo.Add<Samples.Simple.Movie>(item);
-                    _repo.SaveChanges();
+                    _db.Movies.Add(item);
+                    _db.SaveChanges();
 
                     Response.Redirect("Default");
                 }

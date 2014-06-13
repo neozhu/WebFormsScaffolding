@@ -1,19 +1,18 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
 using Samples.Enumerations;
-using Samples.CS.Models;
+using Samples.Models;
 
 namespace Samples._4_Enumerations.Employee
 {
     public partial class Insert : System.Web.UI.Page
     {
-
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,7 +23,7 @@ namespace Samples._4_Enumerations.Employee
         // USAGE: <asp:FormView InsertMethod="InsertItem">
         public void InsertItem()
         {
-            using (_repo)
+            using (_db)
             {
                 var item = new Samples.Enumerations.Employee();
 
@@ -33,8 +32,8 @@ namespace Samples._4_Enumerations.Employee
                 if (ModelState.IsValid)
                 {
                     // Save changes
-                    _repo.Add<Samples.Enumerations.Employee>(item);
-                    _repo.SaveChanges();
+                    _db.Employees.Add(item);
+                    _db.SaveChanges();
 
                     Response.Redirect("Default");
                 }

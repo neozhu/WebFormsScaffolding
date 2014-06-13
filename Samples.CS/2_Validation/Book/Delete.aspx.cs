@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,13 +7,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Validation;
-using Samples.CS.Models;
+using Samples.Models;
 
 namespace Samples._2_Validation.Book
 {
     public partial class Delete : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,14 +23,14 @@ namespace Samples._2_Validation.Book
         // USAGE: <asp:FormView DeleteMethod="DeleteItem">
         public void DeleteItem(int Id)
         {
-            using (_repo)
+            using (_db)
             {
-                var item = _repo.Find<Samples.Validation.Book>(Id);
+                var item = _db.Books.Find(Id);
 
                 if (item != null)
                 {
-                    _repo.Delete<Samples.Validation.Book>(Id);
-                    _repo.SaveChanges();
+                    _db.Books.Remove(item);
+                    _db.SaveChanges();
                 }
             }
             Response.Redirect("../Default");
@@ -46,9 +45,9 @@ namespace Samples._2_Validation.Book
                 return null;
             }
 
-            using (_repo)
+            using (_db)
             {
-	            return _repo.Query<Samples.Validation.Book>().Where(m => m.Id == Id).FirstOrDefault();
+	            return _db.Books.Where(m => m.Id == Id).FirstOrDefault();
             }
         }
 

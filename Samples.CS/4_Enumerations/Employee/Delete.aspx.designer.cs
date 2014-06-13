@@ -9,10 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Samples._4_Enumerations.Employee {
-    
-    
     public partial class Delete {
-        
         /// <summary>
         /// form1 control.
         /// </summary>

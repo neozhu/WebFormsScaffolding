@@ -7,13 +7,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Simple;
-using Samples.CS.Models;
+using Samples.Models;
 
 namespace Samples._1_Simple.Movie
 {
     public partial class Delete : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,14 +23,14 @@ namespace Samples._1_Simple.Movie
         // USAGE: <asp:FormView DeleteMethod="DeleteItem">
         public void DeleteItem(int Id)
         {
-            using (_repo)
+            using (_db)
             {
-                var item = _repo.Find<Samples.Simple.Movie>(Id);
+                var item = _db.Movies.Find(Id);
 
                 if (item != null)
                 {
-                    _repo.Delete<Samples.Simple.Movie>(Id);
-                    _repo.SaveChanges();
+                    _db.Movies.Remove(item);
+                    _db.SaveChanges();
                 }
             }
             Response.Redirect("../Default");
@@ -45,9 +45,9 @@ namespace Samples._1_Simple.Movie
                 return null;
             }
 
-            using (_repo)
+            using (_db)
             {
-	            return _repo.Query<Samples.Simple.Movie>().Where(m => m.Id == Id).FirstOrDefault();
+	            return _db.Movies.Where(m => m.Id == Id).FirstOrDefault();
             }
         }
 

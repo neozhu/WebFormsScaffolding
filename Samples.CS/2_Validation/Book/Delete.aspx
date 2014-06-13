@@ -1,5 +1,4 @@
-﻿
-<%@ Page Title="BookDelete" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Delete.aspx.cs" Inherits="Samples._2_Validation.Book.Delete" %>
+﻿<%@ Page Title="BookDelete" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Delete.aspx.cs" Inherits="Samples._2_Validation.Book.Delete" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
@@ -14,7 +13,6 @@
             <ItemTemplate>
                 <fieldset class="form-horizontal">
                     <legend>Delete Book</legend>
-
 							<div class="row">
 								<div class="col-sm-2 text-right">
 									<strong><asp:DynamicControl runat="server" DataField="Id" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
@@ -55,8 +53,6 @@
 									<asp:DynamicControl runat="server" DataField="InStock" ID="InStock" Mode="ReadOnly" />
 								</div>
 							</div>
-
-
                  	<div class="row">
 					  &nbsp;
 					</div>

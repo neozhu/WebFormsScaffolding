@@ -9,8 +9,6 @@
 //------------------------------------------------------------------------------
 
 namespace Samples._4_Enumerations.Employee {
-    
-    
     public partial class Insert {
         
         /// <summary>

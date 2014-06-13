@@ -7,12 +7,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Simple;
-using Samples.CS.Models;
+using Samples.Models;
 namespace Samples._1_Simple.Movie
 {
     public partial class Edit : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,9 +22,9 @@ namespace Samples._1_Simple.Movie
         // USAGE: <asp:FormView UpdateMethod="UpdateItem">
         public void UpdateItem(int  Id)
         {
-            using (_repo)
+            using (_db)
             {
-                var item = _repo.Find<Samples.Simple.Movie>(Id);
+                var item = _db.Movies.Find(Id);
 
                 if (item == null)
                 {
@@ -38,7 +38,7 @@ namespace Samples._1_Simple.Movie
                 if (ModelState.IsValid)
                 {
                     // Save changes here
-                    _repo.SaveChanges();
+                    _db.SaveChanges();
                     Response.Redirect("../Default");
                 }
             }
@@ -53,9 +53,9 @@ namespace Samples._1_Simple.Movie
                 return null;
             }
 
-            using (_repo)
+            using (_db)
             {
-                return _repo.Find<Samples.Simple.Movie>(Id);
+                return _db.Movies.Find(Id);
             }
         }
 

@@ -110,9 +110,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         }
 
         // Collects the common data needed by all of the scaffolded output and generates:
-        // 1) GenericRepository
-        // 2) Dynamic Data Field Templates
-        // 3) Web Forms Pages
+        // 1) Dynamic Data Field Templates
+        // 2) Web Forms Pages
         private void GenerateCode(Project project, string selectionRelativePath, WebFormsCodeGeneratorViewModel codeGeneratorViewModel)
         {
             // Get Model Type
@@ -123,25 +122,22 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
             CodeType dbContext = codeTypeService.GetCodeType(project, dbContextTypeName);
 
+            // Get the dbContext namespace
+            string dbContextNamespace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
+
             // Get the Entity Framework Meta Data
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
 
-
-            // Get the generic repository namespace
-            var genericRepositoryNamespace = project.Name + ".Models";
-
-            // Ensure the Generic Repository
-            EnsureGenericRepository(project, dbContext, genericRepositoryNamespace);
-
             // Ensure the Dynamic Data Field templates
-            EnsureDynamicDataFieldTemplates(project, genericRepositoryNamespace);
+            EnsureDynamicDataFieldTemplates(project, dbContextNamespace, dbContextTypeName);
 
             // Add Web Forms Pages from Templates
             AddWebFormsPages(
                 project, 
                 selectionRelativePath,
-                genericRepositoryNamespace, 
+                dbContextNamespace,
+                dbContextTypeName,
                 modelType, 
                 efMetadata, 
                 codeGeneratorViewModel.UseMasterPage, 
@@ -152,31 +148,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         }
 
 
-        // A single generic repository is created no matter how many models are scaffolded 
-        // with the Web Forms scaffolder. This generic repository is added to the Models folder. 
-        private void EnsureGenericRepository(Project project, CodeType dbContext, string genericRepositoryNamespace)
-        {
-            string dbContextNameSpace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
-
-            // Add the folder
-            AddFolder(project, "Models");
-
-            AddFileFromTemplate(
-                project: project,
-                outputPath: "Models\\GenericRepository",
-                templateName: "Models\\GenericRepository",
-                templateParameters: new Dictionary<string, object>() 
-                    {
-                        {"Namespace", genericRepositoryNamespace},
-                        {"DBContextType", dbContext.Name},
-                        {"DBContextNamespace", dbContextNameSpace}
-                    },
-                skipIfExists: true);
-        }
-
-
         // A set of Dynamic Data field templates is created that support Bootstrap
-        private void EnsureDynamicDataFieldTemplates(Project project, string genericRepositoryNamespace)
+        private void EnsureDynamicDataFieldTemplates(Project project, string dbContextNamespace, string dbContextTypeName)
         {
             var fieldTemplates = new[] { 
                 "Boolean", "Boolean.ascx.designer", "Boolean.ascx",
@@ -209,8 +182,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 var templatePath = Path.Combine(fieldTemplatesPath, fieldTemplate);
                 var outputPath = Path.Combine(fieldTemplatesPath, fieldTemplate);
 
-
-
                 AddFileFromTemplate(
                     project: project,
                     outputPath: outputPath,
@@ -218,7 +189,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     templateParameters: new Dictionary<string, object>() 
                     {
                         {"DefaultNamespace", project.GetDefaultNamespace()},
-                        {"GenericRepositoryNamespace", genericRepositoryNamespace}
+                        {"DbContextNamespace", dbContextNamespace},
+                        {"DbContextTypeName", dbContextTypeName}
                     },
                     skipIfExists: true);
             }
@@ -229,7 +201,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         private void AddWebFormsPages(
             Project project, 
             string selectionRelativePath,
-            string genericRepositoryNamespace,
+            string dbContextNamespace,
+            string dbContextTypeName,
             CodeType modelType,
             ModelMetadata efMetadata,
             bool useMasterPage,
@@ -267,7 +240,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     modelType: modelType,
                     efMetadata: efMetadata,
                     relatedModels: relatedModels,
-                    genericRepositoryNamespace: genericRepositoryNamespace,
+                    dbContextNamespace: dbContextNamespace,
+                    dbContextTypeName: dbContextTypeName,
                     webFormsName: webForm,
                     useMasterPage: useMasterPage,
                     masterPage: masterPage,
@@ -285,7 +259,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                                 CodeType modelType,
                                 ModelMetadata efMetadata,
                                 IDictionary<string, RelatedModelMetadata> relatedModels,
-                                string genericRepositoryNamespace,
+                                string dbContextNamespace,
+                                string dbContextTypeName,
                                 string webFormsName,
                                 bool useMasterPage,
                                 string masterPage = "",
@@ -337,7 +312,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"PrimaryKeyType", primaryKey.ShortTypeName},
                         {"ViewDataType", modelType},
                         {"ViewDataTypeName", modelType.Name},
-                        {"GenericRepositoryNamespace", genericRepositoryNamespace},
+                        {"DbContextNamespace", dbContextNamespace},
+                        {"DbContextTypeName", dbContextTypeName},
                         {"PluralizedName", pluralizedName},
                         {"ModelMetadata", efMetadata},
                         {"RelatedModels", relatedModels}
@@ -373,15 +349,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         {
             return (TService)ServiceProvider.GetService(typeof(TService));
         }
-
-
-
-
-
-
-
-
-
 
 
         // Returns the relative path of the folder selected in Visual Studio or an empty 

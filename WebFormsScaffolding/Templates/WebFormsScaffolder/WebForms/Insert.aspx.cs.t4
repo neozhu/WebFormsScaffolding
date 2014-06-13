@@ -9,18 +9,19 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
 <# if(!string.IsNullOrEmpty(Namespace)) { #>
 using <#= Namespace #>;
 <# } #>
-<# if(!string.IsNullOrEmpty(GenericRepositoryNamespace) && (GenericRepositoryNamespace != Namespace)) { #>
-using <#= GenericRepositoryNamespace #>;
+<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != Namespace)) { #>
+using <#= DbContextNamespace #>;
 <# } #>
 
 namespace <#= DefaultNamespace #>
 {
     public partial class Insert : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected <#=DbContextTypeName #> _db = new <#=DbContextTypeName #>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,7 +32,7 @@ namespace <#= DefaultNamespace #>
         // USAGE: <asp:FormView InsertMethod="InsertItem">
         public void InsertItem()
         {
-            using (_repo)
+            using (_db)
             {
                 var item = new <#=fullModelName#>();
 
@@ -40,8 +41,8 @@ namespace <#= DefaultNamespace #>
                 if (ModelState.IsValid)
                 {
                     // Save changes
-                    _repo.Add<<#= fullModelName #>>(item);
-                    _repo.SaveChanges();
+                    _db.<#=PluralizedName #>.Add(item);
+                    _db.SaveChanges();
 
                     Response.Redirect("Default");
                 }

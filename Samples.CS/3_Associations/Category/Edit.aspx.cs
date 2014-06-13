@@ -1,33 +1,31 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Associations;
-using Samples.CS.Models;
-
+using Samples.Models;
 namespace Samples._3_Associations.Category
 {
     public partial class Edit : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // This is the Update methd to update the selected Category item
         // USAGE: <asp:FormView UpdateMethod="UpdateItem">
         public void UpdateItem(int  Id)
         {
-            using (_repo)
+            using (_db)
             {
-                var item = _repo.Find<Samples.Associations.Category>(Id);
+                var item = _db.Categories.Find(Id);
 
                 if (item == null)
                 {
@@ -41,7 +39,7 @@ namespace Samples._3_Associations.Category
                 if (ModelState.IsValid)
                 {
                     // Save changes here
-                    _repo.SaveChanges();
+                    _db.SaveChanges();
                     Response.Redirect("../Default");
                 }
             }
@@ -56,9 +54,9 @@ namespace Samples._3_Associations.Category
                 return null;
             }
 
-            using (_repo)
+            using (_db)
             {
-                return _repo.Find<Samples.Associations.Category>(Id);
+                return _db.Categories.Find(Id);
             }
         }
 

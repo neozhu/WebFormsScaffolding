@@ -26,7 +26,6 @@ string GetPrimaryKeyName() {
 // For example, .Include(m => m.Actor).Include(m => m.Category) 
 string GetIncludeExpressions() {
 	var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
-	var includeExpressions = "";
 	return String.Join("", relatedProperties.Values.Select(property => String.Format(".Include(m => m.{0})", property.AssociationPropertyName)));
 }
 #>

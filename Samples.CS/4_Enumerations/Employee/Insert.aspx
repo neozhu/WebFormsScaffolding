@@ -1,6 +1,4 @@
-﻿
-<%@ Page Title="EmployeeInsert" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Insert.aspx.cs" Inherits="Samples._4_Enumerations.Employee.Insert" %>
-
+﻿<%@ Page Title="EmployeeInsert" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Insert.aspx.cs" Inherits="Samples._4_Enumerations.Employee.Insert" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
@@ -12,7 +10,6 @@
                 <fieldset class="form-horizontal">
 				<legend>Insert Employee</legend>
 		        <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
-
 						    <asp:DynamicControl Mode="Insert" DataField="Email" runat="server" />
 						    <asp:DynamicControl Mode="Insert" DataField="HomePage" runat="server" />
 						    <asp:DynamicControl Mode="Insert" DataField="Salary" runat="server" />
@@ -28,5 +25,3 @@
         </asp:FormView>
     </div>
 </asp:Content>
-
-

@@ -9,8 +9,6 @@
 //------------------------------------------------------------------------------
 
 namespace Samples._3_Associations.Category {
-    
-    
     public partial class Edit {
         
         /// <summary>

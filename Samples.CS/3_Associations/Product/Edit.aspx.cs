@@ -1,19 +1,19 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Associations;
-using Samples.CS.Models;
+using Samples.Models;
 namespace Samples._3_Associations.Product
 {
     public partial class Edit : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,9 +23,9 @@ namespace Samples._3_Associations.Product
         // USAGE: <asp:FormView UpdateMethod="UpdateItem">
         public void UpdateItem(int  Id)
         {
-            using (_repo)
+            using (_db)
             {
-                var item = _repo.Find<Samples.Associations.Product>(Id);
+                var item = _db.Products.Find(Id);
 
                 if (item == null)
                 {
@@ -39,7 +39,7 @@ namespace Samples._3_Associations.Product
                 if (ModelState.IsValid)
                 {
                     // Save changes here
-                    _repo.SaveChanges();
+                    _db.SaveChanges();
                     Response.Redirect("../Default");
                 }
             }
@@ -54,9 +54,9 @@ namespace Samples._3_Associations.Product
                 return null;
             }
 
-            using (_repo)
+            using (_db)
             {
-                return _repo.Find<Samples.Associations.Product>(Id);
+                return _db.Products.Find(Id);
             }
         }
 

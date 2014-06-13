@@ -1,6 +1,4 @@
-﻿
-<%@ Page Title="CategoryInsert" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Insert.aspx.cs" Inherits="Samples._3_Associations.Category.Insert" %>
-
+﻿<%@ Page Title="CategoryInsert" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Insert.aspx.cs" Inherits="Samples._3_Associations.Category.Insert" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
@@ -12,7 +10,6 @@
                 <fieldset class="form-horizontal">
 				<legend>Insert Category</legend>
 		        <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
-
 						    <asp:DynamicControl Mode="Insert" DataField="Name" runat="server" />
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -25,5 +22,3 @@
         </asp:FormView>
     </div>
 </asp:Content>
-
-

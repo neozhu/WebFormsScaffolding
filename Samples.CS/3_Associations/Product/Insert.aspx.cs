@@ -1,18 +1,18 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
 using Samples.Associations;
-using Samples.CS.Models;
+using Samples.Models;
 
 namespace Samples._3_Associations.Product
 {
     public partial class Insert : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,7 +23,7 @@ namespace Samples._3_Associations.Product
         // USAGE: <asp:FormView InsertMethod="InsertItem">
         public void InsertItem()
         {
-            using (_repo)
+            using (_db)
             {
                 var item = new Samples.Associations.Product();
 
@@ -32,8 +32,8 @@ namespace Samples._3_Associations.Product
                 if (ModelState.IsValid)
                 {
                     // Save changes
-                    _repo.Add<Samples.Associations.Product>(item);
-                    _repo.SaveChanges();
+                    _db.Products.Add(item);
+                    _db.SaveChanges();
 
                     Response.Redirect("Default");
                 }

@@ -1,18 +1,17 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Samples.Validation;
-using Samples.CS.Models;
+using Samples.Models;
 
 namespace Samples._2_Validation.Book
 {
     public partial class Default : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,7 +21,7 @@ namespace Samples._2_Validation.Book
         // USAGE: <asp:ListView SelectMethod="GetData">
         public IQueryable<Samples.Validation.Book> GetData()
         {
-            return _repo.Query<Samples.Validation.Book>();
+            return _db.Books;
         }
     }
 }

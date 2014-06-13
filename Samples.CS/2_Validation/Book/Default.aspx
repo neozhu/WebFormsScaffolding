@@ -1,5 +1,4 @@
-﻿
-<%@ Page Title="BookList" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Samples._2_Validation.Book.Default" ViewStateMode="Disabled" %>
+﻿<%@ Page Title="BookList" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Samples._2_Validation.Book.Default" ViewStateMode="Disabled" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <h2>Books List</h2>

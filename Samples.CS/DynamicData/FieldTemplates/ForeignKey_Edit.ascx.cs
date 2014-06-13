@@ -6,12 +6,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Linq;
-using Samples.CS.Models;
+using Samples.Models;
 
 namespace Samples {
     public partial class ForeignKey_EditField : System.Web.DynamicData.FieldTemplateUserControl {
 
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
 		public string DataTypeName { get; set; }
 
@@ -19,17 +19,15 @@ namespace Samples {
 
 		public string DataValueField { get; set; }
 
-		
         public IQueryable GetData()
         {
-			return _repo.Query(this.DataTypeName);
+			var entityType = Type.GetType(this.DataTypeName);
+            return _db.Set(entityType).AsQueryable();
         } 
-
 
         protected void Page_Load(object sender, EventArgs e) {
 			Label1.Text = Column.DisplayName;
         }
-
 		
 		// show bootstrap has-error
 		protected void Page_PreRender(object sender, EventArgs e)

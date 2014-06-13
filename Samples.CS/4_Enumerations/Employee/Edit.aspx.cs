@@ -1,33 +1,31 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Enumerations;
-using Samples.CS.Models;
-
+using Samples.Models;
 namespace Samples._4_Enumerations.Employee
 {
     public partial class Edit : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // This is the Update methd to update the selected Employee item
         // USAGE: <asp:FormView UpdateMethod="UpdateItem">
         public void UpdateItem(Guid  Id)
         {
-            using (_repo)
+            using (_db)
             {
-                var item = _repo.Find<Samples.Enumerations.Employee>(Id);
+                var item = _db.Employees.Find(Id);
 
                 if (item == null)
                 {
@@ -41,7 +39,7 @@ namespace Samples._4_Enumerations.Employee
                 if (ModelState.IsValid)
                 {
                     // Save changes here
-                    _repo.SaveChanges();
+                    _db.SaveChanges();
                     Response.Redirect("../Default");
                 }
             }
@@ -56,9 +54,9 @@ namespace Samples._4_Enumerations.Employee
                 return null;
             }
 
-            using (_repo)
+            using (_db)
             {
-                return _repo.Find<Samples.Enumerations.Employee>(Id);
+                return _db.Employees.Find(Id);
             }
         }
 

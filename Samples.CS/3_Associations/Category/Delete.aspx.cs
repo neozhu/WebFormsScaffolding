@@ -1,38 +1,37 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Associations;
-using Samples.CS.Models;
+using Samples.Models;
 
 namespace Samples._3_Associations.Category
 {
     public partial class Delete : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // This is the Delete methd to delete the selected Category item
         // USAGE: <asp:FormView DeleteMethod="DeleteItem">
         public void DeleteItem(int Id)
         {
-            using (_repo)
+            using (_db)
             {
-                var item = _repo.Find<Samples.Associations.Category>(Id);
+                var item = _db.Categories.Find(Id);
 
                 if (item != null)
                 {
-                    _repo.Delete<Samples.Associations.Category>(Id);
-                    _repo.SaveChanges();
+                    _db.Categories.Remove(item);
+                    _db.SaveChanges();
                 }
             }
             Response.Redirect("../Default");
@@ -47,9 +46,9 @@ namespace Samples._3_Associations.Category
                 return null;
             }
 
-            using (_repo)
+            using (_db)
             {
-	            return _repo.Query<Samples.Associations.Category>().Where(m => m.Id == Id).FirstOrDefault();
+	            return _db.Categories.Where(m => m.Id == Id).FirstOrDefault();
             }
         }
 
@@ -62,6 +61,4 @@ namespace Samples._3_Associations.Category
         }
     }
 }
-
-
 

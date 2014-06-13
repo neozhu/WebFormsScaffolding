@@ -51,8 +51,7 @@ Use the Add Web Forms Pages dialog to set several important options for the scaf
 
 ![Add Web Forms Pages Dialog](/READMEImages/AddWebFormsPages.png "Add Web Forms Pages Dialog")
 
-After you click the Add button, the Web Forms Scaffolder adds a new folder that contains Default.aspx, Delete.aspx, Edit.aspx, and Insert.aspx pages. The Web Forms Scaffolder also creates a DynamicData folder that contains Field templates. Finally, the Scaffolder
-creates a GenericRepository class in the Models folder that it uses to interact with your database.
+After you click the Add button, the Web Forms Scaffolder adds a new folder that contains Default.aspx, Delete.aspx, Edit.aspx, and Insert.aspx pages.
 
 ## Working with Associated Entities
 
@@ -156,7 +155,7 @@ The Web Forms Scaffolder takes advantage of Twitter Bootstrap for styling the pa
 
 ## Samples
 
-This	 GitHub project includes a Visual Studio Project named Samples that contains three samples of the generated
+This GitHub project includes a Visual Studio Project named Samples that contains three samples of the generated
 content from the Web Forms Scaffolder:
 
 * 1_Simple - Contains sample generated content for a simple Movie class.
@@ -164,3 +163,5 @@ content from the Web Forms Scaffolder:
 * 2_Validation - Contains sample generated content for a Book class that uses validation attributes and the IValidatableObject interface.
 
 * 3_Associations - Contains sample generated content for an associated Product and Category class.
+
+* 4_Enumerations - Contains sample generated content for an Employee class that uses enumerations.

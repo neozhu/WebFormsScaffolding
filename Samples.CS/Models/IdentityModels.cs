@@ -51,6 +51,7 @@ namespace Samples.Models
 
         public System.Data.Entity.DbSet<Samples.Enumerations.Employee> Employees { get; set; }
 
+
     }
 }
 

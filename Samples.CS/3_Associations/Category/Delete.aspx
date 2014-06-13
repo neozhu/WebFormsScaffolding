@@ -1,6 +1,4 @@
-﻿
-<%@ Page Title="CategoryDelete" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Delete.aspx.cs" Inherits="Samples._3_Associations.Category.Delete" %>
-
+﻿<%@ Page Title="CategoryDelete" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Delete.aspx.cs" Inherits="Samples._3_Associations.Category.Delete" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
@@ -15,7 +13,6 @@
             <ItemTemplate>
                 <fieldset class="form-horizontal">
                     <legend>Delete Category</legend>
-
 							<div class="row">
 								<div class="col-sm-2 text-right">
 									<strong><asp:DynamicControl runat="server" DataField="Id" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
@@ -32,8 +29,6 @@
 									<asp:DynamicControl runat="server" DataField="Name" ID="Name" Mode="ReadOnly" />
 								</div>
 							</div>
-
-
                  	<div class="row">
 					  &nbsp;
 					</div>
@@ -48,5 +43,4 @@
         </asp:FormView>
     </div>
 </asp:Content>
-
 

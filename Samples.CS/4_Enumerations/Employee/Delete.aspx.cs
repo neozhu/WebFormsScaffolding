@@ -1,38 +1,37 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Enumerations;
-using Samples.CS.Models;
+using Samples.Models;
 
 namespace Samples._4_Enumerations.Employee
 {
     public partial class Delete : System.Web.UI.Page
     {
-		protected IGenericRepository _repo = new GenericRepository();
+		protected Samples.Models.ApplicationDbContext _db = new Samples.Models.ApplicationDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // This is the Delete methd to delete the selected Employee item
         // USAGE: <asp:FormView DeleteMethod="DeleteItem">
         public void DeleteItem(Guid Id)
         {
-            using (_repo)
+            using (_db)
             {
-                var item = _repo.Find<Samples.Enumerations.Employee>(Id);
+                var item = _db.Employees.Find(Id);
 
                 if (item != null)
                 {
-                    _repo.Delete<Samples.Enumerations.Employee>(Id);
-                    _repo.SaveChanges();
+                    _db.Employees.Remove(item);
+                    _db.SaveChanges();
                 }
             }
             Response.Redirect("../Default");
@@ -47,9 +46,9 @@ namespace Samples._4_Enumerations.Employee
                 return null;
             }
 
-            using (_repo)
+            using (_db)
             {
-	            return _repo.Query<Samples.Enumerations.Employee>().Where(m => m.Id == Id).FirstOrDefault();
+	            return _db.Employees.Where(m => m.Id == Id).FirstOrDefault();
             }
         }
 
@@ -62,6 +61,4 @@ namespace Samples._4_Enumerations.Employee
         }
     }
 }
-
-
 

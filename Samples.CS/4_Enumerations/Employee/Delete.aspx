@@ -1,6 +1,4 @@
-﻿
-<%@ Page Title="EmployeeDelete" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Delete.aspx.cs" Inherits="Samples._4_Enumerations.Employee.Delete" %>
-
+﻿<%@ Page Title="EmployeeDelete" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Delete.aspx.cs" Inherits="Samples._4_Enumerations.Employee.Delete" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
@@ -15,7 +13,6 @@
             <ItemTemplate>
                 <fieldset class="form-horizontal">
                     <legend>Delete Employee</legend>
-
 							<div class="row">
 								<div class="col-sm-2 text-right">
 									<strong><asp:DynamicControl runat="server" DataField="Id" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
@@ -56,8 +53,6 @@
 									<asp:DynamicControl runat="server" DataField="Region" ID="Region" Mode="ReadOnly" />
 								</div>
 							</div>
-
-
                  	<div class="row">
 					  &nbsp;
 					</div>
@@ -72,5 +67,4 @@
         </asp:FormView>
     </div>
 </asp:Content>
-
 
