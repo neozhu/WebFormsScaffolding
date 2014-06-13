@@ -9,10 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Samples._1_Simple.Movie {
-    
-    
     public partial class Default {
-        
         /// <summary>
         /// form1 control.
         /// </summary>

@@ -9,8 +9,6 @@ using System.Web.UI.WebControls;
 namespace Samples {
     public partial class BooleanField : System.Web.DynamicData.FieldTemplateUserControl {
 
-
-
         protected override void OnDataBinding(EventArgs e) {
             base.OnDataBinding(e);
     

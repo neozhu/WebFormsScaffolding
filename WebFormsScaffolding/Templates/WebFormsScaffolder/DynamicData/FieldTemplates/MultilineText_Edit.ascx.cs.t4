@@ -15,7 +15,6 @@ using System.Web.UI.WebControls;
 
 namespace <#= DefaultNamespace #> {
     public partial class MultilineText_EditField : System.Web.DynamicData.FieldTemplateUserControl {
-
 		protected void Page_Load(object sender, EventArgs e)
         {
             TextBox1.ToolTip = Column.Description;
@@ -31,7 +30,6 @@ namespace <#= DefaultNamespace #> {
 
         }
 
-    
         protected override void ExtractValues(IOrderedDictionary dictionary) {
             dictionary[Column.Name] = ConvertEditedValue(TextBox1.Text);
         }
@@ -41,6 +39,5 @@ namespace <#= DefaultNamespace #> {
                 return TextBox1;
             }
         }
-    
     }
 }

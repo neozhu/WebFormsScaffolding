@@ -9,10 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Samples {
-    
-    
     public partial class UrlField {
-        
         protected global::System.Web.UI.WebControls.HyperLink HyperLinkUrl;
     }
 }

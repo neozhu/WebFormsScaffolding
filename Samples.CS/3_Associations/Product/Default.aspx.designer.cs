@@ -9,10 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Samples._3_Associations.Product {
-    
-    
     public partial class Default {
-        
         /// <summary>
         /// form1 control.
         /// </summary>

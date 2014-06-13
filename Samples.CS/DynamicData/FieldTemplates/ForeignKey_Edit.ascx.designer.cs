@@ -9,8 +9,6 @@
 //------------------------------------------------------------------------------
 
 namespace Samples {
-    
-    
     public partial class ForeignKey_EditField {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
         protected global::System.Web.UI.WebControls.Label Label1;

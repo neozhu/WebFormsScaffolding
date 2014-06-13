@@ -21,6 +21,5 @@ namespace Samples {
                 return HyperLink1;
             }
         }
-    
     }
 }

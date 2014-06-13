@@ -1,6 +1,5 @@
 ﻿
 <%@ Page Title="BookEdit" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Edit.aspx.cs" Inherits="Samples._2_Validation.Book.Edit" %>
-
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
@@ -33,5 +32,4 @@
         </asp:FormView>
     </div>
 </asp:Content>
-
 

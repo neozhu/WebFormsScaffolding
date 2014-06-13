@@ -10,7 +10,6 @@
 
 namespace Samples {
     
-    
     public partial class ChildrenField {
         
         protected global::System.Web.UI.WebControls.HyperLink HyperLink1;

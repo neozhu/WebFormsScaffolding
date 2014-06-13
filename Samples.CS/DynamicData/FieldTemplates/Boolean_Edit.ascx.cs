@@ -15,7 +15,6 @@ namespace Samples {
 			Label1.Text = Column.DisplayName;
         }
 
-
         protected override void OnDataBinding(EventArgs e) {
             base.OnDataBinding(e);
     

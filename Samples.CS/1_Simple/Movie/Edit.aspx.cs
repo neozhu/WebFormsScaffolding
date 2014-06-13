@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,7 +8,6 @@ using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Simple;
 using Samples.CS.Models;
-
 namespace Samples._1_Simple.Movie
 {
     public partial class Edit : System.Web.UI.Page
@@ -18,7 +16,6 @@ namespace Samples._1_Simple.Movie
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // This is the Update methd to update the selected Movie item

@@ -18,6 +18,5 @@ namespace Samples {
                 return Label1;
             }
         }
-    
     }
 }

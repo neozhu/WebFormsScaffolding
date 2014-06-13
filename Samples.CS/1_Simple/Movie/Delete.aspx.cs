@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,7 +17,6 @@ namespace Samples._1_Simple.Movie
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // This is the Delete methd to delete the selected Movie item
@@ -62,6 +60,4 @@ namespace Samples._1_Simple.Movie
         }
     }
 }
-
-
 

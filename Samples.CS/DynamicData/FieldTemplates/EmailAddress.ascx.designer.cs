@@ -9,10 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Samples {
-    
-    
     public partial class EmailAddressField {
-        
         protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
     }
 }

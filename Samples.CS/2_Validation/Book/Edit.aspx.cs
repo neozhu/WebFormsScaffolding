@@ -9,7 +9,6 @@ using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Validation;
 using Samples.CS.Models;
-
 namespace Samples._2_Validation.Book
 {
     public partial class Edit : System.Web.UI.Page
@@ -18,7 +17,6 @@ namespace Samples._2_Validation.Book
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // This is the Update methd to update the selected Book item

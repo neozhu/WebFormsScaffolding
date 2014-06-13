@@ -24,7 +24,6 @@ namespace <#= DefaultNamespace #>
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // Model binding method to get List of <#=ViewDataTypeName#> entries
@@ -35,6 +34,5 @@ namespace <#= DefaultNamespace #>
         }
     }
 }
-
 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>

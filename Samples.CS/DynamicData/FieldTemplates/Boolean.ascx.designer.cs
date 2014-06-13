@@ -9,10 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Samples {
-    
-    
     public partial class BooleanField {
-        
         protected global::System.Web.UI.WebControls.CheckBox CheckBox1;
     }
 }

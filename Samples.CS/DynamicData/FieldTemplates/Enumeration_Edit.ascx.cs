@@ -21,7 +21,6 @@ namespace Samples {
                 PopulateListControl(DropDownList1);
             }
         }
-    
 			
 		// show bootstrap has-error
 		protected void Page_PreRender(object sender, EventArgs e)
@@ -30,7 +29,6 @@ namespace Samples {
             var isValid = this.Page.ModelState.IsValidField(Column.Name);
             Div1.Attributes["class"] = isValid ? "form-group" : "form-group has-error";
         }
-
 
         protected override void OnDataBinding(EventArgs e) {
             base.OnDataBinding(e);
@@ -66,6 +64,5 @@ namespace Samples {
                 return DropDownList1;
             }
         }
-    
     }
 }

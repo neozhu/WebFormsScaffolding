@@ -1,6 +1,4 @@
-﻿
-<%@ Page Title="MovieInsert" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Insert.aspx.cs" Inherits="Samples._1_Simple.Movie.Insert" %>
-
+﻿<%@ Page Title="MovieInsert" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Insert.aspx.cs" Inherits="Samples._1_Simple.Movie.Insert" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
@@ -12,7 +10,6 @@
                 <fieldset class="form-horizontal">
 				<legend>Insert Movie</legend>
 		        <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
-
 						    <asp:DynamicControl Mode="Insert" DataField="Title" runat="server" />
 						    <asp:DynamicControl Mode="Insert" DataField="Director" runat="server" />
 						    <asp:DynamicControl Mode="Insert" DataField="Comments" runat="server" />
@@ -30,5 +27,3 @@
         </asp:FormView>
     </div>
 </asp:Content>
-
-

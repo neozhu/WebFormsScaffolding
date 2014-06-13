@@ -9,8 +9,6 @@
 //------------------------------------------------------------------------------
 
 namespace Samples._2_Validation.Book {
-    
-    
     public partial class Edit {
         
         /// <summary>

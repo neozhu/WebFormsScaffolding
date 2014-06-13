@@ -15,7 +15,6 @@ namespace Samples
 			Label1.Text = Column.DisplayName;
         }
 
-
 		// show bootstrap has-error
 		protected void Page_PreRender(object sender, EventArgs e)
         {
@@ -25,8 +24,6 @@ namespace Samples
 
         }
 
-
-
         protected override void OnDataBinding(EventArgs e)
         {
             base.OnDataBinding(e);
@@ -35,8 +32,6 @@ namespace Samples
                 TextBox1.MaxLength = Math.Max(FieldValueEditString.Length, Column.MaxLength);
             }
         }
-
-
 
         protected override void ExtractValues(IOrderedDictionary dictionary)
         {
@@ -50,7 +45,5 @@ namespace Samples
                 return TextBox1;
             }
         }
-
-
     }
 }

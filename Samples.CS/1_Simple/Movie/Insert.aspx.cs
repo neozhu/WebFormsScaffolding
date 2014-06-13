@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +11,6 @@ namespace Samples._1_Simple.Movie
 {
     public partial class Insert : System.Web.UI.Page
     {
-
 		protected IGenericRepository _repo = new GenericRepository();
 
         protected void Page_Load(object sender, EventArgs e)

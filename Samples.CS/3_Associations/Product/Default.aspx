@@ -1,7 +1,6 @@
 ﻿
 <%@ Page Title="ProductList" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Samples._3_Associations.Product.Default" ViewStateMode="Disabled" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
-
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <h2>Products List</h2>
     <p>
@@ -63,6 +62,4 @@
         </asp:ListView>
     </div>
 </asp:Content>
-
-
 

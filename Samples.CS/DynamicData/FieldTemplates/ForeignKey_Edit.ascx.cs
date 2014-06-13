@@ -9,9 +9,6 @@ using System.Linq;
 using Samples.CS.Models;
 
 namespace Samples {
-
-
-
     public partial class ForeignKey_EditField : System.Web.DynamicData.FieldTemplateUserControl {
 
 		protected IGenericRepository _repo = new GenericRepository();

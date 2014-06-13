@@ -17,9 +17,6 @@ using System.Linq;
 using <#= GenericRepositoryNamespace #>;
 
 namespace <#= DefaultNamespace #> {
-
-
-
     public partial class ForeignKey_EditField : System.Web.DynamicData.FieldTemplateUserControl {
 
 		protected IGenericRepository _repo = new GenericRepository();

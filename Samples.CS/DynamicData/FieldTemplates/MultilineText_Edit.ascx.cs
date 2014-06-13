@@ -8,7 +8,6 @@ using System.Web.UI.WebControls;
 
 namespace Samples {
     public partial class MultilineText_EditField : System.Web.DynamicData.FieldTemplateUserControl {
-
 		protected void Page_Load(object sender, EventArgs e)
         {
             TextBox1.ToolTip = Column.Description;
@@ -24,7 +23,6 @@ namespace Samples {
 
         }
 
-    
         protected override void ExtractValues(IOrderedDictionary dictionary) {
             dictionary[Column.Name] = ConvertEditedValue(TextBox1.Text);
         }
@@ -34,6 +32,5 @@ namespace Samples {
                 return TextBox1;
             }
         }
-    
     }
 }

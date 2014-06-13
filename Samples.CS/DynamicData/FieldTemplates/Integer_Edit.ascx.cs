@@ -21,7 +21,6 @@ namespace Samples {
             Div1.Attributes["class"] = isValid ? "form-group" : "form-group has-error";
         }
 
-
         protected override void ExtractValues(IOrderedDictionary dictionary) {
             dictionary[Column.Name] = ConvertEditedValue(TextBox1.Text);
         }
@@ -31,6 +30,5 @@ namespace Samples {
                 return TextBox1;
             }
         }
-    
     }
 }

@@ -9,7 +9,6 @@ using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Samples.Associations;
 using Samples.CS.Models;
-
 namespace Samples._3_Associations.Product
 {
     public partial class Edit : System.Web.UI.Page
@@ -18,7 +17,6 @@ namespace Samples._3_Associations.Product
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // This is the Update methd to update the selected Product item

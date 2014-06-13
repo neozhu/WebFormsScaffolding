@@ -12,7 +12,6 @@ namespace Samples._2_Validation.Book
 {
     public partial class Insert : System.Web.UI.Page
     {
-
 		protected IGenericRepository _repo = new GenericRepository();
 
         protected void Page_Load(object sender, EventArgs e)

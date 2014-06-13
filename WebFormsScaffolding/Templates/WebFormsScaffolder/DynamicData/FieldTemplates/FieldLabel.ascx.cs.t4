@@ -25,6 +25,5 @@ namespace <#= DefaultNamespace #> {
                 return Label1;
             }
         }
-    
     }
 }

@@ -10,7 +10,6 @@
 
 namespace Samples {
     
-    
     public partial class Children_InsertField {
     }
 }

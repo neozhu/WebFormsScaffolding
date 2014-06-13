@@ -9,8 +9,6 @@
 //------------------------------------------------------------------------------
 
 namespace Samples {
-    
-    
     public partial class Enumeration_EditField {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
         protected global::System.Web.UI.WebControls.Label Label1;

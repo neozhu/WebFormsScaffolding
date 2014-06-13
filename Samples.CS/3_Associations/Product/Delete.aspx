@@ -1,6 +1,5 @@
 ﻿
 <%@ Page Title="ProductDelete" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Delete.aspx.cs" Inherits="Samples._3_Associations.Product.Delete" %>
-
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
@@ -64,5 +63,4 @@
         </asp:FormView>
     </div>
 </asp:Content>
-
 

@@ -26,7 +26,6 @@ namespace <#= DefaultNamespace #>
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // This is the Delete methd to delete the selected <#=ViewDataTypeName#> item
@@ -70,6 +69,5 @@ namespace <#= DefaultNamespace #>
         }
     }
 }
-
 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>

@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" CodeBehind="Boolean_Edit.ascx.cs" Inherits="Samples.Boolean_EditField" %>
 
- <div id="Div1" runat="server" class="form-group">
+<div id="Div1" runat="server" class="form-group">
     <div class="col-sm-offset-2 col-sm-3">
       <div class="checkbox">
         <label>
@@ -8,6 +8,6 @@
         </label>
       </div>
     </div>
-  </div>
+</div>
 
 

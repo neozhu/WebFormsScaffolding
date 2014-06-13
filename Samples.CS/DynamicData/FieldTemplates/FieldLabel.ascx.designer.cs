@@ -9,10 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Samples {
-    
-    
     public partial class FieldLabelField {
-        
         protected global::System.Web.UI.WebControls.Label Label1;
     }
 }

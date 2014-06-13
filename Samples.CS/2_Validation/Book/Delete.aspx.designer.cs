@@ -9,10 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Samples._2_Validation.Book {
-    
-    
     public partial class Delete {
-        
         /// <summary>
         /// form1 control.
         /// </summary>

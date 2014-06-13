@@ -9,10 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Samples._2_Validation.Book {
-    
-    
     public partial class Default {
-        
         /// <summary>
         /// form1 control.
         /// </summary>

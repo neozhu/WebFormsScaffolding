@@ -16,7 +16,6 @@ namespace Samples._2_Validation.Book
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // Model binding method to get List of Book entries
@@ -27,6 +26,4 @@ namespace Samples._2_Validation.Book
         }
     }
 }
-
-
 

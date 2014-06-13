@@ -18,7 +18,6 @@ namespace Samples._2_Validation.Book
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // This is the Delete methd to delete the selected Book item
@@ -62,6 +61,4 @@ namespace Samples._2_Validation.Book
         }
     }
 }
-
-
 

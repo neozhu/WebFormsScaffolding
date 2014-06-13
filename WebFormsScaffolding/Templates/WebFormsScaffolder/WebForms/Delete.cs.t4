@@ -3,17 +3,11 @@
 <#@ include file="Imports.include.t4" #>
 <# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
 <# var fullModelName = Namespace+"."+ViewDataTypeName; #>
-<#
-if(IsContentPage) {
-#>
+<# if(IsContentPage) { #>
 <%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.Delete" %>
-
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
-<#
-} else {
-#>
+<# } else { #>
 <%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.Delete" %>
-
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -42,9 +36,7 @@ if(IsContentPage) {
             <ItemTemplate>
                 <fieldset class="form-horizontal">
                     <legend>Delete <#= ViewDataTypeName #></legend>
-
-<#
-					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+<#					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
 					  if (ShouldDisplay(property)) {
 						if (property.IsForeignKey) { 
 							var relatedModel = RelatedModels[property.PropertyName];
@@ -73,8 +65,6 @@ if(IsContentPage) {
 					}
 				}
 #>
-
-
                  	<div class="row">
 					  &nbsp;
 					</div>
@@ -110,6 +100,5 @@ if(IsContentPage) {
 <#
 }
 #>
-
 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>

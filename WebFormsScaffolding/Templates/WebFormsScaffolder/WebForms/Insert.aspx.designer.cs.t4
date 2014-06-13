@@ -16,8 +16,6 @@
 //------------------------------------------------------------------------------
 
 namespace <#= DefaultNamespace #> {
-    
-    
     public partial class Insert {
         
         /// <summary>

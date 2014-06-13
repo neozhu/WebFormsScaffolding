@@ -3,21 +3,13 @@
 <#@ include file="Imports.include.t4" #>
 <# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
 <# var fullModelName = Namespace+"."+ViewDataTypeName; #>
-<#
-if(IsContentPage) {
-#>
-<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" ViewStateMode="Disabled" %>
+<# if(IsContentPage) { 
+#><%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" ViewStateMode="Disabled" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
-
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
-<#
-} else {
-#>
-<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" ViewStateMode="Disabled" %>
-
-
+<# } else { 
+#><%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" ViewStateMode="Disabled" %>
 <!DOCTYPE html>
-
 <html>
 <head runat="server">
     <title></title>
@@ -114,12 +106,10 @@ if(IsContentPage) {
 
 	<!-- Bootstrap JavaScript -->
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
 </body>
 </html>
 <#
 }
 #>
-
 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>

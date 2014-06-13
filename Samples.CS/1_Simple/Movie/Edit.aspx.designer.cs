@@ -9,8 +9,6 @@
 //------------------------------------------------------------------------------
 
 namespace Samples._1_Simple.Movie {
-    
-    
     public partial class Edit {
         
         /// <summary>

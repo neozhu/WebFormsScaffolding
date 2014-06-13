@@ -17,7 +17,6 @@
 
 namespace <#= DefaultNamespace #> {
     
-    
     public partial class Children_InsertField {
     }
 }

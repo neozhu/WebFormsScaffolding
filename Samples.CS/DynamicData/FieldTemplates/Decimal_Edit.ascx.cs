@@ -8,7 +8,6 @@ using System.Web.UI.WebControls;
 
 namespace Samples {
     public partial class Decimal_EditField : System.Web.DynamicData.FieldTemplateUserControl {
-
 		protected void Page_Load(object sender, EventArgs e) {
             TextBox1.ToolTip = Column.Description;
 			Label1.Text = Column.DisplayName;
@@ -22,7 +21,6 @@ namespace Samples {
             Div1.Attributes["class"] = isValid ? "form-group" : "form-group has-error";
         }
 
-    
         protected override void ExtractValues(IOrderedDictionary dictionary) {
             dictionary[Column.Name] = ConvertEditedValue(TextBox1.Text);
         }
@@ -32,6 +30,5 @@ namespace Samples {
                 return TextBox1;
             }
         }
-    
     }
 }

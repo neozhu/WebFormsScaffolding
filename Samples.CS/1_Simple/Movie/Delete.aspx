@@ -1,6 +1,4 @@
-﻿
-<%@ Page Title="MovieDelete" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Delete.aspx.cs" Inherits="Samples._1_Simple.Movie.Delete" %>
-
+﻿<%@ Page Title="MovieDelete" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Delete.aspx.cs" Inherits="Samples._1_Simple.Movie.Delete" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
@@ -15,7 +13,6 @@
             <ItemTemplate>
                 <fieldset class="form-horizontal">
                     <legend>Delete Movie</legend>
-
 							<div class="row">
 								<div class="col-sm-2 text-right">
 									<strong><asp:DynamicControl runat="server" DataField="Id" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
@@ -72,8 +69,6 @@
 									<asp:DynamicControl runat="server" DataField="ReleaseDate" ID="ReleaseDate" Mode="ReadOnly" />
 								</div>
 							</div>
-
-
                  	<div class="row">
 					  &nbsp;
 					</div>
@@ -88,5 +83,4 @@
         </asp:FormView>
     </div>
 </asp:Content>
-
 

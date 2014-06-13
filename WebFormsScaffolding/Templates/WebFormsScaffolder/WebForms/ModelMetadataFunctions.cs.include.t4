@@ -1,5 +1,4 @@
-﻿
-<#+
+﻿<#+
 
 // Should you be able to edit the property?
 // Used by Insert, Edit forms to decide which properties to edit
@@ -10,14 +9,12 @@ bool ShouldEdit(PropertyMetadata property) {
 		&& !property.IsAssociation;
 }
 
-
 // Should display the property?
 // Used by Default, Delete forms to decide which properties to display
 bool ShouldDisplay(PropertyMetadata property) {
 	return property.Scaffold 
 		&& !property.IsAssociation;
 }
-
 
 // This will return the primary key property name, if and only if there is exactly
 // one primary key. Returns null if there is no PK, or the PK is composite.
@@ -32,5 +29,4 @@ string GetIncludeExpressions() {
 	var includeExpressions = "";
 	return String.Join("", relatedProperties.Values.Select(property => String.Format(".Include(m => m.{0})", property.AssociationPropertyName)));
 }
-
 #>
