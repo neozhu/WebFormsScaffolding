@@ -37,14 +37,6 @@
 									<asp:DynamicControl runat="server" DataField="Price" ID="Price" Mode="ReadOnly" />
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-sm-2 text-right">
-									<strong><asp:DynamicControl runat="server" DataField="CategoryId" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
-								</div>
-								<div class="col-sm-2">
-									<%#: Item.Category.Name %>
-								</div>
-							</div>
                  	<div class="row">
 					  &nbsp;
 					</div>

@@ -27,9 +27,6 @@
                             <th>
 								<asp:DynamicControl runat="server" DataField="Price" Mode="ReadOnly" UIHint="FieldLabel" />
 							</th>
-                            <th>
-								<asp:DynamicControl runat="server" DataField="CategoryId" Mode="ReadOnly" UIHint="FieldLabel" />
-							</th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
@@ -48,9 +45,6 @@
 							</td>
 							<td>
 								<asp:DynamicControl runat="server" DataField="Price" ID="Price" Mode="ReadOnly" />
-							</td>
-							<td>
-								<%#: Item.Category.Name %>
 							</td>
                     <td>
 					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/3_Associations/Product/Edit", Item.Id) %>' Text="Edit" /> | 

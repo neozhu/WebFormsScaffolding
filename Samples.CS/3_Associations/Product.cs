@@ -17,7 +17,7 @@ namespace Samples.Associations
 
         // The CategoryId property is scaffolded. It's what
         // gets set in the DropDownList.
-        [Display(Name="Category")]
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
 

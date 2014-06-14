@@ -48,7 +48,7 @@ namespace Samples._3_Associations.Product
 
             using (_db)
             {
-	            return _db.Products.Where(m => m.Id == Id).Include(m => m.Category).FirstOrDefault();
+	            return _db.Products.Where(m => m.Id == Id).FirstOrDefault();
             }
         }
 

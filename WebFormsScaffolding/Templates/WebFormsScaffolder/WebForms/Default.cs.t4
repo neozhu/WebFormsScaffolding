@@ -30,9 +30,8 @@
     </p>
     <div>
         <asp:ListView runat="server"
-            DataKeyNames="<#= PrimaryKeyName #>" ItemType="<#=fullModelName#>"
-            AutoGenerateColumns="false"
-            AllowPaging="true" AllowSorting="true"
+            DataKeyNames="<#= PrimaryKeyName #>" 
+			ItemType="<#=fullModelName#>"
             SelectMethod="GetData">
             <EmptyDataTemplate>
                 There are no entries found for <#= PluralizedName #>
