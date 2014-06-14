@@ -10,7 +10,7 @@ namespace Samples {
     public partial class Enumeration_EditField : System.Web.DynamicData.FieldTemplateUserControl {
         private Type _enumType;
     
-        protected void Page_Load(object sender, EventArgs e) {
+        protected void Page_Init(object sender, EventArgs e) {
 			Label1.Text = Column.DisplayName;
             DropDownList1.ToolTip = Column.Description;
     

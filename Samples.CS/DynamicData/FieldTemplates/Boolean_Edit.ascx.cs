@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 namespace Samples {
     public partial class Boolean_EditField : System.Web.DynamicData.FieldTemplateUserControl {
 
-		protected void Page_Load(object sender, EventArgs e)
+		protected void Page_Init(object sender, EventArgs e)
         {
             CheckBox1.ToolTip = Column.Description;
 			Label1.Text = Column.DisplayName;
