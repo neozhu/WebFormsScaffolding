@@ -7,9 +7,8 @@
     </p>
     <div>
         <asp:ListView runat="server"
-            DataKeyNames="Id" ItemType="Samples.Enumerations.Employee"
-            AutoGenerateColumns="false"
-            AllowPaging="true" AllowSorting="true"
+            DataKeyNames="Id" 
+			ItemType="Samples.Enumerations.Employee"
             SelectMethod="GetData">
             <EmptyDataTemplate>
                 There are no entries found for Employees

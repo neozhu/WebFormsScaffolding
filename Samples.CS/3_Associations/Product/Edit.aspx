@@ -15,6 +15,12 @@
 					<asp:ValidationSummary runat="server" CssClass="alert alert-danger"  />                 
 						    <asp:DynamicControl Mode="Edit" DataField="Name" runat="server" />
 						    <asp:DynamicControl Mode="Edit" DataField="Price" runat="server" />
+							<asp:DynamicControl Mode="Edit" 
+								DataField="CategoryId" 
+								DataTypeName="Samples.Associations.Category" 
+								DataTextField="Name" 
+								DataValueField="Id" 
+								UIHint="ForeignKey" runat="server" />
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
 							<asp:Button runat="server" ID="UpdateButton" CommandName="Update" Text="Update" CssClass="btn btn-primary" />

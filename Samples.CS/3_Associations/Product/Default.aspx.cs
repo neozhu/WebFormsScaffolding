@@ -22,7 +22,7 @@ namespace Samples._3_Associations.Product
         // USAGE: <asp:ListView SelectMethod="GetData">
         public IQueryable<Samples.Associations.Product> GetData()
         {
-            return _db.Products;
+            return _db.Products.Include(m => m.Category);
         }
     }
 }

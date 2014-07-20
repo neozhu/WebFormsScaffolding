@@ -6,7 +6,7 @@
         <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
     </p>
     <div>
-        <asp:ListView runat="server"
+        <asp:ListView ID="ListView1" runat="server"
             DataKeyNames="Id" 
 			ItemType="Samples.Simple.Movie"
             SelectMethod="GetData">
@@ -76,6 +76,12 @@
                 </tr>
             </ItemTemplate>
         </asp:ListView>
+				<asp:DataPager PageSize="2" runat="server" PagedControlID="ListView1">
+                    <Fields>
+                        <asp:NumericPagerField ButtonType="Link" />
+                    </Fields>
+                </asp:DataPager>
+        
     </div>
 </asp:Content>
 

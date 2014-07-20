@@ -29,7 +29,7 @@
         <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
     </p>
     <div>
-        <asp:ListView runat="server"
+        <asp:ListView id="ListView1" runat="server"
             DataKeyNames="<#= PrimaryKeyName #>" 
 			ItemType="<#=fullModelName#>"
             SelectMethod="GetData">
@@ -58,6 +58,11 @@
                         <tr runat="server" id="itemPlaceholder" />
                     </tbody>
                 </table>
+				<asp:DataPager PageSize="5" runat="server">
+					<fields>
+						<asp:NumericPagerField ButtonType="Link" />
+					</fields>
+				</asp:DataPager>
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>

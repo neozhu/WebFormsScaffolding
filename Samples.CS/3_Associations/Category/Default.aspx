@@ -7,9 +7,8 @@
     </p>
     <div>
         <asp:ListView runat="server"
-            DataKeyNames="Id" ItemType="Samples.Associations.Category"
-            AutoGenerateColumns="false"
-            AllowPaging="true" AllowSorting="true"
+            DataKeyNames="Id" 
+			ItemType="Samples.Associations.Category"
             SelectMethod="GetData">
             <EmptyDataTemplate>
                 There are no entries found for Categories

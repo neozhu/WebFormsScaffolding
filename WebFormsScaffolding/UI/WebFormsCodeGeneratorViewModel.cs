@@ -370,8 +370,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
             get
             {
                 var project = _context.ActiveProject;
-
-                return String.Format(CultureInfo.InvariantCulture, "{0}.Models.{1}Context", project.GetDefaultNamespace(), project.Name);
+                var dataContextName = project.Name.Replace(".", String.Empty);
+                return String.Format(CultureInfo.InvariantCulture, "{0}.Models.{1}Context", project.GetDefaultNamespace(), dataContextName);
             }
         }
 

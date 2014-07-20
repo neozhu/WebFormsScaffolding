@@ -12,6 +12,12 @@
 		        <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
 						    <asp:DynamicControl Mode="Insert" DataField="Name" runat="server" />
 						    <asp:DynamicControl Mode="Insert" DataField="Price" runat="server" />
+							<asp:DynamicControl Mode="Insert" 
+								DataField="CategoryId" 
+								DataTypeName="Samples.Associations.Category" 
+								DataTextField="Name" 
+								DataValueField="Id" 
+								UIHint="ForeignKey" runat="server" />
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <asp:Button runat="server" ID="InsertButton" CommandName="Insert" Text="Insert" CssClass="btn btn-primary" />

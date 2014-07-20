@@ -117,17 +117,18 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             // Get Model Type
             var modelType = codeGeneratorViewModel.ModelType.CodeType;
 
-            // Get the dbContext
+            // Ensure the Data Context
             string dbContextTypeName = codeGeneratorViewModel.DbContextModelType.TypeName;
+            IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
+            ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
+
+
+            // Get the dbContext
             ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
             CodeType dbContext = codeTypeService.GetCodeType(project, dbContextTypeName);
 
             // Get the dbContext namespace
             string dbContextNamespace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
-
-            // Get the Entity Framework Meta Data
-            IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
-            ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
 
             // Ensure the Dynamic Data Field templates
             EnsureDynamicDataFieldTemplates(project, dbContextNamespace, dbContextTypeName);

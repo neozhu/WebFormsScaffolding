@@ -1,0 +1,30 @@
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="vb" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+Public Partial Class TextField
+	Inherits System.Web.DynamicData.FieldTemplateUserControl
+	Private Const MAX_DISPLAYLENGTH_IN_LIST As Integer = 25
+
+	Public Overrides ReadOnly Property FieldValueString() As String
+		Get
+			Dim value As String = MyBase.FieldValueString
+			If ContainerType = ContainerType.List Then
+				If value IsNot Nothing AndAlso value.Length > MAX_DISPLAYLENGTH_IN_LIST Then
+					value = value.Substring(0, MAX_DISPLAYLENGTH_IN_LIST - 3) + "..."
+				End If
+			End If
+			Return value
+		End Get
+	End Property
+
+	Public Overrides ReadOnly Property DataControl() As Control
+		Get
+			Return Literal1
+		End Get
+	End Property
+
+End Class
