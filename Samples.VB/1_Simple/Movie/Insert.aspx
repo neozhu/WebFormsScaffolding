@@ -1,5 +1,4 @@
-﻿
-<%@ Page Title="MovieInsert" Language="VB" MasterPageFile="~/Site.Master" CodeBehind="Insert.aspx.vb" Inherits="Samples.Insert" %>
+﻿<%@ Page Title="MovieInsert" Language="VB" MasterPageFile="~/Site.Master" CodeBehind="Insert.aspx.vb" Inherits="Samples.Insert" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>

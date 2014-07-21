@@ -305,32 +305,40 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     templateName: templatePath,
                     templateParameters: new Dictionary<string, object>() 
                     {
-                        {"RelativePath", relativePath},
-                        {"DefaultNamespace", defaultNamespace},
-                        {"FolderNamespace", folderNamespace},
-                        {"Namespace", modelNameSpace},
-                        {"IsContentPage", useMasterPage},
-                        {"MasterPageFile", masterPage},
-                        {"SectionNames", sectionNames},
-                        {"PrimarySectionName", primarySectionName},
-                        {"PrimaryKeyMetadata", primaryKey},
-                        {"PrimaryKeyName", primaryKey.PropertyName},
-                        {"PrimaryKeyType", primaryKey.ShortTypeName},
-                        {"ViewDataType", modelType},
-                        {"ViewDataTypeName", modelType.Name},
+                        {"IsContentPage", useMasterPage}, // does this page have a master page?
+                        {"MasterPageFile", masterPage}, // master page associated with this page
+                        {"PrimarySectionName", primarySectionName}, // the main content section of a master page
+                        
+                        {"ModelName", modelType.Name}, // singular model name (e.g., Movie)
+                        {"FullModelName", modelType.FullName}, // singular model name with namespace (e.g., Samples.Movie)
+                        {"PluralizedModelName", pluralizedName}, // the plural model name (e.g. Movies)
+                        {"ModelMetadata", efMetadata}, // the EF meta date for the model
+                        {"RelatedModels", relatedModels}, // models related by association to the model
+
+                        {"DefaultNamespace", defaultNamespace}, // the default namespace of the project (used by VB)
+                        {"FolderNamespace", folderNamespace}, // the namespace of the current folder (used by C#)
+                        {"ModelNamespace", modelNameSpace}, // the namespace of the model (e.g., Samples.Models)                        
+                        {"CodeBesideName", codeBesideName}, // the Web Forms code beside class name (e.g., _Default)
+                        {"PrimaryKeyName", primaryKey.PropertyName}, // primary key of model (e.g., Id)
+                        {"PrimaryKeyType", primaryKey.ShortTypeName}, // short primary key type name (e.g., string)
+
+                        {"RelativePath", relativePath}, // relative path of current page (e.g., /samples/movie)
+
                         {"DbContextNamespace", dbContextNamespace},
-                        {"DbContextTypeName", dbContextTypeName},
-                        {"PluralizedName", pluralizedName},
-                        {"ModelMetadata", efMetadata},
-                        {"RelatedModels", relatedModels},
-                        {"CodeBesideName", codeBesideName}
+                        {"DbContextTypeName", dbContextTypeName}
+ 
+                        //{"SectionNames", sectionNames},
+                        //{"PrimaryKeyMetadata", primaryKey},
+                        //{"ViewDataType", modelType},
                     },
                     skipIfExists: !overwrite);
             }
 
         }
 
-
+        // VB, unlike C#, does not namespace by folder. For this reason, we must generate a unique
+        // code-beside name for each VB Web Form class. For example, there cannot be more than one
+        // Insert class in the same VB project. Instead, we need Insert, Insert1, Insert2, ...
         private string GetUniqueCodeBesideName(Project project, string originalName)
         {
             // In VB, rename Default to _Default (because Default is a keyword)

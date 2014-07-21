@@ -1,13 +1,11 @@
 <#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="aspx" #>
 <#@ include file="Imports.include.t4" #>
-<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
-<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
 <# if(IsContentPage) { #>
-<%@ Page Title="<#= ViewDataTypeName #>Insert" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Insert.aspx.cs" Inherits="<#= DefaultNamespace #>.Insert" %>
+<%@ Page Title="<#= ModelName #>Insert" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Insert.aspx.cs" Inherits="<#= FolderNamespace #>.Insert" %>
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
 <# } else { #>
-<%@ Page Title="<#= ViewDataTypeName #>Insert" Language="C#" CodeBehind="Insert.aspx.cs" Inherits="<#= DefaultNamespace #>.Insert" %>
+<%@ Page Title="<#= ModelName #>Insert" Language="C#" CodeBehind="Insert.aspx.cs" Inherits="<#= FolderNamespace #>.Insert" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -26,12 +24,12 @@
     <div>
 		<p>&nbsp;</p>
         <asp:FormView runat="server"
-            ItemType="<#=fullModelName#>" DefaultMode="Insert"
+            ItemType="<#=FullModelName#>" DefaultMode="Insert"
             InsertItemPosition="FirstItem" InsertMethod="InsertItem"
             OnItemCommand="ItemCommand" RenderOuterTable="false">
             <InsertItemTemplate>
                 <fieldset class="form-horizontal">
-				<legend>Insert <#= ViewDataTypeName #></legend>
+				<legend>Insert <#= ModelName #></legend>
 		        <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
 <# 					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
 					  if (ShouldEdit(property)) {

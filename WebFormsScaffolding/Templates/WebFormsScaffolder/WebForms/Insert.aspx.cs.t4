@@ -1,8 +1,6 @@
 ﻿<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="cs" #>
 <#@ include file="Imports.include.t4" #>
-<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
-<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +8,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
-<# if(!string.IsNullOrEmpty(Namespace)) { #>
-using <#= Namespace #>;
+<# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
+using <#= ModelNamespace #>;
 <# } #>
-<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != Namespace)) { #>
+<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != ModelNamespace)) { #>
 using <#= DbContextNamespace #>;
 <# } #>
 
-namespace <#= DefaultNamespace #>
+namespace <#= FolderNamespace #>
 {
     public partial class Insert : System.Web.UI.Page
     {
@@ -28,20 +26,20 @@ namespace <#= DefaultNamespace #>
 
         }
 
-        // This is the Insert method to insert the entered <#=ViewDataTypeName#> item
+        // This is the Insert method to insert the entered <#=ModelName#> item
         // USAGE: <asp:FormView InsertMethod="InsertItem">
         public void InsertItem()
         {
             using (_db)
             {
-                var item = new <#=fullModelName#>();
+                var item = new <#=FullModelName#>();
 
                 TryUpdateModel(item);
 
                 if (ModelState.IsValid)
                 {
                     // Save changes
-                    _db.<#=PluralizedName #>.Add(item);
+                    _db.<#=PluralizedModelName #>.Add(item);
                     _db.SaveChanges();
 
                     Response.Redirect("Default");

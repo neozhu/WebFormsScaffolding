@@ -9,17 +9,17 @@ Public Partial Class Insert
 
 	End Sub
 
-	' This is the Insert method to insert the entered <#=ViewDataTypeName#> item
+	' This is the Insert method to insert the entered <#=ModelName#> item
 	' USAGE: <asp:FormView InsertMethod="InsertItem">
 	Public Sub InsertItem()
 		Using _db
-			Dim item = New <#=fullModelName#>()
+			Dim item = New <#=FullModelName#>()
 
 			TryUpdateModel(item)
 
 			If ModelState.IsValid Then
 				' Save changes
-				_db.<#=PluralizedName#>.Add(item)
+				_db.<#=PluralizedModelName#>.Add(item)
 				_db.SaveChanges()
 
 				Response.Redirect("Default")

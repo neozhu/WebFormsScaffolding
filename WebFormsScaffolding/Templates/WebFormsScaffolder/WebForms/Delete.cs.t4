@@ -1,13 +1,11 @@
 <#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="aspx" #>
 <#@ include file="Imports.include.t4" #>
-<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
-<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
 <# if(IsContentPage) { #>
-<%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.Delete" %>
+<%@ Page Title="<#= ModelName #>Delete" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Delete.aspx.cs" Inherits="<#= FolderNamespace #>.Delete" %>
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
 <# } else { #>
-<%@ Page Title="<#= ViewDataTypeName #>Delete" Language="C#" CodeBehind="Delete.aspx.cs" Inherits="<#= DefaultNamespace #>.Delete" %>
+<%@ Page Title="<#= ModelName #>Delete" Language="C#" CodeBehind="Delete.aspx.cs" Inherits="<#= FolderNamespace #>.Delete" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -25,17 +23,17 @@
 #>
     <div>
 		<p>&nbsp;</p>
-        <h3>Are you sure want to delete this <#= ViewDataTypeName #>?</h3>
+        <h3>Are you sure want to delete this <#= ModelName #>?</h3>
         <asp:FormView runat="server"
-            ItemType="<#=fullModelName#>" DataKeyNames="<#= PrimaryKeyName #>"
+            ItemType="<#=FullModelName#>" DataKeyNames="<#= PrimaryKeyName #>"
             DeleteMethod="DeleteItem" SelectMethod="GetItem"
             OnItemCommand="ItemCommand" RenderOuterTable="false">
             <EmptyDataTemplate>
-                Cannot find the <#= ViewDataTypeName #> with <#= PrimaryKeyName #> <%: Request.QueryString["<#= PrimaryKeyName #>"] %>
+                Cannot find the <#= ModelName #> with <#= PrimaryKeyName #> <%: Request.QueryString["<#= PrimaryKeyName #>"] %>
             </EmptyDataTemplate>
             <ItemTemplate>
                 <fieldset class="form-horizontal">
-                    <legend>Delete <#= ViewDataTypeName #></legend>
+                    <legend>Delete <#= ModelName #></legend>
 <#					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
 					  if (ShouldDisplay(property)) {
 						if (property.IsForeignKey) { 

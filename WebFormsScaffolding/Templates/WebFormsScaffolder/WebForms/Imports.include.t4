@@ -14,22 +14,20 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
 <#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
-<#@ parameter type="System.String" name="RelativePath" #>
-<#@ parameter type="System.String" name="DefaultNamespace" #>
-<#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.Boolean" name="IsContentPage" #>
 <#@ parameter type="System.String" name="MasterPageFile" #>
-<#@ parameter type="System.Array" name="SectionNames" #>
 <#@ parameter type="System.String" name="PrimarySectionName" #>
-<#@ parameter type="System.String" name="PrimaryKeyName" #>
-<#@ parameter type="System.String" name="PrimaryKeyType" #>
-<#@ parameter type="System.MarshalByRefObject" name="ViewDataType" #>
-<#@ parameter type="System.String" name="ViewDataTypeName" #>
-<#@ parameter type="System.String" name="DbContextNamespace" #>
-<#@ parameter type="System.String" name="DbContextTypeName" #>
-<#@ parameter type="System.String" name="PluralizedName" #>
+<#@ parameter type="System.String" name="ModelName" #>
+<#@ parameter type="System.String" name="FullModelName" #>
+<#@ parameter type="System.String" name="PluralizedModelName" #>
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.RelatedModelMetadata>" name="RelatedModels" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<#@ parameter type="System.String" name="FolderNamespace" #>
+<#@ parameter type="System.String" name="ModelNamespace" #>
 <#@ parameter type="System.String" name="CodeBesideName" #>
-<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
-<# var fullModelName = Namespace != String.Empty ? Namespace+ "." + ViewDataTypeName : ViewDataTypeName; #>
+<#@ parameter type="System.String" name="PrimaryKeyName" #>
+<#@ parameter type="System.String" name="PrimaryKeyType" #>
+<#@ parameter type="System.String" name="RelativePath" #>
+<#@ parameter type="System.String" name="DbContextNamespace" #>
+<#@ parameter type="System.String" name="DbContextTypeName" #>

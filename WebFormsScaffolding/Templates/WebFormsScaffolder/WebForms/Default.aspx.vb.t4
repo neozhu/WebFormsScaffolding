@@ -3,15 +3,16 @@
 <#@ include file="Imports.include.t4" #>
 Public Partial Class <#=CodeBesideName#>
 	Inherits System.Web.UI.Page
+
 	Protected _db As New <#=DbContextTypeName #>()
 
 	Protected Sub Page_Load(sender As Object, e As EventArgs)
 	End Sub
 
-	' Model binding method to get List of <#=ViewDataTypeName#> entries
+	' Model binding method to get List of <#=ModelName#> entries
 	' USAGE: <asp:ListView SelectMethod="GetData">
-	Public Function GetData() As IQueryable(Of <#=fullModelName#>)
-		Return _db.<#=PluralizedName #><#=GetIncludeExpressions() #>
+	Public Function GetData() As IQueryable(Of <#=FullModelName#>)
+		Return _db.<#=PluralizedModelName #><#=GetIncludeExpressions() #>
 	End Function
 End Class
 

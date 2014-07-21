@@ -1,1 +1,52 @@
-﻿' ToDo
+﻿<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ include file="Imports.include.t4" #>
+<# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
+using <#= ModelNamespace #>;
+<# } #>
+<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != ModelNamespace)) { #>
+using <#= DbContextNamespace #>;
+<# } #>
+
+Public Partial Class Delete
+	Inherits System.Web.UI.Page
+
+	Protected _db As New <#=DbContextTypeName#>()
+
+	Protected Sub Page_Load(sender As Object, e As EventArgs)
+	End Sub
+
+	' This is the Delete method to delete the selected <#=ModelName#> item
+	' USAGE: <asp:FormView DeleteMethod="DeleteItem">
+	Public Sub DeleteItem(<#=PrimaryKeyName#> As <#=PrimaryKeyType#>)
+		Using _db
+			Dim item = _db.<#=PluralizedModelName#>.Find(<#=PrimaryKeyName#>)
+
+			If item IsNot Nothing Then
+				_db.<#=PluralizedModelName#>.Remove(item)
+				_db.SaveChanges()
+			End If
+		End Using
+		Response.Redirect("../Default")
+	End Sub
+
+	' This is the Select methd to selects a single <#=ModelName#> item with the id
+	' USAGE: <asp:FormView SelectMethod="GetItem">
+	Public Function GetItem(<FriendlyUrlSegmentsAttribute(0)> <#=PrimaryKeyName#> As System.Nullable(Of <#=PrimaryKeyType#>)) As <#=FullModelName#>
+		If <#=PrimaryKeyName#> Is Nothing Then
+			Return Nothing
+		End If
+
+		Using _db
+			Return _db.<#=PluralizedModelName#>.Where(Function(m) m.<#=PrimaryKeyName#> = <#=PrimaryKeyName#>).GetIncludeExpressions().FirstOrDefault()
+		End Using
+	End Function
+
+	Protected Sub ItemCommand(sender As Object, e As FormViewCommandEventArgs)
+		If e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase) Then
+			Response.Redirect("../Default")
+		End If
+	End Sub
+End Class
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

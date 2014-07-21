@@ -8,14 +8,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
-<# if(!string.IsNullOrEmpty(Namespace)) { #>
-using <#= Namespace #>;
+<# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
+using <#= ModelNamespace #>;
 <# } #>
-<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != Namespace)) { #>
+<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != ModelNamespace)) { #>
 using <#= DbContextNamespace #>;
 <# } #>
 
-namespace <#= DefaultNamespace #>
+namespace <#= FolderNamespace #>
 {
     public partial class Default : System.Web.UI.Page
     {
@@ -25,11 +25,11 @@ namespace <#= DefaultNamespace #>
         {
         }
 
-        // Model binding method to get List of <#=ViewDataTypeName#> entries
+        // Model binding method to get List of <#=ModelName#> entries
         // USAGE: <asp:ListView SelectMethod="GetData">
-        public IQueryable<<#=fullModelName#>> GetData()
+        public IQueryable<<#=FullModelName#>> GetData()
         {
-            return _db.<#=PluralizedName #><#=GetIncludeExpressions() #>;
+            return _db.<#=PluralizedModelName #><#=GetIncludeExpressions() #>;
         }
     }
 }

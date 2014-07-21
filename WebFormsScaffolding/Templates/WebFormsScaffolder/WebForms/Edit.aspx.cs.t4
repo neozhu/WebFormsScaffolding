@@ -1,8 +1,6 @@
 ﻿<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="cs" #>
 <#@ include file="Imports.include.t4" #>
-<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
-<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +10,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
-<# if(!string.IsNullOrEmpty(Namespace)) { #>
-using <#= Namespace #>;
+<# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
+using <#= ModelNamespace #>;
 <# } #>
-<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != Namespace)) { #>
+<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != ModelNamespace)) { #>
 using <#= DbContextNamespace #>;
 <# } #>
-namespace <#= DefaultNamespace #>
+namespace <#= FolderNamespace #>
 {
     public partial class Edit : System.Web.UI.Page
     {
@@ -28,13 +26,13 @@ namespace <#= DefaultNamespace #>
         {
         }
 
-        // This is the Update methd to update the selected <#=ViewDataTypeName#> item
+        // This is the Update methd to update the selected <#=ModelName#> item
         // USAGE: <asp:FormView UpdateMethod="UpdateItem">
         public void UpdateItem(<#= PrimaryKeyType #>  <#= PrimaryKeyName #>)
         {
             using (_db)
             {
-                var item = _db.<#=PluralizedName #>.Find(<#= PrimaryKeyName #>);
+                var item = _db.<#=PluralizedModelName #>.Find(<#= PrimaryKeyName #>);
 
                 if (item == null)
                 {
@@ -54,9 +52,9 @@ namespace <#= DefaultNamespace #>
             }
         }
 
-        // This is the Select method to selects a single <#=ViewDataTypeName#> item with the id
+        // This is the Select method to selects a single <#=ModelName#> item with the id
         // USAGE: <asp:FormView SelectMethod="GetItem">
-        public <#=fullModelName#> GetItem([FriendlyUrlSegmentsAttribute(0)]<#=PrimaryKeyType#>? <#= PrimaryKeyName #>)
+        public <#=FullModelName#> GetItem([FriendlyUrlSegmentsAttribute(0)]<#=PrimaryKeyType#>? <#= PrimaryKeyName #>)
         {
             if (<#= PrimaryKeyName #> == null)
             {
@@ -65,7 +63,7 @@ namespace <#= DefaultNamespace #>
 
             using (_db)
             {
-                return _db.<#=PluralizedName #>.Find(<#= PrimaryKeyName #>);
+                return _db.<#=PluralizedModelName #>.Find(<#= PrimaryKeyName #>);
             }
         }
 

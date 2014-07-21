@@ -2,11 +2,11 @@
 <#@ Output Extension="aspx" #>
 <#@ include file="Imports.include.t4" #>
 <# if(IsContentPage) { 
-#><%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" %>
+#><%@ Page Title="<#= ModelName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= FolderNamespace #>.Default" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
 <# } else { 
-#><%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" %>
+#><%@ Page Title="<#= ModelName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#= FolderNamespace #>.Default" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -22,17 +22,17 @@
     PushIndent("    ");
 }
 #>
-    <h2><#= PluralizedName #> List</h2>
+    <h2><#= PluralizedModelName #> List</h2>
     <p>
         <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
     </p>
     <div>
         <asp:ListView id="ListView1" runat="server"
             DataKeyNames="<#= PrimaryKeyName #>" 
-			ItemType="<#=fullModelName#>"
+			ItemType="<#=FullModelName#>"
             SelectMethod="GetData">
             <EmptyDataTemplate>
-                There are no entries found for <#= PluralizedName #>
+                There are no entries found for <#= PluralizedModelName #>
             </EmptyDataTemplate>
             <LayoutTemplate>
                 <table class="table">

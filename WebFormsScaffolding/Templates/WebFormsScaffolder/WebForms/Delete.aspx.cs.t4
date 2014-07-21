@@ -1,8 +1,6 @@
 ﻿<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="cs" #>
 <#@ include file="Imports.include.t4" #>
-<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
-<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +10,14 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
-<# if(!string.IsNullOrEmpty(Namespace)) { #>
-using <#= Namespace #>;
+<# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
+using <#= ModelNamespace #>;
 <# } #>
-<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != Namespace)) { #>
+<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != ModelNamespace)) { #>
 using <#= DbContextNamespace #>;
 <# } #>
 
-namespace <#= DefaultNamespace #>
+namespace <#= FolderNamespace #>
 {
     public partial class Delete : System.Web.UI.Page
     {
@@ -29,26 +27,26 @@ namespace <#= DefaultNamespace #>
         {
         }
 
-        // This is the Delete methd to delete the selected <#=ViewDataTypeName#> item
+        // This is the Delete methd to delete the selected <#=ModelName#> item
         // USAGE: <asp:FormView DeleteMethod="DeleteItem">
         public void DeleteItem(<#= PrimaryKeyType #> <#= PrimaryKeyName #>)
         {
             using (_db)
             {
-                var item = _db.<#=PluralizedName#>.Find(<#= PrimaryKeyName #>);
+                var item = _db.<#=PluralizedModelName#>.Find(<#= PrimaryKeyName #>);
 
                 if (item != null)
                 {
-                    _db.<#=PluralizedName#>.Remove(item);
+                    _db.<#=PluralizedModelName#>.Remove(item);
                     _db.SaveChanges();
                 }
             }
             Response.Redirect("../Default");
         }
 
-        // This is the Select methd to selects a single <#=ViewDataTypeName#> item with the id
+        // This is the Select methd to selects a single <#=ModelName#> item with the id
         // USAGE: <asp:FormView SelectMethod="GetItem">
-        public <#= fullModelName#> GetItem([FriendlyUrlSegmentsAttribute(0)]<#=PrimaryKeyType#>? <#= PrimaryKeyName #>)
+        public <#= FullModelName#> GetItem([FriendlyUrlSegmentsAttribute(0)]<#=PrimaryKeyType#>? <#= PrimaryKeyName #>)
         {
             if (<#= PrimaryKeyName #> == null)
             {
@@ -57,7 +55,7 @@ namespace <#= DefaultNamespace #>
 
             using (_db)
             {
-	            return _db.<#=PluralizedName #>.Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=GetIncludeExpressions() #>.FirstOrDefault();
+	            return _db.<#=PluralizedModelName #>.Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=GetIncludeExpressions() #>.FirstOrDefault();
             }
         }
 

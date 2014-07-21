@@ -1,5 +1,4 @@
-﻿
-Public Partial Class Insert
+﻿Public Partial Class Insert
 	Inherits System.Web.UI.Page
 	Protected _db As New Samples.ApplicationDbContext()
 
@@ -11,7 +10,7 @@ Public Partial Class Insert
 	' USAGE: <asp:FormView InsertMethod="InsertItem">
 	Public Sub InsertItem()
 		Using _db
-			Dim item = New Movie()
+			Dim item = New Samples.Movie()
 
 			TryUpdateModel(item)
 
