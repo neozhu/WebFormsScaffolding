@@ -55,7 +55,7 @@ namespace <#= FolderNamespace #>
 
             using (_db)
             {
-	            return _db.<#=PluralizedModelName #>.Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=GetIncludeExpressions() #>.FirstOrDefault();
+	            return _db.<#=PluralizedModelName #>.Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=GetIncludeExpressionsCS() #>.FirstOrDefault();
             }
         }
 

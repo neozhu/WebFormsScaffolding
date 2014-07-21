@@ -1,4 +1,4 @@
-﻿<%@ Page Title="ProductList" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Samples._3_Associations.Product.Default" ViewStateMode="Disabled" %>
+﻿<%@ Page Title="ProductList" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Samples._3_Associations.Product.Default" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <h2>Products List</h2>
@@ -6,7 +6,7 @@
         <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
     </p>
     <div>
-        <asp:ListView runat="server"
+        <asp:ListView id="ListView1" runat="server"
             DataKeyNames="Id" 
 			ItemType="Samples.Associations.Product"
             SelectMethod="GetData">
@@ -36,6 +36,11 @@
                         <tr runat="server" id="itemPlaceholder" />
                     </tbody>
                 </table>
+				<asp:DataPager PageSize="5" runat="server">
+					<fields>
+						<asp:NumericPagerField ButtonType="Link" />
+					</fields>
+				</asp:DataPager>
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>

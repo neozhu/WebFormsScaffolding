@@ -26,12 +26,17 @@ Public Class ApplicationDbContext
     Inherits IdentityDbContext(Of ApplicationUser)
     Public Sub New()
         MyBase.New("DefaultConnection", throwIfV1Schema:=False)
+        Entity.Database.SetInitializer(New DatabaseInitializer())
     End Sub
     
     Public Shared Function Create As ApplicationDbContext
         Return New ApplicationDbContext()
     End Function    
     Public Property Movies As System.Data.Entity.DbSet(Of Movie)
+    Public Property Books As System.Data.Entity.DbSet(Of Book)
+    Public Property Categories As System.Data.Entity.DbSet(Of Category)
+    Public Property Products As System.Data.Entity.DbSet(Of Product)
+    Public Property Employees As System.Data.Entity.DbSet(Of Employee)
 End Class
 
 #Region "Helpers"

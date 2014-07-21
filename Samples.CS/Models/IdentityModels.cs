@@ -42,6 +42,8 @@ namespace Samples.Models
         }
 
 
+        public System.Data.Entity.DbSet<Samples.Simple.Movie> Movies { get; set; }
+
         public System.Data.Entity.DbSet<Samples.Validation.Book> Books { get; set; }
 
         public System.Data.Entity.DbSet<Samples.Associations.Category> Categories { get; set; }
@@ -49,8 +51,6 @@ namespace Samples.Models
         public System.Data.Entity.DbSet<Samples.Associations.Product> Products { get; set; }
 
         public System.Data.Entity.DbSet<Samples.Enumerations.Employee> Employees { get; set; }
-
-        public System.Data.Entity.DbSet<Samples.Simple.Movie> Movies { get; set; }
 
 
     }

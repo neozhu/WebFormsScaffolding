@@ -1,6 +1,8 @@
 ﻿<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="vb" #>
 <#@ include file="Imports.include.t4" #>
+Imports System.Data.Entity
+
 Public Partial Class <#=CodeBesideName#>
 	Inherits System.Web.UI.Page
 
@@ -12,7 +14,7 @@ Public Partial Class <#=CodeBesideName#>
 	' Model binding method to get List of <#=ModelName#> entries
 	' USAGE: <asp:ListView SelectMethod="GetData">
 	Public Function GetData() As IQueryable(Of <#=FullModelName#>)
-		Return _db.<#=PluralizedModelName #><#=GetIncludeExpressions() #>
+		Return _db.<#=PluralizedModelName #><#=GetIncludeExpressionsVB() #>
 	End Function
 End Class
 

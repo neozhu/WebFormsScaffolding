@@ -1,5 +1,6 @@
 ﻿Public Partial Class Text_EditField
 	Inherits System.Web.DynamicData.FieldTemplateUserControl
+
 	Protected Sub Page_Init(sender As Object, e As EventArgs)
 		TextBox1.ToolTip = Column.Description
 		Label1.Text = Column.DisplayName

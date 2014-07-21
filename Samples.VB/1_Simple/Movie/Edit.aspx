@@ -7,7 +7,7 @@
             UpdateMethod="UpdateItem" SelectMethod="GetItem"
             OnItemCommand="ItemCommand" RenderOuterTable="false">
             <EmptyDataTemplate>
-                Cannot find the Movie with Id <%: Request.QueryString["Id"] %>
+                Cannot find the Movie with Id <%: Request.QueryString("Id") %>
             </EmptyDataTemplate>
             <EditItemTemplate>
                 <fieldset class="form-horizontal">

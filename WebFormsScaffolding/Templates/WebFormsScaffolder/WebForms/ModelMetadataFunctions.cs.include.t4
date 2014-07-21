@@ -24,8 +24,16 @@ string GetPrimaryKeyName() {
 
 // Returns the Includes required to get all related entities.
 // For example, .Include(m => m.Actor).Include(m => m.Category) 
-string GetIncludeExpressions() {
+string GetIncludeExpressionsCS() {
 	var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
 	return String.Join("", relatedProperties.Values.Select(property => String.Format(".Include(m => m.{0})", property.AssociationPropertyName)));
 }
+
+string GetIncludeExpressionsVB() {
+	var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+	return String.Join("", relatedProperties.Values.Select(property => String.Format(".Include(Function(m) m.{0})", property.AssociationPropertyName)));
+}
+
+
+
 #>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="BookList" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Samples._2_Validation.Book.Default" ViewStateMode="Disabled" %>
+﻿<%@ Page Title="BookList" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Samples._2_Validation.Book.Default" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <h2>Books List</h2>
@@ -6,10 +6,9 @@
         <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
     </p>
     <div>
-        <asp:ListView runat="server"
-            DataKeyNames="Id" ItemType="Samples.Validation.Book"
-            AutoGenerateColumns="false"
-            AllowPaging="true" AllowSorting="true"
+        <asp:ListView id="ListView1" runat="server"
+            DataKeyNames="Id" 
+			ItemType="Samples.Validation.Book"
             SelectMethod="GetData">
             <EmptyDataTemplate>
                 There are no entries found for Books
@@ -40,6 +39,11 @@
                         <tr runat="server" id="itemPlaceholder" />
                     </tbody>
                 </table>
+				<asp:DataPager PageSize="5" runat="server">
+					<fields>
+						<asp:NumericPagerField ButtonType="Link" />
+					</fields>
+				</asp:DataPager>
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>

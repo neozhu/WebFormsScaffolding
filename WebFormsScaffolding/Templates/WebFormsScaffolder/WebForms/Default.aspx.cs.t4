@@ -29,7 +29,7 @@ namespace <#= FolderNamespace #>
         // USAGE: <asp:ListView SelectMethod="GetData">
         public IQueryable<<#=FullModelName#>> GetData()
         {
-            return _db.<#=PluralizedModelName #><#=GetIncludeExpressions() #>;
+            return _db.<#=PluralizedModelName #><#=GetIncludeExpressionsCS() #>;
         }
     }
 }

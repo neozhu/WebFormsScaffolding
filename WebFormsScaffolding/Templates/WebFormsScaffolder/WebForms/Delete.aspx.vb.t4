@@ -1,14 +1,10 @@
 ﻿<#@ Template Language="C#" HostSpecific="True"  #>
-<#@ Output Extension="cs" #>
+<#@ Output Extension="vb" #>
 <#@ include file="Imports.include.t4" #>
-<# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
-using <#= ModelNamespace #>;
-<# } #>
-<# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != ModelNamespace)) { #>
-using <#= DbContextNamespace #>;
-<# } #>
+Imports Microsoft.AspNet.FriendlyUrls.ModelBinding
+Imports System.Data.Entity
 
-Public Partial Class Delete
+Public Partial Class <#=CodeBesideName#>
 	Inherits System.Web.UI.Page
 
 	Protected _db As New <#=DbContextTypeName#>()
@@ -38,7 +34,7 @@ Public Partial Class Delete
 		End If
 
 		Using _db
-			Return _db.<#=PluralizedModelName#>.Where(Function(m) m.<#=PrimaryKeyName#> = <#=PrimaryKeyName#>).GetIncludeExpressions().FirstOrDefault()
+			Return _db.<#=PluralizedModelName#>.Where(Function(m) m.<#=PrimaryKeyName#> = <#=PrimaryKeyName#>)<#=GetIncludeExpressionsVB()#>.FirstOrDefault()
 		End Using
 	End Function
 

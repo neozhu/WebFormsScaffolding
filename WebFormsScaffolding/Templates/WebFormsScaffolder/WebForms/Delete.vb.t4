@@ -29,7 +29,7 @@
             DeleteMethod="DeleteItem" SelectMethod="GetItem"
             OnItemCommand="ItemCommand" RenderOuterTable="false">
             <EmptyDataTemplate>
-                Cannot find the <#= ModelName #> with <#= PrimaryKeyName #> <%: Request.QueryString["<#= PrimaryKeyName #>"] %>
+                Cannot find the <#= ModelName #> with <#= PrimaryKeyName #> <%: Request.QueryString("<#= PrimaryKeyName #>") %>
             </EmptyDataTemplate>
             <ItemTemplate>
                 <fieldset class="form-horizontal">

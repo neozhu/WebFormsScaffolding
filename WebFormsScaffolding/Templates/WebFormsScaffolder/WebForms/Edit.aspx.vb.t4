@@ -1,9 +1,9 @@
 ﻿<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="vb" #>
 <#@ include file="Imports.include.t4" #>
-Imports Microsoft.AspNet.FriendlyUrls.ModelBinding;
+Imports Microsoft.AspNet.FriendlyUrls.ModelBinding
 
-Public Partial Class Edit
+Public Partial Class <#=CodeBesideName#>
 	Inherits System.Web.UI.Page
 
 	Protected _db As New <#=DbContextTypeName#>()

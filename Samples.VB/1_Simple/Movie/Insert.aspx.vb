@@ -1,4 +1,5 @@
-﻿Public Partial Class Insert
+﻿
+Public Partial Class Insert
 	Inherits System.Web.UI.Page
 	Protected _db As New Samples.ApplicationDbContext()
 

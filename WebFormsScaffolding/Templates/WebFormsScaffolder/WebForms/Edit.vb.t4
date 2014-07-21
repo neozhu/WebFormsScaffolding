@@ -28,7 +28,7 @@
             UpdateMethod="UpdateItem" SelectMethod="GetItem"
             OnItemCommand="ItemCommand" RenderOuterTable="false">
             <EmptyDataTemplate>
-                Cannot find the <#= ModelName #> with <#= PrimaryKeyName #> <%: Request.QueryString["<#= PrimaryKeyName #>"] %>
+                Cannot find the <#= ModelName #> with <#= PrimaryKeyName #> <%: Request.QueryString("<#= PrimaryKeyName #>") %>
             </EmptyDataTemplate>
             <EditItemTemplate>
                 <fieldset class="form-horizontal">

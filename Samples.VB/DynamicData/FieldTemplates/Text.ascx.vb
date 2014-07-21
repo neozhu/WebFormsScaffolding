@@ -5,7 +5,7 @@
 	Public Overrides ReadOnly Property FieldValueString() As String
 		Get
 			Dim value As String = MyBase.FieldValueString
-			If ContainerType = ContainerType.List Then
+			If ContainerType = DynamicData.ContainerType.List Then
 				If value IsNot Nothing AndAlso value.Length > MAX_DISPLAYLENGTH_IN_LIST Then
 					value = (value.Substring(0, MAX_DISPLAYLENGTH_IN_LIST - 3) & "...")
 				End If

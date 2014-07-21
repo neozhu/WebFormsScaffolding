@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.ModelBinding;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data.Entity;
-using Microsoft.AspNet.FriendlyUrls.ModelBinding;
-
+﻿Imports Microsoft.AspNet.FriendlyUrls.ModelBinding
 
 Public Partial Class Edit
 	Inherits System.Web.UI.Page
 
-	Protected _db As New DbContextTypeName()
+	Protected _db As New Samples.ApplicationDbContext()
 
 	Protected Sub Page_Load(sender As Object, e As EventArgs)
 	End Sub
