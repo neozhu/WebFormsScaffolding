@@ -5,6 +5,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="DefaultNamespace" #>
+Imports System.Web.DynamicData
 
 Public Partial Class Enumeration_EditField
 	Inherits System.Web.DynamicData.FieldTemplateUserControl

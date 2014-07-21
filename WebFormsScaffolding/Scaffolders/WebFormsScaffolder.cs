@@ -297,7 +297,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 var templatePath = Path.Combine("WebForms", webForm);
                 string outputPath = Path.Combine(outputFolderPath, webForm);
 
-                var defaultNamespace = GetDefaultNamespace() + "." + modelType.Name;
+                var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
+                var folderNamespace = GetDefaultNamespace() + "." + modelType.Name;
+
                 AddFileFromTemplate(project,
                     outputPath,
                     templateName: templatePath,
@@ -305,6 +307,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     {
                         {"RelativePath", relativePath},
                         {"DefaultNamespace", defaultNamespace},
+                        {"FolderNamespace", folderNamespace},
                         {"Namespace", modelNameSpace},
                         {"IsContentPage", useMasterPage},
                         {"MasterPageFile", masterPage},

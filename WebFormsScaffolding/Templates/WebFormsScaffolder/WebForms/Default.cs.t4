@@ -1,8 +1,6 @@
 <#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="aspx" #>
 <#@ include file="Imports.include.t4" #>
-<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
-<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
 <# if(IsContentPage) { 
 #><%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>

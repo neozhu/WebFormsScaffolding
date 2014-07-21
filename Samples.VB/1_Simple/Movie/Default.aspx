@@ -1,4 +1,5 @@
-﻿<%@ Page Title="MovieList" Language="VB" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.vb" Inherits="1_Simple.Movie._Default1" %>
+﻿
+<%@ Page Title="MovieList" Language="VB" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.vb" Inherits="Samples._Default1" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <h2>Movies List</h2>
@@ -8,7 +9,7 @@
     <div>
         <asp:ListView id="ListView1" runat="server"
             DataKeyNames="Id" 
-			ItemType=".Movie"
+			ItemType="Samples.Movie"
             SelectMethod="GetData">
             <EmptyDataTemplate>
                 There are no entries found for Movies

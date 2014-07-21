@@ -1,4 +1,5 @@
-﻿
+﻿Imports System.ComponentModel.DataAnnotations
+
 Public Partial Class DateTime_EditField
 	Inherits System.Web.DynamicData.FieldTemplateUserControl
 	Private Shared DefaultDateAttribute As New DataTypeAttribute(DataType.DateTime)

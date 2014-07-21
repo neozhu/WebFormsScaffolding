@@ -1,4 +1,5 @@
-﻿
+﻿Imports System.Web.DynamicData
+
 Public Partial Class Enumeration_EditField
 	Inherits System.Web.DynamicData.FieldTemplateUserControl
 	Private _enumType As Type

@@ -1,25 +1,23 @@
-﻿<#@ Template Language="C#" HostSpecific="True"  #>
-<#@ Output Extension="vb" #>
-<#@ include file="Imports.include.t4" #>
+﻿
 Public Partial Class Insert
 	Inherits System.Web.UI.Page
-	Protected _db As New <#=DbContextTypeName#>()
+	Protected _db As New Samples.ApplicationDbContext()
 
 	Protected Sub Page_Load(sender As Object, e As EventArgs)
 
 	End Sub
 
-	' This is the Insert method to insert the entered <#=ViewDataTypeName#> item
+	' This is the Insert method to insert the entered Movie item
 	' USAGE: <asp:FormView InsertMethod="InsertItem">
 	Public Sub InsertItem()
 		Using _db
-			Dim item = New <#=fullModelName#>()
+			Dim item = New Movie()
 
 			TryUpdateModel(item)
 
 			If ModelState.IsValid Then
 				' Save changes
-				_db.<#=PluralizedName#>.Add(item)
+				_db.Movies.Add(item)
 				_db.SaveChanges()
 
 				Response.Redirect("Default")

@@ -1,4 +1,4 @@
-﻿<%@ Master Language="VB" AutoEventWireup="true" CodeBehind="Site.master.vb" Inherits="Samples.VB.SiteMaster" %>
+﻿<%@ Master Language="VB" AutoEventWireup="true" CodeBehind="Site.master.vb" Inherits="Samples.SiteMaster" %>
 
 <%@ Import Namespace="Samples.VB" %>
 <%@ Import Namespace="Microsoft.AspNet.Identity" %>

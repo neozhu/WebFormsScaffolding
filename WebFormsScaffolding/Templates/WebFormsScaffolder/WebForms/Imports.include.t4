@@ -31,3 +31,5 @@
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.RelatedModelMetadata>" name="RelatedModels" #>
 <#@ parameter type="System.String" name="CodeBesideName" #>
+<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
+<# var fullModelName = Namespace != String.Empty ? Namespace+ "." + ViewDataTypeName : ViewDataTypeName; #>

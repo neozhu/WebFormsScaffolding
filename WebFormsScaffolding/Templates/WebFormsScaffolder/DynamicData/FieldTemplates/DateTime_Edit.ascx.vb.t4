@@ -5,6 +5,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="DefaultNamespace" #>
+Imports System.ComponentModel.DataAnnotations
 
 Public Partial Class DateTime_EditField
 	Inherits System.Web.DynamicData.FieldTemplateUserControl

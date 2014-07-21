@@ -177,19 +177,7 @@
     <Content Include="1_Simple\Movie\Edit.aspx.cs" />
     <Content Include="1_Simple\Movie\Edit.aspx.designer.cs" />
     <Content Include="1_Simple\Movie\Edit.cs" />
-    <Content Include="1_Simple\Movie\Insert.aspx.cs" />
-    <Content Include="1_Simple\Movie\Insert.aspx.designer.cs" />
-    <Content Include="1_Simple\Movie\Insert.cs" />
-    <Content Include="2_Validation\Movie\Default.aspx" />
-    <Content Include="2_Validation\Movie\Delete.aspx.cs" />
-    <Content Include="2_Validation\Movie\Delete.aspx.designer.cs" />
-    <Content Include="2_Validation\Movie\Delete.cs" />
-    <Content Include="2_Validation\Movie\Edit.aspx.cs" />
-    <Content Include="2_Validation\Movie\Edit.aspx.designer.cs" />
-    <Content Include="2_Validation\Movie\Edit.cs" />
-    <Content Include="2_Validation\Movie\Insert.aspx.cs" />
-    <Content Include="2_Validation\Movie\Insert.aspx.designer.cs" />
-    <Content Include="2_Validation\Movie\Insert.cs" />
+    <Content Include="1_Simple\Movie\Insert.aspx" />
     <Content Include="About.aspx" />
     <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\Forgot.aspx" />
@@ -282,11 +270,11 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="2_Validation\Movie\Default.aspx.designer.vb">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="1_Simple\Movie\Insert.aspx.designer.vb">
+      <DependentUpon>Insert.aspx</DependentUpon>
     </Compile>
-    <Compile Include="2_Validation\Movie\Default.aspx.vb">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="1_Simple\Movie\Insert.aspx.vb">
+      <DependentUpon>Insert.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Account\Confirm.aspx.designer.vb">
@@ -430,22 +418,22 @@
       <DependentUpon>EmailAddress.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\EmailAddress.ascx.vb">
-      <DependentUpon>EmailAddress.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>EmailAddress.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Enumeration.ascx.designer.vb">
       <DependentUpon>Enumeration.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Enumeration.ascx.vb">
-      <DependentUpon>Enumeration.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Enumeration.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx.designer.vb">
       <DependentUpon>Enumeration_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx.vb">
-      <DependentUpon>Enumeration_Edit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Enumeration_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\FieldLabel.ascx.designer.vb">
       <DependentUpon>FieldLabel.ascx</DependentUpon>
@@ -458,29 +446,29 @@
       <DependentUpon>ForeignKey.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\ForeignKey.ascx.vb">
-      <DependentUpon>ForeignKey.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ForeignKey.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx.designer.vb">
       <DependentUpon>ForeignKey_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx.vb">
-      <DependentUpon>ForeignKey_Edit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ForeignKey_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Integer_Edit.ascx.designer.vb">
       <DependentUpon>Integer_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Integer_Edit.ascx.vb">
-      <DependentUpon>Integer_Edit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Integer_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\MultilineText_Edit.ascx.designer.vb">
       <DependentUpon>MultilineText_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\MultilineText_Edit.ascx.vb">
-      <DependentUpon>MultilineText_Edit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>MultilineText_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Text.ascx.designer.vb">
       <DependentUpon>Text.ascx</DependentUpon>
@@ -493,15 +481,15 @@
       <DependentUpon>Text_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Text_Edit.ascx.vb">
-      <DependentUpon>Text_Edit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Text_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Url.ascx.designer.vb">
       <DependentUpon>Url.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Url.ascx.vb">
-      <DependentUpon>Url.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Url.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Url_Edit.ascx.designer.vb">
       <DependentUpon>Url_Edit.ascx</DependentUpon>
@@ -580,6 +568,7 @@
     <Content Include="ViewSwitcher.ascx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="2_Validation\" />
     <Folder Include="3_Associations\" />
     <Folder Include="App_Data\" />
   </ItemGroup>

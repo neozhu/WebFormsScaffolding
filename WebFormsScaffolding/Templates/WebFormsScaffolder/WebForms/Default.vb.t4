@@ -1,8 +1,6 @@
 ﻿<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="aspx" #>
 <#@ include file="Imports.include.t4" #>
-<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
-<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
 <# if(IsContentPage) { 
 #><%@ Page Title="<#= ViewDataTypeName #>List" Language="VB" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.vb" Inherits="<#= DefaultNamespace #>.<#=CodeBesideName#>" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
@@ -31,7 +29,7 @@
     <div>
         <asp:ListView id="ListView1" runat="server"
             DataKeyNames="<#= PrimaryKeyName #>" 
-			ItemType="<#=fullModelName#>"
+			ItemType="<#=DefaultNamespace#>.<#=fullModelName#>"
             SelectMethod="GetData">
             <EmptyDataTemplate>
                 There are no entries found for <#= PluralizedName #>
