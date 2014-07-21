@@ -1,16 +1,14 @@
-﻿<%@ Page Title="MovieList" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="1_Simple.Movie.Default" ViewStateMode="Disabled" %>
+﻿<%@ Page Title="MovieList" Language="VB" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.vb" Inherits="1_Simple.Movie._Default1" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
-
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <h2>Movies List</h2>
     <p>
         <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
     </p>
     <div>
-        <asp:ListView runat="server"
-            DataKeyNames="Id" ItemType=".Movie"
-            AutoGenerateColumns="false"
-            AllowPaging="true" AllowSorting="true"
+        <asp:ListView id="ListView1" runat="server"
+            DataKeyNames="Id" 
+			ItemType=".Movie"
             SelectMethod="GetData">
             <EmptyDataTemplate>
                 There are no entries found for Movies
@@ -47,6 +45,11 @@
                         <tr runat="server" id="itemPlaceholder" />
                     </tbody>
                 </table>
+				<asp:DataPager PageSize="5" runat="server">
+					<fields>
+						<asp:NumericPagerField ButtonType="Link" />
+					</fields>
+				</asp:DataPager>
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>
@@ -80,5 +83,4 @@
         </asp:ListView>
     </div>
 </asp:Content>
-
 

@@ -31,6 +31,7 @@ Public Class ApplicationDbContext
     Public Shared Function Create As ApplicationDbContext
         Return New ApplicationDbContext()
     End Function    
+    Public Property Movies As System.Data.Entity.DbSet(Of Movie)
 End Class
 
 #Region "Helpers"

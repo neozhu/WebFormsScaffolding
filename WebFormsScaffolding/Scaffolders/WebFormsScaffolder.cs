@@ -254,7 +254,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
 
 
-
         private void AddWebFormsViewTemplates(
                                 string outputFolderPath,
                                 CodeType modelType,
@@ -278,6 +277,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             {
                 throw new ArgumentException(Resources.WebFormsViewScaffolder_EmptyActionName, "webFormsName");
             }
+
+            // Generate unique code beside name (needed because VB does not namespace)
+            var codeBesideName = GetUniqueCodeBesideName(Context.ActiveProject, webFormsName);
 
             PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
             string pluralizedName = efMetadata.EntitySetName;
@@ -317,12 +319,35 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"DbContextTypeName", dbContextTypeName},
                         {"PluralizedName", pluralizedName},
                         {"ModelMetadata", efMetadata},
-                        {"RelatedModels", relatedModels}
+                        {"RelatedModels", relatedModels},
+                        {"CodeBesideName", codeBesideName}
                     },
                     skipIfExists: !overwrite);
             }
 
         }
+
+
+        private string GetUniqueCodeBesideName(Project project, string originalName)
+        {
+            // In VB, rename Default to _Default (because Default is a keyword)
+            if (originalName == "Default" && ProjectLanguage.VisualBasic.Equals(Context.ActiveProject.GetCodeLanguage()))
+            {
+                originalName = "_Default";
+            }
+
+            var counter = 0;
+            var currentName = originalName;
+
+            ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
+            while (codeTypeService.GetAllCodeTypes(project).Any(c => c.Name == currentName))
+            {
+                counter++;
+                currentName = originalName + counter.ToString();
+            }
+            return currentName;
+        }
+
 
 
         // Called to ensure that the project was compiled successfully

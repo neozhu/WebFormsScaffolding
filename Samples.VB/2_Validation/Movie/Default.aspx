@@ -1,4 +1,4 @@
-﻿<%@ Page Title="MovieList" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Samples._1_Simple.Movie.Default" %>
+﻿<%@ Page Title="MovieList" Language="VB" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.vb" Inherits="2_Validation.Movie._Default2" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <h2>Movies List</h2>
@@ -6,9 +6,9 @@
         <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
     </p>
     <div>
-        <asp:ListView ID="ListView1" runat="server"
+        <asp:ListView id="ListView1" runat="server"
             DataKeyNames="Id" 
-			ItemType="Samples.Simple.Movie"
+			ItemType=".Movie"
             SelectMethod="GetData">
             <EmptyDataTemplate>
                 There are no entries found for Movies
@@ -45,6 +45,11 @@
                         <tr runat="server" id="itemPlaceholder" />
                     </tbody>
                 </table>
+				<asp:DataPager PageSize="5" runat="server">
+					<fields>
+						<asp:NumericPagerField ButtonType="Link" />
+					</fields>
+				</asp:DataPager>
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>
@@ -70,18 +75,12 @@
 								<asp:DynamicControl runat="server" DataField="ReleaseDate" ID="ReleaseDate" Mode="ReadOnly" />
 							</td>
                     <td>
-					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/1_Simple/Movie/Edit", Item.Id) %>' Text="Edit" /> | 
-                        <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/1_Simple/Movie/Delete", Item.Id) %>' Text="Delete" />
+					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/2_Validation/Movie/Edit", Item.Id) %>' Text="Edit" /> | 
+                        <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/2_Validation/Movie/Delete", Item.Id) %>' Text="Delete" />
                     </td>
                 </tr>
             </ItemTemplate>
         </asp:ListView>
-				<asp:DataPager PageSize="2" runat="server" PagedControlID="ListView1">
-                    <Fields>
-                        <asp:NumericPagerField ButtonType="Link" />
-                    </Fields>
-                </asp:DataPager>
-        
     </div>
 </asp:Content>
 

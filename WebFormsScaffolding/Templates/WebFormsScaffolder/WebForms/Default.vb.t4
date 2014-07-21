@@ -3,21 +3,13 @@
 <#@ include file="Imports.include.t4" #>
 <# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
 <# var fullModelName = Namespace+"."+ViewDataTypeName; #>
-<#
-if(IsContentPage) {
-#>
-<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" ViewStateMode="Disabled" %>
+<# if(IsContentPage) { 
+#><%@ Page Title="<#= ViewDataTypeName #>List" Language="VB" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.vb" Inherits="<#= DefaultNamespace #>.<#=CodeBesideName#>" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
-
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
-<#
-} else {
-#>
-<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" ViewStateMode="Disabled" %>
-
-
+<# } else { 
+#><%@ Page Title="<#= ViewDataTypeName #>List" Language="VB" CodeBehind="Default.aspx.vb" Inherits="<#= DefaultNamespace #>.<#=CodeBesideName#>" %>
 <!DOCTYPE html>
-
 <html>
 <head runat="server">
     <title></title>
@@ -37,10 +29,9 @@ if(IsContentPage) {
         <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
     </p>
     <div>
-        <asp:ListView runat="server"
-            DataKeyNames="<#= PrimaryKeyName #>" ItemType="<#=fullModelName#>"
-            AutoGenerateColumns="false"
-            AllowPaging="true" AllowSorting="true"
+        <asp:ListView id="ListView1" runat="server"
+            DataKeyNames="<#= PrimaryKeyName #>" 
+			ItemType="<#=fullModelName#>"
             SelectMethod="GetData">
             <EmptyDataTemplate>
                 There are no entries found for <#= PluralizedName #>
@@ -67,6 +58,11 @@ if(IsContentPage) {
                         <tr runat="server" id="itemPlaceholder" />
                     </tbody>
                 </table>
+				<asp:DataPager PageSize="5" runat="server">
+					<fields>
+						<asp:NumericPagerField ButtonType="Link" />
+					</fields>
+				</asp:DataPager>
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>
@@ -114,12 +110,10 @@ if(IsContentPage) {
 
 	<!-- Bootstrap JavaScript -->
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
 </body>
 </html>
 <#
 }
 #>
-
 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>
