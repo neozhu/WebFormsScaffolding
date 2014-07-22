@@ -306,7 +306,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     templateParameters: new Dictionary<string, object>() 
                     {
                         {"IsContentPage", useMasterPage}, // does this page have a master page?
-                        {"MasterPageFile", masterPage}, // master page associated with this page
+                        {"MasterPageFile", masterPage ?? String.Empty}, // master page associated with this page
                         {"PrimarySectionName", primarySectionName}, // the main content section of a master page
                         
                         {"ModelName", modelType.Name}, // singular model name (e.g., Movie)

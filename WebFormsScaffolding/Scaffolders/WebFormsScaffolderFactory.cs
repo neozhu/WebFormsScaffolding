@@ -54,7 +54,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 displayName: Resources.WebFormsScaffolder_Name,
                 description: Resources.WebFormsScaffolder_Description,
                 author: "Outercurve Foundation",
-                version: new Version(0, 3, 0, 0),
+                version: new Version(0, 4, 0, 0),
                 id: typeof(WebFormsScaffolder).Name,
                 icon: null,
                 gestures: null,
