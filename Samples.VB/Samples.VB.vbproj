@@ -308,37 +308,37 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="2_Validation\Book\Default.aspx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="2_Validation\Book\Delete.aspx.designer.vb">
       <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
     <Compile Include="2_Validation\Book\Delete.aspx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Delete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="2_Validation\Book\Edit.aspx.designer.vb">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="2_Validation\Book\Edit.aspx.vb">
-      <DependentUpon>Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="2_Validation\Book\Insert.aspx.designer.vb">
       <DependentUpon>Insert.aspx</DependentUpon>
     </Compile>
     <Compile Include="2_Validation\Book\Insert.aspx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Insert.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="3_Associations\Category.vb" />
     <Compile Include="3_Associations\Category\Default.aspx.designer.vb">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="3_Associations\Category\Default.aspx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="3_Associations\Category\Delete.aspx.designer.vb">
       <DependentUpon>Delete.aspx</DependentUpon>
@@ -358,8 +358,8 @@
       <DependentUpon>Insert.aspx</DependentUpon>
     </Compile>
     <Compile Include="3_Associations\Category\Insert.aspx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Insert.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="3_Associations\Product.vb" />
     <Compile Include="3_Associations\Product\Default.aspx.designer.vb">
@@ -373,8 +373,8 @@
       <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
     <Compile Include="3_Associations\Product\Delete.aspx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Delete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="3_Associations\Product\Edit.aspx.designer.vb">
       <DependentUpon>Edit.aspx</DependentUpon>
@@ -387,8 +387,8 @@
       <DependentUpon>Insert.aspx</DependentUpon>
     </Compile>
     <Compile Include="3_Associations\Product\Insert.aspx.vb">
-      <DependentUpon>Insert.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Insert.aspx</DependentUpon>
     </Compile>
     <Compile Include="4_Enumerations\Employee.vb" />
     <Compile Include="4_Enumerations\Employee\Default.aspx.designer.vb">
@@ -402,8 +402,8 @@
       <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
     <Compile Include="4_Enumerations\Employee\Delete.aspx.vb">
-      <DependentUpon>Delete.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
     <Compile Include="4_Enumerations\Employee\Edit.aspx.designer.vb">
       <DependentUpon>Edit.aspx</DependentUpon>
@@ -416,8 +416,8 @@
       <DependentUpon>Insert.aspx</DependentUpon>
     </Compile>
     <Compile Include="4_Enumerations\Employee\Insert.aspx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Insert.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="4_Enumerations\Region.vb" />
     <Compile Include="4_Enumerations\SalaryLevel.vb" />

@@ -1,4 +1,6 @@
-﻿Public Partial Class _Default3
+﻿Imports System.Data.Entity
+
+Public Partial Class _Default3
 	Inherits System.Web.UI.Page
 
 	Protected _db As New Samples.ApplicationDbContext()

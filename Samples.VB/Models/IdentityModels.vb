@@ -32,11 +32,11 @@ Public Class ApplicationDbContext
     Public Shared Function Create As ApplicationDbContext
         Return New ApplicationDbContext()
     End Function    
-    Public Property Movies As System.Data.Entity.DbSet(Of Movie)
     Public Property Books As System.Data.Entity.DbSet(Of Book)
     Public Property Categories As System.Data.Entity.DbSet(Of Category)
     Public Property Products As System.Data.Entity.DbSet(Of Product)
     Public Property Employees As System.Data.Entity.DbSet(Of Employee)
+    Public Property Movies As System.Data.Entity.DbSet(Of Movie)
 End Class
 
 #Region "Helpers"

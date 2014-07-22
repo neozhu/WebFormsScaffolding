@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.AspNet.FriendlyUrls.ModelBinding
+Imports System.Data.Entity
 
 Public Partial Class Delete2
 	Inherits System.Web.UI.Page

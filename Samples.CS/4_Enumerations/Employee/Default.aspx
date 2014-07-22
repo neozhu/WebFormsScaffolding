@@ -39,10 +39,12 @@
                         <tr runat="server" id="itemPlaceholder" />
                     </tbody>
                 </table>
-				<asp:DataPager PageSize="5" runat="server">
-					<fields>
-						<asp:NumericPagerField ButtonType="Link" />
-					</fields>
+				<asp:DataPager PageSize="5"  runat="server">
+					<Fields>
+                        <asp:NextPreviousPagerField ShowLastPageButton="False" ShowNextPageButton="False" ButtonType="Button" ButtonCssClass="btn" />
+                        <asp:NumericPagerField ButtonType="Button"  NumericButtonCssClass="btn" CurrentPageLabelCssClass="btn disabled" NextPreviousButtonCssClass="btn" />
+                        <asp:NextPreviousPagerField ShowFirstPageButton="False" ShowPreviousPageButton="False" ButtonType="Button" ButtonCssClass="btn" />
+                    </Fields>
 				</asp:DataPager>
             </LayoutTemplate>
             <ItemTemplate>
