@@ -44,7 +44,7 @@
 									<strong><asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
 								</div>
 								<div class="col-sm-2">
-									<%#: Item.<#=relatedModel.AssociationPropertyName#>.<#=relatedModel.DisplayPropertyName#> %>
+									<%#: Item.<#=relatedModel.AssociationPropertyName#> != null ? Item.<#=relatedModel.AssociationPropertyName#>.<#=relatedModel.DisplayPropertyName#> : "" %>
 								</div>
 							</div>
 <#

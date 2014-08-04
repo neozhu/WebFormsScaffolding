@@ -74,7 +74,7 @@
 							var relatedModel = RelatedModels[property.PropertyName];
 #>
 							<td>
-								<%#: Item.<#=relatedModel.AssociationPropertyName#>.<#=relatedModel.DisplayPropertyName#> %>
+								<%#: If(IsNothing(Item.<#=relatedModel.AssociationPropertyName#>), "", Item.<#=relatedModel.AssociationPropertyName#>.<#=relatedModel.DisplayPropertyName#>) %>
 							</td>
 <#
 					    } else {
