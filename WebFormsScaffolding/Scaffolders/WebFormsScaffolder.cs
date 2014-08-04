@@ -218,6 +218,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 throw new ArgumentNullException("modelType");
             }
 
+            // Get pluralized name used for web forms folder name
+            string pluralizedModelName = efMetadata.EntitySetName;
+
             // Generate dictionary for related entities
             var relatedModels = GetRelatedModelDictionary(efMetadata);
 
@@ -229,7 +232,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
             // Add folder for views. This is necessary to display an error when the folder already exists but 
             // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
-            string outputFolderPath = Path.Combine(selectionRelativePath, modelType.Name);
+            string outputFolderPath = Path.Combine(selectionRelativePath, pluralizedModelName);
             AddFolder(Context.ActiveProject, outputFolderPath);
 
 
@@ -238,6 +241,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             {
                 AddWebFormsViewTemplates(
                     outputFolderPath: outputFolderPath,
+                    pluralizedModelName: pluralizedModelName,
                     modelType: modelType,
                     efMetadata: efMetadata,
                     relatedModels: relatedModels,
@@ -256,6 +260,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
         private void AddWebFormsViewTemplates(
                                 string outputFolderPath,
+                                string pluralizedModelName,
                                 CodeType modelType,
                                 ModelMetadata efMetadata,
                                 IDictionary<string, RelatedModelMetadata> relatedModels,
@@ -282,7 +287,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             var codeBesideName = GetUniqueCodeBesideName(Context.ActiveProject, webFormsName);
 
             PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
-            string pluralizedName = efMetadata.EntitySetName;
 
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             string relativePath = outputFolderPath.Replace(@"\", @"/");
@@ -298,7 +302,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 string outputPath = Path.Combine(outputFolderPath, webForm);
 
                 var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
-                var folderNamespace = GetDefaultNamespace() + "." + modelType.Name;
+                var folderNamespace = GetDefaultNamespace() + "." + pluralizedModelName;
 
                 AddFileFromTemplate(project,
                     outputPath,
@@ -311,7 +315,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         
                         {"ModelName", modelType.Name}, // singular model name (e.g., Movie)
                         {"FullModelName", modelType.FullName}, // singular model name with namespace (e.g., Samples.Movie)
-                        {"PluralizedModelName", pluralizedName}, // the plural model name (e.g. Movies)
+                        {"PluralizedModelName", pluralizedModelName}, // the plural model name (e.g. Movies)
                         {"ModelMetadata", efMetadata}, // the EF meta date for the model
                         {"RelatedModels", relatedModels}, // models related by association to the model
 
@@ -326,10 +330,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
                         {"DbContextNamespace", dbContextNamespace},
                         {"DbContextTypeName", dbContextTypeName}
- 
-                        //{"SectionNames", sectionNames},
-                        //{"PrimaryKeyMetadata", primaryKey},
-                        //{"ViewDataType", modelType},
                     },
                     skipIfExists: !overwrite);
             }

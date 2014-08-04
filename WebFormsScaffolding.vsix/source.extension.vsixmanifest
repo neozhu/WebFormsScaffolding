@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="WebFormsScaffolding.e12bf243-968e-4548-ac1c-086b662d4e95" Version="0.4" Language="en-US" Publisher="Outercurve Foundation" />
+    <Identity Id="WebFormsScaffolding.e12bf243-968e-4548-ac1c-086b662d4e95" Version="1.0" Language="en-US" Publisher="Outercurve Foundation" />
     <DisplayName>Web Forms Scaffolding</DisplayName>
     <Description xml:space="preserve">Generates ASP.NET Web Forms pages for inserting, editing, deleting, and listing entities from an Entity Framework data context and model class.</Description>
     <MoreInfo>https://github.com/Superexpert/WebFormsScaffolding</MoreInfo>
