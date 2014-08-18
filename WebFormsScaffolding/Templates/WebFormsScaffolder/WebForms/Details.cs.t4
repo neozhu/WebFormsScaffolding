@@ -2,10 +2,10 @@
 <#@ Output Extension="aspx" #>
 <#@ include file="Imports.include.t4" #>
 <# if(IsContentPage) { #>
-<%@ Page Title="<#= ModelName #>Delete" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Delete.aspx.cs" Inherits="<#= FolderNamespace #>.Delete" %>
+<%@ Page Title="<#= ModelName #> Details" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Details.aspx.cs" Inherits="<#= FolderNamespace #>.Details" %>
 <asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
 <# } else { #>
-<%@ Page Title="<#= ModelName #>Delete" Language="C#" CodeBehind="Delete.aspx.cs" Inherits="<#= FolderNamespace #>.Delete" %>
+<%@ Page Title="<#= ModelName #> Details" Language="C#" CodeBehind="Details.aspx.cs" Inherits="<#= FolderNamespace #>.Details" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -23,17 +23,17 @@
 #>
     <div>
 		<p>&nbsp;</p>
-        <h3>Are you sure want to delete this <#= ModelName #>?</h3>
+      
         <asp:FormView runat="server"
             ItemType="<#=FullModelName#>" DataKeyNames="<#= PrimaryKeyName #>"
-            DeleteMethod="DeleteItem" SelectMethod="GetItem"
+            SelectMethod="GetItem"
             OnItemCommand="ItemCommand" RenderOuterTable="false">
             <EmptyDataTemplate>
                 Cannot find the <#= ModelName #> with <#= PrimaryKeyName #> <%: Request.QueryString["<#= PrimaryKeyName #>"] %>
             </EmptyDataTemplate>
             <ItemTemplate>
                 <fieldset class="form-horizontal">
-                    <legend>Delete <#= ModelName #></legend>
+                    <legend><#= ModelName #> Details</legend>
 <#					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
 					  if (ShouldDisplay(property)) {
 						if (property.IsForeignKey) { 
@@ -68,8 +68,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Delete" CssClass="btn btn-danger" />
-							<asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="btn btn-default" />
+							<asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Back" CssClass="btn btn-default" />
 						</div>
 					</div>
                 </fieldset>

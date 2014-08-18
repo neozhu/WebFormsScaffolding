@@ -77,6 +77,7 @@
 								<asp:DynamicControl runat="server" DataField="ReleaseDate" ID="ReleaseDate" Mode="ReadOnly" />
 							</td>
                     <td>
+					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/1_Simple/Movies/Details", Item.Id) %>' Text="Details" /> | 
 					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/1_Simple/Movies/Edit", Item.Id) %>' Text="Edit" /> | 
                         <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/1_Simple/Movies/Delete", Item.Id) %>' Text="Delete" />
                     </td>

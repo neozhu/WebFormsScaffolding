@@ -172,6 +172,7 @@
   <ItemGroup>
     <Content Include="1_Simple\Movies\Default.aspx" />
     <Content Include="1_Simple\Movies\Delete.aspx" />
+    <Content Include="1_Simple\Movies\Details.aspx" />
     <Content Include="1_Simple\Movies\Edit.aspx" />
     <Content Include="1_Simple\Movies\Insert.aspx" />
     <Content Include="2_Validation\Books\Default.aspx" />
@@ -289,12 +290,19 @@
       <DependentUpon>Delete.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="1_Simple\Movies\Details.aspx.designer.vb">
+      <DependentUpon>Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="1_Simple\Movies\Details.aspx.vb">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="1_Simple\Movies\Edit.aspx.designer.vb">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="1_Simple\Movies\Edit.aspx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="1_Simple\Movies\Insert.aspx.designer.vb">
       <DependentUpon>Insert.aspx</DependentUpon>

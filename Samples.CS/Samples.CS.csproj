@@ -147,6 +147,7 @@
   <ItemGroup>
     <Content Include="1_Simple\Movies\Default.aspx" />
     <Content Include="1_Simple\Movies\Delete.aspx" />
+    <Content Include="1_Simple\Movies\Details.aspx" />
     <Content Include="1_Simple\Movies\Edit.aspx" />
     <Content Include="1_Simple\Movies\Insert.aspx" />
     <Content Include="2_Validation\Books\Default.aspx" />
@@ -266,6 +267,13 @@
     </Compile>
     <Compile Include="1_Simple\Movies\Delete.aspx.designer.cs">
       <DependentUpon>Delete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="1_Simple\Movies\Details.aspx.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="1_Simple\Movies\Details.aspx.designer.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
     </Compile>
     <Compile Include="1_Simple\Movies\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>

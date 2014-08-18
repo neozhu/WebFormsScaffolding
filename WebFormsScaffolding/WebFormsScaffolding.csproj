@@ -404,6 +404,24 @@
     <None Include="Templates\WebFormsScaffolder\WebForms\Delete.aspx.designer.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\WebFormsScaffolder\WebForms\Details.aspx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\WebForms\Details.aspx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\WebForms\Details.aspx.designer.vb.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\WebForms\Details.aspx.vb.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\WebForms\Details.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\WebForms\Details.vb.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\WebFormsScaffolder\WebForms\Edit.aspx.designer.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

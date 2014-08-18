@@ -225,7 +225,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             var relatedModels = GetRelatedModelDictionary(efMetadata);
 
 
-            var webForms = new[] { "Default", "Insert", "Edit", "Delete" };
+            var webForms = new[] { "Default", "Insert", "Edit", "Delete", "Details" };
 
             // Extract these from the selected master page : Tracked by 721707
             var sectionNames = new[] { "HeadContent", "MainContent" };
