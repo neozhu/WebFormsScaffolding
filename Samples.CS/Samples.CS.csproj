@@ -190,7 +190,6 @@
     <Content Include="DynamicData\FieldTemplates\EmailAddress.ascx" />
     <Content Include="DynamicData\FieldTemplates\Enumeration.ascx" />
     <Content Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\FieldLabel.ascx" />
     <Content Include="DynamicData\FieldTemplates\ForeignKey.ascx" />
     <Content Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx" />
     <Content Include="DynamicData\FieldTemplates\Integer_Edit.ascx" />
@@ -564,13 +563,6 @@
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx.designer.cs">
       <DependentUpon>Enumeration_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\FieldLabel.ascx.cs">
-      <DependentUpon>FieldLabel.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\FieldLabel.ascx.designer.cs">
-      <DependentUpon>FieldLabel.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\ForeignKey.ascx.cs">
       <DependentUpon>ForeignKey.ascx</DependentUpon>

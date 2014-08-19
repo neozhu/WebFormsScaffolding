@@ -54,6 +54,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -168,15 +169,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Enumeration_Edit.vb.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\FieldLabel.ascx.designer.vb.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\FieldLabel.ascx.vb.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\FieldLabel.vb.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey.ascx.designer.vb.t4">
@@ -339,15 +331,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Enumeration_Edit.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\FieldLabel.ascx.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\FieldLabel.ascx.designer.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\FieldLabel.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey.ascx.cs.t4">

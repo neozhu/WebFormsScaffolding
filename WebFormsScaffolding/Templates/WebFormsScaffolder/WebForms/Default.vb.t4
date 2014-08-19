@@ -44,7 +44,7 @@
 					  if (ShouldDisplay(property)) {
 #>
                             <th>
-								<asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="<#= GetDisplayName(property.PropertyName) #>" CommandName="Sort" CommandArgument="<#= property.PropertyName #>" runat="Server" />
 							</th>
 <#
 					  }

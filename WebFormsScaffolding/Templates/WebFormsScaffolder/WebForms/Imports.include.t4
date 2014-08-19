@@ -30,3 +30,4 @@
 <#@ parameter type="System.String" name="RelativePath" #>
 <#@ parameter type="System.String" name="DbContextNamespace" #>
 <#@ parameter type="System.String" name="DbContextTypeName" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="ModelDisplayNames" #>

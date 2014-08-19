@@ -35,5 +35,9 @@ string GetIncludeExpressionsVB() {
 }
 
 
+string GetDisplayName(string propertyName) {
+	return ModelDisplayNames.ContainsKey(propertyName) ? ModelDisplayNames[propertyName] : propertyName;
+}
+
 
 #>

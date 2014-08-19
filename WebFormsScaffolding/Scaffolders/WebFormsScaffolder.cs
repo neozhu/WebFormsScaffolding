@@ -10,6 +10,10 @@ using Microsoft.AspNet.Scaffolding.WebForms.UI;
 using Microsoft.AspNet.Scaffolding.Core.Metadata;
 using Microsoft.AspNet.Scaffolding.WebForms.Utils;
 using System.IO;
+using EnvDTE80;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+using System.ComponentModel;
 
 
 namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
@@ -116,7 +120,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         {
             // Get Model Type
             var modelType = codeGeneratorViewModel.ModelType.CodeType;
-
+ 
             // Ensure the Data Context
             string dbContextTypeName = codeGeneratorViewModel.DbContextModelType.TypeName;
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
@@ -166,7 +170,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 "ForeignKey", "ForeignKey.ascx.designer", "ForeignKey.ascx",
                 "ForeignKey_Edit", "ForeignKey_Edit.ascx.designer", "ForeignKey_Edit.ascx",
                 "Integer_Edit", "Integer_Edit.ascx.designer", "Integer_Edit.ascx",
-                "FieldLabel", "FieldLabel.ascx.designer", "FieldLabel.ascx",
                 "MultilineText_Edit", "MultilineText_Edit.ascx.designer", "MultilineText_Edit.ascx",
                 "Text", "Text.ascx.designer", "Text.ascx",
                 "Text_Edit", "Text_Edit.ascx.designer", "Text_Edit.ascx",
@@ -304,6 +307,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
                 var folderNamespace = GetDefaultNamespace() + "." + pluralizedModelName;
 
+
+
                 AddFileFromTemplate(project,
                     outputPath,
                     templateName: templatePath,
@@ -329,7 +334,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"RelativePath", relativePath}, // relative path of current page (e.g., /samples/movie)
 
                         {"DbContextNamespace", dbContextNamespace},
-                        {"DbContextTypeName", dbContextTypeName}
+                        {"DbContextTypeName", dbContextTypeName},
+                        {"ModelDisplayNames", GetDisplayNames(modelType)}
                     },
                     skipIfExists: !overwrite);
             }
@@ -420,6 +426,20 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 }
             }
             return dict;
+        }
+
+
+        // Create a mapping between property names and display names in case
+        // the property is decorated with a DisplayAttribute
+        protected IDictionary<string, string> GetDisplayNames(CodeType modelType)
+        {
+            var type = GetReflectionType(modelType.FullName);
+            var lookup = new Dictionary<string, string>();
+            foreach (PropertyInfo prop in type.GetProperties()) {
+                var attr = (DisplayAttribute)prop.GetCustomAttribute(typeof( DisplayAttribute), true);
+                lookup.Add(prop.Name, attr != null ? attr.Name : prop.Name);
+            }
+            return lookup;
         }
 
 

@@ -6,7 +6,6 @@ using System.Web;
 
 namespace Samples.Simple
 {
-
     public class Movie
     {
         public int Id { get; set; }
