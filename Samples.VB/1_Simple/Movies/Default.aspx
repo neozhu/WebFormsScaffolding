@@ -18,25 +18,25 @@
                     <thead>
                         <tr>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Id" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Id" CommandName="Sort" CommandArgument="Id" runat="Server" />
 							</th>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Title" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Title" CommandName="Sort" CommandArgument="Title" runat="Server" />
 							</th>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Director" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Director" CommandName="Sort" CommandArgument="Director" runat="Server" />
 							</th>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Comments" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Comments" CommandName="Sort" CommandArgument="Comments" runat="Server" />
 							</th>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Count" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Count" CommandName="Sort" CommandArgument="Count" runat="Server" />
 							</th>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Price" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Price" CommandName="Sort" CommandArgument="Price" runat="Server" />
 							</th>
                             <th>
-								<asp:DynamicControl runat="server" DataField="ReleaseDate" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Release Date" CommandName="Sort" CommandArgument="ReleaseDate" runat="Server" />
 							</th>
                             <th>&nbsp;</th>
                         </tr>

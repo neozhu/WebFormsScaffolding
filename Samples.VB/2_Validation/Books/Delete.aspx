@@ -15,41 +15,41 @@
                     <legend>Delete Book</legend>
 							<div class="row">
 								<div class="col-sm-2 text-right">
-									<strong><asp:DynamicControl runat="server" DataField="Id" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+									<strong>Id</strong>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-4">
 									<asp:DynamicControl runat="server" DataField="Id" ID="Id" Mode="ReadOnly" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-2 text-right">
-									<strong><asp:DynamicControl runat="server" DataField="Title" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+									<strong>Title</strong>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-4">
 									<asp:DynamicControl runat="server" DataField="Title" ID="Title" Mode="ReadOnly" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-2 text-right">
-									<strong><asp:DynamicControl runat="server" DataField="UnitsInStock" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+									<strong>Units In Stock</strong>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-4">
 									<asp:DynamicControl runat="server" DataField="UnitsInStock" ID="UnitsInStock" Mode="ReadOnly" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-2 text-right">
-									<strong><asp:DynamicControl runat="server" DataField="Comments" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+									<strong>Comments</strong>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-4">
 									<asp:DynamicControl runat="server" DataField="Comments" ID="Comments" Mode="ReadOnly" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-2 text-right">
-									<strong><asp:DynamicControl runat="server" DataField="InStock" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+									<strong>In Stock</strong>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-4">
 									<asp:DynamicControl runat="server" DataField="InStock" ID="InStock" Mode="ReadOnly" />
 								</div>
 							</div>

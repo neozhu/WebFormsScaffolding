@@ -1,18 +1,18 @@
-﻿<%@ Page Title="CategoryDelete" Language="VB" MasterPageFile="~/Site.Master" CodeBehind="Delete.aspx.vb" Inherits="Samples.Delete2" %>
+﻿<%@ Page Title="Category Details" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Details.aspx.cs" Inherits="Samples._3_Associations.Categories.Details" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
-        <h3>Are you sure want to delete this Category?</h3>
+      
         <asp:FormView runat="server"
-            ItemType="Samples.Category" DataKeyNames="Id"
-            DeleteMethod="DeleteItem" SelectMethod="GetItem"
+            ItemType="Samples.Associations.Category" DataKeyNames="Id"
+            SelectMethod="GetItem"
             OnItemCommand="ItemCommand" RenderOuterTable="false">
             <EmptyDataTemplate>
-                Cannot find the Category with Id <%: Request.QueryString("Id") %>
+                Cannot find the Category with Id <%: Request.QueryString["Id"] %>
             </EmptyDataTemplate>
             <ItemTemplate>
                 <fieldset class="form-horizontal">
-                    <legend>Delete Category</legend>
+                    <legend>Category Details</legend>
 							<div class="row">
 								<div class="col-sm-2 text-right">
 									<strong>Id</strong>
@@ -34,8 +34,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Delete" CssClass="btn btn-danger" />
-							<asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="btn btn-default" />
+							<asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Back" CssClass="btn btn-default" />
 						</div>
 					</div>
                 </fieldset>

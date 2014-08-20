@@ -294,6 +294,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             string relativePath = outputFolderPath.Replace(@"\", @"/");
 
+            var modelDisplayNames = GetDisplayNames(modelType);
+
             List<string> webFormsTemplates = new List<string>();
             webFormsTemplates.AddRange(new string[] { webFormsName, webFormsName + ".aspx", webFormsName + ".aspx.designer" });
 
@@ -335,7 +337,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
                         {"DbContextNamespace", dbContextNamespace},
                         {"DbContextTypeName", dbContextTypeName},
-                        {"ModelDisplayNames", GetDisplayNames(modelType)}
+                        {"ModelDisplayNames", modelDisplayNames}
                     },
                     skipIfExists: !overwrite);
             }
@@ -437,7 +439,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             var lookup = new Dictionary<string, string>();
             foreach (PropertyInfo prop in type.GetProperties()) {
                 var attr = (DisplayAttribute)prop.GetCustomAttribute(typeof( DisplayAttribute), true);
-                lookup.Add(prop.Name, attr != null ? attr.Name : prop.Name);
+                var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+                lookup.Add(prop.Name, value);
             }
             return lookup;
         }

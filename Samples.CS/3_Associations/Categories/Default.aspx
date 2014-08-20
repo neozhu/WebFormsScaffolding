@@ -18,10 +18,10 @@
                     <thead>
                         <tr>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Id" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Id" CommandName="Sort" CommandArgument="Id" runat="Server" />
 							</th>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Name" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Name" CommandName="Sort" CommandArgument="Name" runat="Server" />
 							</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -47,6 +47,7 @@
 								<asp:DynamicControl runat="server" DataField="Name" ID="Name" Mode="ReadOnly" />
 							</td>
                     <td>
+					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/3_Associations/Categories/Details", Item.Id) %>' Text="Details" /> | 
 					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/3_Associations/Categories/Edit", Item.Id) %>' Text="Edit" /> | 
                         <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/3_Associations/Categories/Delete", Item.Id) %>' Text="Delete" />
                     </td>

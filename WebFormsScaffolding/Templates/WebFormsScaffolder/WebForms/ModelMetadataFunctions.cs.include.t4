@@ -19,7 +19,7 @@ bool ShouldDisplay(PropertyMetadata property) {
 // This will return the primary key property name, if and only if there is exactly
 // one primary key. Returns null if there is no PK, or the PK is composite.
 string GetPrimaryKeyName() {
-    return (ModelMetadata.PrimaryKeys != null && ModelMetadata.PrimaryKeys.Count() == 1) ? ModelMetadata.PrimaryKeys[0].PropertyName : null;
+	return (ModelMetadata.PrimaryKeys != null && ModelMetadata.PrimaryKeys.Count() == 1) ? ModelMetadata.PrimaryKeys[0].PropertyName : null;
 }
 
 // Returns the Includes required to get all related entities.
@@ -34,7 +34,7 @@ string GetIncludeExpressionsVB() {
 	return String.Join("", relatedProperties.Values.Select(property => String.Format(".Include(Function(m) m.{0})", property.AssociationPropertyName)));
 }
 
-
+// Returns either the value of the Display(Name=) attribute or the property name
 string GetDisplayName(string propertyName) {
 	return ModelDisplayNames.ContainsKey(propertyName) ? ModelDisplayNames[propertyName] : propertyName;
 }

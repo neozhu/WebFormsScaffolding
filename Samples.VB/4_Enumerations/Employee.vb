@@ -10,7 +10,7 @@ Public Class Employee
     Public Property Email As String
 
     <DataType(DataType.Url)>
-    <Display(Name:="Home Page URL:")>
+    <Display(Name:="Home Page URL")>
     Public Property HomePage As String
 
     <Required(ErrorMessage:="You must enter a salary level")>

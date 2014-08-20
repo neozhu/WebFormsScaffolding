@@ -18,19 +18,19 @@
                     <thead>
                         <tr>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Id" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Id" CommandName="Sort" CommandArgument="Id" runat="Server" />
 							</th>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Email" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Email" CommandName="Sort" CommandArgument="Email" runat="Server" />
 							</th>
                             <th>
-								<asp:DynamicControl runat="server" DataField="HomePage" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Home Page URL:" CommandName="Sort" CommandArgument="HomePage" runat="Server" />
 							</th>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Salary" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Salary" CommandName="Sort" CommandArgument="Salary" runat="Server" />
 							</th>
                             <th>
-								<asp:DynamicControl runat="server" DataField="Region" Mode="ReadOnly" UIHint="FieldLabel" />
+								<asp:LinkButton Text="Region" CommandName="Sort" CommandArgument="Region" runat="Server" />
 							</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -65,6 +65,7 @@
 								<asp:DynamicControl runat="server" DataField="Region" ID="Region" Mode="ReadOnly" />
 							</td>
                     <td>
+					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/4_Enumerations/Employees/Details", Item.Id) %>' Text="Details" /> | 
 					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/4_Enumerations/Employees/Edit", Item.Id) %>' Text="Edit" /> | 
                         <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/4_Enumerations/Employees/Delete", Item.Id) %>' Text="Delete" />
                     </td>

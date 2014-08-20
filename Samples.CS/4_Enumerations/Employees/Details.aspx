@@ -1,18 +1,18 @@
-﻿<%@ Page Title="EmployeeDelete" Language="VB" MasterPageFile="~/Site.Master" CodeBehind="Delete.aspx.vb" Inherits="Samples.Delete4" %>
+﻿<%@ Page Title="Employee Details" Language="C#" MasterPageFile="~/Site.Master" CodeBehind="Details.aspx.cs" Inherits="Samples._4_Enumerations.Employees.Details" %>
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <div>
 		<p>&nbsp;</p>
-        <h3>Are you sure want to delete this Employee?</h3>
+      
         <asp:FormView runat="server"
-            ItemType="Samples.Employee" DataKeyNames="Id"
-            DeleteMethod="DeleteItem" SelectMethod="GetItem"
+            ItemType="Samples.Enumerations.Employee" DataKeyNames="Id"
+            SelectMethod="GetItem"
             OnItemCommand="ItemCommand" RenderOuterTable="false">
             <EmptyDataTemplate>
-                Cannot find the Employee with Id <%: Request.QueryString("Id") %>
+                Cannot find the Employee with Id <%: Request.QueryString["Id"] %>
             </EmptyDataTemplate>
             <ItemTemplate>
                 <fieldset class="form-horizontal">
-                    <legend>Delete Employee</legend>
+                    <legend>Employee Details</legend>
 							<div class="row">
 								<div class="col-sm-2 text-right">
 									<strong>Id</strong>
@@ -58,8 +58,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Delete" CssClass="btn btn-danger" />
-							<asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="btn btn-default" />
+							<asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Back" CssClass="btn btn-default" />
 						</div>
 					</div>
                 </fieldset>

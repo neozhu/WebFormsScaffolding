@@ -15,41 +15,41 @@
                     <legend>Delete Employee</legend>
 							<div class="row">
 								<div class="col-sm-2 text-right">
-									<strong><asp:DynamicControl runat="server" DataField="Id" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+									<strong>Id</strong>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-4">
 									<asp:DynamicControl runat="server" DataField="Id" ID="Id" Mode="ReadOnly" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-2 text-right">
-									<strong><asp:DynamicControl runat="server" DataField="Email" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+									<strong>Email</strong>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-4">
 									<asp:DynamicControl runat="server" DataField="Email" ID="Email" Mode="ReadOnly" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-2 text-right">
-									<strong><asp:DynamicControl runat="server" DataField="HomePage" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+									<strong>Home Page URL:</strong>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-4">
 									<asp:DynamicControl runat="server" DataField="HomePage" ID="HomePage" Mode="ReadOnly" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-2 text-right">
-									<strong><asp:DynamicControl runat="server" DataField="Salary" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+									<strong>Salary</strong>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-4">
 									<asp:DynamicControl runat="server" DataField="Salary" ID="Salary" Mode="ReadOnly" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-2 text-right">
-									<strong><asp:DynamicControl runat="server" DataField="Region" Mode="ReadOnly" UIHint="FieldLabel" /></strong>
+									<strong>Region</strong>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-4">
 									<asp:DynamicControl runat="server" DataField="Region" ID="Region" Mode="ReadOnly" />
 								</div>
 							</div>

@@ -177,18 +177,22 @@
     <Content Include="1_Simple\Movies\Insert.aspx" />
     <Content Include="2_Validation\Books\Default.aspx" />
     <Content Include="2_Validation\Books\Delete.aspx" />
+    <Content Include="2_Validation\Books\Details.aspx" />
     <Content Include="2_Validation\Books\Edit.aspx" />
     <Content Include="2_Validation\Books\Insert.aspx" />
     <Content Include="3_Associations\Categories\Default.aspx" />
     <Content Include="3_Associations\Categories\Delete.aspx" />
+    <Content Include="3_Associations\Categories\Details.aspx" />
     <Content Include="3_Associations\Categories\Edit.aspx" />
     <Content Include="3_Associations\Categories\Insert.aspx" />
     <Content Include="3_Associations\Products\Default.aspx" />
     <Content Include="3_Associations\Products\Delete.aspx" />
+    <Content Include="3_Associations\Products\Details.aspx" />
     <Content Include="3_Associations\Products\Edit.aspx" />
     <Content Include="3_Associations\Products\Insert.aspx" />
     <Content Include="4_Enumerations\Employees\Default.aspx" />
     <Content Include="4_Enumerations\Employees\Delete.aspx" />
+    <Content Include="4_Enumerations\Employees\Details.aspx" />
     <Content Include="4_Enumerations\Employees\Edit.aspx" />
     <Content Include="4_Enumerations\Employees\Insert.aspx" />
     <Content Include="About.aspx" />
@@ -215,7 +219,6 @@
     <Content Include="DynamicData\FieldTemplates\EmailAddress.ascx" />
     <Content Include="DynamicData\FieldTemplates\Enumeration.ascx" />
     <Content Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\FieldLabel.ascx" />
     <Content Include="DynamicData\FieldTemplates\ForeignKey.ascx" />
     <Content Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx" />
     <Content Include="DynamicData\FieldTemplates\Integer_Edit.ascx" />
@@ -323,15 +326,22 @@
       <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
     <Compile Include="2_Validation\Books\Delete.aspx.vb">
+      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Delete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="2_Validation\Books\Details.aspx.designer.vb">
+      <DependentUpon>Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="2_Validation\Books\Details.aspx.vb">
+      <DependentUpon>Details.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="2_Validation\Books\Edit.aspx.designer.vb">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="2_Validation\Books\Edit.aspx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="2_Validation\Books\Insert.aspx.designer.vb">
       <DependentUpon>Insert.aspx</DependentUpon>
@@ -354,6 +364,13 @@
       <DependentUpon>Delete.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="3_Associations\Categories\Details.aspx.designer.vb">
+      <DependentUpon>Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="3_Associations\Categories\Details.aspx.vb">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="3_Associations\Categories\Edit.aspx.designer.vb">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
@@ -374,8 +391,8 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="3_Associations\Products\Default.aspx.vb">
-      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="3_Associations\Products\Delete.aspx.designer.vb">
       <DependentUpon>Delete.aspx</DependentUpon>
@@ -384,12 +401,19 @@
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
+    <Compile Include="3_Associations\Products\Details.aspx.designer.vb">
+      <DependentUpon>Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="3_Associations\Products\Details.aspx.vb">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="3_Associations\Products\Edit.aspx.designer.vb">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="3_Associations\Products\Edit.aspx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="3_Associations\Products\Insert.aspx.designer.vb">
       <DependentUpon>Insert.aspx</DependentUpon>
@@ -413,6 +437,13 @@
       <DependentUpon>Delete.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="4_Enumerations\Employees\Details.aspx.designer.vb">
+      <DependentUpon>Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="4_Enumerations\Employees\Details.aspx.vb">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Details.aspx</DependentUpon>
+    </Compile>
     <Compile Include="4_Enumerations\Employees\Edit.aspx.designer.vb">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
@@ -424,8 +455,8 @@
       <DependentUpon>Insert.aspx</DependentUpon>
     </Compile>
     <Compile Include="4_Enumerations\Employees\Insert.aspx.vb">
-      <DependentUpon>Insert.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Insert.aspx</DependentUpon>
     </Compile>
     <Compile Include="4_Enumerations\Region.vb" />
     <Compile Include="4_Enumerations\SalaryLevel.vb" />
@@ -535,36 +566,36 @@
       <DependentUpon>Children.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Children.ascx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Children.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Children_Insert.ascx.designer.vb">
       <DependentUpon>Children_Insert.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Children_Insert.ascx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Children_Insert.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\DateTime.ascx.designer.vb">
       <DependentUpon>DateTime.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\DateTime.ascx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>DateTime.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\DateTime_Edit.ascx.designer.vb">
       <DependentUpon>DateTime_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\DateTime_Edit.ascx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>DateTime_Edit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Decimal_Edit.ascx.designer.vb">
       <DependentUpon>Decimal_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Decimal_Edit.ascx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Decimal_Edit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\EmailAddress.ascx.designer.vb">
       <DependentUpon>EmailAddress.ascx</DependentUpon>
@@ -584,36 +615,29 @@
       <DependentUpon>Enumeration_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Enumeration_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\FieldLabel.ascx.designer.vb">
-      <DependentUpon>FieldLabel.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\FieldLabel.ascx.vb">
       <SubType>ASPXCodeBehind</SubType>
-      <DependentUpon>FieldLabel.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\ForeignKey.ascx.designer.vb">
       <DependentUpon>ForeignKey.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\ForeignKey.ascx.vb">
-      <DependentUpon>ForeignKey.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ForeignKey.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx.designer.vb">
       <DependentUpon>ForeignKey_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>ForeignKey_Edit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Integer_Edit.ascx.designer.vb">
       <DependentUpon>Integer_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Integer_Edit.ascx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Integer_Edit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\MultilineText_Edit.ascx.designer.vb">
       <DependentUpon>MultilineText_Edit.ascx</DependentUpon>
@@ -633,22 +657,22 @@
       <DependentUpon>Text_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Text_Edit.ascx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Text_Edit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Url.ascx.designer.vb">
       <DependentUpon>Url.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Url.ascx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Url.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Url_Edit.ascx.designer.vb">
       <DependentUpon>Url_Edit.ascx</DependentUpon>
     </Compile>
     <Compile Include="DynamicData\FieldTemplates\Url_Edit.ascx.vb">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Url_Edit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
