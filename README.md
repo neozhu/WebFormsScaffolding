@@ -9,7 +9,7 @@ _Scaffolding for Web Forms in Visual Studio 2013_. Given a model class, the Web 
 
 ## Installing the Web Forms Scaffolder
 
-The Web Forms Scaffolder requires Visual Studio 2013 _Update 2_. It supports both C# and Visual Basic .NET.
+The Web Forms Scaffolder requires Visual Studio 2013 _Update 3_. It supports both C# and Visual Basic .NET.
 
 You can install the Web Forms Scaffolder directly from within Visual Studio. Select the menu option Tools, Extensions and Updates, and install the Web Forms Scaffolder.
 
@@ -155,7 +155,7 @@ The Web Forms Scaffolder takes advantage of Twitter Bootstrap for styling the pa
 
 ## Samples
 
-This GitHub project includes a Visual Studio Project named Samples that contains three samples of the generated
+This GitHub project includes a Visual Studio Project named Samples that contains  samples of the generated
 content from the Web Forms Scaffolder:
 
 * 1_Simple - Contains sample generated content for a simple Movie class.
