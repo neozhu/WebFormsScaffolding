@@ -1,0 +1,19 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+
+namespace <#= DefaultNamespace #>.Repositories.DataProvider
+{
+    public interface ISpecification<TEntity> where TEntity:class
+    {
+        Expression<System.Func<TEntity, bool>> IsSatisfied { get; }
+    }
+}

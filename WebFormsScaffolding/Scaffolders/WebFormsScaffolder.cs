@@ -137,6 +137,18 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             // Ensure the Dynamic Data Field templates
             EnsureDynamicDataFieldTemplates(project, dbContextNamespace, dbContextTypeName);
 
+            EnsurePepositoriesTemplates(project, dbContextNamespace, dbContextTypeName);
+
+            AddEntityRepositoryTemplates(
+                project,
+                selectionRelativePath,
+                dbContextNamespace,
+                dbContextTypeName,
+                modelType,
+                efMetadata,
+                codeGeneratorViewModel.OverwriteViews
+           );
+
             // Add Web Forms Pages from Templates
             AddWebFormsPages(
                 project, 
@@ -150,6 +162,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 codeGeneratorViewModel.DesktopPlaceholderId, 
                 codeGeneratorViewModel.OverwriteViews
            );
+
+            // Add Web Forms Pages from Templates
+            
         }
 
 
@@ -200,6 +215,97 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             }
         }
 
+        private void EnsurePepositoriesTemplates(Project project, string dbContextNamespace, string dbContextTypeName)
+        {
+            var fieldTemplates = new[] { 
+                "IRepository", "ISpecification", "Repository","RepositoryBase"
+               
+            };
+            var fieldTemplatesPath = "Repositories\\DataProvider";
+
+            // Add the folder
+            AddFolder(project, fieldTemplatesPath);
+
+            foreach (var fieldTemplate in fieldTemplates)
+            {
+                var templatePath = Path.Combine(fieldTemplatesPath, fieldTemplate);
+                var outputPath = Path.Combine(fieldTemplatesPath, fieldTemplate);
+
+                AddFileFromTemplate(
+                    project: project,
+                    outputPath: outputPath,
+                    templateName: templatePath,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()},
+                        {"DbContextNamespace", dbContextNamespace},
+                        {"DbContextTypeName", dbContextTypeName}
+                    },
+                    skipIfExists: true);
+            }
+        }
+
+        private void AddEntityRepositoryTemplates(
+           Project project,
+           string selectionRelativePath,
+           string dbContextNamespace,
+           string dbContextTypeName,
+           CodeType modelType,
+           ModelMetadata efMetadata,
+           bool overwriteViews = true
+       )
+        {
+
+            if (modelType == null)
+            {
+                throw new ArgumentNullException("modelType");
+            }
+            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            // Get pluralized name used for web forms folder name
+            string pluralizedModelName = efMetadata.EntitySetName;
+            var repositoryTemplates = new[] { "IEntityRepository", "EntityRepository" };
+            var repositoryTemplatesPath = "Repositories";
+            
+
+            // Add folder for views. This is necessary to display an error when the folder already exists but 
+            // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
+            string outputFolderPath = Path.Combine("Repositories", pluralizedModelName);
+            //AddFolder(Context.ActiveProject, outputFolderPath);
+
+
+            AddFolder(Context.ActiveProject, outputFolderPath);
+
+            // Now add each view
+            foreach (string repository in repositoryTemplates)
+            {
+                var templatePath = Path.Combine(repositoryTemplatesPath, repository);
+                var outputFileName = "";
+                if (repository == "IEntityRepository")
+                    outputFileName = "I" + pluralizedModelName + "Repository";
+                else
+                    outputFileName = pluralizedModelName + "Repository";
+                var outputPath = Path.Combine(outputFolderPath, outputFileName);
+
+                var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
+                var folderNamespace = GetDefaultNamespace() + ".Repositories." + pluralizedModelName;
+                AddFileFromTemplate(
+                    project: project,
+                    outputPath: outputPath,
+                    templateName: templatePath,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()},
+                        {"DbContextNamespace", dbContextNamespace},
+                        {"DbContextTypeName", dbContextTypeName},
+                        {"ModelName", modelType.Name}, // singular model name (e.g., Movie)
+                        {"FolderNamespace", folderNamespace}, // the namespace of the current folder (used by C#)
+                        {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
+                    },
+                    skipIfExists: !overwriteViews);
+
+            }
+        }
+
 
         // Generates all of the Web Forms Pages (Default Insert, Edit, Delete), 
         private void AddWebFormsPages(
@@ -238,6 +344,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             string outputFolderPath = Path.Combine(selectionRelativePath, pluralizedModelName);
             AddFolder(Context.ActiveProject, outputFolderPath);
 
+            
+            AddFolder(Context.ActiveProject, outputFolderPath);
 
             // Now add each view
             foreach (string webForm in webForms)

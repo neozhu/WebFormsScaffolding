@@ -1,0 +1,151 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+
+
+namespace <#= DefaultNamespace #>.Repositories.DataProvider
+{
+   public class Repository<TEntity> : RepositoryBase<TEntity> where TEntity : class
+    {
+        protected readonly DbContext context;
+        protected readonly DbSet<TEntity> set;
+
+        public Repository(DbContext context)
+        {
+            this.context = context;
+            this.set = context.Set<TEntity>();
+        }
+
+        public override int Create(TEntity newEntity)
+        {
+            this.set.Add(newEntity);
+            return  this.context.SaveChanges();
+            
+        }
+
+        //public override int Create(TEntity entity, ModelMethodContext modelMethodContext)
+        //{
+        //    //create a new model object of type ToyCategory
+        //    //var item = this.set.Create();
+
+        //    //attempt to save the model - hence forcing binding
+        //    modelMethodContext.TryUpdateModel(entity);
+        //    if (!modelMethodContext.ModelState.IsValid)
+        //    {
+        //        //model is in an invalid state - stop all operations
+        //        return 0;
+        //    }
+
+        //    //try and generate a shorter description
+        //    //from the long one and update the date
+           
+
+        //    //write the changes to the database
+        //    this.set.Add(entity);
+        //    return this.context.SaveChanges();
+        
+        //}
+
+        public override TEntity Read(object id)
+        {
+            return this.set.Find(id);
+        }
+     
+        //public override int Update(object Id, ModelMethodContext modelMethodContext)
+        //{
+           
+        //    var item = this.set.Find(Id);
+
+          
+        //    if (item == null)
+        //    {
+        //        modelMethodContext.ModelState.AddModelError("NotFoundError", String.Format("A Item with ID {0} could not be found", Id));
+        //        return 0;
+        //    }
+
+        //    //attempt to update the model if we arrive at this stage
+        //    modelMethodContext.TryUpdateModel(item);
+        //    if (!modelMethodContext.ModelState.IsValid)
+        //    {
+        //        //model is in an invalid state - stop all operations
+        //        return 0;
+        //    }
+        //    return this.context.SaveChanges();
+        //}
+        public override int Update(TEntity entity)
+        {
+            this.set.Attach(entity);
+            this.context.Entry(entity).State = EntityState.Modified;
+            return  this.context.SaveChanges();
+           
+        }
+
+        private  void Delete(TEntity entity)
+        {
+            this.set.Remove(entity);
+            this.context.SaveChanges();
+        }
+
+
+
+        public override void Delete(object id)
+        {
+            this.Delete(this.set.Find(id));
+        }
+
+        
+
+        /// <summary>
+        /// Reads all elements.
+        /// To avoid instantiating all elements, use LINQ to specify the needed elements
+        /// and use the ToList() method to fetch those elements and only those from the database.
+        /// </summary>
+        /// <returns></returns>
+        public override IEnumerable<TEntity> ReadAll()
+        {
+            return this.set;
+        }
+
+        /// <summary>
+        /// Read one and only one element that matches the specification.
+        /// </summary>
+        /// <param name="spec"></param>
+        /// <returns>One element or null</returns>
+        public override TEntity ReadOne(ISpecification<TEntity> spec)
+        {
+            return this.set.Where(spec.IsSatisfied).FirstOrDefault();
+        }
+
+        public override TEntity ReadOne(Expression<Func<TEntity, Boolean>> criteria)
+        {
+            return this.set.Where(criteria).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Read the elements that match the specification.
+        /// </summary>
+        /// <param name="spec">The specification for the elements wanted.</param>
+        /// <returns></returns>
+        public override IEnumerable<TEntity> ReadMany(ISpecification<TEntity> spec)
+        {
+            // Hopefully the spec is very specific and get the exact list of entities wanted.
+            // We'll ToList it (get the entities from the database).
+            return this.set.Where(spec.IsSatisfied).ToList();
+        }
+
+        public override IEnumerable<TEntity> ReadMany(Expression<Func<TEntity, Boolean>> criteria)
+        {
+            // Hopefully the spec is very specific and get the exact list of entities wanted.
+            // We'll ToList it (get the entities from the database).
+            return this.set.Where(criteria).ToList();
+        }
+    }
+}

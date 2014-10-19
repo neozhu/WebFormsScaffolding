@@ -1,0 +1,33 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+
+
+namespace <#= DefaultNamespace #>.Repositories.DataProvider
+{
+   public interface IRepository<TEntity> where TEntity : class
+    {
+   
+       //TEntity Create(TEntity newEntity);
+        //int Create(TEntity entity, ModelMethodContext modelMethodContext);
+        //int Update(object Id, ModelMethodContext modelMethodContext);
+        int Update(TEntity entity);
+        int Create(TEntity entity);
+        void Delete(object id);
+        TEntity Read(object Id);
+        IEnumerable<TEntity> ReadAll();
+        IEnumerable<TEntity> ReadMany(Expression<Func<TEntity, bool>> criteria);
+        IEnumerable<TEntity> ReadMany(ISpecification<TEntity> spec);
+        TEntity ReadOne(Expression<Func<TEntity, bool>> criteria);
+        TEntity ReadOne(ISpecification<TEntity> spec);
+        //TEntity Update(TEntity entity);
+    }
+}

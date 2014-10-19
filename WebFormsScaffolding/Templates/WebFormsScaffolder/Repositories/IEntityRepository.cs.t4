@@ -1,0 +1,26 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<#@ parameter type="System.String" name="ModelNamespace" #>
+<#@ parameter type="System.String" name="FolderNamespace" #>
+<#@ parameter type="System.String" name="ModelName" #>
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+using using Microsoft.AspNet.FriendlyUrls.ModelBinding;
+
+using <#= ModelNamespace #>;
+
+namespace <#= FolderNamespace #>
+{
+    interface I<#= ModelName #>Repository
+    {
+
+			IList<<#= ModelName #>> Get(string sortByExpression, int maximumRows,
+						int startRowIndex, out int totalRowCount);
+			<#= ModelName #> GetById([FriendlyUrlSegmentsAttribute(0)]int? Id );
+	}
+}

@@ -1,0 +1,51 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<#@ parameter type="System.String" name="ModelNamespace" #>
+<#@ parameter type="System.String" name="FolderNamespace" #>
+<#@ parameter type="System.String" name="ModelName" #>
+
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+using using Microsoft.AspNet.FriendlyUrls.ModelBinding;
+using <#= DefaultNamespace #>.Repositories.DataProvider;
+
+using <#= ModelNamespace #>;
+
+namespace <#= FolderNamespace #>
+{
+  public class <#= ModelName #>Repository : Repository<<#= ModelName #>>, I<#= ModelName #>Repository
+    {
+        public <#= ModelName #>Repository(DbContext context) : base(context) { 
+        
+        }
+
+		 public IList<<#= ModelName #>> Get(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount)
+        {
+            totalRowCount = this.set.Count();
+          
+         
+            //select from the table based on the input parameters
+            var list = this.set
+                .OrderBy(n=>n.Id)
+                .Skip(startRowIndex)
+                .Take(maximumRows)
+                .ToList();
+
+            return list;
+        }
+
+
+        public <#= ModelName #> GetById([FriendlyUrlSegmentsAttribute(0)]int? Id)
+        {
+            if (Id != null)
+                return this.Read(Id);
+            else
+                return null;
+        }
+	}
+}
