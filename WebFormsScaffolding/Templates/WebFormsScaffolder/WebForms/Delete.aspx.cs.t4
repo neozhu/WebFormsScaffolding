@@ -10,6 +10,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
+
+using <#=DefaultNamespace #>.Extensions;
+
 <# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
 using <#= ModelNamespace #>;
 <# } #>
@@ -22,50 +25,42 @@ namespace <#= FolderNamespace #>
     public partial class Delete : System.Web.UI.Page
     {
 		protected <#=DbContextTypeName #> _db = new <#=DbContextTypeName#>();
+        protected readonly <#= ModelName #>Repository _repository =
+            new <#= ModelName #>Repository(new <#=DbContextTypeName #>());
+
+        protected void Page_Init()
+        {
+            //TODO:添加页面标题
+            this.Title = "Title";
+            <#= ModelName #>FormView.SetDataMethodsObject(_repository);
+            <#= ModelName #>FormView.RedirectToRouteOnItemInserted("../Default");
+            <#= ModelName #>FormView.RedirectToRouteOnItemUpdated("../Default");
+            <#= ModelName #>FormView.RedirectToRouteOnItemDeleted("../Default");
+            <#= ModelName #>FormView.RedirectToRouteOnItemCommad("../Default");
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
         }
-
-        // This is the Delete methd to delete the selected <#=ModelName#> item
-        // USAGE: <asp:FormView DeleteMethod="DeleteItem">
-        public void DeleteItem(<#= PrimaryKeyType #> <#= PrimaryKeyName #>)
+        
+        //TODO:完成编辑GridView选中的记录
+        protected void editbtn_Click(object sender, EventArgs e)
         {
-            using (_db)
-            {
-                var item = _db.<#=PluralizedModelName#>.Find(<#= PrimaryKeyName #>);
 
-                if (item != null)
-                {
-                    _db.<#=PluralizedModelName#>.Remove(item);
-                    _db.SaveChanges();
-                }
-            }
-            Response.Redirect("../Default");
+        }
+        //TODO:完成删除GridView选中的记录
+        protected void deletebtn_Click(object sender, EventArgs e)
+        {
+          
+        }
+        //TODO:完成通过搜索关键字查询
+        protected void searchbtn_Click(object sender, EventArgs e)
+        {
+            
         }
 
-        // This is the Select methd to selects a single <#=ModelName#> item with the id
-        // USAGE: <asp:FormView SelectMethod="GetItem">
-        public <#= FullModelName#> GetItem([FriendlyUrlSegmentsAttribute(0)]<#=PrimaryKeyType#>? <#= PrimaryKeyName #>)
-        {
-            if (<#= PrimaryKeyName #> == null)
-            {
-                return null;
-            }
 
-            using (_db)
-            {
-	            return _db.<#=PluralizedModelName #>.Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=GetIncludeExpressionsCS() #>.FirstOrDefault();
-            }
-        }
-
-        protected void ItemCommand(object sender, FormViewCommandEventArgs e)
-        {
-            if (e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
-            {
-                Response.Redirect("../Default");
-            }
-        }
+         
     }
 }
 

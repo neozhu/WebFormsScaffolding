@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Web.UI.WebControls;
 
 namespace <#= DefaultNamespace #>.Repositories.DataProvider
 {
@@ -21,8 +21,8 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
         }
 
        
-        //public abstract int Create(TEntity entity, ModelMethodContext modelMethodContext);
-        //public abstract int Update(object Id, ModelMethodContext modelMethodContext);
+        public abstract int CreateItem(TEntity entity, ModelMethodContext modelMethodContext);
+        public abstract int UpdateItem(object Id, ModelMethodContext modelMethodContext);
         public abstract int Create(TEntity entity);
         public abstract int Update(TEntity entity);
         public abstract void Delete(object id);

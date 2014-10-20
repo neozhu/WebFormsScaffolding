@@ -301,7 +301,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"FolderNamespace", folderNamespace}, // the namespace of the current folder (used by C#)
                         {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
                     },
-                    skipIfExists: !overwriteViews);
+                    skipIfExists: true);
 
             }
         }

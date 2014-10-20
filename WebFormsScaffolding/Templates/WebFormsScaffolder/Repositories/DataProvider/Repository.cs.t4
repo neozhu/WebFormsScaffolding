@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Web.UI.WebControls;
 
 namespace <#= DefaultNamespace #>.Repositories.DataProvider
 {
@@ -31,55 +31,55 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
             
         }
 
-        //public override int Create(TEntity entity, ModelMethodContext modelMethodContext)
-        //{
-        //    //create a new model object of type ToyCategory
-        //    //var item = this.set.Create();
+        public override int CreateItem(TEntity entity, ModelMethodContext modelMethodContext)
+        {
+            //create a new model object of type ToyCategory
+            var item = this.set.Create();
 
-        //    //attempt to save the model - hence forcing binding
-        //    modelMethodContext.TryUpdateModel(entity);
-        //    if (!modelMethodContext.ModelState.IsValid)
-        //    {
-        //        //model is in an invalid state - stop all operations
-        //        return 0;
-        //    }
+            //attempt to save the model - hence forcing binding
+            modelMethodContext.TryUpdateModel(item);
+            if (!modelMethodContext.ModelState.IsValid)
+            {
+                //model is in an invalid state - stop all operations
+                return 0;
+            }
 
-        //    //try and generate a shorter description
-        //    //from the long one and update the date
+            //try and generate a shorter description
+            //from the long one and update the date
            
 
-        //    //write the changes to the database
-        //    this.set.Add(entity);
-        //    return this.context.SaveChanges();
+            //write the changes to the database
+            this.set.Add(item);
+            return this.context.SaveChanges();
         
-        //}
+        }
 
         public override TEntity Read(object id)
         {
             return this.set.Find(id);
         }
      
-        //public override int Update(object Id, ModelMethodContext modelMethodContext)
-        //{
+        public override int UpdateItem(object Id, ModelMethodContext modelMethodContext)
+        {
            
-        //    var item = this.set.Find(Id);
+            var item = this.set.Find(Id);
 
           
-        //    if (item == null)
-        //    {
-        //        modelMethodContext.ModelState.AddModelError("NotFoundError", String.Format("A Item with ID {0} could not be found", Id));
-        //        return 0;
-        //    }
+            if (item == null)
+            {
+                modelMethodContext.ModelState.AddModelError("NotFoundError", String.Format("A Item with ID {0} could not be found", Id));
+                return 0;
+            }
 
-        //    //attempt to update the model if we arrive at this stage
-        //    modelMethodContext.TryUpdateModel(item);
-        //    if (!modelMethodContext.ModelState.IsValid)
-        //    {
-        //        //model is in an invalid state - stop all operations
-        //        return 0;
-        //    }
-        //    return this.context.SaveChanges();
-        //}
+            //attempt to update the model if we arrive at this stage
+            modelMethodContext.TryUpdateModel(item);
+            if (!modelMethodContext.ModelState.IsValid)
+            {
+                //model is in an invalid state - stop all operations
+                return 0;
+            }
+            return this.context.SaveChanges();
+        }
         public override int Update(TEntity entity)
         {
             this.set.Attach(entity);

@@ -1,5 +1,5 @@
 ﻿<#@ Template Language="C#" HostSpecific="True"  #>
-<#@ Output Extension="cs" #>
+<#@ Output Extension="cs" encoding="UTF8" #>
 <#@ include file="Imports.include.t4" #>
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
+
+using <#=DefaultNamespace #>.Extensions;
 <# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
 using <#= ModelNamespace #>;
 <# } #>
@@ -20,16 +22,29 @@ namespace <#= FolderNamespace #>
     public partial class Default : System.Web.UI.Page
     {
 		protected <#=DbContextTypeName#> _db = new <#=DbContextTypeName #>();
-
+        protected readonly <#= ModelName #>Repository _repository =
+            new <#= ModelName #>Repository(new <#=DbContextTypeName #>());
         protected void Page_Load(object sender, EventArgs e)
         {
+             //TODO:添加页面标题
+            this.Title = "Title";
+            <#= ModelName #>GridView.SetDataMethodsObject(_repository);
         }
 
-        // Model binding method to get List of <#=ModelName#> entries
-        // USAGE: <asp:ListView SelectMethod="GetData">
-        public IQueryable<<#=FullModelName#>> GetData()
+        //TODO:完成编辑GridView选中的记录
+        protected void editbtn_Click(object sender, EventArgs e)
         {
-            return _db.<#=PluralizedModelName #><#=GetIncludeExpressionsCS() #>;
+
+        }
+        //TODO:完成删除GridView选中的记录
+        protected void deletebtn_Click(object sender, EventArgs e)
+        {
+          
+        }
+        //TODO:完成通过搜索关键字查询
+        protected void searchbtn_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

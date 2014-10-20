@@ -1,5 +1,5 @@
 <#@ Template Language="C#" HostSpecific="True"  #>
-<#@ Output Extension="aspx" #>
+<#@ Output Extension="aspx"  encoding="UTF8" #>
 <#@ include file="Imports.include.t4" #>
 <# if(IsContentPage) { 
 #><%@ Page Title="<#= ModelName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= FolderNamespace #>.Default" %>
@@ -23,79 +23,175 @@
     PushIndent("    ");
 }
 #>
-    <h2><#= PluralizedModelName #> List</h2>
-    <p>
-        <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
-    </p>
+   
     <div>
-        <asp:ListView id="ListView1" runat="server"
-            DataKeyNames="<#= PrimaryKeyName #>" 
-			ItemType="<#=FullModelName#>"
-            SelectMethod="GetData">
-            <EmptyDataTemplate>
-                There are no entries found for <#= PluralizedModelName #>
-            </EmptyDataTemplate>
-            <LayoutTemplate>
-                <table class="table">
-                    <thead>
-                        <tr>
-<#
-					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+		 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+
+                <a class="navbar-brand" href="/<#=RelativePath #>/Default"><%= Page.Title %></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a id="backbtn" class="btn" href="Javascript:history.back()"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
+                    <li><a id="forwardbtn" class="btn" href="Javascript:history.go(1)"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
+                    <li><a id="newbtn" class="btn" href="Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
+                    <li>
+                        <asp:LinkButton ID="editbtn" ValidationGroup="grid" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="deletebtn" runat="server" ValidationGroup="grid" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
+                    </li>
+                    <li class="divider"></li>
+
+                </ul>
+
+                <div class="col-sm-3 col-md-3">
+                    <div class="navbar-form" role="search">
+                        <div class="input-group">
+                            <asp:TextBox ID="searchTextBox" CssClass="form-control" runat="server"></asp:TextBox>
+                            <div class="input-group-btn">
+                                <asp:LinkButton ID="searchbtn" runat="server" OnClick="searchbtn_Click" CssClass="btn  btn-default"><i class="glyphicon glyphicon-search"></i></asp:LinkButton>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Message</a></li>
+                            <li><a href="#">Task</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">LogOut</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div class="alert alert-danger page-alert" id="alert-4">
+            <button type="button" class="close"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            <asp:CustomValidator ID="CustomValidator1" ValidationGroup="grid" runat="server" ErrorMessage="Please,Check one £¡"
+                ClientValidationFunction="Validate"></asp:CustomValidator>
+
+
+        </div>
+	 
+        <div class="maingrid">
+            <asp:GridView ID="<#= ModelName #>GridView" runat="server" ItemType="<#=FullModelName #>" GridLines="none"
+            SelectMethod="Get" AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" DataKeyNames="<#= PrimaryKeyName #>"
+            PageSize="10" PagerStyle-CssClass="bs-pagination" CssClass="table table-hover table-striped">
+            <Columns>
+                <asp:TemplateField ShowHeader="true">
+                    <HeaderTemplate>
+                        <asp:CheckBox ID="chkHeader" runat="server" />
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chkRow" runat="server" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+<# 
+                foreach (PropertyMetadata property in ModelMetadata.Properties) { 
 					  if (ShouldDisplay(property)) {
+
 #>
-                            <th>
-								<asp:LinkButton Text="<#= GetDisplayName(property.PropertyName) #>" CommandName="Sort" CommandArgument="<#= property.PropertyName #>" runat="Server" />
-							</th>
+                         <asp:DynamicField DataField="<#= property.PropertyName #>" />
 <#
 					  }
 					}
 #>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr runat="server" id="itemPlaceholder" />
-                    </tbody>
-                </table>
-				<asp:DataPager PageSize="5"  runat="server">
-					<Fields>
-                        <asp:NextPreviousPagerField ShowLastPageButton="False" ShowNextPageButton="False" ButtonType="Button" ButtonCssClass="btn" />
-                        <asp:NumericPagerField ButtonType="Button"  NumericButtonCssClass="btn" CurrentPageLabelCssClass="btn disabled" NextPreviousButtonCssClass="btn" />
-                        <asp:NextPreviousPagerField ShowFirstPageButton="False" ShowPreviousPageButton="False" ButtonType="Button" ButtonCssClass="btn" />
-                    </Fields>
-				</asp:DataPager>
-            </LayoutTemplate>
-            <ItemTemplate>
-                <tr>
-<#
-					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
-					  if (ShouldDisplay(property)) {
-					    if (property.IsForeignKey) { 
-							var relatedModel = RelatedModels[property.PropertyName];
-#>
-							<td>
-								<%#: Item.<#=relatedModel.AssociationPropertyName#> != null ? Item.<#=relatedModel.AssociationPropertyName#>.<#=relatedModel.DisplayPropertyName#> : "" %>
-							</td>
-<#
-					    } else {
-#>
-							<td>
-								<asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" ID="<#= property.PropertyName #>" Mode="ReadOnly" />
-							</td>
-<#
-						}
-					  }
-					}
-#>
-                    <td>
-					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Details", Item.<#= GetPrimaryKeyName() #>) %>' Text="Details" /> | 
+                 <asp:TemplateField ShowHeader="False">
+                    <ItemTemplate>
+                        <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Details", Item.<#= GetPrimaryKeyName() #>) %>' Text="Details" /> | 
 					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Edit", Item.<#= GetPrimaryKeyName() #>) %>' Text="Edit" /> | 
                         <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Delete", Item.<#= GetPrimaryKeyName() #>) %>' Text="Delete" />
-                    </td>
-                </tr>
-            </ItemTemplate>
-        </asp:ListView>
+                    </ItemTemplate>
+                </asp:TemplateField>
+             </Columns>
+             <SortedAscendingHeaderStyle CssClass="asc" />
+             <SortedDescendingHeaderStyle CssClass="desc" />
+             <PagerSettings Mode="NumericFirstLast" PageButtonCount="5" Position="Bottom" PreviousPageText="Previous" NextPageText="Next" FirstPageText="First" LastPageText="Last" />
+           </asp:GridView>
+        </div>
+       
     </div>
+
+
+
+<script type="text/javascript">
+
+        function Validate(sender, args) {
+
+            //console.log($('table[id*=<#= ModelName #>GridView] input[type=checkbox]:checked').length);
+            if ($('table[id*=<#= ModelName #>GridView] input[type=checkbox]:checked').length > 0) {
+                args.IsValid = true;
+                $('.page-alert').slideUp();
+            } else {
+                args.IsValid = false;
+                $('.page-alert').slideDown();
+            }
+
+
+
+        }
+
+
+
+
+
+        $(function () {
+            $('.page-alert').hide();
+
+            $('[id*=chkRow]').on('click', function () {
+
+                var grid = $(this).closest('table');
+                var chkHeader = $('[id*=chkHeader]', grid);
+                if (!$(this).is(':checked')) {
+                    $('td', $(this).closest('tr')).removeClass('success');
+                    chkHeader.removeAttr('checked');
+                } else {
+                    $('td', $(this).closest('tr')).addClass('success');
+                    if ($('[id*=chkRow]', grid).length == $('[id*=chkRow]:checked', grid).length) {
+                        chkHeader.attr('checked', 'checked');
+                    }
+                }
+            });
+
+            $('[id*=chkHeader]').on('click', function () {
+
+                var chkHeader = $(this);
+                var grid = $(this).closest('table');
+                //console.log(grid);
+                $('input[type=checkbox]', grid).each(function () {
+                    if (chkHeader.is(':checked')) {
+                        $(this).attr('checked', 'checked');
+                        $('td', $(this).closest('tr')).addClass('success');
+                    } else {
+                        $(this).removeAttr('checked');
+                        $('td', $(this).closest('tr')).removeClass('success');
+                    }
+                });
+            });
+
+
+
+
+            //Close alert
+            $('.page-alert .close').click(function (e) {
+                e.preventDefault();
+                $(this).closest('.page-alert').slideUp();
+            });
+        });
+
+    </script>
 <#
 // The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
 #>

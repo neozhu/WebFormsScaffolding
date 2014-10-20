@@ -10,6 +10,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
+
+using <#=DefaultNamespace #>.Extensions;
 <# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
 using <#= ModelNamespace #>;
 <# } #>
@@ -21,58 +23,40 @@ namespace <#= FolderNamespace #>
     public partial class Edit : System.Web.UI.Page
     {
 		protected <#=DbContextTypeName#> _db = new <#=DbContextTypeName#>();
+        protected readonly <#= ModelName #>Repository _repository =
+            new <#= ModelName #>Repository(new <#=DbContextTypeName #>());
 
+        protected void Page_Init()
+        {
+            //TODO:添加页面标题
+            this.Title = "Title";
+            <#= ModelName #>FormView.SetDataMethodsObject(_repository);
+            <#= ModelName #>FormView.RedirectToRouteOnItemInserted("../Default");
+            <#= ModelName #>FormView.RedirectToRouteOnItemUpdated("../Default");
+            <#= ModelName #>FormView.RedirectToRouteOnItemDeleted("../Default");
+            <#= ModelName #>FormView.RedirectToRouteOnItemCommad("../Default");
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
+          
         }
-
-        // This is the Update methd to update the selected <#=ModelName#> item
-        // USAGE: <asp:FormView UpdateMethod="UpdateItem">
-        public void UpdateItem(<#= PrimaryKeyType #>  <#= PrimaryKeyName #>)
+        
+        //TODO:完成编辑GridView选中的记录
+        protected void editbtn_Click(object sender, EventArgs e)
         {
-            using (_db)
-            {
-                var item = _db.<#=PluralizedModelName #>.Find(<#= PrimaryKeyName #>);
 
-                if (item == null)
-                {
-                    // The item wasn't found
-                    ModelState.AddModelError("", String.Format("Item with id {0} was not found", <#= PrimaryKeyName #>));
-                    return;
-                }
-
-                TryUpdateModel(item);
-
-                if (ModelState.IsValid)
-                {
-                    // Save changes here
-                    _db.SaveChanges();
-                    Response.Redirect("../Default");
-                }
-            }
         }
-
-        // This is the Select method to selects a single <#=ModelName#> item with the id
-        // USAGE: <asp:FormView SelectMethod="GetItem">
-        public <#=FullModelName#> GetItem([FriendlyUrlSegmentsAttribute(0)]<#=PrimaryKeyType#>? <#= PrimaryKeyName #>)
+        //TODO:完成删除GridView选中的记录
+        protected void deletebtn_Click(object sender, EventArgs e)
         {
-            if (<#= PrimaryKeyName #> == null)
-            {
-                return null;
-            }
-
-            using (_db)
-            {
-                return _db.<#=PluralizedModelName #>.Find(<#= PrimaryKeyName #>);
-            }
+          
         }
-
-        protected void ItemCommand(object sender, FormViewCommandEventArgs e)
+        //TODO:完成通过搜索关键字查询
+        protected void searchbtn_Click(object sender, EventArgs e)
         {
-            if (e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
-            {
-                Response.Redirect("../Default");
-            }
+            
         }
+
+         
     }
 }
