@@ -28,18 +28,48 @@ namespace <#= FolderNamespace #>
         {
              //TODO:添加页面标题
             this.Title = "Title";
-            <#= ModelName #>GridView.SetDataMethodsObject(_repository);
+            this.<#= ModelName #>GridView.SetDataMethodsObject(_repository);
         }
 
         //TODO:完成编辑GridView选中的记录
         protected void editbtn_Click(object sender, EventArgs e)
         {
+            foreach (GridViewRow row in this.this.<#= ModelName #>GridView.Rows)
+            {
+                if (row.RowType == DataControlRowType.DataRow)
+                {
+                    CheckBox chkRow = (row.Cells[0].FindControl("chkRow") as CheckBox);
+                    if (chkRow.Checked)
+                    {
+                        var entityId= this.this.<#= ModelName #>GridView.DataKeys[row.RowIndex].Value;
+                        //TODO:获取选择行的ID
 
+
+
+                        break;
+                    }
+                }
+            }
         }
         //TODO:完成删除GridView选中的记录
         protected void deletebtn_Click(object sender, EventArgs e)
         {
-          
+            foreach (GridViewRow row in this.this.<#= ModelName #>GridView.Rows)
+            {
+                if (row.RowType == DataControlRowType.DataRow)
+                {
+                    CheckBox chkRow = (row.Cells[0].FindControl("chkRow") as CheckBox);
+                    if (chkRow.Checked)
+                    {
+                        var entityId= this.this.<#= ModelName #>GridView.DataKeys[row.RowIndex].Value;
+                        //TODO:获取选择行的ID
+
+
+
+                         
+                    }
+                }
+            }
         }
         //TODO:完成通过搜索关键字查询
         protected void searchbtn_Click(object sender, EventArgs e)

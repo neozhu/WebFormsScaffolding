@@ -36,6 +36,7 @@ namespace <#= DefaultNamespace #> {
 
         protected void Page_Init(object sender, EventArgs e) {
 			Label1.Text = Column.DisplayName;
+            DropDownList1.Attributes.Add("title", Column.Description);
         }
 		
 		// show bootstrap has-error

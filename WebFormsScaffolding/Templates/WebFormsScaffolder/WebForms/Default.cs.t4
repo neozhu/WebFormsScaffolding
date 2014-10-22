@@ -42,7 +42,7 @@
                         <asp:LinkButton ID="editbtn" ValidationGroup="grid" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
                     </li>
                     <li>
-                        <asp:LinkButton ID="deletebtn" runat="server" ValidationGroup="grid" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
+                        <asp:LinkButton ID="deletebtn" runat="server" ValidationGroup="grid" OnClientClick="return confirm('Are you sure you want to delete checked rows?');" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
                     </li>
                     <li class="divider"></li>
 
@@ -112,7 +112,7 @@
                     <ItemTemplate>
                         <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Details", Item.<#= GetPrimaryKeyName() #>) %>' Text="Details" /> | 
 					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Edit", Item.<#= GetPrimaryKeyName() #>) %>' Text="Edit" /> | 
-                        <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Delete", Item.<#= GetPrimaryKeyName() #>) %>' Text="Delete" />
+                        <asp:LinkButton ID="deleteButton"   runat="server" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete this row?');" />
                     </ItemTemplate>
                 </asp:TemplateField>
              </Columns>
@@ -156,11 +156,13 @@
                 var chkHeader = $('[id*=chkHeader]', grid);
                 if (!$(this).is(':checked')) {
                     $('td', $(this).closest('tr')).removeClass('success');
-                    chkHeader.removeAttr('checked');
+                    //chkHeader.removeAttr('checked');
+                    chkHeader.prop('checked', false);
                 } else {
                     $('td', $(this).closest('tr')).addClass('success');
                     if ($('[id*=chkRow]', grid).length == $('[id*=chkRow]:checked', grid).length) {
-                        chkHeader.attr('checked', 'checked');
+                        //chkHeader.attr('checked', 'checked');
+                        chkHeader.prop('checked', true);
                     }
                 }
             });
@@ -172,10 +174,12 @@
                 //console.log(grid);
                 $('input[type=checkbox]', grid).each(function () {
                     if (chkHeader.is(':checked')) {
-                        $(this).attr('checked', 'checked');
+                        //$(this).attr('checked', 'checked');
+                        $(this).prop('checked', true);
                         $('td', $(this).closest('tr')).addClass('success');
                     } else {
-                        $(this).removeAttr('checked');
+                        //$(this).removeAttr('checked');
+                        $(this).prop('checked', false);
                         $('td', $(this).closest('tr')).removeClass('success');
                     }
                 });

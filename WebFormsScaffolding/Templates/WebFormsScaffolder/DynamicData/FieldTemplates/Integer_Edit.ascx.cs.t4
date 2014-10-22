@@ -18,6 +18,7 @@ namespace <#= DefaultNamespace #> {
 		
 		protected void Page_Init(object sender, EventArgs e) {
             TextBox1.ToolTip = Column.Description;
+            TextBox1.Attributes.Add("title", Column.Description);
 			Label1.Text = Column.DisplayName;
         }
         

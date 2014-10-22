@@ -19,6 +19,7 @@ namespace <#= DefaultNamespace #> {
 		protected void Page_Init(object sender, EventArgs e)
         {
             CheckBox1.ToolTip = Column.Description;
+            CheckBox1.Attributes.Add("title", Column.Description);
 			Label1.Text = Column.DisplayName;
         }
 

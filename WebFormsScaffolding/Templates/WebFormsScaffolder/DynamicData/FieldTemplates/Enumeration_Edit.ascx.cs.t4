@@ -20,6 +20,7 @@ namespace <#= DefaultNamespace #> {
         protected void Page_Init(object sender, EventArgs e) {
 			Label1.Text = Column.DisplayName;
             DropDownList1.ToolTip = Column.Description;
+            DropDownList1.Attributes.Add("title", Column.Description);
     
             if (DropDownList1.Items.Count == 0) {
                 if (Mode == DataBoundControlMode.Insert || !Column.IsRequired) {
