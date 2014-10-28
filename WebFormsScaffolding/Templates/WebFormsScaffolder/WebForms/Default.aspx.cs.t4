@@ -24,24 +24,35 @@ namespace <#= FolderNamespace #>
 		protected <#=DbContextTypeName#> _db = new <#=DbContextTypeName #>();
         protected readonly <#= ModelName #>Repository _repository =
             new <#= ModelName #>Repository(new <#=DbContextTypeName #>());
+
+        protected void Page_Init()
+        {
+            //TODO:添加页面标题
+            this.Title = "<#= ModelName #>";
+            <#= ModelName #>GridView.SetDataMethodsObject(_repository);
+            MetaTable metaTable = MetaTable.GetTable(typeof(<#= ModelName #>));
+            <#= ModelName #>GridView.SetMetaTable(metaTable);
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
              //TODO:添加页面标题
-            this.Title = "Title";
-            this.<#= ModelName #>GridView.SetDataMethodsObject(_repository);
+            if (!IsPostBack)
+            {
+
+            }
         }
 
         //TODO:完成编辑GridView选中的记录
         protected void editbtn_Click(object sender, EventArgs e)
         {
-            foreach (GridViewRow row in this.this.<#= ModelName #>GridView.Rows)
+            foreach (GridViewRow row in this.<#= ModelName #>GridView.Rows)
             {
                 if (row.RowType == DataControlRowType.DataRow)
                 {
                     CheckBox chkRow = (row.Cells[0].FindControl("chkRow") as CheckBox);
                     if (chkRow.Checked)
                     {
-                        var entityId= this.this.<#= ModelName #>GridView.DataKeys[row.RowIndex].Value;
+                        var entityId= this.<#= ModelName #>GridView.DataKeys[row.RowIndex].Value;
                         //TODO:获取选择行的ID
 
 
@@ -54,14 +65,14 @@ namespace <#= FolderNamespace #>
         //TODO:完成删除GridView选中的记录
         protected void deletebtn_Click(object sender, EventArgs e)
         {
-            foreach (GridViewRow row in this.this.<#= ModelName #>GridView.Rows)
+            foreach (GridViewRow row in this.<#= ModelName #>GridView.Rows)
             {
                 if (row.RowType == DataControlRowType.DataRow)
                 {
                     CheckBox chkRow = (row.Cells[0].FindControl("chkRow") as CheckBox);
                     if (chkRow.Checked)
                     {
-                        var entityId= this.this.<#= ModelName #>GridView.DataKeys[row.RowIndex].Value;
+                        var entityId= this.<#= ModelName #>GridView.DataKeys[row.RowIndex].Value;
                         //TODO:获取选择行的ID
 
 

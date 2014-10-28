@@ -125,7 +125,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             string dbContextTypeName = codeGeneratorViewModel.DbContextModelType.TypeName;
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
-
+            var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
 
             // Get the dbContext
             ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
@@ -269,7 +269,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
             // Add folder for views. This is necessary to display an error when the folder already exists but 
             // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
-            string outputFolderPath = Path.Combine("Repositories", pluralizedModelName);
+            string outputFolderPath = Path.Combine("Repositories", pluralizedModelName.Replace("_",""));
             //AddFolder(Context.ActiveProject, outputFolderPath);
 
 
@@ -287,7 +287,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 var outputPath = Path.Combine(outputFolderPath, outputFileName);
 
                 var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
-                var folderNamespace = GetDefaultNamespace() + ".Repositories." + pluralizedModelName;
+                var folderNamespace = GetDefaultNamespace() + "." +pluralizedModelName.Replace("_","") +".Repositories"  ;
                 AddFileFromTemplate(
                     project: project,
                     outputPath: outputPath,
@@ -298,7 +298,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"DbContextNamespace", dbContextNamespace},
                         {"DbContextTypeName", dbContextTypeName},
                         {"ModelName", modelType.Name}, // singular model name (e.g., Movie)
-                        {"FolderNamespace", folderNamespace}, // the namespace of the current folder (used by C#)
+                        {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
                     },
                     skipIfExists: true);
@@ -396,7 +396,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
             // Generate unique code beside name (needed because VB does not namespace)
             var codeBesideName = GetUniqueCodeBesideName(Context.ActiveProject, webFormsName);
-
+            
             PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
 
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
@@ -435,7 +435,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"RelatedModels", relatedModels}, // models related by association to the model
 
                         {"DefaultNamespace", defaultNamespace}, // the default namespace of the project (used by VB)
-                        {"FolderNamespace", folderNamespace}, // the namespace of the current folder (used by C#)
+                        {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"ModelNamespace", modelNameSpace}, // the namespace of the model (e.g., Samples.Models)                        
                         {"CodeBesideName", codeBesideName}, // the Web Forms code beside class name (e.g., _Default)
                         {"PrimaryKeyName", primaryKey.PropertyName}, // primary key of model (e.g., Id)
@@ -537,6 +537,28 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             }
             return dict;
         }
+
+        protected IDictionary<string,ModelMetadata> GetOneToManyModelDictionary(ModelMetadata efMetadata,IEntityFrameworkService efService, string dbContextTypeName)
+        {
+            var dict = new Dictionary<string, ModelMetadata>();
+            foreach (var prop in efMetadata.Properties)
+            {
+                
+                if (prop.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                    string propname = prop.PropertyName;
+                    var relmeta = prop.RelatedModel;
+                    var reltype = relmeta.TypeName;
+
+                    ModelMetadata modelMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, reltype);
+                    dict.Add(propname, modelMetadata);
+                }
+            }
+
+
+            return dict;
+        }
+        
 
 
         // Create a mapping between property names and display names in case

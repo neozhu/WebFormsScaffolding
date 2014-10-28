@@ -30,7 +30,7 @@ namespace <#= FolderNamespace #>
         protected void Page_Init()
         {
             //TODO:添加页面标题
-            this.Title = "Title";
+            this.Title = "<#= ModelName #>";
             <#= ModelName #>FormView.SetDataMethodsObject(_repository);
             <#= ModelName #>FormView.RedirectToRouteOnItemInserted("../Default");
             <#= ModelName #>FormView.RedirectToRouteOnItemUpdated("../Default");
