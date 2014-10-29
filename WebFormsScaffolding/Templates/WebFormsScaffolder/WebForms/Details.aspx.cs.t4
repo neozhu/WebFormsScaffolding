@@ -10,7 +10,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
-
+using System.Web.DynamicData;
+using <#=DefaultNamespace #>.Repositories.<#= PluralizedModelName #>;
 using <#=DefaultNamespace #>.Extensions;
 <# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
 using <#= ModelNamespace #>;
@@ -60,13 +61,36 @@ namespace <#= FolderNamespace #>
         <#
     foreach (KeyValuePair<string,string > keyval in OneToManyNames) {     
         #>
-        protected IEnumerable<<#= keyval.Value #>> Get<#= keyval.Key #>By<#= ModelName #>Id([FriendlyUrlSegmentsAttribute(0)]int? Id)
+        public IQueryable<<#= keyval.Value #>> Get<#= keyval.Key #>By<#= ModelName #>Id(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount, [FriendlyUrlSegmentsAttribute(0)]int? Id)
         {
                 throw new NotImplementedException();
         }
         <#
-     }
+        }
         #>
+
+        protected void <#=        ModelName #>FormView_DataBound(object sender, EventArgs e)
+        {
+            <#
+            foreach (PropertyMetadata property in ModelMetadata.Properties) 
+            {
+                if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.PropertyName))
+                {
+            #>
+            var <#=        property.ShortTypeName #>GridView = (GridView)this.DepartmentFormView.FindControl("<#=        property.ShortTypeName #>GridView");
+            if (<#=        property.ShortTypeName #>GridView != null)
+            {
+                MetaTable metaTable = MetaTable.GetTable(typeof(<#=        property.TypeName #>));
+                <#=        property.ShortTypeName #>GridView.SetMetaTable(metaTable);
+                <#=        property.ShortTypeName #>GridView.DataBind();
+            }
+
+            <#
+                }
+            }
+            #>
+            
+        }
     }
 }
 

@@ -557,9 +557,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     string typename = prop.TypeName;
 
                     ModelMetadata modelMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, typename);
-                    if (!dict.ContainsKey(typename))
+                    if (!dict.ContainsKey(propname))
                     {
-                        dict.Add(typename, modelMetadata);
+                        dict.Add(propname, modelMetadata);
                     }
                 }
             }

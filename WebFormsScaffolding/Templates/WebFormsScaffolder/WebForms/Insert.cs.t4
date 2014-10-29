@@ -120,6 +120,11 @@
                 </asp:FormView>
             </div>
     </div>
+    <script type="text/javascript">
+        $(function () {
+            
+        })
+    </script>
 <#
 // The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
 #>
