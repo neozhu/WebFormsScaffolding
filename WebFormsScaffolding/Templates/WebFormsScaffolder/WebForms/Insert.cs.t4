@@ -21,7 +21,7 @@
     PushIndent("    ");
 }
 #>
-    <div>
+
          <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -78,45 +78,47 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-
-		<p>&nbsp;</p>
-        <asp:FormView runat="server" ID="<#=ModelName #>FormView"
-            ItemType="<#=FullModelName#>" DefaultMode="Insert"
-            InsertItemPosition="FirstItem" InsertMethod="CreateItem"
-            RenderOuterTable="false">
-            <InsertItemTemplate>
-                <fieldset class="form-horizontal">
-				<legend>Insert <#= ModelName #></legend>
-		        <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
-<# 					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
-					  if (ShouldEdit(property)) {
-					    if (property.IsForeignKey) { 
-							var relatedModel = RelatedModels[property.PropertyName];
-#>
-							<asp:DynamicControl Mode="Insert" 
-								DataField="<#=property.PropertyName#>" 
-								DataTypeName="<#=relatedModel.TypeName#>" 
-								DataTextField="<#=relatedModel.DisplayPropertyName#>" 
-								DataValueField="<#=relatedModel.PrimaryKeyNames[0]#>" 
-								UIHint="ForeignKey" runat="server" />
-<# 
-					    } else { 
-#>
-						    <asp:DynamicControl Mode="Insert" DataField="<#=property.PropertyName#>" runat="server" />
-<#
-					    } 
-					  }
-					} 
-#>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <asp:Button runat="server" ID="InsertButton" CommandName="Insert" Text="Insert" CssClass="btn btn-primary" />
-                            <asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn btn-default" />
-                        </div>
-					</div>
-                </fieldset>
-            </InsertItemTemplate>
-        </asp:FormView>
+        <div  class="container body-content">
+        <div class="row">
+		        <p>&nbsp;</p>
+                <asp:FormView runat="server" ID="<#=ModelName #>FormView"
+                    ItemType="<#=FullModelName#>" DefaultMode="Insert"
+                    InsertItemPosition="FirstItem" InsertMethod="CreateItem"
+                    RenderOuterTable="false">
+                    <InsertItemTemplate>
+                        <fieldset class="form-horizontal">
+				        <legend>Insert <#= ModelName #></legend>
+		                <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
+        <# 					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+					          if (ShouldEdit(property)) {
+					            if (property.IsForeignKey) { 
+							        var relatedModel = RelatedModels[property.PropertyName];
+        #>
+							        <asp:DynamicControl Mode="Insert" 
+								        DataField="<#=property.PropertyName#>" 
+								        DataTypeName="<#=relatedModel.TypeName#>" 
+								        DataTextField="<#=relatedModel.DisplayPropertyName#>" 
+								        DataValueField="<#=relatedModel.PrimaryKeyNames[0]#>" 
+								        UIHint="ForeignKey" runat="server" />
+        <# 
+					            } else { 
+        #>
+						            <asp:DynamicControl Mode="Insert" DataField="<#=property.PropertyName#>" runat="server" />
+        <#
+					            } 
+					          }
+					        } 
+        #>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <asp:Button runat="server" ID="InsertButton" CommandName="Insert" Text="Insert" CssClass="btn btn-primary" />
+                                    <asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn btn-default" />
+                                </div>
+					        </div>
+                        </fieldset>
+                    </InsertItemTemplate>
+                </asp:FormView>
+            </div>
     </div>
 <#
 // The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page

@@ -160,7 +160,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 codeGeneratorViewModel.UseMasterPage, 
                 codeGeneratorViewModel.DesktopMasterPage, 
                 codeGeneratorViewModel.DesktopPlaceholderId, 
-                codeGeneratorViewModel.OverwriteViews
+                codeGeneratorViewModel.OverwriteViews,
+                oneToManyModels
            );
 
             // Add Web Forms Pages from Templates
@@ -318,7 +319,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             bool useMasterPage,
             string masterPage = null,
             string desktopPlaceholderId = null,
-            bool overwriteViews = true
+            bool overwriteViews = true,
+            IDictionary<string, ModelMetadata> oneToManyModels = null 
         )
         {
 
@@ -363,7 +365,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     masterPage: masterPage,
                     sectionNames: sectionNames,
                     primarySectionName: desktopPlaceholderId,
-                    overwrite: overwriteViews);
+                    overwrite: overwriteViews,
+                    oneToManyModels: oneToManyModels);
             }
         }
 
@@ -382,7 +385,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                                 string masterPage = "",
                                 string[] sectionNames = null,
                                 string primarySectionName = "",
-                                bool overwrite = false
+                                bool overwrite = false,
+                                IDictionary<string, ModelMetadata> oneToManyModels=null
         )
         {
             if (modelType == null)
@@ -393,7 +397,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             {
                 throw new ArgumentException(Resources.WebFormsViewScaffolder_EmptyActionName, "webFormsName");
             }
-
+            var oneToManyNames = this.GetOneToManyModelNames(efMetadata);
             // Generate unique code beside name (needed because VB does not namespace)
             var codeBesideName = GetUniqueCodeBesideName(Context.ActiveProject, webFormsName);
             
@@ -445,7 +449,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
                         {"DbContextNamespace", dbContextNamespace},
                         {"DbContextTypeName", dbContextTypeName},
-                        {"ModelDisplayNames", modelDisplayNames}
+                        {"ModelDisplayNames", modelDisplayNames},
+                        {"OneToManyModels", oneToManyModels},
+                        {"OneToManyNames", oneToManyNames},
                     },
                     skipIfExists: !overwrite);
             }
@@ -547,11 +553,34 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 if (prop.AssociationDirection == AssociationDirection.OneToMany)
                 {
                     string propname = prop.PropertyName;
-                    var relmeta = prop.RelatedModel;
-                    var reltype = relmeta.TypeName;
+                    //var relmeta = prop.RelatedModel;
+                    string typename = prop.TypeName;
 
-                    ModelMetadata modelMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, reltype);
-                    dict.Add(propname, modelMetadata);
+                    ModelMetadata modelMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, typename);
+                    if (!dict.ContainsKey(typename))
+                    {
+                        dict.Add(typename, modelMetadata);
+                    }
+                }
+            }
+
+
+            return dict;
+        }
+
+        protected IDictionary<string, string> GetOneToManyModelNames(ModelMetadata efMetadata)
+        {
+            var dict = new Dictionary<string, string>();
+            foreach (var prop in efMetadata.Properties)
+            {
+
+                if (prop.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                    string propname = prop.PropertyName;
+                    //var relmeta = prop.RelatedModel;
+                    string typename = prop.TypeName;
+                    dict.Add(propname, typename);
+                    
                 }
             }
 

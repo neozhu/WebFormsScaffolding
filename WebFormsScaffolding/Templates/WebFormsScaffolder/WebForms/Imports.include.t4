@@ -31,3 +31,7 @@
 <#@ parameter type="System.String" name="DbContextNamespace" #>
 <#@ parameter type="System.String" name="DbContextTypeName" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="ModelDisplayNames" #>
+
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModels" #>
+
+<#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="OneToManyNames" #>

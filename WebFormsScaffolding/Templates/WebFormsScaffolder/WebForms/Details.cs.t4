@@ -1,11 +1,11 @@
 <#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="aspx" #>
 <#@ include file="Imports.include.t4" #>
-<# if(IsContentPage) { #>
-<%@ Page Title="<#= ModelName #> Details" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Details.aspx.cs" Inherits="<#= FolderNamespace #>.Details" %>
-<asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
-<# } else { #>
-<%@ Page Title="<#= ModelName #> Details" Language="C#" CodeBehind="Details.aspx.cs" Inherits="<#= FolderNamespace #>.Details" %>
+<#    if(IsContentPage) { #>
+<%@ Page Title="<#=            ModelName #> Details" Language="C#" MasterPageFile="~/<#=            MasterPageFile #>" CodeBehind="Details.aspx.cs" Inherits="<#=            FolderNamespace #>.Details" %>
+<asp:Content runat="server" ContentPlaceHolderID="<#=            PrimarySectionName #>">
+<#    } else { #>
+<%@ Page Title="<#=            ModelName #> Details" Language="C#" CodeBehind="Details.aspx.cs" Inherits="<#=            FolderNamespace #>.Details" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -18,10 +18,10 @@
     <form runat="server" id="form1">
 	<div class="container body-content">
 <#
-    PushIndent("    ");
-}
+        PushIndent("    ");
+}    
 #>
-    <div>
+    
          <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -31,7 +31,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/<#=RelativePath #>/Default"><%= Page.Title %></a>
+                <a class="navbar-brand" href="/<#=        RelativePath #>/Default"><%= Page.Title %></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -80,69 +80,140 @@
         </nav>
 
 
-		<p>&nbsp;</p>
+		<div  class="container body-content">
+        <div class="row">
       
-        <asp:FormView runat="server"  ID="<#=ModelName #>FormView"
-            ItemType="<#=FullModelName#>" DataKeyNames="<#= PrimaryKeyName #>"
-            SelectMethod="GetById"
-            RenderOuterTable="false">
-            <EmptyDataTemplate>
-                Cannot find the <#= ModelName #> with <#= PrimaryKeyName #> <%: Request.QueryString["<#= PrimaryKeyName #>"] %>
-            </EmptyDataTemplate>
-            <ItemTemplate>
-                <fieldset class="form-horizontal">
-                    <legend><#= ModelName #> Details</legend>
-<#					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
-					  if (ShouldDisplay(property)) {
-						if (property.IsForeignKey) { 
-							var relatedModel = RelatedModels[property.PropertyName];
-#>
-							<div class="form-group col-lg-6 col-md-6 col-sm-6">
-								<div class="col-sm-3 col-md-3 text-right">
-									<strong><#= GetDisplayName(property.PropertyName) #></strong>
-								</div>
-								<div class="col-sm-8 col-md-8">
-									<%#: Item.<#=relatedModel.AssociationPropertyName#> != null ? Item.<#=relatedModel.AssociationPropertyName#>.<#=relatedModel.DisplayPropertyName#> : "" %>
-								</div>
-							</div>
-<#
-						} else {
-#>
-							<div class="form-group col-lg-6 col-md-6 col-sm-6">
-								<div class="col-sm-3 col-md-3 text-right">
-									<strong><#= GetDisplayName(property.PropertyName) #></strong>
-								</div>
-								<div class="col-sm-8 col-md-8">
-									<asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" ID="<#= property.PropertyName #>" Mode="ReadOnly" />
-								</div>
-							</div>
-<#
-					  }
-					}
-				}
-#>
-                 	<div class="row">
-					  &nbsp;
-					</div>
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-md-offset-2 col-lg-12 col-md-12 col-sm-12">
-							<asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Back" CssClass="btn btn-default" />
-						</div>
-					</div>
-                </fieldset>
-            </ItemTemplate>
-        </asp:FormView>
+                <asp:FormView runat="server"  ID="<#=        ModelName #>FormView"
+                    ItemType="<#=        FullModelName#>" DataKeyNames="<#=        PrimaryKeyName #>"
+                    SelectMethod="GetById"
+                    RenderOuterTable="false">
+                    <EmptyDataTemplate>
+                        Cannot find the <#=        ModelName #> with <#=        PrimaryKeyName #> <%: Request.QueryString["<#=        PrimaryKeyName #>"] %>
+                    </EmptyDataTemplate>
+                    <ItemTemplate>
+                        <fieldset class="form-horizontal">
+                            <legend><#=        ModelName #> Details</legend>
+        <#    foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+        if (ShouldDisplay(property)) {
+            if (property.IsForeignKey) { 
+                var relatedModel = RelatedModels[property.PropertyName];
+        #>
+							        <div class="form-group col-lg-6 col-md-6 col-sm-6">
+								        <div class="col-sm-3 col-md-3 text-right">
+									        <strong><#=                    GetDisplayName(property.PropertyName) #></strong>
+								        </div>
+								        <div class="col-sm-8 col-md-8">
+									        <%#: Item.<#=                    relatedModel.AssociationPropertyName#> != null ? Item.<#=                    relatedModel.AssociationPropertyName#>.<#=                    relatedModel.DisplayPropertyName#> : "" %>
+								        </div>
+							        </div>
+        <#
+            } else {
+        #>
+							        <div class="form-group col-lg-6 col-md-6 col-sm-6">
+								        <div class="col-sm-3 col-md-3 text-right">
+									        <strong><#=                    GetDisplayName(property.PropertyName) #></strong>
+								        </div>
+								        <div class="col-sm-8 col-md-8">
+									        <asp:DynamicControl runat="server" DataField="<#=                    property.PropertyName #>" ID="<#=                    property.PropertyName #>" Mode="ReadOnly" />
+								        </div>
+							        </div>
+        <#
+            }
+        }
+    }
+        #>
+
+       <#
+    if(OneToManyModels.Count>0)
+    {
+        #>
+                         <div id="tabs">
+                            <ul>
+                                <#
+        foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {
+            if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.TypeName))
+            {
+                                #>
+                                        <li><a href="#tabs<#=                    property.PropertyName #>"><#=                    GetDisplayName(property.PropertyName) #></a></li>
+                                <#  
+            }
+        }
+                                #>                  
+                            </ul>
+                            <#
+        foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {
+            if (property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.TypeName))
+            {
+                var modelmeta=OneToManyModels[property.TypeName];
+                           #>
+                           <div id="tabs<#=                    property.PropertyName #>">
+                                 <asp:GridView ID="<#=        property.ShortTypeName #>GridView" runat="server" ItemType="<#=        property.TypeName #>" GridLines="none"
+                                    ShowHeaderWhenEmpty="true"
+                                    SelectMethod="Get<#=  property.PropertyName  #>By<#= ModelName #>Id" DeleteMethod="Delete"
+                                    AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" 
+                                    DataKeyNames="<#=  modelmeta.PrimaryKeys[0].PropertyName #>"
+                                    PageSize="10" PagerStyle-CssClass="bs-pagination" CssClass="table table-hover table-striped">
+                                <Columns>
+                         <# 
+                                foreach (PropertyMetadata subproperty in modelmeta.Properties) { 
+                                        if (ShouldDisplay(subproperty) && !subproperty.IsForeignKey) {
+
+                         #>
+                                     <asp:DynamicField DataField="<#=                subproperty.PropertyName #>" />
+                        <#
+                                        }else if (subproperty.AssociationDirection==AssociationDirection.ManyToOne) {
+                        #>
+                                     <asp:DynamicField DataField="<#=                subproperty.PropertyName #>"  NavigateUrl="#" />  
+                        <#                                     
+                                    }
+                                }
+                       #>                     
+                                
+                                   
+                                 </Columns>
+                                 <SortedAscendingHeaderStyle CssClass="asc" />
+                                 <SortedDescendingHeaderStyle CssClass="desc" />
+                                 <PagerSettings Mode="NumericFirstLast" PageButtonCount="5" Position="Bottom" PreviousPageText="Previous" NextPageText="Next" FirstPageText="First" LastPageText="Last" />
+                               </asp:GridView>
+                           </div>
+                           <#  
+            }
+        }
+                           #>  
+
+
+
+
+                        </div>
+        <#
+    }
+        #>     
+       
+                 	        <div class="row">
+					          &nbsp;
+					        </div>
+					        <div class="form-group">
+						        <div class="col-sm-offset-2 col-md-offset-2 col-lg-12 col-md-12 col-sm-12">
+							        <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Back" CssClass="btn btn-default" />
+						        </div>
+					        </div>
+                        </fieldset>
+                    </ItemTemplate>
+                </asp:FormView>
+        </div>
     </div>
 <#
-// The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
+    // The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
 #>
 <#
-if(IsContentPage) {
+    if(IsContentPage) {
 #>
 </asp:Content>
 <#
-} else if(!IsContentPage) {
-    ClearIndent();
+    } else if(!IsContentPage) {
+        ClearIndent();
 #>
 	</div>
     </form>
@@ -153,7 +224,7 @@ if(IsContentPage) {
 </body>
 </html>
 <#
-}
+    }
 #>
 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>

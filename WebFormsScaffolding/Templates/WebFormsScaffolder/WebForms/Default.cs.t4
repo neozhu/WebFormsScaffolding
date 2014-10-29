@@ -1,12 +1,12 @@
 <#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="aspx"  encoding="UTF8" #>
 <#@ include file="Imports.include.t4" #>
-<# if(IsContentPage) { 
-#><%@ Page Title="<#= ModelName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= FolderNamespace #>.Default" %>
+<#    if(IsContentPage) { 
+#><%@ Page Title="<#=            ModelName #>List" Language="C#" MasterPageFile="~/<#=            MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#=            FolderNamespace #>.Default" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
-<asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
-<# } else { 
-#><%@ Page Title="<#= ModelName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#= FolderNamespace #>.Default" %>
+<asp:Content runat="server" ContentPlaceHolderID="<#=            PrimarySectionName #>">
+<#    } else { 
+#><%@ Page Title="<#=            ModelName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#=            FolderNamespace #>.Default" %>
 <%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
 <!DOCTYPE html>
 <html>
@@ -20,11 +20,12 @@
     <form runat="server" id="form1">
 	<div class="container body-content">
 <#
-    PushIndent("    ");
+        PushIndent("    ");
 }
+    
 #>
    
-    <div>
+  
 		 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -34,7 +35,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/<#=RelativePath #>/Default"><%= Page.Title %></a>
+                <a class="navbar-brand" href="/<#=        RelativePath #>/Default"><%= Page.Title %></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -82,6 +83,7 @@
             <!-- /.navbar-collapse -->
         </nav>
 
+        <div  class="container body-content">
         <div class="alert alert-danger page-alert" id="alert-4">
             <button type="button" class="close"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
             <asp:CustomValidator ID="CustomValidator1" ValidationGroup="grid" runat="server" ErrorMessage="Please,Check one!"
@@ -89,29 +91,30 @@
 
 
         </div>
+     
 	    <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">查询</h3>
+                            <h3 class="panel-title">Query</h3>
                         </div>
                         <div class="panel-body form-horizontal" role="form" >
 
                            
                                 <div class="form-group col-sm-5 col-md-5 col-lg-5">
-                                    <label class="col-sm-2 col-md-2 control-label" for="textinput">serach1</label>
+                                    <label class="col-sm-2 col-md-2 control-label" for="textinput1">serach1</label>
                                     <div class="col-sm-8 col-md-8">
-                                        <input type="text" class="form-control" placeholder="Search">
+                                        <input type="text" class="form-control" name="textinput1" placeholder="Search">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-5 col-md-5 col-lg-5">
-                                    <label class="col-sm-2 col-md-2 control-label" for="textinput">serach2</label>
+                                    <label class="col-sm-2 col-md-2 control-label" for="textinput2">serach2</label>
                                     <div class="col-sm-8 col-md-8">
-                                        <input type="text" class="form-control" placeholder="Search">
+                                        <input type="text" class="form-control" name="textinput2" placeholder="Search">
                                     </div>
                                 </div>
                                <div class="col-sm-2 col-md-2 pull-right">
-                                          <asp:LinkButton ID="searcformhbtn" runat="server" OnClick="searchbtn_Click" CssClass="btn  btn-default"><i class="glyphicon glyphicon-search"></i> 查询</asp:LinkButton>
+                                          <asp:LinkButton ID="searcformhbtn" runat="server" OnClick="searchbtn_Click" CssClass="btn  btn-default"><i class="glyphicon glyphicon-search"></i> Search</asp:LinkButton>
                                 </div>
                                    
                                
@@ -121,12 +124,12 @@
                 </div>
             </div>
         <div class="row">
-                <div class="col-md-12">
-                    <h4>部门信息</h4>
+                <div class="col-md-12 col-lg-12">
+                    <h4><#=        PluralizedModelName #></h4>
                     <div class="table-responsive">
-                        <asp:GridView ID="<#= ModelName #>GridView" runat="server" ItemType="<#=FullModelName #>" GridLines="none"
+                        <asp:GridView ID="<#=        ModelName #>GridView" runat="server" ItemType="<#=        FullModelName #>" GridLines="none"
                         ShowHeaderWhenEmpty="true"
-                        SelectMethod="Get" AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" DataKeyNames="<#= PrimaryKeyName #>"
+                        SelectMethod="Get" DeleteMethod="Delete" AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" DataKeyNames="<#=        PrimaryKeyName #>"
                         PageSize="10" PagerStyle-CssClass="bs-pagination" CssClass="table table-hover table-striped">
                         <Columns>
                             <asp:TemplateField ShowHeader="true">
@@ -138,23 +141,23 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
             <# 
-                            foreach (PropertyMetadata property in ModelMetadata.Properties) { 
-					              if (ShouldDisplay(property) && !property.IsForeignKey) {
+    foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+        if (ShouldDisplay(property) && !property.IsForeignKey) {
 
             #>
-                                     <asp:DynamicField DataField="<#= property.PropertyName #>" />
+                                     <asp:DynamicField DataField="<#=                property.PropertyName #>" />
             <#
-                                    }else if (property.AssociationDirection==AssociationDirection.ManyToOne) {
+        }else if (property.AssociationDirection==AssociationDirection.ManyToOne) {
             #>
-                                     <asp:DynamicField DataField="<#= property.PropertyName #>"  NavigateUrl="#" />  
+                                     <asp:DynamicField DataField="<#=                property.PropertyName #>"  NavigateUrl="#" />  
             <#                                     
-                                    }
-					            }
+        }
+    }
             #>
                              <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>
-                                    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Details", Item.<#= GetPrimaryKeyName() #>) %>' Text="Details" /> | 
-					                <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Edit", Item.<#= GetPrimaryKeyName() #>) %>' Text="Edit" /> | 
+                                    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=        RelativePath#>/Details", Item.<#=        GetPrimaryKeyName() #>) %>' Text="Details" /> | 
+					                <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=        RelativePath#>/Edit", Item.<#=        GetPrimaryKeyName() #>) %>' Text="Edit" /> | 
                                     <asp:LinkButton ID="deleteButton"   runat="server" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete this row?');" />
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -166,17 +169,18 @@
                     </div>
                 </div>
         </div>
-       
-    </div>
+       </div>
+
 
 
 
 <script type="text/javascript">
+        $('.page-alert').hide();
 
         function Validate(sender, args) {
 
-            //console.log($('table[id*=<#= ModelName #>GridView] input[type=checkbox]:checked').length);
-            if ($('table[id*=<#= ModelName #>GridView] input[type=checkbox]:checked').length > 0) {
+            //console.log($('table[id*=<#=        ModelName #>GridView] input[type=checkbox]:checked').length);
+            if ($('table[id*=<#=        ModelName #>GridView] input[type=checkbox]:checked').length > 0) {
                 args.IsValid = true;
                 $('.page-alert').slideUp();
             } else {
@@ -193,7 +197,7 @@
 
 
         $(function () {
-            $('.page-alert').hide();
+            
 
             $('[id*=chkRow]').on('click', function () {
 
@@ -242,15 +246,15 @@
 
     </script>
 <#
-// The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
+    // The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
 #>
 <#
-if(IsContentPage) {
+    if(IsContentPage) {
 #>
 </asp:Content>
 <#
-} else if(!IsContentPage) {
-    ClearIndent();
+    } else if(!IsContentPage) {
+        ClearIndent();
 #>
 	</div>
     </form>
@@ -260,7 +264,7 @@ if(IsContentPage) {
 </body>
 </html>
 <#
-}
+    }
 #>
 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>
