@@ -19,7 +19,8 @@
 	<div class="container body-content">
 <#
         PushIndent("    ");
-}    
+}
+    
 #>
  
          <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -44,7 +45,7 @@
                         <asp:LinkButton ID="editbtn" ValidationGroup="grid" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
                     </li>
                     <li>
-                        <asp:LinkButton ID="deletebtn" runat="server" ValidationGroup="grid" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
+                        <asp:LinkButton ID="deletebtn"  class="active" runat="server" ValidationGroup="grid" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
                     </li>
                     <li class="divider"></li>
 

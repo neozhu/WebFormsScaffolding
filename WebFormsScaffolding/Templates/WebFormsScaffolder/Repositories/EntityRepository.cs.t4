@@ -24,13 +24,18 @@ namespace <#= FolderNamespace #>
         
         }
 
-		 public IList<<#= ModelName #>> Get(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount)
+		 public IList<<#= ModelName #>> Get(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount,[System.Web.ModelBinding.Control("searchTextBox")]string searchText)
         {
-            totalRowCount = this.set.Count();
-          
+            var query = this.set.AsQueryable();
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                //TODO:coding query expression
+                //query = query.Where(n => n.ShortName.Contains(companyname) || n.FullName.Contains(companyname));
+            }
          
             //select from the table based on the input parameters
-            var list = this.set
+            totalRowCount=query.Count();
+            var list = query
                 .OrderBy(n=>n.Id)
                 .Skip(startRowIndex)
                 .Take(maximumRows)

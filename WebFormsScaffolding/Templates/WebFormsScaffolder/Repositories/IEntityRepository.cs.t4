@@ -20,7 +20,7 @@ namespace <#= FolderNamespace #>
     {
 
 			IList<<#= ModelName #>> Get(string sortByExpression, int maximumRows,
-						int startRowIndex, out int totalRowCount);
+						int startRowIndex, out int totalRowCount,[System.Web.ModelBinding.Control("searchTextBox")]string searchText);
 			<#= ModelName #> GetById([FriendlyUrlSegmentsAttribute(0)]int? Id );
 	}
 }

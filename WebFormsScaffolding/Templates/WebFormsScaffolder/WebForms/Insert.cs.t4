@@ -39,7 +39,7 @@
                 <ul class="nav navbar-nav">
                     <li><a id="backbtn"  href="Javascript:history.back()"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
                     <li><a id="forwardbtn"   href="Javascript:history.go(1)"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
-                    <li><a id="newbtn"   href="Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
+                    <li><a id="newbtn" class="active"  href="Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
                     <li>
                         <asp:LinkButton ID="editbtn" ValidationGroup="grid" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
                     </li>

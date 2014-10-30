@@ -41,7 +41,7 @@
                <li><a id="forwardbtn"   href="Javascript:history.go(1)"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
                <li><a id="newbtn"   href="Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
                <li>
-                   <asp:LinkButton ID="editbtn" ValidationGroup="grid" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
+                   <asp:LinkButton ID="editbtn" class="active" ValidationGroup="grid" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
                </li>
                <li>
                    <asp:LinkButton ID="deletebtn" runat="server" ValidationGroup="grid" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
