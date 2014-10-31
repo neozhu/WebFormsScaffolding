@@ -9,6 +9,25 @@ bool ShouldEdit(PropertyMetadata property) {
 		&& !property.IsAssociation;
 }
 
+RelatedModelMetadata GetRelatedModel(ModelMetadata metadata,string foreignKeyPropertyName)
+        {
+             
+
+            foreach (var relatedEntity in metadata.RelatedEntities)
+            {
+                if (relatedEntity.ForeignKeyPropertyNames.Count() == 1)
+                {
+                if(relatedEntity.ForeignKeyPropertyNames[0]==foreignKeyPropertyName){
+
+                    return relatedEntity;
+                    }
+                     
+                }
+            }
+            return null;
+           
+        }
+
 // Should display the property?
 // Used by Default, Delete forms to decide which properties to display
 bool ShouldDisplay(PropertyMetadata property) {

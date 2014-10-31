@@ -127,7 +127,7 @@
         {
             if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.PropertyName))
             {
-                                #>
+                           #>
                                    <li><a data-toggle="tab" href="#tabs<#=                    property.PropertyName #>"><#=                    GetDisplayName(property.PropertyName) #></a></li>
                            <#  
             }
@@ -143,6 +143,9 @@
                 var modelmeta=OneToManyModels[property.PropertyName];
                            #>
                                 <div class="tab-pane" id="tabs<#=                    property.PropertyName #>">
+                                    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#popup<#=                    property.PropertyName #>">" >
+                                        <span class="glyphicon glyphicon-plus"></span> Add
+                                    </button>
                                     <asp:GridView ID="<#=        property.ShortTypeName #>GridView" runat="server" ItemType="<#=        property.TypeName #>" GridLines="none"
                                         ShowHeaderWhenEmpty="true"
                                         SelectMethod="Get<#=  property.PropertyName  #>By<#= ModelName #>Id" DeleteMethod="Delete"
@@ -154,7 +157,7 @@
                                 foreach (PropertyMetadata subproperty in modelmeta.Properties) { 
                                         if (ShouldDisplay(subproperty) && !subproperty.IsForeignKey) {
 
-                         #>
+                        #>
                                             <asp:DynamicField DataField="<#=                subproperty.PropertyName #>" />
                         <#
                                         }else if (subproperty.AssociationDirection==AssociationDirection.ManyToOne) {
@@ -163,7 +166,7 @@
                         <#                                     
                                     }
                                 }
-                       #>                     
+                        #>                     
                                 
                                    
                                         </Columns>
@@ -200,7 +203,137 @@
                     </EditItemTemplate>
                 </asp:FormView>
             </div>
+
+
+
+            
+<#
+     foreach (PropertyMetadata property in ModelMetadata.Properties) 
+     {
+            if (property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.PropertyName))
+        {
+            var modelmeta=OneToManyModels[property.PropertyName];
+#>
+        <div class="modal fade " id="popup<#= property.PropertyName #>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><#= property.PropertyName #></h4>
+                    </div>
+                    <div class="modal-body">
+                        <asp:FormView runat="server" ID="popup<#= property.ShortTypeName #>FormView"
+                            ItemType="<#=  property.TypeName #>" DefaultMode="Insert" DataKeyNames="<#=  modelmeta.PrimaryKeys[0].PropertyName #>"
+                            OnDataBound="popup<#= property.ShortTypeName #>FormView_DataBound"
+                            UpdateMethod="UpdateItem" SelectMethod="GetById"
+                            InsertItemPosition="FirstItem" InsertMethod="CreateItem"
+                            RenderOuterTable="false">
+                            <EmptyDataTemplate>
+                                    Cannot find the <#= property.ShortTypeName #> with <#= modelmeta.PrimaryKeys[0].PropertyName #> <%: Request.QueryString["<#= modelmeta.PrimaryKeys[0].PropertyName #>"] %>
+                            </EmptyDataTemplate>
+                            <EditItemTemplate>
+                                 <fieldset class="form-horizontal">
+                                    <legend>Edit <#= property.ShortTypeName #></legend>
+                             
+					            <asp:ValidationSummary runat="server" CssClass="alert alert-danger"  />    
+                            <# 
+					        foreach (PropertyMetadata subproperty in modelmeta.Properties) { 
+					          if (ShouldEdit(subproperty)) {
+					            if (subproperty.IsForeignKey) { 
+							        var relatedModel = GetRelatedModel[subproperty.PropertyName];
+                            #>
+							    <asp:DynamicControl Mode="Edit" 
+								        DataField="<#=subproperty.PropertyName#>" 
+								        DataTypeName="<#=relatedModel.TypeName#>" 
+								        DataTextField="<#=relatedModel.DisplayPropertyName#>" 
+								        DataValueField="<#=relatedModel.PrimaryKeyNames[0]#>" 
+								        UIHint="ForeignKey" runat="server" />
+        <# 
+					            } else { 
+        #>
+						        <asp:DynamicControl Mode="Edit" DataField="<#=subproperty.PropertyName#>" runat="server" />
+        <#
+					            } 
+					          }
+					        } 
+        #>
+
+
+
+                                <div class="row">
+					                &nbsp;</p>
+					            </div>
+                                    &nbsp;</p>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+							            <asp:Button runat="server" ID="UpdateButton" CommandName="Update" Text="Update" CssClass="btn btn-primary" />
+							            <asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn btn-default" />
+						            </div>
+					            </div>
+                                </fieldset>
+                            </EditItemTemplate>
+
+
+                            <InsertItemTemplate>
+                                 <fieldset class="form-horizontal">
+                                    <legend>Edit <#= property.ShortTypeName #></legend>
+                             
+					            <asp:ValidationSummary runat="server" CssClass="alert alert-danger"  />    
+                            <# 
+					        foreach (PropertyMetadata subproperty in modelmeta.Properties) { 
+					          if (ShouldEdit(subproperty)) {
+					            if (subproperty.IsForeignKey) { 
+							        var relatedModel = GetRelatedModel[subproperty.PropertyName];
+                            #>
+							    <asp:DynamicControl Mode="Edit" 
+								        DataField="<#=subproperty.PropertyName#>" 
+								        DataTypeName="<#=relatedModel.TypeName#>" 
+								        DataTextField="<#=relatedModel.DisplayPropertyName#>" 
+								        DataValueField="<#=relatedModel.PrimaryKeyNames[0]#>" 
+								        UIHint="ForeignKey" runat="server" />
+        <# 
+					            } else { 
+        #>
+						        <asp:DynamicControl Mode="Edit" DataField="<#=subproperty.PropertyName#>" runat="server" />
+        <#
+					            } 
+					          }
+					        } 
+        #>
+
+
+
+                                <div class="row">
+					                &nbsp;</p>
+					            </div>
+                                    &nbsp;</p>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+							            <asp:Button runat="server" ID="UpdateButton" CommandName="Update" Text="Update" CssClass="btn btn-primary" />
+							            <asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn btn-default" />
+						            </div>
+					            </div>
+                                </fieldset>
+                            </InsertItemTemplate>
+                        </asp:FormView>
+                    </div>
+                     <div class="modal-footer">
+                        <p>  &nbsp;</p>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+
+
+<#
+        }
+    } 
+#>
     </div>
+
+
+
      <script type="text/javascript">
         $(function () {
             <#
