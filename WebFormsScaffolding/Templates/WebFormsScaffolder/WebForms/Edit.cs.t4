@@ -240,7 +240,7 @@
 					        foreach (PropertyMetadata subproperty in modelmeta.Properties) { 
 					          if (ShouldEdit(subproperty)) {
 					            if (subproperty.IsForeignKey) { 
-							        var relatedModel = GetRelatedModel[subproperty.PropertyName];
+							        var relatedModel = GetRelatedModel(modelmeta,subproperty.PropertyName);
                             #>
 							    <asp:DynamicControl Mode="Edit" 
 								        DataField="<#=subproperty.PropertyName#>" 
@@ -283,7 +283,7 @@
 					        foreach (PropertyMetadata subproperty in modelmeta.Properties) { 
 					          if (ShouldEdit(subproperty)) {
 					            if (subproperty.IsForeignKey) { 
-							        var relatedModel = GetRelatedModel[subproperty.PropertyName];
+							        var relatedModel = GetRelatedModel(modelmeta,subproperty.PropertyName);
                             #>
 							    <asp:DynamicControl Mode="Edit" 
 								        DataField="<#=subproperty.PropertyName#>" 
