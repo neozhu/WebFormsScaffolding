@@ -16,18 +16,20 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
    public interface IRepository<TEntity> where TEntity : class
     {
    
-       //TEntity Create(TEntity newEntity);
-        int CreateItem(TEntity entity, ModelMethodContext modelMethodContext);
-        int UpdateItem(object Id, ModelMethodContext modelMethodContext);
-        int Update(TEntity entity);
-        int Create(TEntity entity);
+		int CreateItem(TEntity entity, ModelMethodContext modelMethodContext);
+        int UpdateItem(object id, ModelMethodContext modelMethodContext);
+        int DeleteItem(object id, ModelMethodContext modelMethodContext);
+        int DeleteWhere(Expression<Func<TEntity, bool>> criteria);
+        TEntity Create(TEntity entity);
+        TEntity Update(TEntity entity);
         void Delete(object id);
+        void Delete(TEntity entity);
+
         TEntity Read(object Id);
         IEnumerable<TEntity> ReadAll();
         IEnumerable<TEntity> ReadMany(Expression<Func<TEntity, bool>> criteria);
         IEnumerable<TEntity> ReadMany(ISpecification<TEntity> spec);
         TEntity ReadOne(Expression<Func<TEntity, bool>> criteria);
         TEntity ReadOne(ISpecification<TEntity> spec);
-        //TEntity Update(TEntity entity);
     }
 }

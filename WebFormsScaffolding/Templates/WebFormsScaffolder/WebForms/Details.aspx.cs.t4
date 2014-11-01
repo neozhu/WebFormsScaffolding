@@ -77,12 +77,12 @@ namespace <#= FolderNamespace #>
                 if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.PropertyName))
                 {
             #>
-            var <#=        property.ShortTypeName #>GridView = (GridView)this.DepartmentFormView.FindControl("<#=        property.ShortTypeName #>GridView");
-            if (<#=        property.ShortTypeName #>GridView != null)
+            var sub<#=        property.ShortTypeName #>GridView = (GridView)this.DepartmentFormView.FindControl("sub<#=        property.ShortTypeName #>GridView");
+            if (sub<#=        property.ShortTypeName #>GridView != null)
             {
                 MetaTable metaTable = MetaTable.GetTable(typeof(<#=        property.TypeName #>));
-                <#=        property.ShortTypeName #>GridView.SetMetaTable(metaTable);
-                <#=        property.ShortTypeName #>GridView.DataBind();
+                sub<#=        property.ShortTypeName #>GridView.SetMetaTable(metaTable);
+                sub<#=        property.ShortTypeName #>GridView.DataBind();
             }
 
             <#

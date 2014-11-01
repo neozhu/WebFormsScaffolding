@@ -58,15 +58,63 @@ namespace <#= FolderNamespace #>
             
         }
         <#
-    foreach (KeyValuePair<string,string > keyval in OneToManyNames) {     
+		foreach (KeyValuePair<string,string > keyval in OneToManyNames) {     
         #>
-         public IQueryable<<#= keyval.Value #>> Get<#= keyval.Key #>By<#= ModelName #>Id(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount, [FriendlyUrlSegmentsAttribute(0)]int? Id)
+        public IQueryable<<#= keyval.Value #>> Get<#= keyval.Key #>By<#= ModelName #>Id(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount, [FriendlyUrlSegmentsAttribute(0)]int? Id)
         {
                 throw new NotImplementedException();
         }
+		public  void Delete<#= keyval.Key #>RowItem(object id)
+        {
+                throw new NotImplementedException();
+        }
+
         <#
-     }
+		}
         #>
+
+		<#
+            foreach (PropertyMetadata property in ModelMetadata.Properties) 
+            {
+                if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.PropertyName))
+                {
+            #>
+
+		protected void sub<#= property.ShortTypeName #>GridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+			if (e.CommandName == "EditRow")
+            {
+                var id = Convert.ToInt32(e.CommandArgument);
+				//TODO:popupEdit Modal
+			}
+        }
+
+		protected void popup<#= property.ShortTypeName #>FormView_DataBound(object sender, EventArgs e)
+        {
+			throw new NotImplementedException();
+        }
+
+		public void Create<#= property.ShortTypeName #>RowItem(<#= property.ShortTypeName #> item)
+        {
+			throw new NotImplementedException();
+        }
+
+		public void Update<#= property.ShortTypeName #>RowItem(<#= property.ShortTypeName #> item)
+        {
+			throw new NotImplementedException();
+        }
+		
+
+		
+
+
+
+
+ <#
+                }
+            }
+            #>
+
         protected void <#=        ModelName #>FormView_DataBound(object sender, EventArgs e)
         {
             <#
@@ -75,12 +123,12 @@ namespace <#= FolderNamespace #>
                 if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.PropertyName))
                 {
             #>
-            var <#=        property.ShortTypeName #>GridView = (GridView)this.DepartmentFormView.FindControl("<#=        property.ShortTypeName #>GridView");
-            if (<#=        property.ShortTypeName #>GridView != null)
+            var sub<#=        property.ShortTypeName #>GridView = (GridView)this.DepartmentFormView.FindControl("sub<#=        property.ShortTypeName #>GridView");
+            if (sub<#=        property.ShortTypeName #>GridView != null)
             {
                 MetaTable metaTable = MetaTable.GetTable(typeof(<#=        property.TypeName #>));
-                <#=        property.ShortTypeName #>GridView.SetMetaTable(metaTable);
-                <#=        property.ShortTypeName #>GridView.DataBind();
+                sub<#=        property.ShortTypeName #>GridView.SetMetaTable(metaTable);
+                sub<#=        property.ShortTypeName #>GridView.DataBind();
             }
 
             <#

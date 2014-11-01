@@ -21,11 +21,14 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
         }
 
        
-        public abstract int CreateItem(TEntity entity, ModelMethodContext modelMethodContext);
-        public abstract int UpdateItem(object Id, ModelMethodContext modelMethodContext);
-        public abstract int Create(TEntity entity);
-        public abstract int Update(TEntity entity);
+         public abstract int CreateItem(TEntity entity, ModelMethodContext modelMethodContext);
+        public abstract int UpdateItem(object id, ModelMethodContext modelMethodContext);
+        public abstract int DeleteItem(object id, ModelMethodContext modelMethodContext);
+        public abstract int DeleteWhere(Expression<Func<TEntity, bool>> criteria);
+        public abstract TEntity Create(TEntity entity);
+        public abstract TEntity Update(TEntity entity);
         public abstract void Delete(object id);
+        public abstract void Delete(TEntity entity);
         public abstract TEntity Read(object id);
         public abstract IEnumerable<TEntity> ReadAll();
         public abstract IEnumerable<TEntity> ReadMany(Expression<Func<TEntity, bool>> criteria);

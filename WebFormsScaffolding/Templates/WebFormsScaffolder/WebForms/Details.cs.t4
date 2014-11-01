@@ -153,9 +153,9 @@
                 var modelmeta=OneToManyModels[property.PropertyName];
                            #>
                                 <div class="tab-pane" id="tabs<#=                    property.PropertyName #>">
-                                    <asp:GridView ID="<#=        property.ShortTypeName #>GridView" runat="server" ItemType="<#=        property.TypeName #>" GridLines="none"
+                                    <asp:GridView ID="sub<#=        property.ShortTypeName #>GridView" runat="server" ItemType="<#=        property.TypeName #>" GridLines="none"
                                         ShowHeaderWhenEmpty="true"
-                                        SelectMethod="Get<#=  property.PropertyName  #>By<#= ModelName #>Id" DeleteMethod="Delete"
+                                        SelectMethod="Get<#=  property.PropertyName  #>By<#= ModelName #>Id" 
                                         AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" 
                                         DataKeyNames="<#=  modelmeta.PrimaryKeys[0].PropertyName #>"
                                         PageSize="10" PagerStyle-CssClass="bs-pagination" CssClass="table table-hover table-striped">

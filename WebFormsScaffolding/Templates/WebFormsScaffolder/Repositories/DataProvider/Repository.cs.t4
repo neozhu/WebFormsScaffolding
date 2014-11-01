@@ -24,10 +24,10 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
             this.set = context.Set<TEntity>();
         }
 
-        public override int Create(TEntity newEntity)
+        public override TEntity Create(TEntity newEntity)
         {
-            this.set.Add(newEntity);
-            return  this.context.SaveChanges();
+            return this.set.Add(newEntity);
+            //return  this.context.SaveChanges();
             
         }
 
@@ -53,21 +53,15 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
             return this.context.SaveChanges();
         
         }
-
-        public override TEntity Read(object id)
+        public override int UpdateItem(object id, ModelMethodContext modelMethodContext)
         {
-            return this.set.Find(id);
-        }
-     
-        public override int UpdateItem(object Id, ModelMethodContext modelMethodContext)
-        {
-           
-            var item = this.set.Find(Id);
 
-          
+            var item = this.set.Find(id);
+
+
             if (item == null)
             {
-                modelMethodContext.ModelState.AddModelError("NotFoundError", String.Format("A Item with ID {0} could not be found", Id));
+                modelMethodContext.ModelState.AddModelError("NotFoundError", String.Format("A Item with ID {0} could not be found", id));
                 return 0;
             }
 
@@ -80,18 +74,44 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
             }
             return this.context.SaveChanges();
         }
-        public override int Update(TEntity entity)
+        public override int DeleteItem(object id, ModelMethodContext modelMethodContext)
         {
-            this.set.Attach(entity);
-            this.context.Entry(entity).State = EntityState.Modified;
-            return  this.context.SaveChanges();
+
+            var item = this.set.Find(id);
+
+
+            if (item == null)
+            {
+                modelMethodContext.ModelState.AddModelError("NotFoundError", String.Format("A Item with ID {0} could not be found", id));
+                return 0;
+            }
+            this.set.Remove(item);
+             
+            return this.context.SaveChanges();
+        }
+
+
+        public override TEntity Read(object id)
+        {
+            return this.set.Find(id);
+        }
+
+
+
+
+        public override TEntity Update(TEntity entity)
+        {
+             this.set.Attach(entity);
+             this.context.Entry(entity).State = EntityState.Modified;
+             return entity;
+            
            
         }
 
-        private  void Delete(TEntity entity)
+        public override void Delete(TEntity entity)
         {
             this.set.Remove(entity);
-            this.context.SaveChanges();
+            //this.context.SaveChanges();
         }
 
 
@@ -101,7 +121,15 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
             this.Delete(this.set.Find(id));
         }
 
-        
+        public override int DeleteWhere(Expression<Func<TEntity, bool>> criteria)
+        {
+            var delList = this.set.Where(criteria);
+            foreach (var entity in delList)
+            {
+                this.Delete(entity);
+            }
+            return delList.Count();
+        }
 
         /// <summary>
         /// Reads all elements.

@@ -143,12 +143,15 @@
                 var modelmeta=OneToManyModels[property.PropertyName];
                            #>
                                 <div class="tab-pane" id="tabs<#=                    property.PropertyName #>">
-                                    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#popup<#=                    property.PropertyName #>">" >
+                                    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#popup<#=                    property.PropertyName #>">
                                         <span class="glyphicon glyphicon-plus"></span> Add
                                     </button>
-                                    <asp:GridView ID="<#=        property.ShortTypeName #>GridView" runat="server" ItemType="<#=        property.TypeName #>" GridLines="none"
+                                    <asp:GridView ID="sub<#=        property.ShortTypeName #>GridView" runat="server" 
+										ItemType="<#=        property.TypeName #>" GridLines="none"
+										OnRowCommand="sub<#=        property.ShortTypeName #>GridView_RowCommand"
                                         ShowHeaderWhenEmpty="true"
-                                        SelectMethod="Get<#=  property.PropertyName  #>By<#= ModelName #>Id" DeleteMethod="Delete"
+                                        SelectMethod="Get<#=  property.PropertyName  #>By<#= ModelName #>Id" 
+										DeleteMethod="Delete<#=  property.PropertyName  #>RowItem"
                                         AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" 
                                         DataKeyNames="<#=  modelmeta.PrimaryKeys[0].PropertyName #>"
                                         PageSize="10" PagerStyle-CssClass="bs-pagination" CssClass="table table-hover table-striped">
@@ -169,6 +172,12 @@
                         #>                     
                                 
                                    
+											<asp:TemplateField ShowHeader="False">
+												<ItemTemplate>
+													<asp:LinkButton ID="editRowButton"   runat="server" CommandName="EditRow"  CommandArgument="<%# BindItem.<#=  modelmeta.PrimaryKeys[0].PropertyName #> %>" Text="Edit"  />  | 
+													<asp:LinkButton ID="deleteButton"  runat="server" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete this row?');" />
+												</ItemTemplate>
+											</asp:TemplateField>
                                         </Columns>
                                     <SortedAscendingHeaderStyle CssClass="asc" />
                                     <SortedDescendingHeaderStyle CssClass="desc" />
@@ -219,14 +228,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel"><#= property.PropertyName #></h4>
+                        <h4 class="modal-title" ><#= property.PropertyName #></h4>
                     </div>
                     <div class="modal-body">
                         <asp:FormView runat="server" ID="popup<#= property.ShortTypeName #>FormView"
                             ItemType="<#=  property.TypeName #>" DefaultMode="Insert" DataKeyNames="<#=  modelmeta.PrimaryKeys[0].PropertyName #>"
                             OnDataBound="popup<#= property.ShortTypeName #>FormView_DataBound"
-                            UpdateMethod="UpdateItem" SelectMethod="GetById"
-                            InsertItemPosition="FirstItem" InsertMethod="CreateItem"
+                            UpdateMethod="Update<#= property.ShortTypeName #>RowItem" SelectMethod="GetSub<#= property.ShortTypeName #>ById"
+                            InsertItemPosition="FirstItem" 
+							InsertMethod="Create<#= property.ShortTypeName #>RowItem"
                             RenderOuterTable="false">
                             <EmptyDataTemplate>
                                     Cannot find the <#= property.ShortTypeName #> with <#= modelmeta.PrimaryKeys[0].PropertyName #> <%: Request.QueryString["<#= modelmeta.PrimaryKeys[0].PropertyName #>"] %>
