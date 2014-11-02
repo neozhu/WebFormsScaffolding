@@ -82,6 +82,10 @@ namespace <#= FolderNamespace #>
 			if (e.CommandName == "EditRow")
             {
                 var id = Convert.ToInt32(e.CommandArgument);
+				ViewState["<#= property.ShortTypeName #>Id"] = id;
+				popup<#= property.ShortTypeName #>FormView.ChangeMode(FormViewMode.Edit);
+                this.ClientScript.RegisterStartupScript(this.GetType(), "showPopup<#= property.PropertyName #>", "showPopup<#= property.PropertyName #>();",true);
+                popup<#= property.ShortTypeName #>FormView.DataBind();
 				//TODO:popupEdit Modal
 			}
         }
@@ -90,7 +94,10 @@ namespace <#= FolderNamespace #>
         {
 			throw new NotImplementedException();
         }
-
+		public <#= property.ShortTypeName #> GetSub<#= property.ShortTypeName #>ById([System.Web.ModelBinding.ViewState("<#= property.ShortTypeName #>Id")] object id)
+		{
+			throw new NotImplementedException();
+		}
 		public void Create<#= property.ShortTypeName #>RowItem(<#= property.ShortTypeName #> item)
         {
 			throw new NotImplementedException();
