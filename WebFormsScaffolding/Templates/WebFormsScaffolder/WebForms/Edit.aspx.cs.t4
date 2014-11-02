@@ -75,7 +75,7 @@ namespace <#= FolderNamespace #>
             {
                 if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.PropertyName))
                 {
-            #>
+        #>
 
 		protected void sub<#= property.ShortTypeName #>GridView_RowCommand(object sender, GridViewCommandEventArgs e)
         {

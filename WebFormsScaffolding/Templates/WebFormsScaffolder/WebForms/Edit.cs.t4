@@ -345,9 +345,22 @@
 
 
      <script type="text/javascript">
+		<#
+            foreach (PropertyMetadata property in ModelMetadata.Properties) 
+            {
+                if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.PropertyName))
+                {
+        #>
+		 function showPopup<#= property.PropertyName #>(){
+				$('#popup<#= property.PropertyName #>').modal('show');
+		 }
+		 <#
+                }
+            }
+          #>
+
 
         $(function () {
-			
 
             <#
     if(OneToManyModels.Count>0)
