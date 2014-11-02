@@ -64,10 +64,7 @@ namespace <#= FolderNamespace #>
         {
                 throw new NotImplementedException();
         }
-		public  void Delete<#= keyval.Key #>RowItem(object id)
-        {
-                throw new NotImplementedException();
-        }
+		
 
         <#
 		}
@@ -103,7 +100,10 @@ namespace <#= FolderNamespace #>
         {
 			throw new NotImplementedException();
         }
-		
+		public  void Delete<#= property.ShortTypeName #>RowItem(object id)
+        {
+                throw new NotImplementedException();
+        }
 
 		
 

@@ -151,7 +151,7 @@
 										OnRowCommand="sub<#=        property.ShortTypeName #>GridView_RowCommand"
                                         ShowHeaderWhenEmpty="true"
                                         SelectMethod="Get<#=  property.PropertyName  #>By<#= ModelName #>Id" 
-										DeleteMethod="Delete<#=  property.PropertyName  #>RowItem"
+										DeleteMethod="Delete<#=  property.ShortTypeName  #>RowItem"
                                         AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" 
                                         DataKeyNames="<#=  modelmeta.PrimaryKeys[0].PropertyName #>"
                                         PageSize="10" PagerStyle-CssClass="bs-pagination" CssClass="table table-hover table-striped">
@@ -228,7 +228,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" ><#= property.PropertyName #></h4>
+                        <h4 class="modal-title" id="myModalLabel" ><#= property.PropertyName #></h4>
                     </div>
                     <div class="modal-body">
                         <asp:FormView runat="server" ID="popup<#= property.ShortTypeName #>FormView"
@@ -345,7 +345,10 @@
 
 
      <script type="text/javascript">
+
         $(function () {
+			
+
             <#
     if(OneToManyModels.Count>0)
     {
