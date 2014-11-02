@@ -63,5 +63,26 @@ namespace <#= FolderNamespace #> {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FormView <#=ModelName #>FormView;
+
+		<#
+            foreach (PropertyMetadata property in ModelMetadata.Properties) 
+            {
+                if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.PropertyName))
+                {
+        #>
+		/// <summary>
+        /// popup<#= property.ShortTypeName #>FormView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FormView popup<#= property.ShortTypeName #>FormView;
+
+
+		 <#
+                }
+            }
+          #>
     }
 }
