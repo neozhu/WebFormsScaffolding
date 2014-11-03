@@ -129,7 +129,7 @@
                     <div class="table-responsive">
                         <asp:GridView ID="<#=        ModelName #>GridView" runat="server" ItemType="<#=        FullModelName #>" GridLines="none"
                         ShowHeaderWhenEmpty="true"
-                        SelectMethod="Get" DeleteMethod="Delete" AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" DataKeyNames="<#=        PrimaryKeyName #>"
+                        SelectMethod="Get" DeleteMethod="DeleteItem" AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" DataKeyNames="<#=        PrimaryKeyName #>"
                         PageSize="10" PagerStyle-CssClass="bs-pagination" CssClass="table table-hover table-striped">
                         <Columns>
                             <asp:TemplateField ShowHeader="true">
