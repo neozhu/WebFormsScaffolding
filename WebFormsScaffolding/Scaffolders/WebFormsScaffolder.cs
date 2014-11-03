@@ -300,6 +300,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"DbContextTypeName", dbContextTypeName},
                         {"ModelName", modelType.Name}, // singular model name (e.g., Movie)
                         {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
+                        {"PluralizedModelName",pluralizedModelName},
                         {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
                     },
                     skipIfExists: true);
