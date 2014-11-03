@@ -175,5 +175,9 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
             // We'll ToList it (get the entities from the database).
             return this.set.Where(criteria).ToList();
         }
+        public override void SaveChanges()
+        {
+            this.context.SaveChanges();
+        }
     }
 }

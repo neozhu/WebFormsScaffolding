@@ -35,5 +35,6 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
         public abstract IEnumerable<TEntity> ReadMany(ISpecification<TEntity> spec);
         public abstract TEntity ReadOne(Expression<Func<TEntity, bool>> criteria);
         public abstract TEntity ReadOne(ISpecification<TEntity> spec);
+        public abstract void  SaveChanges();
     }
 }

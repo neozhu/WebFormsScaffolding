@@ -142,12 +142,17 @@
             {
                 var modelmeta=OneToManyModels[property.PropertyName];
                            #>
-                                <div class="tab-pane" id="tabs<#=                    property.PropertyName #>">
-                                    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#popup<#=                    property.PropertyName #>">
-                                        <span class="glyphicon glyphicon-plus"></span> Add
-                                    </button>
+                                <div class="tab-pane" id="tabs<#=     property.PropertyName #>">
+                                    <asp:LinkButton ID="add<#=        property.ShortTypeName #>Btn" class="btn btn-default btn-sm" 
+                                             OnClick="addSub<#=       property.ShortTypeName #>Btn_Click" runat="server"> 
+                                            <span class="glyphicon glyphicon-plus"></span>Add
+
+                                        </asp:LinkButton>
+                                    
                                     <asp:GridView ID="sub<#=        property.ShortTypeName #>GridView" runat="server" 
+                                        OnDataBinding="sub<#=       property.ShortTypeName #>GridView_DataBinding"
 										ItemType="<#=        property.TypeName #>" GridLines="none"
+                                        EnableViewState="false"
 										OnRowCommand="sub<#=        property.ShortTypeName #>GridView_RowCommand"
                                         ShowHeaderWhenEmpty="true"
                                         SelectMethod="Get<#=  property.PropertyName  #>By<#= ModelName #>Id" 
@@ -223,6 +228,7 @@
         {
             var modelmeta=OneToManyModels[property.PropertyName];
 #>
+        <asp:HiddenField ID="CurrentSub<#=        property.ShortTypeName #>IdField" runat="server" />
         <div class="modal fade " id="popup<#= property.PropertyName #>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
