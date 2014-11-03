@@ -16,7 +16,7 @@ using <#= DefaultNamespace #>.Repositories.DataProvider;
 
 using <#= ModelNamespace #>;
 
-namespace <#= FolderNamespace #>
+namespace <#=DefaultNamespace #>.Repositories.<#= PluralizedModelName #>
 {
   public class <#= ModelName #>Repository : Repository<<#= ModelName #>>, I<#= ModelName #>Repository
     {
