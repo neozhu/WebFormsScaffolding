@@ -5,6 +5,7 @@
 <#@ parameter type="System.String" name="ModelNamespace" #>
 <#@ parameter type="System.String" name="FolderNamespace" #>
 <#@ parameter type="System.String" name="ModelName" #>
+<#@ parameter type="System.String" name="PluralizedModelName" #>
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ using <#= DefaultNamespace #>.Repositories.DataProvider;
 
 using <#= ModelNamespace #>;
 
-namespace <#=DefaultNamespace #>.Repositories.<#= PluralizedModelName #>
+namespace <#=DefaultNamespace #>.Repositories.<#= PluralizedModelName.Replace("_","") #>
 {
   public class <#= ModelName #>Repository : Repository<<#= ModelName #>>, I<#= ModelName #>Repository
     {

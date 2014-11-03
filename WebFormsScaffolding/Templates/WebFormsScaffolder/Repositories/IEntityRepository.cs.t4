@@ -5,6 +5,7 @@
 <#@ parameter type="System.String" name="ModelNamespace" #>
 <#@ parameter type="System.String" name="FolderNamespace" #>
 <#@ parameter type="System.String" name="ModelName" #>
+<#@ parameter type="System.String" name="PluralizedModelName" #>
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,7 +15,7 @@ using  Microsoft.AspNet.FriendlyUrls.ModelBinding;
 
 using <#= ModelNamespace #>;
 
-namespace <#=DefaultNamespace #>.Repositories.<#= PluralizedModelName #>
+namespace <#=DefaultNamespace #>.Repositories.<#= PluralizedModelName.Replace("_","") #>
 {
     interface I<#= ModelName #>Repository
     {
