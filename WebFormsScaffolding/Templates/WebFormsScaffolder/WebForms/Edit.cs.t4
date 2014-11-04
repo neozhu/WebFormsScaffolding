@@ -292,7 +292,7 @@
 
                             <InsertItemTemplate>
                                  <fieldset class="form-horizontal">
-                                    <legend>Edit <#= property.ShortTypeName #></legend>
+                                    <legend>Insert <#= property.ShortTypeName #></legend>
                              
 					            <asp:ValidationSummary runat="server" CssClass="alert alert-danger"  />    
                             <# 
@@ -301,7 +301,7 @@
 					            if (subproperty.IsForeignKey) { 
 							        var relatedModel = GetRelatedModel(modelmeta,subproperty.PropertyName);
                             #>
-							    <asp:DynamicControl Mode="Edit" 
+							    <asp:DynamicControl Mode="Insert" 
 								        DataField="<#=subproperty.PropertyName#>" 
 								        DataTypeName="<#=relatedModel.TypeName#>" 
 								        DataTextField="<#=relatedModel.DisplayPropertyName#>" 
@@ -310,7 +310,7 @@
         <# 
 					            } else { 
         #>
-						        <asp:DynamicControl Mode="Edit" DataField="<#=subproperty.PropertyName#>" runat="server" />
+						        <asp:DynamicControl Mode="Insert" DataField="<#=subproperty.PropertyName#>" runat="server" />
         <#
 					            } 
 					          }

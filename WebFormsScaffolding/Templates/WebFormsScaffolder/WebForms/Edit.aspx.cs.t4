@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using System.Web.DynamicData;
-using <#=DefaultNamespace #>.Repositories.<#= PluralizedModelName.Replace("_","") #>;
+using <#=DefaultNamespace #>.Repositories;
 using <#=DefaultNamespace #>.Extensions;
 <# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
 using <#= ModelNamespace #>;
@@ -109,7 +109,12 @@ namespace <#= FolderNamespace #>
         //TODO:新增子表体数据，保存到数据库
 		public void Create<#= property.ShortTypeName #>RowItem(<#= property.ShortTypeName #> item)
         {
-			throw new NotImplementedException();
+            //获取主formview绑定的数据
+			var <#= ModelName.ToLower() #> = this.<#= ModelName #>FormView.ExtractEntityValues(typeof(<#= ModelName #>));
+            //获取主formview绑定Id
+            var <#= ModelName.ToLower() #>Id  = this.<#= ModelName #>FormView.DataKey.Value;
+            //TODO:给子表附关联外键的值
+
         }
         //TODO:更新子表体数据，保存到数据库
 		public void Update<#= property.ShortTypeName #>RowItem(<#= property.ShortTypeName #> item)
@@ -147,7 +152,7 @@ namespace <#= FolderNamespace #>
                 if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.PropertyName))
                 {
             #>
-            var sub<#=        property.ShortTypeName #>GridView = (GridView)this.DepartmentFormView.FindControl("sub<#=        property.ShortTypeName #>GridView");
+            var sub<#=        property.ShortTypeName #>GridView = (GridView)this.<#=        ModelName #>FormView.FindControl("sub<#=        property.ShortTypeName #>GridView");
             if (sub<#=        property.ShortTypeName #>GridView != null)
             {
                 MetaTable metaTable = MetaTable.GetTable(typeof(<#=        property.TypeName #>));
