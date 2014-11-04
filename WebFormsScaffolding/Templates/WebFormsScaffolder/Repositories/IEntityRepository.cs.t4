@@ -15,7 +15,7 @@ using  Microsoft.AspNet.FriendlyUrls.ModelBinding;
 
 using <#= ModelNamespace #>;
 
-namespace <#=DefaultNamespace #>.Repositories.<#= PluralizedModelName.Replace("_","") #>
+namespace <#=DefaultNamespace #>.Repositories
 {
     interface I<#= ModelName #>Repository
     {

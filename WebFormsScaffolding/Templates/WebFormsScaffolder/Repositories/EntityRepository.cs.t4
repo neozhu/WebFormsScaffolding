@@ -17,7 +17,7 @@ using <#= DefaultNamespace #>.Repositories.DataProvider;
 
 using <#= ModelNamespace #>;
 
-namespace <#=DefaultNamespace #>.Repositories.<#= PluralizedModelName.Replace("_","") #>
+namespace <#=DefaultNamespace #>.Repositories
 {
   public class <#= ModelName #>Repository : Repository<<#= ModelName #>>, I<#= ModelName #>Repository
     {
