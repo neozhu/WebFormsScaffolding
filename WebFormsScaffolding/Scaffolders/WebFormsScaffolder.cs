@@ -298,6 +298,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"DefaultNamespace", project.GetDefaultNamespace()},
                         {"DbContextNamespace", dbContextNamespace},
                         {"DbContextTypeName", dbContextTypeName},
+                        {"ModelMetadata",efMetadata},
                         {"ModelName", modelType.Name}, // singular model name (e.g., Movie)
                         {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"PluralizedModelName",pluralizedModelName},

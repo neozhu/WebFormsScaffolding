@@ -243,7 +243,7 @@
                             UpdateMethod="Update<#= property.ShortTypeName #>RowItem" SelectMethod="GetSub<#= property.ShortTypeName #>ById"
                             InsertItemPosition="FirstItem" 
 							InsertMethod="Create<#= property.ShortTypeName #>RowItem"
-                            RenderOuterTable="false">
+                            RenderOuterTable="true">
                             <EmptyDataTemplate>
                                     Cannot find the <#= property.ShortTypeName #> with <#= modelmeta.PrimaryKeys[0].PropertyName #> <%: Request.QueryString["<#= modelmeta.PrimaryKeys[0].PropertyName #>"] %>
                             </EmptyDataTemplate>
@@ -325,7 +325,7 @@
                                     &nbsp;</p>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-							            <asp:Button runat="server" ID="UpdateButton" CommandName="Insert" Text="Insert" CssClass="btn btn-primary" />
+							            <asp:Button runat="server" ID="InsertButton" CommandName="Insert" Text="Insert" CssClass="btn btn-primary" />
 							            <asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn btn-default" />
 						            </div>
 					            </div>

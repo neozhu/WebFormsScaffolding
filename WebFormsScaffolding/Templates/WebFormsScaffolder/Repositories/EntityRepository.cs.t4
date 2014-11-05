@@ -1,11 +1,27 @@
 ﻿
 <#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="cs" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
 <#@ parameter type="System.String" name="DefaultNamespace" #>
 <#@ parameter type="System.String" name="ModelNamespace" #>
 <#@ parameter type="System.String" name="FolderNamespace" #>
 <#@ parameter type="System.String" name="ModelName" #>
-<#@ parameter type="System.String" name="PluralizedModelName" #>
+<#@ parameter type="System.String" name="PluralizedModelName" #>                    
+<#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
 
 using System;
 using System.Collections.Generic;
@@ -25,7 +41,7 @@ namespace <#=DefaultNamespace #>.Repositories
         
         }
 
-		 public IList<<#= ModelName #>> Get(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount,[System.Web.ModelBinding.Control("searchTextBox")]string searchText)
+		 public IQueryable<<#= ModelName #>> Get(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount,[System.Web.ModelBinding.Control("searchTextBox")]string searchText)
         {
             var query = this.set.AsQueryable();
             if (!string.IsNullOrEmpty(searchText))
@@ -39,8 +55,8 @@ namespace <#=DefaultNamespace #>.Repositories
             var list = query
                 .OrderBy(n=>n.Id)
                 .Skip(startRowIndex)
-                .Take(maximumRows)
-                .ToList();
+                .Take(maximumRows);
+                
 
             return list;
         }
@@ -53,5 +69,24 @@ namespace <#=DefaultNamespace #>.Repositories
             else
                 return null;
         }
+        
+        <# 
+    foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+        if (property.IsForeignKey) {
+
+            #>
+         public IQueryable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(int id)
+         {
+             var query=this.set.Where(n => n.<#= property.PropertyName #> == id);
+             return query;
+
+         }
+
+            
+                
+<#
+        }
+    }
+#>
 	}
 }
