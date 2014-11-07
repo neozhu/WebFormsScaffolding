@@ -102,14 +102,14 @@
 
                            
                                 <div class="form-group col-sm-5 col-md-5 col-lg-5">
-                                    <label class="col-sm-2 col-md-2 control-label" for="textinput1">serach1</label>
-                                    <div class="col-sm-8 col-md-8">
+                                    <label class="col-sm-3 col-md-3 control-label" for="textinput1">serach1</label>
+                                    <div class="col-sm-9 col-md-9">
                                         <asp:TextBox ID="textBox1" class="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-5 col-md-5 col-lg-5">
-                                    <label class="col-sm-2 col-md-2 control-label" for="textinput2">serach2</label>
-                                    <div class="col-sm-8 col-md-8">
+                                    <label class="col-sm-3 col-md-3 control-label" for="textinput2">serach2</label>
+                                    <div class="col-sm-9 col-md-9">
                                         <asp:TextBox ID="textBox2" class="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
