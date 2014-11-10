@@ -143,12 +143,13 @@
                 var modelmeta=OneToManyModels[property.PropertyName];
                            #>
                                 <div class="tab-pane" id="tabs<#=     property.PropertyName #>">
-                                    <asp:LinkButton ID="add<#=        property.ShortTypeName #>Btn" class="btn btn-default btn-sm" 
+                                    <div class="btn-group">
+                                        <asp:LinkButton ID="add<#=        property.ShortTypeName #>Btn" class="btn btn-default btn-sm" 
                                              OnClick="addSub<#=       property.ShortTypeName #>Btn_Click" runat="server"> 
                                             <span class="glyphicon glyphicon-plus"></span>Add
 
                                         </asp:LinkButton>
-                                    
+                                    </div>
                                     <asp:GridView ID="sub<#=        property.ShortTypeName #>GridView" runat="server" 
                                         OnDataBinding="sub<#=       property.ShortTypeName #>GridView_DataBinding"
 										ItemType="<#=        property.TypeName #>" GridLines="none"
