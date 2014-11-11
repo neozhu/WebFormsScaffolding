@@ -23,15 +23,36 @@ namespace <#= FolderNamespace #>
 {
     public partial class Edit : System.Web.UI.Page
     {
-		protected <#=DbContextTypeName#> _db = new <#=DbContextTypeName#>();
-        protected readonly <#= ModelName #>Repository _repository =
-            new <#= ModelName #>Repository(new <#=DbContextTypeName #>());
+		protected <#= DbContextTypeName#> _db = new <#=DbContextTypeName#>();
+        protected <#= ModelName #>Repository _<#= ModelName.ToLower() #>Repository = null;
+
+        <#
+		foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {           
+            if (property.AssociationDirection == AssociationDirection.OneToMany && property.RelatedModel.ShortTypeName != ModelName) 
+            {               
+        #>
+        protected <#= property.RelatedModel.ShortTypeName #>Repository _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository = null;
+        <#
+            }
+        }
+        #> 
 
         protected void Page_Init()
         {
             //TODO:添加页面标题
             this.Title = "<#= ModelName #>";
-            <#= ModelName #>FormView.SetDataMethodsObject(_repository);
+            _<#= ModelName.ToLower() #>Repository = new <#= ModelName #>Repository(_db);
+        <#
+		foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+        if (property.AssociationDirection == AssociationDirection.OneToMany && property.RelatedModel.ShortTypeName != ModelName) {   
+        #>
+           _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository = new <#= property.RelatedModel.ShortTypeName #>Repository(_db);
+        <#
+            }
+         }
+        #>  
+            <#= ModelName #>FormView.SetDataMethodsObject(_<#= ModelName.ToLower() #>Repository);
             <#= ModelName #>FormView.RedirectToRouteOnItemInserted("../Default");
             <#= ModelName #>FormView.RedirectToRouteOnItemUpdated("../Default");
             <#= ModelName #>FormView.RedirectToRouteOnItemDeleted("../Default");
@@ -41,7 +62,7 @@ namespace <#= FolderNamespace #>
         {
           
         }
-        
+        #region 主菜单操作事件
         //TODO:完成编辑GridView选中的记录
         protected void editbtn_Click(object sender, EventArgs e)
         {
@@ -57,33 +78,69 @@ namespace <#= FolderNamespace #>
         {
             
         }
+        #endregion
+        #region 子表数据Load方法
         <#
 		foreach (KeyValuePair<string,string > keyval in OneToManyNames) {     
         #>
+       
         //TODO:根据外键获取<#= keyval.Key #>明细表数据
         public IQueryable<<#= keyval.Value #>> Get<#= keyval.Key #>By<#= ModelName #>Id(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount, [FriendlyUrlSegmentsAttribute(0)]int? Id)
         {
-                throw new NotImplementedException();
+            if (Id == null)
+            {
+                totalRowCount = 0;
+                return null;
+            }else
+            {
+                <#
+                    ModelMetadata model=OneToManyModels[keyval.Key];
+                    string _modelName="";
+                    foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+                        if (property.AssociationDirection == AssociationDirection.OneToMany && property.RelatedModel.TypeName == keyval.Value) {
+                            _modelName=property.RelatedModel.ShortTypeName;
+                            break;
+                        }
+                    }
+                    foreach (PropertyMetadata property in model.Properties) 
+                    {                           
+                        
+                        if (property.AssociationDirection == AssociationDirection.ManyToOne && property.RelatedModel.ShortTypeName==ModelName) {
+                #>
+                var id=Convert.ToInt32(Id);
+                var query=_<#= _modelName.ToLower() #>Repository.GetBy<#= property.RelatedModel.ForeignKeyPropertyNames[0].Replace("_","") #>(id); 
+                totalRowCount=   query.Count();
+                return query;
+                <#
+                        }
+                    }
+                #>
+            }
+                
         }
-		
+	
 
         <#
 		}
         #>
-
+        #endregion
+        #region 子表GridView，FormView事件
 		<#
             foreach (PropertyMetadata property in ModelMetadata.Properties) 
             {
                 if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModels.ContainsKey(property.PropertyName))
                 {
+                    ModelMetadata metamodel = OneToManyModels[property.PropertyName];
+                    var _foreignKeyPropertyName = GetForeignKeyPropertyName(metamodel , ModelName );
         #>
+        
         //TODO:当明细GridView单击命令行触发事件，如编辑当前行数据时弹出编辑页面
 		protected void sub<#= property.ShortTypeName #>GridView_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 			if (e.CommandName == "EditRow")
             {
                 var id = Convert.ToInt32(e.CommandArgument);
-				CurrentSub<#= property.ShortTypeName #>IdField.Value = id;
+				CurrentSub<#= property.ShortTypeName #>IdField.Value = id.ToString();
 				popup<#= property.ShortTypeName #>FormView.ChangeMode(FormViewMode.Edit);
                 this.ClientScript.RegisterStartupScript(this.GetType(), "showPopup<#= property.PropertyName #>", "showPopup<#= property.PropertyName #>();",true);
                 popup<#= property.ShortTypeName #>FormView.DataBind();
@@ -96,15 +153,15 @@ namespace <#= FolderNamespace #>
             popup<#= property.ShortTypeName #>FormView.ChangeMode(FormViewMode.Insert);
             this.ClientScript.RegisterStartupScript(this.GetType(), "showPopup<#= property.PropertyName #>", "showPopup<#= property.PropertyName #>();",true);
         }
-        //TODO:当子弹出表体新增或编辑Form绑定控件式触发，用于手动绑定控件或对制定的控件赋值
+        //TODO:当子弹出表体新增或编辑Form绑定控件式触发，用于手动绑定控件或对制定控件初始赋值
 		protected void popup<#= property.ShortTypeName #>FormView_DataBound(object sender, EventArgs e)
         {
 			throw new NotImplementedException();
         }
         //TODO:当弹出子表体编辑Form时，绑定当前编辑的数据
-		public <#= property.ShortTypeName #> GetSub<#= property.ShortTypeName #>ById([System.Web.ModelBinding.Control("CurrentSub<#= property.ShortTypeName #>IdField")] object id)
+		public <#= property.ShortTypeName #> GetSub<#= property.ShortTypeName #>ById([System.Web.ModelBinding.Control("CurrentSub<#= property.ShortTypeName #>IdField")] int id)
 		{
-			throw new NotImplementedException();
+			return _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.GetById(id);
 		}
         //TODO:新增子表体数据，保存到数据库
 		public void Create<#= property.ShortTypeName #>RowItem(<#= property.ShortTypeName #> item)
@@ -114,17 +171,37 @@ namespace <#= FolderNamespace #>
             //获取主formview绑定Id
             var <#= ModelName.ToLower() #>Id  = this.<#= ModelName #>FormView.DataKey.Value;
             //TODO:给子表附关联外键的值
-
+            item.<#= _foreignKeyPropertyName  #> = <#= ModelName.ToLower() #>Id;
+            TryUpdateModel(item);
+            if (!ModelState.IsValid)
+            {
+                //model is in an invalid state - stop all operations
+                return;
+            }else{
+                _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.Create(item);
+                _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.SaveChanges();
+            }
         }
         //TODO:更新子表体数据，保存到数据库
 		public void Update<#= property.ShortTypeName #>RowItem(<#= property.ShortTypeName #> item)
         {
-			throw new NotImplementedException();
+			TryUpdateModel(item);
+            if (!ModelState.IsValid)
+            {
+                //model is in an invalid state - stop all operations
+                return;
+            }else{
+                _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.Update(item);
+                _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.SaveChanges();
+            }
         }
         //TODO:删除子表体数据，保存到数据库
 		public  void Delete<#= property.ShortTypeName #>RowItem(object id)
         {
-                throw new NotImplementedException();
+            
+                _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.Delete(id);
+                _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.SaveChanges();
+            
         }
         //TODO:当子表体绑定数据时，载入MetaTable
         protected void sub<#= property.ShortTypeName #>GridView_DataBinding(object sender, EventArgs e)
@@ -143,6 +220,7 @@ namespace <#= FolderNamespace #>
                 }
             }
             #>
+        #endregion
         //TODO:当绑定数据时，载入MetaTable
         protected void <#=        ModelName #>FormView_DataBound(object sender, EventArgs e)
         {
@@ -169,3 +247,7 @@ namespace <#= FolderNamespace #>
          
     }
 }
+
+
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

@@ -25,7 +25,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
     // 3) GenerateCode() - if all goes well, generates the scaffolding output from the templates
     public class WebFormsScaffolder : CodeGenerator
     {
-       
+
         private WebFormsCodeGeneratorViewModel _codeGeneratorViewModel;
 
         internal WebFormsScaffolder(CodeGenerationContext context, CodeGeneratorInformation information)
@@ -120,7 +120,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         {
             // Get Model Type
             var modelType = codeGeneratorViewModel.ModelType.CodeType;
- 
+
             // Ensure the Data Context
             string dbContextTypeName = codeGeneratorViewModel.DbContextModelType.TypeName;
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
@@ -139,6 +139,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
             EnsurePepositoriesTemplates(project, dbContextNamespace, dbContextTypeName);
 
+
             AddEntityRepositoryTemplates(
                 project,
                 selectionRelativePath,
@@ -151,21 +152,37 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
             // Add Web Forms Pages from Templates
             AddWebFormsPages(
-                project, 
+                project,
                 selectionRelativePath,
                 dbContextNamespace,
                 dbContextTypeName,
-                modelType, 
-                efMetadata, 
-                codeGeneratorViewModel.UseMasterPage, 
-                codeGeneratorViewModel.DesktopMasterPage, 
-                codeGeneratorViewModel.DesktopPlaceholderId, 
+                modelType,
+                efMetadata,
+                codeGeneratorViewModel.UseMasterPage,
+                codeGeneratorViewModel.DesktopMasterPage,
+                codeGeneratorViewModel.DesktopPlaceholderId,
                 codeGeneratorViewModel.OverwriteViews,
                 oneToManyModels
            );
 
+            foreach (var dicitem in oneToManyModels)
+            {
+                var metadata = dicitem.Value;
+                var modelName = this.GetModelName(efMetadata, metadata.EntitySetName);
+                AddEntityRepositoryTemplates(
+                project,
+                selectionRelativePath,
+                dbContextNamespace,
+                dbContextTypeName,
+                modelType,
+                metadata,
+                codeGeneratorViewModel.OverwriteViews,
+                modelName
+           );
+            }
+
             // Add Web Forms Pages from Templates
-            
+
         }
 
 
@@ -253,7 +270,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
            string dbContextTypeName,
            CodeType modelType,
            ModelMetadata efMetadata,
-           bool overwriteViews = true
+           bool overwriteViews = true,
+           string modelName=""
+
        )
         {
 
@@ -261,16 +280,20 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             {
                 throw new ArgumentNullException("modelType");
             }
+            if (modelName == "")
+            {
+                modelName = modelType.Name;
+            }
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             // Get pluralized name used for web forms folder name
             string pluralizedModelName = efMetadata.EntitySetName;
             var repositoryTemplates = new[] { "IEntityRepository", "EntityRepository" };
             var repositoryTemplatesPath = "Repositories";
-            
+          
 
             // Add folder for views. This is necessary to display an error when the folder already exists but 
             // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
-            string outputFolderPath = Path.Combine("Repositories", pluralizedModelName.Replace("_",""));
+            string outputFolderPath = Path.Combine("Repositories", pluralizedModelName.Replace("_", ""));
             //AddFolder(Context.ActiveProject, outputFolderPath);
 
 
@@ -288,7 +311,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 var outputPath = Path.Combine(outputFolderPath, outputFileName);
 
                 var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
-                var folderNamespace = GetDefaultNamespace() + "." +pluralizedModelName.Replace("_","") +".Repositories"  ;
+                var folderNamespace = GetDefaultNamespace() + "." + pluralizedModelName.Replace("_", "") + ".Repositories";
                 AddFileFromTemplate(
                     project: project,
                     outputPath: outputPath,
@@ -299,7 +322,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"DbContextNamespace", dbContextNamespace},
                         {"DbContextTypeName", dbContextTypeName},
                         {"ModelMetadata",efMetadata},
-                        {"ModelName", modelType.Name}, // singular model name (e.g., Movie)
+                        {"ModelName", modelName}, // singular model name (e.g., Movie)
                         {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"PluralizedModelName",pluralizedModelName},
                         {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
@@ -312,7 +335,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
         // Generates all of the Web Forms Pages (Default Insert, Edit, Delete), 
         private void AddWebFormsPages(
-            Project project, 
+            Project project,
             string selectionRelativePath,
             string dbContextNamespace,
             string dbContextTypeName,
@@ -322,7 +345,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             string masterPage = null,
             string desktopPlaceholderId = null,
             bool overwriteViews = true,
-            IDictionary<string, ModelMetadata> oneToManyModels = null 
+            IDictionary<string, ModelMetadata> oneToManyModels = null
         )
         {
 
@@ -348,7 +371,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             string outputFolderPath = Path.Combine(selectionRelativePath, pluralizedModelName);
             AddFolder(Context.ActiveProject, outputFolderPath);
 
-            
+
             AddFolder(Context.ActiveProject, outputFolderPath);
 
             // Now add each view
@@ -388,7 +411,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                                 string[] sectionNames = null,
                                 string primarySectionName = "",
                                 bool overwrite = false,
-                                IDictionary<string, ModelMetadata> oneToManyModels=null
+                                IDictionary<string, ModelMetadata> oneToManyModels = null
         )
         {
             if (modelType == null)
@@ -402,7 +425,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             var oneToManyNames = this.GetOneToManyModelNames(efMetadata);
             // Generate unique code beside name (needed because VB does not namespace)
             var codeBesideName = GetUniqueCodeBesideName(Context.ActiveProject, webFormsName);
-            
+
             PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
 
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
@@ -457,7 +480,19 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     },
                     skipIfExists: !overwrite);
             }
-
+   
+        }
+        private string GetModelName(ModelMetadata modelMeta, string entitySetName)
+        {
+            foreach (var modelProp in modelMeta.Properties)
+            {
+                if (modelProp.RelatedModel!=null)
+                {
+                    if (modelProp.RelatedModel.EntitySetName == entitySetName)
+                        return modelProp.RelatedModel.ShortTypeName;
+                }
+            }
+            return null;
         }
 
         // VB, unlike C#, does not namespace by folder. For this reason, we must generate a unique
@@ -524,8 +559,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         // returns the project namespace.
         protected string GetDefaultNamespace()
         {
-            return Context.ActiveProjectItem == null 
-                ? Context.ActiveProject.GetDefaultNamespace() 
+            return Context.ActiveProjectItem == null
+                ? Context.ActiveProject.GetDefaultNamespace()
                 : Context.ActiveProjectItem.GetDefaultNamespace();
         }
 
@@ -546,12 +581,12 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             return dict;
         }
 
-        protected IDictionary<string,ModelMetadata> GetOneToManyModelDictionary(ModelMetadata efMetadata,IEntityFrameworkService efService, string dbContextTypeName)
+        protected IDictionary<string, ModelMetadata> GetOneToManyModelDictionary(ModelMetadata efMetadata, IEntityFrameworkService efService, string dbContextTypeName)
         {
             var dict = new Dictionary<string, ModelMetadata>();
             foreach (var prop in efMetadata.Properties)
             {
-                
+
                 if (prop.AssociationDirection == AssociationDirection.OneToMany)
                 {
                     string propname = prop.PropertyName;
@@ -566,7 +601,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 }
             }
 
-
+           
             return dict;
         }
 
@@ -582,14 +617,14 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     //var relmeta = prop.RelatedModel;
                     string typename = prop.TypeName;
                     dict.Add(propname, typename);
-                    
+
                 }
             }
 
 
             return dict;
         }
-        
+
 
 
         // Create a mapping between property names and display names in case
@@ -598,8 +633,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         {
             var type = GetReflectionType(modelType.FullName);
             var lookup = new Dictionary<string, string>();
-            foreach (PropertyInfo prop in type.GetProperties()) {
-                var attr = (DisplayAttribute)prop.GetCustomAttribute(typeof( DisplayAttribute), true);
+            foreach (PropertyInfo prop in type.GetProperties())
+            {
+                var attr = (DisplayAttribute)prop.GetCustomAttribute(typeof(DisplayAttribute), true);
                 var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
                 lookup.Add(prop.Name, value);
             }

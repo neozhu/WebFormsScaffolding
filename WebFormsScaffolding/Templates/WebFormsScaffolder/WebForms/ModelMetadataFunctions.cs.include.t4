@@ -9,6 +9,17 @@ bool ShouldEdit(PropertyMetadata property) {
 		&& !property.IsAssociation;
 }
 
+string GetForeignKeyPropertyName(ModelMetadata metadata,string typeName) {
+     foreach (var relatedEntity in metadata.RelatedEntities)
+            {
+                if(relatedEntity.ShortTypeName == typeName && relatedEntity.ForeignKeyPropertyNames.Count()>0){
+                    return relatedEntity.ForeignKeyPropertyNames[0];
+                }
+            }
+        return string.Empty;
+
+}
+
 RelatedModelMetadata GetRelatedModel(ModelMetadata metadata,string foreignKeyPropertyName)
         {
              
