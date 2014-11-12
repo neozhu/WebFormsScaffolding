@@ -381,6 +381,15 @@
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text_Edit.ascx.designer.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\WebFormsScaffolder\Repositories\DataProvider\ContextBase.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\Repositories\DataProvider\Context.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\Repositories\DataProvider\IContext.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\WebFormsScaffolder\Repositories\DataProvider\IRepository.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

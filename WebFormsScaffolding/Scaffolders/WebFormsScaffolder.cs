@@ -236,7 +236,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
         private void EnsurePepositoriesTemplates(Project project, string dbContextNamespace, string dbContextTypeName)
         {
             var fieldTemplates = new[] { 
-                "IRepository", "ISpecification", "Repository","RepositoryBase"
+                "IRepository", "ISpecification", "Repository","RepositoryBase","Context","ContextBase","IContext"
                
             };
             var fieldTemplatesPath = "Repositories\\DataProvider";
@@ -368,7 +368,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
             // Add folder for views. This is necessary to display an error when the folder already exists but 
             // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
-            string outputFolderPath = Path.Combine(selectionRelativePath, pluralizedModelName);
+            string outputFolderPath = Path.Combine(selectionRelativePath, pluralizedModelName.Replace("_",""));
             AddFolder(Context.ActiveProject, outputFolderPath);
 
 

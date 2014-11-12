@@ -1,0 +1,69 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Common;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Linq;
+using System.Reflection;
+using System.Web;
+
+namespace <#= DefaultNamespace #>.Repositories.DataProvider
+{
+    public class Context : ContextBase
+    {
+        // Fields
+        private readonly DbContext context;
+        private readonly Stack<DbTransaction> stack;
+
+        // Methods
+        public Context(DbContext context)
+            : base()
+        {
+            this.stack = new Stack<DbTransaction>();
+            this.context = context;
+        }
+
+        public override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.context.Dispose();
+            }
+        }
+
+        public override IRepository<TEntity> GetRepository<TEntity>()
+        {
+            return new Repository<TEntity>(this.context);
+        }
+
+        public override void SaveChanges()
+        {
+            try
+            {
+                foreach (DbEntityValidationResult result in this.context.GetValidationErrors())
+                {
+                    Type baseType = result.Entry.Entity.GetType().BaseType;
+                    foreach (PropertyInfo info in result.Entry.Entity.GetType().GetProperties())
+                    {
+                        if (baseType.GetProperty(info.Name).GetCustomAttributes(typeof(RequiredAttribute), true).Any<object>())
+                        {
+                            info.GetValue(result.Entry.Entity, null);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            this.context.SaveChanges();
+        }
+    }
+}

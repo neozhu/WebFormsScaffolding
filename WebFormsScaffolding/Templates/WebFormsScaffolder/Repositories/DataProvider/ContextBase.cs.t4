@@ -1,0 +1,28 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace <#= DefaultNamespace #>.Repositories.DataProvider
+{
+    public abstract class ContextBase:IContext,IDisposable
+    {
+
+        protected ContextBase() { }
+       
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+        public abstract void Dispose(bool disposing);
+        public abstract IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
+        public abstract void SaveChanges();
+    }
+}

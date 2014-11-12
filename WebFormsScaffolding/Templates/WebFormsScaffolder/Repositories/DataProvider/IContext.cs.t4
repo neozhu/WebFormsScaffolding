@@ -1,0 +1,20 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace <#= DefaultNamespace #>.Repositories.DataProvider
+{
+   public interface IContext
+    {
+        IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
+        void SaveChanges();
+    }
+}
