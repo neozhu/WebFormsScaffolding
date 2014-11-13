@@ -17,8 +17,8 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
     {
    
 		int CreateItem(TEntity entity, ModelMethodContext modelMethodContext);
-        int UpdateItem(object id, ModelMethodContext modelMethodContext);
-        int DeleteItem(object id, ModelMethodContext modelMethodContext);
+        int UpdateItem(TEntity entity, ModelMethodContext modelMethodContext);
+        int DeleteItem(TEntity entity, ModelMethodContext modelMethodContext);
         int DeleteWhere(Expression<Func<TEntity, bool>> criteria);
         TEntity Create(TEntity entity);
         TEntity Update(TEntity entity);

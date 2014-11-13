@@ -133,7 +133,7 @@ namespace <#= FolderNamespace #>
                     ModelMetadata metamodel = OneToManyModels[property.PropertyName];
                     var _foreignKeyPropertyName = GetForeignKeyPropertyName(metamodel , ModelName );
         #>
-        
+        #region sub<#= property.ShortTypeName #>GridView
         //TODO:当明细GridView单击命令行触发事件，如编辑当前行数据时弹出编辑页面
 		protected void sub<#= property.ShortTypeName #>GridView_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -151,6 +151,15 @@ namespace <#= FolderNamespace #>
         protected void addSub<#= property.ShortTypeName #>Btn_Click(object sender, EventArgs e)
         {
             popup<#= property.ShortTypeName #>FormView.ChangeMode(FormViewMode.Insert);
+            //需要初始化外键值=主formview的ID
+            var <#= PrimaryKeyName.ToLower() #> = <#= ModelName #>FormView.DataKey.Value;
+            var sub<#= PrimaryKeyName #>Control=popup<#= property.ShortTypeName #>FormView.FindDynamicFieldControl("<#= PrimaryKeyName #>");
+            
+            //TODO:设定<#= property.ShortTypeName #>关联外键的初始化值
+            if(sub<#= PrimaryKeyName #>Control!=null){
+                
+            }
+            
             this.ClientScript.RegisterStartupScript(this.GetType(), "showPopup<#= property.PropertyName #>", "showPopup<#= property.PropertyName #>();",true);
         }
         //TODO:当子弹出表体新增或编辑Form绑定控件式触发，用于手动绑定控件或对制定控件初始赋值
@@ -211,7 +220,7 @@ namespace <#= FolderNamespace #>
             sub<#= property.ShortTypeName #>GridView.SetMetaTable(metaTable);
            
         }
-		
+		#endregion
 
 
 
