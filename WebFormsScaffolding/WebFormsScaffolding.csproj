@@ -189,6 +189,15 @@
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey_Edit.vb.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Hidden_Edit.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Hidden_Edit.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Hidden_Edit.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Integer_Edit.ascx.designer.vb.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -207,10 +216,19 @@
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\MultilineText_Edit.vb.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Hidden.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Hidden.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text.ascx.designer.vb.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text.ascx.vb.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Hidden.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text.vb.t4">

@@ -152,12 +152,12 @@ namespace <#= FolderNamespace #>
         {
             popup<#= property.ShortTypeName #>FormView.ChangeMode(FormViewMode.Insert);
             //需要初始化外键值=主formview的ID
-            var <#= PrimaryKeyName.ToLower() #> = <#= ModelName #>FormView.DataKey.Value;
-            var sub<#= PrimaryKeyName #>Control=popup<#= property.ShortTypeName #>FormView.FindDynamicFieldControl("<#= PrimaryKeyName #>");
+            var <#= PrimaryKeyName.ToLower() #> = <#= ModelName #>FormView.DataKey.Value.ToString();
+            var sub<#= _foreignKeyPropertyName #>Control=(HiddenField)popup<#= property.ShortTypeName #>FormView.FindDynamicFieldControl("<#= _foreignKeyPropertyName #>");
             
             //TODO:设定<#= property.ShortTypeName #>关联外键的初始化值
-            if(sub<#= PrimaryKeyName #>Control!=null){
-                
+            if(sub<#= _foreignKeyPropertyName #>Control!=null){
+                sub<#= _foreignKeyPropertyName #>Control.Value=  <#= PrimaryKeyName.ToLower() #>;
             }
             
             this.ClientScript.RegisterStartupScript(this.GetType(), "showPopup<#= property.PropertyName #>", "showPopup<#= property.PropertyName #>();",true);

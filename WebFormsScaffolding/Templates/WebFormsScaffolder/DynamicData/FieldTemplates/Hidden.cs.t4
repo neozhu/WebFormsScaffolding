@@ -1,0 +1,11 @@
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="ascx" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<%@ Control Language="C#" CodeBehind="Hidden.ascx.cs" Inherits="<#= DefaultNamespace #>.HiddenField" %>
+
+<asp:HiddenField runat="server" ID="HiddenField1" Value="<%# FieldValueString %>" />
+

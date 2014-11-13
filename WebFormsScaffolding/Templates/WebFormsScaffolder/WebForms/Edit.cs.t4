@@ -259,12 +259,8 @@
 					            if (subproperty.IsForeignKey) { 
 							        var relatedModel = GetRelatedModel(modelmeta,subproperty.PropertyName);
                             #>
-							    <asp:DynamicControl Mode="Edit" 
-								        DataField="<#=subproperty.PropertyName#>" 
-								        DataTypeName="<#=relatedModel.TypeName#>" 
-								        DataTextField="<#=relatedModel.DisplayPropertyName#>" 
-								        DataValueField="<#=relatedModel.PrimaryKeyNames[0]#>" 
-								        UIHint="ForeignKey" runat="server" />
+							    
+                                <asp:DynamicControl Mode="Edit" DataField="<#=subproperty.PropertyName#>" UIHint="Hidden" runat="server" />
         <# 
 					            } else { 
         #>
@@ -302,12 +298,7 @@
 					            if (subproperty.IsForeignKey) { 
 							        var relatedModel = GetRelatedModel(modelmeta,subproperty.PropertyName);
                             #>
-							    <asp:DynamicControl Mode="Insert" 
-								        DataField="<#=subproperty.PropertyName#>" 
-								        DataTypeName="<#=relatedModel.TypeName#>" 
-								        DataTextField="<#=relatedModel.DisplayPropertyName#>" 
-								        DataValueField="<#=relatedModel.PrimaryKeyNames[0]#>" 
-								        UIHint="ForeignKey" runat="server" />
+							    <asp:DynamicControl Mode="Insert" DataField="<#=subproperty.PropertyName#>" UIHint="Hidden" runat="server" />
         <# 
 					            } else { 
         #>
