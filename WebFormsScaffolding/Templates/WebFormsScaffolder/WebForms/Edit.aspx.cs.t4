@@ -71,7 +71,9 @@ namespace <#= FolderNamespace #>
         //TODO:完成删除GridView选中的记录
         protected void deletebtn_Click(object sender, EventArgs e)
         {
-          
+            var id = Request.GetFriendlyUrlSegments()[0];
+            _<#= ModelName.ToLower() #>Repository.Delete(id);
+            _<#= ModelName.ToLower() #>Repository.SaveChanges();
         }
         //TODO:完成通过搜索关键字查询
         protected void searchbtn_Click(object sender, EventArgs e)
@@ -85,9 +87,9 @@ namespace <#= FolderNamespace #>
         #>
        
         //TODO:根据外键获取<#= keyval.Key #>明细表数据
-        public IQueryable<<#= keyval.Value #>> Get<#= keyval.Key #>By<#= ModelName #>Id(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount, [FriendlyUrlSegmentsAttribute(0)]int? Id)
+        public IQueryable<<#= keyval.Value #>> Get<#= keyval.Key #>By<#= ModelName #>Id(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount, [FriendlyUrlSegmentsAttribute(0)]int? id)
         {
-            if (Id == null)
+            if (id == null)
             {
                 totalRowCount = 0;
                 return null;
@@ -107,9 +109,13 @@ namespace <#= FolderNamespace #>
                         
                         if (property.AssociationDirection == AssociationDirection.ManyToOne && property.RelatedModel.ShortTypeName==ModelName) {
                 #>
-                var id=Convert.ToInt32(Id);
+                //var id=Convert.ToInt32(id);
                 var query=_<#= _modelName.ToLower() #>Repository.GetBy<#= property.RelatedModel.ForeignKeyPropertyNames[0].Replace("_","") #>(id); 
                 totalRowCount=   query.Count();
+                query = query
+                    .OrderBy(n => n.Id)
+                    .Skip(startRowIndex)
+                    .Take(maximumRows);
                 return query;
                 <#
                         }
@@ -153,7 +159,7 @@ namespace <#= FolderNamespace #>
             popup<#= property.ShortTypeName #>FormView.ChangeMode(FormViewMode.Insert);
             //需要初始化外键值=主formview的ID
             var <#= PrimaryKeyName.ToLower() #> = <#= ModelName #>FormView.DataKey.Value.ToString();
-            var sub<#= _foreignKeyPropertyName #>Control=(HiddenField)popup<#= property.ShortTypeName #>FormView.FindDynamicFieldControl("<#= _foreignKeyPropertyName #>");
+            var sub<#= _foreignKeyPropertyName #>Control=(System.Web.UI.WebControls.HiddenField)popup<#= property.ShortTypeName #>FormView.FindDynamicFieldControl("<#= _foreignKeyPropertyName #>");
             
             //TODO:设定<#= property.ShortTypeName #>关联外键的初始化值
             if(sub<#= _foreignKeyPropertyName #>Control!=null){
@@ -162,13 +168,14 @@ namespace <#= FolderNamespace #>
             
             this.ClientScript.RegisterStartupScript(this.GetType(), "showPopup<#= property.PropertyName #>", "showPopup<#= property.PropertyName #>();",true);
         }
-        //TODO:当子弹出表体新增或编辑Form绑定控件式触发，用于手动绑定控件或对制定控件初始赋值
+        //TODO:当formview发生数据变更时触发时间，一般用户刷新GridView
 		protected void popup<#= property.ShortTypeName #>FormView_DataBound(object sender, EventArgs e)
         {
-			throw new NotImplementedException();
+			
         }
+        #region 弹出子窗体popup<#= property.ShortTypeName #>FormView 新增，修改查询
         //TODO:当弹出子表体编辑Form时，绑定当前编辑的数据
-		public <#= property.ShortTypeName #> GetSub<#= property.ShortTypeName #>ById([System.Web.ModelBinding.Control("CurrentSub<#= property.ShortTypeName #>IdField")] int id)
+		public <#= property.ShortTypeName #> GetSub<#= property.ShortTypeName #>ById([System.Web.ModelBinding.Control("CurrentSub<#= property.ShortTypeName #>IdField")] int? id)
 		{
 			return _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.GetById(id);
 		}
@@ -176,11 +183,11 @@ namespace <#= FolderNamespace #>
 		public void Create<#= property.ShortTypeName #>RowItem(<#= property.ShortTypeName #> item)
         {
             //获取主formview绑定的数据
-			var <#= ModelName.ToLower() #> = this.<#= ModelName #>FormView.ExtractEntityValues(typeof(<#= ModelName #>));
+			//var <#= ModelName.ToLower() #> = this.<#= ModelName #>FormView.ExtractEntityValues(typeof(<#= ModelName #>));
             //获取主formview绑定Id
-            var <#= ModelName.ToLower() #>Id  = this.<#= ModelName #>FormView.DataKey.Value;
+            //var <#= ModelName.ToLower() #>Id  = this.<#= ModelName #>FormView.DataKey.Value;
             //TODO:给子表附关联外键的值
-            item.<#= _foreignKeyPropertyName  #> = <#= ModelName.ToLower() #>Id;
+            //item.<#= _foreignKeyPropertyName  #> = <#= ModelName.ToLower() #>Id;
             TryUpdateModel(item);
             if (!ModelState.IsValid)
             {
@@ -212,7 +219,9 @@ namespace <#= FolderNamespace #>
                 _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.SaveChanges();
             
         }
-        //TODO:当子表体绑定数据时，载入MetaTable
+        #endregion
+        /*
+        //TODO:当子表需要绑定外键列数据时，需要每次载入MetaTable
         protected void sub<#= property.ShortTypeName #>GridView_DataBinding(object sender, EventArgs e)
         {
             var sub<#= property.ShortTypeName #>GridView =(GridView) sender;
@@ -220,6 +229,7 @@ namespace <#= FolderNamespace #>
             sub<#= property.ShortTypeName #>GridView.SetMetaTable(metaTable);
            
         }
+        */
 		#endregion
 
 
@@ -231,7 +241,7 @@ namespace <#= FolderNamespace #>
             #>
         #endregion
         //TODO:当绑定数据时，载入MetaTable
-        protected void <#=        ModelName #>FormView_DataBound(object sender, EventArgs e)
+        protected void <#=        ModelName #>FormView_ItemCreated(object sender, EventArgs e)
         {
             <#
             foreach (PropertyMetadata property in ModelMetadata.Properties) 
@@ -242,9 +252,10 @@ namespace <#= FolderNamespace #>
             var sub<#=        property.ShortTypeName #>GridView = (GridView)this.<#=        ModelName #>FormView.FindControl("sub<#=        property.ShortTypeName #>GridView");
             if (sub<#=        property.ShortTypeName #>GridView != null)
             {
-                MetaTable metaTable = MetaTable.GetTable(typeof(<#=        property.TypeName #>));
-                sub<#=        property.ShortTypeName #>GridView.SetMetaTable(metaTable);
-                sub<#=        property.ShortTypeName #>GridView.DataBind();
+                //只有当gridview绑定外键字段列时需要
+                //MetaTable metaTable = MetaTable.GetTable(typeof(<#=        property.TypeName #>));
+                //sub<#=        property.ShortTypeName #>GridView.SetMetaTable(metaTable);
+                //sub<#=        property.ShortTypeName #>GridView.DataBind();
             }
 
             <#

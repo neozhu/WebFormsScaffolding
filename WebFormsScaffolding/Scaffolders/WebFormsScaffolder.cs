@@ -207,7 +207,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 "Text", "Text.ascx.designer", "Text.ascx",
                 "Text_Edit", "Text_Edit.ascx.designer", "Text_Edit.ascx",
                 "Url", "Url.ascx.designer", "Url.ascx",
-                "Url_Edit", "Url_Edit.ascx.designer", "Url_Edit.ascx"
+                "Url_Edit", "Url_Edit.ascx.designer", "Url_Edit.ascx",
+                "Hidden", "Hidden.ascx.designer", "Hidden.ascx",
+                "Hidden_Edit", "Hidden_Edit.ascx.designer", "Hidden_Edit.ascx"
             };
             var fieldTemplatesPath = "DynamicData\\FieldTemplates";
 

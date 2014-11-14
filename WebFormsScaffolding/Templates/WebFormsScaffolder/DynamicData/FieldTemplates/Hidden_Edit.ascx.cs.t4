@@ -14,7 +14,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace <#= DefaultNamespace #> {
-    public partial class Hidden_EditFiel : System.Web.DynamicData.FieldTemplateUserControl {
+    public partial class Hidden_EditField : System.Web.DynamicData.FieldTemplateUserControl {
         private const int MAX_DISPLAYLENGTH_IN_LIST = 250;
     
         public override string FieldValueString {

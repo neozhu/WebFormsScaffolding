@@ -7,7 +7,7 @@
 <#@ parameter type="System.String" name="DefaultNamespace" #>
 <%@ Control Language="C#" CodeBehind="Boolean_Edit.ascx.cs" Inherits="<#= DefaultNamespace #>.Boolean_EditField" %>
 
-<div id="Div1" runat="server" class="form-group">
+<div id="Div1" runat="server" class="form-group col-lg-6 col-md-6 col-sm-6">
     <div class="col-sm-offset-2 col-sm-3">
       <div class="checkbox">
         <label>

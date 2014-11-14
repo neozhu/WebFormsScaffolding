@@ -55,10 +55,9 @@ namespace <#= FolderNamespace #>
                     {
                         var entityId= this.<#= ModelName #>GridView.DataKeys[row.RowIndex].Value;
                         //TODO:获取选择行的ID
-
-
-
+                        Response.Redirect("Edit/" + entityId);
                         break;
+
                     }
                 }
             }
@@ -75,7 +74,8 @@ namespace <#= FolderNamespace #>
                     {
                         var entityId= this.<#= ModelName #>GridView.DataKeys[row.RowIndex].Value;
                         //TODO:获取选择行的ID
-
+                        _repository.Delete(entityId);
+                        _repository.SaveChanges();
 
 
                          

@@ -41,6 +41,10 @@ namespace <#= FolderNamespace #>
 
         protected void Page_Load(object sender, EventArgs e)
         {
+             if (!IsPostBack)
+            {
+
+            }
         }
         
         //TODO:完成编辑GridView选中的记录

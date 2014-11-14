@@ -35,7 +35,7 @@ namespace <#= DefaultNamespace #> {
         {
             // if validation error then apply bootstrap has-error CSS class
             var isValid = this.Page.ModelState.IsValidField(Column.Name);
-            Div1.Attributes["class"] = isValid ? "form-group" : "form-group has-error";
+            Div1.Attributes["class"] = isValid ? "form-group col-lg-6 col-md-6 col-sm-6 " : "form-group col-lg-6 col-md-6 col-sm-6 has-error";
         }
 
         protected override void OnDataBinding(EventArgs e) {

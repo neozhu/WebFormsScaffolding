@@ -7,9 +7,9 @@
 <#@ parameter type="System.String" name="DefaultNamespace" #>
 <%@ Control Language="VB" CodeBehind="Text_Edit.ascx.vb" Inherits="<#= DefaultNamespace #>.Text_EditField" %>
 
-<div id="Div1" runat="server" class="form-group">
-    <asp:Label ID="Label1" runat="server" CssClass="col-sm-2 control-label" />
-    <div class="col-sm-3">
+<div id="Div1" runat="server" class="form-group col-lg-6 col-md-6 col-sm-6">
+    <asp:Label ID="Label1" runat="server" CssClass="col-sm-3 col-md-3 control-label" />
+    <div class="col-sm-8 col-md-8">
 		<asp:TextBox ID="TextBox1" type="Text" runat="server" Text='<%# FieldValueEditString %>' CssClass="form-control DDTextBox"></asp:TextBox>
     </div>
 </div>

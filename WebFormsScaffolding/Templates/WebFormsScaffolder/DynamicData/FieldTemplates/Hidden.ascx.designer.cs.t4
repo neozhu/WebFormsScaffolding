@@ -16,7 +16,7 @@
 //------------------------------------------------------------------------------
 
 namespace <#= DefaultNamespace #> {
-    public partial class HiddenFiel {
+    public partial class HiddenField {
         protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
     }
 }

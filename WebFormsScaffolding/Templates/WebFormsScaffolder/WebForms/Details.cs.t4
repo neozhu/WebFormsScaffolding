@@ -40,12 +40,12 @@
           <ul class="nav navbar-nav">
               <li><a id="backbtn"   href="Javascript:history.back()"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
               <li><a id="forwardbtn"   href="Javascript:history.go(1)"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
-              <li><a id="newbtn"   href="Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
+              <li><a id="newbtn"   href="../Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
               <li>
                   <asp:LinkButton ID="editbtn" ValidationGroup="grid" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
               </li>
               <li>
-                  <asp:LinkButton ID="deletebtn" runat="server" ValidationGroup="grid" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
+                  <asp:LinkButton ID="deletebtn" runat="server" ValidationGroup="grid" OnClientClick="return confirm('Are you sure you want to delete checked rows?');" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
               </li>
               <li class="divider"></li>
 
@@ -95,6 +95,7 @@
                     <ItemTemplate>
                         <fieldset class="form-horizontal">
                             <legend><#=        ModelName #> Details</legend>
+                                <div class="row">
         <#    foreach (PropertyMetadata property in ModelMetadata.Properties) { 
         if (ShouldDisplay(property)) {
             if (property.IsForeignKey) { 
@@ -124,7 +125,7 @@
         }
     }
         #>
-
+                        </div>
        <#
     if(OneToManyModels.Count>0)
     {
@@ -158,6 +159,7 @@
                                         SelectMethod="Get<#=  property.PropertyName  #>By<#= ModelName #>Id" 
                                         AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" 
                                         DataKeyNames="<#=  modelmeta.PrimaryKeys[0].PropertyName #>"
+                                        ViewStateMode="Disabled"
                                         PageSize="10" PagerStyle-CssClass="bs-pagination" CssClass="table table-hover table-striped">
                                         <Columns>
                         <# 
@@ -169,7 +171,7 @@
                         <#
                                         }else if (subproperty.AssociationDirection==AssociationDirection.ManyToOne) {
                         #>
-                                            <asp:DynamicField DataField="<#=                subproperty.PropertyName #>"  NavigateUrl="#" />  
+                                            <%--<asp:DynamicField DataField="<#=                subproperty.PropertyName #>"  NavigateUrl="#" />  --%>
                         <#                                     
                                     }
                                 }

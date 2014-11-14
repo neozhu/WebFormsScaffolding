@@ -39,12 +39,12 @@
            <ul class="nav navbar-nav">
                <li><a id="backbtn"   href="Javascript:history.back()"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
                <li><a id="forwardbtn"   href="Javascript:history.go(1)"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
-               <li><a id="newbtn"   href="Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
+               <li><a id="newbtn"   href="../Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
                <li>
                    <asp:LinkButton ID="editbtn" class="active" ValidationGroup="grid" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
                </li>
                <li>
-                   <asp:LinkButton ID="deletebtn" runat="server" ValidationGroup="grid" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
+                   <asp:LinkButton ID="deletebtn" runat="server" ValidationGroup="grid" OnClientClick="return confirm('Are you sure you want to delete checked rows?');" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
                </li>
                <li class="divider"></li>
 
@@ -83,7 +83,7 @@
 		        <p>&nbsp;</p>
                 <asp:FormView runat="server" ID="<#=ModelName #>FormView"
                     ItemType="<#=FullModelName#>" DefaultMode="Edit" DataKeyNames="<#= PrimaryKeyName #>"
-                    OnDataBound="<#=        ModelName #>FormView_DataBound"
+                    OnItemCreated="<#=        ModelName #>FormView_ItemCreated"
                     UpdateMethod="UpdateItem" SelectMethod="GetById"
                     RenderOuterTable="false">
                     <EmptyDataTemplate>
@@ -92,6 +92,7 @@
                     <EditItemTemplate>
                         <fieldset class="form-horizontal">
                             <legend>Edit <#= ModelName #></legend>
+                            <div class="row">
 					        <asp:ValidationSummary runat="server" CssClass="alert alert-danger"  />                 
         <# 
 					        foreach (PropertyMetadata property in ModelMetadata.Properties) { 
@@ -114,6 +115,7 @@
 					          }
 					        } 
         #>
+                    </div>
 
 <#
     if(OneToManyModels.Count>0)
@@ -151,10 +153,10 @@
                                         </asp:LinkButton>
                                     </div>
                                     <asp:GridView ID="sub<#=        property.ShortTypeName #>GridView" runat="server" 
-                                        OnDataBinding="sub<#=       property.ShortTypeName #>GridView_DataBinding"
-										ItemType="<#=        property.TypeName #>" GridLines="none"
+                                        ItemType="<#=        property.TypeName #>" GridLines="none"
                                         EnableViewState="false"
 										OnRowCommand="sub<#=        property.ShortTypeName #>GridView_RowCommand"
+                                        ViewStateMode="Disabled"
                                         ShowHeaderWhenEmpty="true"
                                         SelectMethod="Get<#=  property.PropertyName  #>By<#= ModelName #>Id" 
 										DeleteMethod="Delete<#=  property.ShortTypeName  #>RowItem"
@@ -171,7 +173,7 @@
                         <#
                                         }else if (subproperty.AssociationDirection==AssociationDirection.ManyToOne) {
                         #>
-                                            <asp:DynamicField DataField="<#=                subproperty.PropertyName #>"  NavigateUrl="#" />  
+                                          <%--  <asp:DynamicField DataField="<#=                subproperty.PropertyName #>"  NavigateUrl="#" />  --%>
                         <#                                     
                                     }
                                 }
@@ -244,7 +246,7 @@
                             UpdateMethod="Update<#= property.ShortTypeName #>RowItem" SelectMethod="GetSub<#= property.ShortTypeName #>ById"
                             InsertItemPosition="FirstItem" 
 							InsertMethod="Create<#= property.ShortTypeName #>RowItem"
-                            RenderOuterTable="true">
+                            RenderOuterTable="false">
                             <EmptyDataTemplate>
                                     Cannot find the <#= property.ShortTypeName #> with <#= modelmeta.PrimaryKeys[0].PropertyName #> <%: Request.QueryString["<#= modelmeta.PrimaryKeys[0].PropertyName #>"] %>
                             </EmptyDataTemplate>
@@ -352,6 +354,11 @@
 		 function showPopup<#= property.PropertyName #>(){
 				$('#popup<#= property.PropertyName #>').modal('show');
 		 }
+        
+         function showTabs<#= property.PropertyName #>(){
+				$('.nav-tabs a[href="#tabs<#= property.PropertyName #>"]').tab('show');
+		 }
+
 		 <#
                 }
             }

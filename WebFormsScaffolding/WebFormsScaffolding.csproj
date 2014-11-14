@@ -423,6 +423,9 @@
     <None Include="Templates\WebFormsScaffolder\Repositories\EntityRepository.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\WebFormsScaffolder\Repositories\Extensions\ControlExtensions.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\WebFormsScaffolder\Repositories\IEntityRepository.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
