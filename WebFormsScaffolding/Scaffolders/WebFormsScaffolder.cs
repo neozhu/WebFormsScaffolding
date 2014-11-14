@@ -138,6 +138,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             EnsureDynamicDataFieldTemplates(project, dbContextNamespace, dbContextTypeName);
 
             EnsurePepositoriesTemplates(project, dbContextNamespace, dbContextTypeName);
+            EnsureExtensionsTemplates(project, dbContextNamespace, dbContextTypeName);
 
 
             AddEntityRepositoryTemplates(
@@ -149,6 +150,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 efMetadata,
                 codeGeneratorViewModel.OverwriteViews
            );
+
 
             // Add Web Forms Pages from Templates
             AddWebFormsPages(
@@ -265,6 +267,36 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             }
         }
 
+        private void EnsureExtensionsTemplates(Project project, string dbContextNamespace, string dbContextTypeName)
+        {
+            var fieldTemplates = new[] { 
+                "ControlExtensions"
+               
+            };
+            var fieldTemplatesPath = "Repositories\\Extensions";
+
+            // Add the folder
+            AddFolder(project, fieldTemplatesPath);
+
+            foreach (var fieldTemplate in fieldTemplates)
+            {
+                var templatePath = Path.Combine(fieldTemplatesPath, fieldTemplate);
+                var outputPath = Path.Combine(fieldTemplatesPath, fieldTemplate);
+
+                AddFileFromTemplate(
+                    project: project,
+                    outputPath: outputPath,
+                    templateName: templatePath,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()},
+                        {"DbContextNamespace", dbContextNamespace},
+                        {"DbContextTypeName", dbContextTypeName}
+                    },
+                    skipIfExists: true);
+            }
+        }
+
         private void AddEntityRepositoryTemplates(
            Project project,
            string selectionRelativePath,
@@ -273,7 +305,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
            CodeType modelType,
            ModelMetadata efMetadata,
            bool overwriteViews = true,
-           string modelName=""
+           string modelName = ""
 
        )
         {
@@ -291,7 +323,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             string pluralizedModelName = efMetadata.EntitySetName;
             var repositoryTemplates = new[] { "IEntityRepository", "EntityRepository" };
             var repositoryTemplatesPath = "Repositories";
-          
+
 
             // Add folder for views. This is necessary to display an error when the folder already exists but 
             // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
@@ -370,7 +402,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
             // Add folder for views. This is necessary to display an error when the folder already exists but 
             // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
-            string outputFolderPath = Path.Combine(selectionRelativePath, pluralizedModelName.Replace("_",""));
+            string outputFolderPath = Path.Combine(selectionRelativePath, pluralizedModelName.Replace("_", ""));
             AddFolder(Context.ActiveProject, outputFolderPath);
 
 
@@ -482,13 +514,13 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     },
                     skipIfExists: !overwrite);
             }
-   
+
         }
         private string GetModelName(ModelMetadata modelMeta, string entitySetName)
         {
             foreach (var modelProp in modelMeta.Properties)
             {
-                if (modelProp.RelatedModel!=null)
+                if (modelProp.RelatedModel != null)
                 {
                     if (modelProp.RelatedModel.EntitySetName == entitySetName)
                         return modelProp.RelatedModel.ShortTypeName;
@@ -603,7 +635,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 }
             }
 
-           
+
             return dict;
         }
 
