@@ -10,6 +10,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
+using Microsoft.AspNet.FriendlyUrls;
 using System.Web.DynamicData;
 using <#=DefaultNamespace #>.Repositories;
 using <#=DefaultNamespace #>.Extensions;
@@ -71,14 +72,14 @@ namespace <#= FolderNamespace #>
         protected void editbtn_Click(object sender, EventArgs e)
         {
             var id = Request.GetFriendlyUrlSegments()[0];
-            Response.Redirect("..Edit/" + id);
+            Response.Redirect("../Edit/" + id);
         }
         //TODO:完成删除GridView选中的记录
         protected void deletebtn_Click(object sender, EventArgs e)
         {
           var id = Request.GetFriendlyUrlSegments()[0];
-            _repository.Delete(id);
-            _repository.SaveChanges();
+            _<#= ModelName.ToLower() #>Repository.Delete(id);
+            _<#= ModelName.ToLower() #>Repository.SaveChanges();
         }
         //TODO:完成通过搜索关键字查询
         protected void searchbtn_Click(object sender, EventArgs e)
@@ -113,7 +114,7 @@ namespace <#= FolderNamespace #>
                         if (property.AssociationDirection == AssociationDirection.ManyToOne && property.RelatedModel.ShortTypeName==ModelName) {
                 #>
                 //var id=Convert.ToInt32(id);
-                var query=_<#= _modelName.ToLower() #>Repository.GetBy<#= property.RelatedModel.ForeignKeyPropertyNames[0].Replace("_","") #>(id); 
+                var query=_<#= _modelName.ToLower() #>Repository.GetBy<#= property.RelatedModel.ForeignKeyPropertyNames[0].Replace("_","") #>((int)id); 
                 totalRowCount=   query.Count();
                 query = query
                     .OrderBy(n => n.Id)

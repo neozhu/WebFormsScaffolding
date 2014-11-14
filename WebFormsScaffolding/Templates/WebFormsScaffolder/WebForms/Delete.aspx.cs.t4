@@ -50,12 +50,15 @@ namespace <#= FolderNamespace #>
         //TODO:完成编辑GridView选中的记录
         protected void editbtn_Click(object sender, EventArgs e)
         {
-
+            var id = Request.GetFriendlyUrlSegments()[0];
+            Response.Redirect("../Edit/" + id);
         }
         //TODO:完成删除GridView选中的记录
         protected void deletebtn_Click(object sender, EventArgs e)
         {
-          
+          var id = Request.GetFriendlyUrlSegments()[0];
+            _repository.Delete(id);
+           _repository.SaveChanges();
         }
         //TODO:完成通过搜索关键字查询
         protected void searchbtn_Click(object sender, EventArgs e)
