@@ -53,39 +53,39 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
             return this.context.SaveChanges();
         
         }
-        public override int UpdateItem(TEntity entity, ModelMethodContext modelMethodContext)
+        public override int UpdateItem(object id, ModelMethodContext modelMethodContext)
         {
 
-            //var item = this.set.Find(id);
+            var item = this.set.Find(id);
 
 
-            if (entity == null)
+            if (item == null)
             {
-                modelMethodContext.ModelState.AddModelError("NotFoundError", String.Format("A Item with ID {0} could not be found", "NULL"));
+                modelMethodContext.ModelState.AddModelError("NotFoundError", String.Format("A Item with ID {0} could not be found",id ));
                 return 0;
             }
 
             //attempt to update the model if we arrive at this stage
-            modelMethodContext.TryUpdateModel(entity);
+            modelMethodContext.TryUpdateModel(item);
             if (!modelMethodContext.ModelState.IsValid)
             {
                 //model is in an invalid state - stop all operations
                 return 0;
             }
-            this.context.Entry(entity).State = EntityState.Modified;
+            //this.context.Entry(entity).State = EntityState.Modified;
             return this.context.SaveChanges();
         }
-        public override int DeleteItem(TEntity entity, ModelMethodContext modelMethodContext)
+        public override int DeleteItem(object id, ModelMethodContext modelMethodContext)
         {
 
-            //var item = this.set.Find(id);
-            if (entity == null)
+            var item = this.set.Find(id);
+            if (item == null)
             {
-                modelMethodContext.ModelState.AddModelError("NotFoundError", String.Format("A Item with ID {0} could not be found", "NULL"));
+                modelMethodContext.ModelState.AddModelError("NotFoundError", String.Format("A Item with ID {0} could not be found", id));
                 return 0;
             }
-            //this.set.Remove(item);
-            this.context.Entry(entity).State = EntityState.Deleted; 
+            this.set.Remove(item);
+            //this.context.Entry(entity).State = EntityState.Deleted; 
             return this.context.SaveChanges();
         }
 

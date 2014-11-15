@@ -22,8 +22,8 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
 
        
          public abstract int CreateItem(TEntity entity, ModelMethodContext modelMethodContext);
-        public abstract int UpdateItem(TEntity entity, ModelMethodContext modelMethodContext);
-        public abstract int DeleteItem(TEntity entity, ModelMethodContext modelMethodContext);
+        public abstract int UpdateItem(object id, ModelMethodContext modelMethodContext);
+        public abstract int DeleteItem(object id, ModelMethodContext modelMethodContext);
         public abstract int DeleteWhere(Expression<Func<TEntity, bool>> criteria);
         public abstract TEntity Create(TEntity entity);
         public abstract TEntity Update(TEntity entity);
