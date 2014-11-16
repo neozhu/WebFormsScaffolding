@@ -31,7 +31,7 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
             
         }
 
-        public override int CreateItem(TEntity entity, ModelMethodContext modelMethodContext)
+        public override int CreateItem(ModelMethodContext modelMethodContext)
         {
             //create a new model object of type ToyCategory
             var item = this.set.Create();

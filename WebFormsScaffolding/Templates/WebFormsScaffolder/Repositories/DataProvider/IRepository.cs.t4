@@ -16,7 +16,7 @@ namespace <#= DefaultNamespace #>.Repositories.DataProvider
    public interface IRepository<TEntity> where TEntity : class
     {
    
-		int CreateItem(TEntity entity, ModelMethodContext modelMethodContext);
+		int CreateItem( ModelMethodContext modelMethodContext);
         int UpdateItem(object id, ModelMethodContext modelMethodContext);
         int DeleteItem(object id, ModelMethodContext modelMethodContext);
         int DeleteWhere(Expression<Func<TEntity, bool>> criteria);
