@@ -10,6 +10,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
+using Microsoft.AspNet.FriendlyUrls;
 using <#=DefaultNamespace #>.Repositories;
 using <#=DefaultNamespace #>.Extensions;
 

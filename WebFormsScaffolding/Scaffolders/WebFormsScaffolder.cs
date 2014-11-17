@@ -339,9 +339,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 var templatePath = Path.Combine(repositoryTemplatesPath, repository);
                 var outputFileName = "";
                 if (repository == "IEntityRepository")
-                    outputFileName = "I" + pluralizedModelName + "Repository";
+                    outputFileName = "I" + modelName + "Repository";
                 else
-                    outputFileName = pluralizedModelName + "Repository";
+                    outputFileName = modelName + "Repository";
                 var outputPath = Path.Combine(outputFolderPath, outputFileName);
 
                 var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();

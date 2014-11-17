@@ -41,6 +41,24 @@ namespace <#=DefaultNamespace #>.Repositories
         
         }
 
+
+        <#
+        string _pk=(ModelMetadata.PrimaryKeys != null && ModelMetadata.PrimaryKeys.Count() == 1) ? ModelMetadata.PrimaryKeys[0].PropertyName : "";
+        if(_pk.ToLower()!="id"){
+        #>
+        public override int UpdateItem(object <#= _pk.ToLower() #>, ModelMethodContext modelMethodContext)
+        {
+            return base.UpdateItem(<#= _pk.ToLower() #>, modelMethodContext);
+        }
+        
+        public override int DeleteItem(object  <#= _pk.ToLower() #>, ModelMethodContext modelMethodContext)
+        {
+            return base.DeleteItem( <#= _pk.ToLower() #>, modelMethodContext);
+        }
+        <# 
+        } 
+        #>
+
 		 public IQueryable<<#= ModelName #>> Get(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount,[System.Web.ModelBinding.Control("searchTextBox")]string searchText)
         {
             var query = this.set.AsQueryable();
@@ -90,3 +108,6 @@ namespace <#=DefaultNamespace #>.Repositories
 #>
 	}
 }
+
+
+
