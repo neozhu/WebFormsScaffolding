@@ -60,6 +60,7 @@ namespace <#= FolderNamespace #>
           var id = Request.GetFriendlyUrlSegments()[0];
             _repository.Delete(id);
            _repository.SaveChanges();
+           Response.Redirect("../Default");
         }
         //TODO:完成通过搜索关键字查询
         protected void searchbtn_Click(object sender, EventArgs e)

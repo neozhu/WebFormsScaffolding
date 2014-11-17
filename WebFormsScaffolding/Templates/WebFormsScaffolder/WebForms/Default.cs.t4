@@ -43,7 +43,7 @@
                 <ul class="nav navbar-nav">
                     <li><a id="backbtn"  href="Javascript:history.back()"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
                     <li><a id="forwardbtn"   href="Javascript:history.go(1)"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
-                    <li><a id="newbtn"   href="../Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
+                    <li><a id="newbtn"   href="Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
                     <li>
                         <asp:LinkButton ID="editbtn" ValidationGroup="grid" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
                     </li>
@@ -83,17 +83,15 @@
             <!-- /.navbar-collapse -->
         </nav>
 
-        <div  class="container body-content">
-        <div class="alert alert-danger page-alert" id="alert-4">
-            <button type="button" class="close"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
-            <asp:CustomValidator ID="CustomValidator1" ValidationGroup="grid" runat="server" ErrorMessage="Please,Check one!"
-                ClientValidationFunction="Validate"></asp:CustomValidator>
-
-
-        </div>
+        <div  class="container body-content" >
+       
      
 	    <div class="row">
-                <div class="col-md-12 col-lg-12">
+                <div class="alert alert-danger page-alert" id="alert-4">
+                    <button type="button" class="close"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+                    <asp:CustomValidator ID="CustomValidator1" ValidationGroup="grid" runat="server" ErrorMessage="Please,Check one!"
+                        ClientValidationFunction="Validate"></asp:CustomValidator>
+                </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Query</h3>
@@ -121,10 +119,10 @@
                           
                         </div>
                     </div>
-                </div>
+           
             </div>
-        <div class="row">
-                <div class="col-md-12 col-lg-12">
+         
+               
                     <h4><#=        PluralizedModelName #></h4>
                     <div class="table-responsive">
                         <asp:GridView ID="<#=        ModelName #>GridView" runat="server" ItemType="<#=        FullModelName #>" GridLines="none"
@@ -167,8 +165,8 @@
                          <PagerSettings Mode="NumericFirstLast" PageButtonCount="5" Position="Bottom" PreviousPageText="Previous" NextPageText="Next" FirstPageText="First" LastPageText="Last" />
                        </asp:GridView>
                     </div>
-                </div>
-        </div>
+             
+       
        </div>
 
 

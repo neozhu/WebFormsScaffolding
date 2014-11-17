@@ -80,6 +80,7 @@ namespace <#= FolderNamespace #>
           var id = Request.GetFriendlyUrlSegments()[0];
             _<#= ModelName.ToLower() #>Repository.Delete(id);
             _<#= ModelName.ToLower() #>Repository.SaveChanges();
+            Response.Redirect("../Default");
         }
         //TODO:完成通过搜索关键字查询
         protected void searchbtn_Click(object sender, EventArgs e)

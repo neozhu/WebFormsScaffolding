@@ -82,6 +82,7 @@ namespace <#= FolderNamespace #>
                     }
                 }
             }
+            <#= ModelName #>GridView.DataBind();
         }
         //TODO:完成通过搜索关键字查询
         protected void searchbtn_Click(object sender, EventArgs e)
