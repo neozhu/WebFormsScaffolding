@@ -22,12 +22,44 @@ namespace <#= DefaultNamespace #> {
 			Label1.Text = Column.DisplayName;
         }
 
-		// show bootstrap has-error
-		protected void Page_PreRender(object sender, EventArgs e)
+		private int _cols;
+        public int Cols
+        {
+            get
+            {
+                if (_cols == 0)
+                    _cols = 2;
+                return _cols;
+            }
+            set { _cols = value; }
+        }
+
+        private string _size;
+
+        public string Size
+        {
+            get
+            {
+                return _size;
+            }
+            set { _size = value; }
+        }
+
+        // show bootstrap has-error
+        protected void Page_PreRender(object sender, EventArgs e)
         {
             // if validation error then apply bootstrap has-error CSS class
             var isValid = this.Page.ModelState.IsValidField(Column.Name);
-            Div1.Attributes["class"] = isValid ? "form-group col-lg-6 col-md-6 col-sm-6 " : "form-group col-lg-6 col-md-6 col-sm-6 has-error";
+            int col = (12 / Cols);
+            if (string.IsNullOrEmpty(Size) || (Size.ToLower() != "sm" && Size.ToLower() != "lg"))
+            {
+                Div1.Attributes["class"] = isValid ? string.Format("form-group  col-lg-{0} col-md-{0} col-sm-{0}", col) : string.Format("form-group  col-lg-{0} col-md-{0} col-sm-{0} has-error", col);
+            }
+            else
+            {
+                Div1.Attributes["class"] = isValid ? string.Format("form-group form-group-{1}  col-lg-{0} col-md-{0} col-sm-{0}", col, Size.ToLower()) : string.Format("form-group form-group-{1}   col-lg-{0} col-md-{0} col-sm-{0} has-error", col, Size.ToLower());
+            }
+
         }
 
         protected override void ExtractValues(IOrderedDictionary dictionary) {
