@@ -8,7 +8,7 @@
 <%@ Control Language="C#" CodeBehind="ForeignKey_Edit.ascx.cs" Inherits="<#= DefaultNamespace #>.ForeignKey_EditField" %>
 
 <div id="Div1" runat="server" class="form-group col-lg-6 col-md-6 col-sm-6">
-    <asp:Label ID="Label1" runat="server" CssClass="col-sm-3 col-md-3 control-label" />
+    <asp:Label ID="Label1" runat="server" CssClass="col-sm-4 col-md-4 control-label" />
     <div class="col-sm-8 col-md-8">
 		<asp:DropDownList 
 			ID="DropDownList1"
