@@ -87,12 +87,15 @@
        
      
 	    <div class="row">
-                <div class="alert alert-danger page-alert" id="alert-4">
+                <div class="alert alert-danger page-alert" id="alert-4" style="display:none;">
                     <button type="button" class="close"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
-                    <asp:CustomValidator ID="CustomValidator1" ValidationGroup="grid" runat="server" ErrorMessage="Please,Check one!"
-                        ClientValidationFunction="Validate"></asp:CustomValidator>
+                    <strong>Warning!</strong> Please,Select record.
                 </div>
-                    <div class="panel panel-default">
+
+                <div id="dialog-confirm" title="Delete?"  >
+                    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure  delete these selected records!</p>
+                </div>
+                <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Query</h3>
                         </div>
@@ -120,7 +123,7 @@
                         </div>
                     </div>
            
-            </div>
+                </div>
          
                
                     <h4><#=        PluralizedModelName #></h4>
@@ -173,21 +176,14 @@
 
 
 <script type="text/javascript">
-        $('.page-alert').hide();
-
         function Validate(sender, args) {
-
-            //console.log($('table[id*=<#=        ModelName #>GridView] input[type=checkbox]:checked').length);
-            if ($('table[id*=<#=        ModelName #>GridView] input[type=checkbox]:checked').length > 0) {
-                args.IsValid = true;
+            if ($('table[id*=Shipping_ListGridView] input[type=checkbox]:checked').length > 0) {
                 $('.page-alert').slideUp();
+                return true;
             } else {
-                args.IsValid = false;
                 $('.page-alert').slideDown();
+                return false;
             }
-
-
-
         }
 
 
@@ -195,7 +191,37 @@
 
 
         $(function () {
-            
+             $("#dialog-confirm").dialog({
+                autoOpen:false,
+                resizable: false,
+                height: 190,
+                modal: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                        var ret = eval($('#<%= deletebtn.ClientID %>')[0].pathname);
+                        return true;
+                       
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                        return false;
+                    }
+                }
+            });
+
+            $('#<%= editbtn.ClientID %>').click(function () {
+                return Validate();
+            });
+            $('#<%= deletebtn.ClientID %>').click(function (e) {
+                if (Validate()) {
+                    e.preventDefault();
+                        $("#dialog-confirm").dialog("open");
+                      return false
+                 } else {
+                    return false;
+                }
+            });
 
             $('[id*=chkRow]').on('click', function () {
 
