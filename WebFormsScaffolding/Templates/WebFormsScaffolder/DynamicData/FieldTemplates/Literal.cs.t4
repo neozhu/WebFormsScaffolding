@@ -5,12 +5,12 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="DefaultNamespace" #>
-<%@ Control Language="C#" CodeBehind="Text_Edit.ascx.cs" Inherits="<#= DefaultNamespace #>.Text_EditField" %>
+<%@ Control Language="C#" CodeBehind="Literal.ascx.cs" Inherits="<#= DefaultNamespace #>.LiteralField" %>
 
 <div id="Div1" runat="server" class="form-group col-lg-6 col-md-6 col-sm-6">
-    <asp:Label ID="Label1" runat="server" CssClass="col-sm-4 col-md-4 control-label" />
+    <strong><asp:Label ID="Label1" runat="server" CssClass="col-sm-4 col-md-4 control-label" /></strong>
     <div class="col-sm-8 col-md-8">
-		<asp:TextBox ID="TextBox1" type="Text" runat="server" Text='<%# FieldValueEditString %>' CssClass="form-control "></asp:TextBox>
+		 <asp:Literal runat="server" ID="Literal1" Text="<%# FieldValueString %>" />
     </div>
 </div>
 

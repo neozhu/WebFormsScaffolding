@@ -171,10 +171,28 @@
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Enumeration_Edit.vb.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKeyLiteral.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKeyLink.ascx.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKeyLiteral.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKeyLink.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey.ascx.designer.vb.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey.ascx.vb.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKeyLiteral.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKeyLink.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\ForeignKey.vb.t4">
@@ -234,10 +252,21 @@
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text.vb.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Literal.ascx.t4">
+      <LastGenOutput>Text_Edit.ascx.cs1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Literal.ascx.designer.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text_Edit.ascx.designer.vb.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text_Edit.ascx.vb.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Literal.cs.t4">
+      <LastGenOutput>Text_Edit.ascx1.txt</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text_Edit.vb.t4">

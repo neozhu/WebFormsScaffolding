@@ -12,26 +12,41 @@ using System.Web.DynamicData;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using Microsoft.AspNet.FriendlyUrls;
 namespace <#= DefaultNamespace #> {
-    public partial class Boolean_EditField : System.Web.DynamicData.FieldTemplateUserControl {
-
-		protected void Page_Init(object sender, EventArgs e)
+    public partial class ForeignKeyLinkField : System.Web.DynamicData.FieldTemplateUserControl {
+        protected void Page_Init(object sender, EventArgs e)
         {
-            CheckBox1.ToolTip = Column.Description;
-            CheckBox1.Attributes.Add("title", Column.Description);
-			Label1.Text = Column.DisplayName;
+            HyperLink1.ToolTip = Column.Description;
+            HyperLink1.Attributes.Add("title", Column.Description);
+            Label1.Text = Column.DisplayName;
         }
-
-        protected override void OnDataBinding(EventArgs e) {
-            base.OnDataBinding(e);
+        private bool _allowNavigation = true;
+        private string _navigateUrl = "#";
+        public string NavigateUrl {
+            get { return _navigateUrl; }
+            set { _navigateUrl = value; }
+        }
     
-            object val = FieldValue;
-            if (val != null)
-                CheckBox1.Checked = (bool) val;
+        public bool AllowNavigation {
+            get {
+                return _allowNavigation;
+            }
+            set {
+                _allowNavigation = value;
+            }
         }
-        
-       private int _cols;
+    
+        protected string GetDisplayString() {
+            object value = FieldValue;
+            
+            if (value == null) {
+                return FormatFieldValue(ForeignKeyColumn.GetForeignKeyString(Row));
+            } else {
+                return FormatFieldValue(ForeignKeyColumn.ParentTable.GetDisplayString(value));
+            }
+        }
+        private int _cols;
 
         public int Cols
         {
@@ -71,14 +86,27 @@ namespace <#= DefaultNamespace #> {
             }
 
         }
-    
-        protected override void ExtractValues(IOrderedDictionary dictionary) {
-            dictionary[Column.Name] = CheckBox1.Checked;
+        protected string GetNavigateUrl() {
+            if (!AllowNavigation || FieldValue==null) {
+                return null;
+            }
+            
+            if (String.IsNullOrEmpty(NavigateUrl)) {
+                return ForeignKeyPath;
+            }
+            else if (NavigateUrl == "#")
+            {
+                return "#";
+            }
+            else {
+                return FriendlyUrl.Href(NavigateUrl, ForeignKeyColumn.ParentTable.GetPrimaryKeyValues(FieldValue)[0]);
+                //return BuildForeignKeyPath(NavigateUrl);
+            }
         }
     
         public override Control DataControl {
             get {
-                return CheckBox1;
+                return HyperLink1;
             }
         }
     

@@ -8,11 +8,12 @@
 <%@ Control Language="C#" CodeBehind="Boolean_Edit.ascx.cs" Inherits="<#= DefaultNamespace #>.Boolean_EditField" %>
 
 <div id="Div1" runat="server" class="form-group col-lg-6 col-md-6 col-sm-6">
-    <div class="col-sm-offset-2 col-sm-3">
-      <div class="checkbox">
-        <label>
-          <asp:CheckBox runat="server" ID="CheckBox1" /> <asp:Label ID="Label1" runat="server" />
-        </label>
+    <asp:Label ID="Label1" CssClass="col-sm-4 col-md-4 control-label" runat="server" />
+    <div class="col-sm-8 col-md-8"">
+      <div class=" checkbox " >
+        
+          <asp:CheckBox runat="server" style="margin-left: 20px;"  ID="CheckBox1" /> 
+      
       </div>
     </div>
 </div>

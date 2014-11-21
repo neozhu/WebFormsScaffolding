@@ -1,4 +1,4 @@
-<#@ Template Language="C#" HostSpecific="True"  #>
+﻿<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="cs" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
@@ -13,25 +13,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace <#= DefaultNamespace #> {
-    public partial class Boolean_EditField : System.Web.DynamicData.FieldTemplateUserControl {
-
-		protected void Page_Init(object sender, EventArgs e)
-        {
-            CheckBox1.ToolTip = Column.Description;
-            CheckBox1.Attributes.Add("title", Column.Description);
+namespace <#= DefaultNamespace #>
+{
+    public partial class LiteralField : System.Web.DynamicData.FieldTemplateUserControl
+    {
+		protected void Page_Init(object sender, EventArgs e) {
+            //TextBox1.ToolTip = Column.Description;
+            //TextBox1.Attributes.Add("title", Column.Description);
 			Label1.Text = Column.DisplayName;
         }
 
-        protected override void OnDataBinding(EventArgs e) {
-            base.OnDataBinding(e);
-    
-            object val = FieldValue;
-            if (val != null)
-                CheckBox1.Checked = (bool) val;
-        }
-        
-       private int _cols;
+		private int _cols;
 
         public int Cols
         {
@@ -71,16 +63,24 @@ namespace <#= DefaultNamespace #> {
             }
 
         }
-    
-        protected override void ExtractValues(IOrderedDictionary dictionary) {
-            dictionary[Column.Name] = CheckBox1.Checked;
+
+        protected override void OnDataBinding(EventArgs e)
+        {
+            base.OnDataBinding(e);
+            //if (Column.MaxLength > 0)
+            //{
+            //    TextBox1.MaxLength = Math.Max(FieldValueEditString.Length, Column.MaxLength);
+            //}
         }
-    
-        public override Control DataControl {
-            get {
-                return CheckBox1;
+
+        
+
+        public override Control DataControl
+        {
+            get
+            {
+                return Literal1;
             }
         }
-    
     }
 }

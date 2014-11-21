@@ -101,36 +101,24 @@
             if (property.IsForeignKey) { 
                 var relatedModel = RelatedModels[property.PropertyName];
         #>
-							   <div class="form-group col-lg-6 col-md-6 col-sm-6">
-								     <div class="col-sm-3 col-md-3 text-right">
-									      <strong><#=                    GetDisplayName(property.PropertyName) #></strong>
-								      </div>
-								      <div class="col-sm-8 col-md-8">
-									        <%#: Item.<#=                    relatedModel.AssociationPropertyName#> != null ? Item.<#=                    relatedModel.AssociationPropertyName#>.<#=                    relatedModel.DisplayPropertyName#> : "" %>
-								      </div>
-							    </div>
+							     <asp:DynamicControl runat="server" UIHint="ForeignKeyLink" DataField="<#=  property.PropertyName #>" ID="<#= property.PropertyName #>" Mode="ReadOnly" /> 
         <#
             } else {
         #>
-							    <div class="form-group col-lg-6 col-md-6 col-sm-6">
-								      <div class="col-sm-3 col-md-3 text-right">
-									        <strong><#=                    GetDisplayName(property.PropertyName) #></strong>
-								      </div>
-								      <div class="col-sm-8 col-md-8">
-									        <asp:DynamicControl runat="server" DataField="<#=                    property.PropertyName #>" ID="<#=                    property.PropertyName #>" Mode="ReadOnly" />
-								      </div>
-							     </div>
+							   
+								<asp:DynamicControl runat="server" UIHint="Literal" DataField="<#=  property.PropertyName #>" ID="<#= property.PropertyName #>" Mode="ReadOnly" />
+								     
         <#
             }
         }
     }
         #>
-                        </div>
+                    </div>      
        <#
     if(OneToManyModels.Count>0)
     {
         #>
-                        <div class="row col-lg-12 col-md-12 ">
+                        <div class="row">
                           <div id="tabs">
                                 <ul class="nav nav-tabs" role="tablist">
                            <#
