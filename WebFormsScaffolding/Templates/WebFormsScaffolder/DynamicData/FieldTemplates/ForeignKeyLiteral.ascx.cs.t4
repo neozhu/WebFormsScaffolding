@@ -14,7 +14,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls;
 namespace <#= DefaultNamespace #> {
-    public partial class ForeignKeyField : System.Web.DynamicData.FieldTemplateUserControl {
+    public partial class ForeignKeyLiteralField : System.Web.DynamicData.FieldTemplateUserControl {
         protected void Page_Init(object sender, EventArgs e)
         {
 

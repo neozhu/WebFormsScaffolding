@@ -27,7 +27,7 @@ namespace <#= FolderNamespace #>
     {
 		 protected <#=DbContextTypeName #> _db = new <#=DbContextTypeName#>();
          protected <#= ModelName #>Repository _<#= ModelName.ToLower() #>Repository = null;
-
+         protected MetaTable _<#= ModelName.ToLower() #>MetaTable = MetaTable.GetTable(typeof(<#= ModelName #>));   
         <#
 		foreach (PropertyMetadata property in ModelMetadata.Properties) 
         {           
@@ -35,6 +35,7 @@ namespace <#= FolderNamespace #>
             {               
         #>
         protected <#= property.RelatedModel.ShortTypeName #>Repository _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository = null;
+        protected MetaTable _<#= property.RelatedModel.ShortTypeName.ToLower() #>MetaTable = MetaTable.GetTable(typeof(<#= property.RelatedModel.ShortTypeName #>)); 
         <#
             }
         }
@@ -55,6 +56,7 @@ namespace <#= FolderNamespace #>
          }
         #>  
             <#= ModelName #>FormView.SetDataMethodsObject(_<#= ModelName.ToLower() #>Repository);
+            <#= ModelName #>FormView.SetMetaTable(_<#= ModelName.ToLower() #>MetaTable);
             <#= ModelName #>FormView.RedirectToRouteOnItemInserted("../Default");
             <#= ModelName #>FormView.RedirectToRouteOnItemUpdated("../Default");
             <#= ModelName #>FormView.RedirectToRouteOnItemDeleted("../Default");

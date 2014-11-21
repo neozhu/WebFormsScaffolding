@@ -16,7 +16,7 @@
 //------------------------------------------------------------------------------
 
 namespace <#= DefaultNamespace #> {
-    public partial class ForeignKeyField {
+    public partial class ForeignKeyLiteralField {
         /// <summary>
         /// Div1 control.
         /// </summary>

@@ -26,7 +26,7 @@ namespace <#= FolderNamespace #>
     {
 		protected <#= DbContextTypeName#> _db = new <#=DbContextTypeName#>();
         protected <#= ModelName #>Repository _<#= ModelName.ToLower() #>Repository = null;
-
+        protected MetaTable _<#= ModelName.ToLower() #>MetaTable = MetaTable.GetTable(typeof(<#= ModelName #>));   
         <#
 		foreach (PropertyMetadata property in ModelMetadata.Properties) 
         {           
@@ -34,6 +34,7 @@ namespace <#= FolderNamespace #>
             {               
         #>
         protected <#= property.RelatedModel.ShortTypeName #>Repository _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository = null;
+        protected MetaTable _<#= property.RelatedModel.ShortTypeName.ToLower() #>MetaTable = MetaTable.GetTable(typeof(<#= property.RelatedModel.ShortTypeName #>)); 
         <#
             }
         }
