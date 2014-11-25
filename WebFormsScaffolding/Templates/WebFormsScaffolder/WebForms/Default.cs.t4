@@ -87,6 +87,7 @@
        
      
 	    <div class="row">
+                
                 <div class="alert alert-danger page-alert" id="alert-4" style="display:none;">
                     <button type="button" class="close"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
                     <strong>Warning!</strong> Please,Select record.
@@ -97,19 +98,19 @@
                 </div>
                 <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Query</h3>
+                            <h4 class="panel-title">Query</h4>
                         </div>
                         <div class="panel-body form-horizontal" role="form" >
 
                            
                                 <div class="form-group col-sm-5 col-md-5 col-lg-5">
-                                    <label class="col-sm-3 col-md-3 control-label" for="textinput1">serach1</label>
+                                    <span class="col-sm-3 col-md-3 control-label" for="textinput1">serach1</span>
                                     <div class="col-sm-9 col-md-9">
                                         <asp:TextBox ID="textBox1" class="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-5 col-md-5 col-lg-5">
-                                    <label class="col-sm-3 col-md-3 control-label" for="textinput2">serach2</label>
+                                    <span class="col-sm-3 col-md-3 control-label" for="textinput2">serach2</span>
                                     <div class="col-sm-9 col-md-9">
                                         <asp:TextBox ID="textBox2" class="form-control" runat="server"></asp:TextBox>
                                     </div>
