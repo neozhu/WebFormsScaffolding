@@ -252,7 +252,7 @@
                             </EmptyDataTemplate>
                             <EditItemTemplate>
                                  <fieldset class="form-horizontal">
-                                    <legend>Edit <#= property.ShortTypeName #></legend>
+                                     
                              
 					            <asp:ValidationSummary runat="server" CssClass="alert alert-danger"  />    
                             <# 
@@ -291,7 +291,7 @@
 
                             <InsertItemTemplate>
                                  <fieldset class="form-horizontal">
-                                    <legend>Insert <#= property.ShortTypeName #></legend>
+                                     
                              
 					            <asp:ValidationSummary runat="server" CssClass="alert alert-danger"  />    
                             <# 
