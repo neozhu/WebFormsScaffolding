@@ -70,13 +70,19 @@ namespace <#=DefaultNamespace #>.Repositories
          
             //select from the table based on the input parameters
             totalRowCount=query.Count();
-            var list = query
-                .OrderBy(n=>n.Id)
+            if(string.IsNullOrEmpty(sortByExpression))
+            {
+                 query=query.OrderBy(n=>n.Id);
+            }else
+            {
+                query=query.OrderByField(sortByExpression);
+            }
+            query = query
                 .Skip(startRowIndex)
                 .Take(maximumRows);
                 
 
-            return list;
+            return query;
         }
 
 
