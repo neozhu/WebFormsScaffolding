@@ -103,20 +103,20 @@
                         <div class="panel-body form-horizontal" role="form" >
 
                            
-                                <div class="form-group col-sm-5 col-md-5 col-lg-5">
+                                <div class="form-group form-group form-group-sm  col-sm-5 col-md-5 col-lg-5">
                                     <span class="col-sm-3 col-md-3 control-label" for="textinput1">serach1</span>
                                     <div class="col-sm-9 col-md-9">
                                         <asp:TextBox ID="textBox1" class="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-5 col-md-5 col-lg-5">
+                                <div class="form-group form-group form-group-sm  col-sm-5 col-md-5 col-lg-5">
                                     <span class="col-sm-3 col-md-3 control-label" for="textinput2">serach2</span>
                                     <div class="col-sm-9 col-md-9">
                                         <asp:TextBox ID="textBox2" class="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
                                <div class="col-sm-2 col-md-2 pull-right">
-                                          <asp:LinkButton ID="searcformhbtn" runat="server" OnClick="searchbtn_Click" CssClass="btn  btn-default"><i class="glyphicon glyphicon-search"></i> Search</asp:LinkButton>
+                                          <asp:LinkButton ID="searcformhbtn" runat="server" OnClick="searchbtn_Click" CssClass="btn  btn-default btn-sm"><i class="glyphicon glyphicon-search"></i> Search</asp:LinkButton>
                                 </div>
                                    
                                
@@ -151,7 +151,7 @@
             <#
         }else if (property.AssociationDirection==AssociationDirection.ManyToOne) {
             #>
-                                     <asp:DynamicField DataField="<#=                property.PropertyName #>"  NavigateUrl="#" />  
+                                     <asp:DynamicField SortExpression="" DataField="<#=                property.PropertyName #>"  NavigateUrl="#" />  
             <#                                     
         }
     }
