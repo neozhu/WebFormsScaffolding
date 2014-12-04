@@ -30,7 +30,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using <#= DefaultNamespace #>.Repositories.DataProvider;
-using <#= DefaultNamespace #>.Extensions
+using <#= DefaultNamespace #>.Extensions;
 using <#= ModelNamespace #>;
 
 namespace <#=DefaultNamespace #>.Repositories
