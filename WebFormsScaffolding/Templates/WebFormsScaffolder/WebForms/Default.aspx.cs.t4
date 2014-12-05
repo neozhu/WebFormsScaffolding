@@ -23,11 +23,11 @@ namespace <#= FolderNamespace #>
     public partial class Default : System.Web.UI.Page
     {
 		protected <#=DbContextTypeName#> _db = new <#=DbContextTypeName #>();
-        protected readonly <#= ModelName #>Repository _repository =
-            new <#= ModelName #>Repository(new <#=DbContextTypeName #>());
+        protected  <#= ModelName #>Repository _<#= ModelName.ToLower() #>Repository =  null;
 
         protected void Page_Init()
         {
+            _<#= ModelName.ToLower() #>Repository = new <#= ModelName #>Repository(_db);
             //TODO:添加页面标题
             this.Title = "<#= ModelName #>";
             <#= ModelName #>GridView.SetDataMethodsObject(_repository);
