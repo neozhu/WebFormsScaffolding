@@ -197,9 +197,9 @@ namespace <#= FolderNamespace #>
                 return;
             }else{
                 _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.Create(item);
-                _<#= property.RelatedModel.ShortTypeName.ToLower() #>
+                _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.SaveChanges();
 
- .SaveChanges();
+ 
             }
         }
         //TODO:更新子表体数据，保存到数据库
