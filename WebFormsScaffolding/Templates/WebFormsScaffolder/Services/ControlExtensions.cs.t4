@@ -1,0 +1,238 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Web;
+using System.Web.DynamicData;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+
+namespace <#= DefaultNamespace #>.Extensions
+{
+    public static class DynamicControlExtensions
+    {
+        public static IOrderedDictionary ExtractEntityValues(this CompositeDataBoundControl control, Type entity)
+        {
+            MetaTable metaTable = MetaTable.GetTable(entity);
+            OrderedDictionary entityValues = new OrderedDictionary();
+
+
+            foreach (var column in metaTable.Columns)
+            {
+                var fieldTemplate = control.FindFieldTemplate(column.Name) as IBindableControl;
+                if (fieldTemplate != null)
+                {
+                    entityValues.Add(column.Name, null);
+                    fieldTemplate.ExtractValues(entityValues);
+                    if (entityValues[column.Name] == null)
+                        entityValues.Remove(column.Name);
+                }
+            }
+            return entityValues;
+        }
+        public static IOrderedDictionary ExtractEntityValues(this CompositeDataBoundControl control, MetaTable table)
+        {
+            OrderedDictionary entityValues = new OrderedDictionary();
+
+
+            foreach (var column in table.Columns)
+            {
+                var fieldTemplate = control.FindFieldTemplate(column.Name) as IBindableControl;
+                if (fieldTemplate != null)
+                {
+                    entityValues.Add(column.Name, null);
+                    fieldTemplate.ExtractValues(entityValues);
+                    if (entityValues[column.Name] == null)
+                        entityValues.Remove(column.Name);
+                }
+            }
+            return entityValues;
+        }
+
+        public static IOrderedDictionary ExtracReadOnlyEntityValues(this CompositeDataBoundControl control, MetaTable table)
+        {
+            OrderedDictionary entityValues = new OrderedDictionary();
+
+
+            foreach (var column in table.Columns)
+            {
+                DynamicControl foundCtrl = control.FindDynamicControlRecursive(column.Name) as DynamicControl;
+
+
+                if (foundCtrl == null)
+                    continue;
+
+
+                string Text = "";
+                FieldTemplateUserControl fieldTemplate = foundCtrl.FindFieldTemplate(column.Name) as FieldTemplateUserControl;
+
+
+                if (fieldTemplate as TextField != null)
+                    Text = (((Literal)(((TextField)(fieldTemplate)).DataControl))).Text;
+                else
+                    if (fieldTemplate.DataControl as HyperLink != null)
+                        Text = ((HyperLink)(fieldTemplate.DataControl)).Text;
+                    else
+                        throw new Exception("Data type of fieldTemplate.DataControl is not implemented: " + fieldTemplate.DataControl.GetType());
+
+
+                entityValues[column.Name] = Text;
+
+
+            }
+            return entityValues;
+        }
+
+
+        public static Control FindDynamicControlRecursive(this Control root, string dataField)
+        {
+            var dc = root as DynamicControl;
+            if (dc != null)
+            {
+                if (dc.DataField == dataField)
+                    //if ((dc.Column).DisplayName == dataField)
+                    return dc;
+            }
+
+
+            foreach (Control Ctl in root.Controls)
+            {
+                Control FoundCtl = FindDynamicControlRecursive(Ctl, dataField);
+
+
+                if (FoundCtl != null)
+                    return FoundCtl;
+            }
+            return null;
+        }
+        public static Control FindDynamicFieldControl(this Control root, string dataField)
+        {
+            var dc = root as FieldTemplateUserControl;
+            if (dc != null)
+            {
+                if (dc.Column.Name == dataField)
+                {
+                    var control = dc.DataControl;
+                    //if ((dc.Column).DisplayName == dataField)
+                    return control;
+                }
+            }
+
+
+            foreach (Control Ctl in root.Controls)
+            {
+                Control FoundCtl = FindDynamicFieldControl(Ctl, dataField);
+
+
+                if (FoundCtl != null)
+                    return FoundCtl;
+            }
+            return null;
+        }
+    }
+    public static class ControlExtensions
+    {
+
+        public static void SetDefaultSort(this GridView gridView, string sortExpression)
+        {
+            //call to overloaded SetDefaultSort method with hardcoded ascending sort
+            SetDefaultSort(gridView, sortExpression, SortDirection.Ascending);
+        }
+
+
+        public static void SetDefaultSort(this GridView gridView, string sortExpression, SortDirection sortDirection)
+        {
+            if (!gridView.Page.IsPostBack)
+            {
+                gridView.Sort(sortExpression, sortDirection);
+            }
+        }
+
+
+        public static void SetDataMethodsObject(this DataBoundControl dataControl, object dataMethodOjbect)
+        {
+            dataControl.CallingDataMethods += (s, e) => e.DataMethodsObject = dataMethodOjbect;
+        }
+
+
+        public static void RedirectToRouteOnItemInserted(this FormView formView, string routeName)
+        {
+            //overload the ItemInserted event
+            formView.ItemInserted += (s, e) =>
+            {
+                if (formView.Page.ModelState.IsValid)
+                {
+
+                    //formView.Page.Response.RedirectToRoute(routeName);
+                    formView.Page.Response.Redirect(routeName);
+                }
+            };
+        }
+
+        public static void RedirectToRouteOnItemUpdated(this FormView formView, string routeName)
+        {
+            //overload the ItemInserted event
+            formView.ItemUpdated += (s, e) =>
+            {
+                if (formView.Page.ModelState.IsValid)
+                {
+                    //formView.Page.Response.RedirectToRoute(routeName);
+                    formView.Page.Response.Redirect(routeName);
+                }
+            };
+        }
+
+
+        public static void RedirectToRouteOnItemDeleted(this FormView formView, string routeName)
+        {
+            //overload the ItemUpdate event
+            formView.ItemDeleted += (s, e) =>
+            {
+                if (formView.Page.ModelState.IsValid)
+                {
+                    //formView.Page.Response.RedirectToRoute(routeName);
+                    formView.Page.Response.Redirect(routeName);
+                }
+            };
+        }
+
+
+        public static void RedirectToRouteOnItemCommad(this FormView formView, string routeName)
+        {
+            //overload the ItemCommand event
+            formView.ItemCommand += (s, e) =>
+            {
+                if (e.CommandName.Equals("Cancel"))
+                {
+                    //formView.Page.Response.RedirectToRoute(routeName);
+                    formView.Page.Response.Redirect(routeName);
+                }
+            };
+        }
+    }
+
+
+    public static class LinqOrderByExtensions
+    {
+        public static IQueryable<T> OrderByField<T>(this IQueryable<T> q, string SortField, bool Ascending=true)
+        {
+            if(SortField.IndexOf("DESC")>0){
+                SortField = SortField.Split(new char[] { ' ' })[0];
+                Ascending = false;
+            }
+            var param = Expression.Parameter(typeof(T), "p");
+            var prop = Expression.Property(param, SortField);
+            var exp = Expression.Lambda(prop, param);
+            string method = Ascending ? "OrderBy" : "OrderByDescending";
+            Type[] types = new Type[] { q.ElementType, exp.Body.Type };
+            var mce = Expression.Call(typeof(Queryable), method, types, q.Expression, exp);
+            return q.Provider.CreateQuery<T>(mce);
+        }
+    }
+}

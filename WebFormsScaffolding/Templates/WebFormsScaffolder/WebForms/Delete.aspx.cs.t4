@@ -11,8 +11,11 @@ using System.Web.UI.WebControls;
 using System.Data.Entity;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
 using Microsoft.AspNet.FriendlyUrls;
-using <#=DefaultNamespace #>.Repositories;
+using <#=DefaultNamespace #>.Services;
 using <#=DefaultNamespace #>.Extensions;
+using Repository.Pattern.UnitOfWork;
+using Repository.Pattern.Ef6;
+using Microsoft.Practices.Unity;
 
 <# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
 using <#= ModelNamespace #>;
@@ -25,15 +28,16 @@ namespace <#= FolderNamespace #>
 {
     public partial class Delete : System.Web.UI.Page
     {
-		protected <#=DbContextTypeName #> _db = new <#=DbContextTypeName#>();
-        protected readonly <#= ModelName #>Repository _repository =
-            new <#= ModelName #>Repository(new <#=DbContextTypeName #>());
-
+	 
+        [Dependency]
+        protected IUnitOfWorkAsync _unitofwork { get; set; }
+        [Dependency]
+        protected I<#= ModelName #>Service _<#= ModelName.ToLower() #>Service { get; set; }
         protected void Page_Init()
         {
             //TODO:添加页面标题
-            this.Title = "<#= ModelName #>";
-            <#= ModelName #>FormView.SetDataMethodsObject(_repository);
+             this.Title = "<#= PluralizedModelName #>";
+     
             <#= ModelName #>FormView.RedirectToRouteOnItemInserted("../Default");
             <#= ModelName #>FormView.RedirectToRouteOnItemUpdated("../Default");
             <#= ModelName #>FormView.RedirectToRouteOnItemDeleted("../Default");
@@ -48,18 +52,18 @@ namespace <#= FolderNamespace #>
             }
         }
         
-        //TODO:完成编辑GridView选中的记录
+        //TODO:完成编辑FormView的记录
         protected void editbtn_Click(object sender, EventArgs e)
         {
             var id = Request.GetFriendlyUrlSegments()[0];
             Response.Redirect("../Edit/" + id);
         }
-        //TODO:完成删除GridView选中的记录
+        //TODO:完成删除FormView的记录
         protected void deletebtn_Click(object sender, EventArgs e)
         {
-          var id = Request.GetFriendlyUrlSegments()[0];
-            _repository.Delete(id);
-           _repository.SaveChanges();
+            var id = Request.GetFriendlyUrlSegments()[0];
+            _<#= ModelName.ToLower() #>Service.Delete(id);
+           _unitofwork.SaveChanges();
            Response.Redirect("../Default");
         }
         //TODO:完成通过搜索关键字查询
@@ -67,7 +71,16 @@ namespace <#= FolderNamespace #>
         {
             
         }
+        
+        protected <#= ModelName #> Get<#= ModelName #>ById([FriendlyUrlSegmentsAttribute(0)]int? id)
+        {
+            return  _<#= ModelName.ToLower() #>Service.Find(id);
+        }
 
+        protected  void Delete<#= ModelName #> (object <#= PrimaryKeyName #>)
+        {
+            return  _<#= ModelName.ToLower() #>Service.Find(<#= PrimaryKeyName #>);
+        }
 
          
     }

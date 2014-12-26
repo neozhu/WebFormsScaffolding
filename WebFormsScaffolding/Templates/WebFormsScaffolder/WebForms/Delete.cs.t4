@@ -84,7 +84,7 @@
                 <h3>Are you sure want to delete this <#=        ModelName #>?</h3>
                 <asp:FormView runat="server"  ID="<#=        ModelName #>FormView"
                     ItemType="<#=        FullModelName#>" DataKeyNames="<#=        PrimaryKeyName #>"
-                    DeleteMethod="Delete" SelectMethod="GetById"
+                    DeleteMethod="Delete<#= ModelName #>" SelectMethod="Get<#= ModelName #>ById"
                     RenderOuterTable="false">
                     <EmptyDataTemplate>
                         Cannot find the <#=        ModelName #> with <#=        PrimaryKeyName #> <%: Request.QueryString["<#=        PrimaryKeyName #>"] %>

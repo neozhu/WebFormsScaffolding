@@ -141,7 +141,17 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             EnsureExtensionsTemplates(project, dbContextNamespace, dbContextTypeName);
 
 
-            AddEntityRepositoryTemplates(
+           // AddEntityRepositoryTemplates(
+           //     project,
+           //     selectionRelativePath,
+           //     dbContextNamespace,
+           //     dbContextTypeName,
+           //     modelType,
+           //     efMetadata,
+           //     codeGeneratorViewModel.OverwriteViews
+           //);
+
+            AddEntityServiceTemplates(
                 project,
                 selectionRelativePath,
                 dbContextNamespace,
@@ -150,8 +160,6 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 efMetadata,
                 codeGeneratorViewModel.OverwriteViews
            );
-
-
             // Add Web Forms Pages from Templates
             AddWebFormsPages(
                 project,
@@ -348,6 +356,75 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
                 var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
                 var folderNamespace = GetDefaultNamespace() + "." + pluralizedModelName.Replace("_", "") + ".Repositories";
+                AddFileFromTemplate(
+                    project: project,
+                    outputPath: outputPath,
+                    templateName: templatePath,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()},
+                        {"DbContextNamespace", dbContextNamespace},
+                        {"DbContextTypeName", dbContextTypeName},
+                        {"ModelMetadata",efMetadata},
+                        {"ModelName", modelName}, // singular model name (e.g., Movie)
+                        {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
+                        {"PluralizedModelName",pluralizedModelName},
+                        {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
+                    },
+                    skipIfExists: true);
+
+            }
+        }
+
+        private void AddEntityServiceTemplates(
+           Project project,
+           string selectionRelativePath,
+           string dbContextNamespace,
+           string dbContextTypeName,
+           CodeType modelType,
+           ModelMetadata efMetadata,
+           bool overwriteViews = true,
+           string modelName = ""
+
+       )
+        {
+
+            if (modelType == null)
+            {
+                throw new ArgumentNullException("modelType");
+            }
+            if (modelName == "")
+            {
+                modelName = modelType.Name;
+            }
+            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            // Get pluralized name used for web forms folder name
+            string pluralizedModelName = efMetadata.EntitySetName;
+            var serviceTemplates = new[] { "IEntityService", "EntityService" };
+            var repositoryTemplatesPath = "Services";
+
+
+            // Add folder for views. This is necessary to display an error when the folder already exists but 
+            // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
+            string outputFolderPath = Path.Combine("Services");
+            //AddFolder(Context.ActiveProject, outputFolderPath);
+
+
+            AddFolder(Context.ActiveProject, outputFolderPath);
+
+            // Now add each view
+            foreach (string service in serviceTemplates)
+            {
+                var templatePath = Path.Combine(repositoryTemplatesPath, service);
+                var outputFileName = "";
+                if (service == "IEntityRepository")
+                    outputFileName = "I" + modelName + "Service";
+                else
+                    outputFileName = modelName + "Service";
+                var outputPath = Path.Combine(outputFolderPath, outputFileName);
+
+                var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
+                var folderNamespace = GetDefaultNamespace() + ".Services";
                 AddFileFromTemplate(
                     project: project,
                     outputPath: outputPath,

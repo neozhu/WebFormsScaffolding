@@ -9,8 +9,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
 using System.Web.DynamicData;
-using <#=DefaultNamespace #>.Repositories;
+using <#=DefaultNamespace #>.Services;
 using <#=DefaultNamespace #>.Extensions;
+using Repository.Pattern.UnitOfWork;
+using Repository.Pattern.Ef6;
+using Microsoft.Practices.Unity;
+
 <# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
 using <#= ModelNamespace #>;
 <# } #>
@@ -22,15 +26,18 @@ namespace <#= FolderNamespace #>
 {
     public partial class Default : System.Web.UI.Page
     {
-		protected <#=DbContextTypeName#> _db = new <#=DbContextTypeName #>();
-        protected  <#= ModelName #>Repository _<#= ModelName.ToLower() #>Repository =  null;
-
+        
+        [Dependency]
+        protected IUnitOfWorkAsync _unitofwork { get; set; }
+        [Dependency]
+        protected I<#= ModelName #>Service _<#= ModelName.ToLower() #>Service { get; set; }
+		 
         protected void Page_Init()
         {
-            _<#= ModelName.ToLower() #>Repository = new <#= ModelName #>Repository(_db);
+           
             //TODO:添加页面标题
-            this.Title = "<#= ModelName #>";
-            <#= ModelName #>GridView.SetDataMethodsObject(_repository);
+            this.Title = "<#= PluralizedModelName #>";
+            
             MetaTable metaTable = MetaTable.GetTable(typeof(<#= ModelName #>));
             <#= ModelName #>GridView.SetMetaTable(metaTable);
         }
@@ -72,10 +79,10 @@ namespace <#= FolderNamespace #>
                     CheckBox chkRow = (row.Cells[0].FindControl("chkRow") as CheckBox);
                     if (chkRow.Checked)
                     {
-                        var entityId= this.<#= ModelName #>GridView.DataKeys[row.RowIndex].Value;
+                        var id= this.<#= ModelName #>GridView.DataKeys[row.RowIndex].Value;
                         //TODO:获取选择行的ID
-                        _repository.Delete(entityId);
-                        _repository.SaveChanges();
+                        _<#= ModelName.ToLower() #>Service.Delete(id);
+                        _unitofwork.SaveChanges();
 
 
                          
@@ -88,6 +95,24 @@ namespace <#= FolderNamespace #>
         protected void searchbtn_Click(object sender, EventArgs e)
         {
             <#= ModelName #>GridView.DataBind();
+        }
+
+
+        protected IEnumerable<<#= ModelName #>> Get<#= PluralizedModelName #>(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount)
+        {
+            if (string.IsNullOrEmpty(sortByExpression))
+            {
+                sortByExpression = "<#=  PrimaryKeyName #>";
+            }
+            var query = _<#= ModelName.ToLower() #>Service.Query().OrderBy(n => n.OrderBy(sortByExpression)).SelectPage(this.<#= ModelName #>GridView.PageIndex+1  , maximumRows, out totalRowCount);
+      
+            return query;
+        }
+
+        protected void Delete<#= ModelName #>(object <#=  PrimaryKeyName.ToLower() #>)
+        {
+            _<#= ModelName.ToLower() #>Service.Delete(<#=  PrimaryKeyName.ToLower() #>);
+            _unitofwork.SaveChanges();
         }
     }
 }
