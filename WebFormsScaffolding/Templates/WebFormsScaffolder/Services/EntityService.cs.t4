@@ -42,7 +42,20 @@ namespace <#=DefaultNamespace #>.Services
         {
 
         }
+        
+        <# 
+           foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+                if (property.IsForeignKey) {
 
+        #>
+         public  IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(object  <#= property.PropertyName.Replace("_","").ToLower() #>)
+         {
+            
+         }
+         <#
+                }
+            }
+         #>
         
     }
 }

@@ -35,6 +35,16 @@ namespace <#=DefaultNamespace #>.Services
     interface I<#= ModelName #>Service:IService<<#= ModelName #>>
     {
 
-			 
+         <# 
+           foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+                if (property.IsForeignKey) {
+
+         #>
+         IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(object  <#= property.PropertyName.Replace("_","").ToLower() #>)
+        <#
+                }
+            }
+        #>
+ 
 	}
 }

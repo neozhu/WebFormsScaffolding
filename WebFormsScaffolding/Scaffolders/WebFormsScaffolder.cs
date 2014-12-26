@@ -411,7 +411,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 
 
             AddFolder(Context.ActiveProject, outputFolderPath);
-
+            PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
             // Now add each view
             foreach (string service in serviceTemplates)
             {
@@ -435,6 +435,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"DbContextNamespace", dbContextNamespace},
                         {"DbContextTypeName", dbContextTypeName},
                         {"ModelMetadata",efMetadata},
+                        {"PrimaryKeyName", primaryKey.PropertyName}, 
                         {"ModelName", modelName}, // singular model name (e.g., Movie)
                         {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"PluralizedModelName",pluralizedModelName},
