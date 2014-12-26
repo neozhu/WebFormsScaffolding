@@ -92,7 +92,7 @@ namespace <#=DefaultNamespace #>.Repositories
                 return this.Read(Id);
             else
                 return null;
-        }
+        } 
         
         <# 
     foreach (PropertyMetadata property in ModelMetadata.Properties) { 
