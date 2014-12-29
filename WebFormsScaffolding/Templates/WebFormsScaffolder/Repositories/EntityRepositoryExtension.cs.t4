@@ -31,7 +31,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.AspNet.FriendlyUrls.ModelBinding;
-using <#= DefaultNamespace #>.Repositories.DataProvider;
+using Repository.Pattern.Repositories;
 using <#= DefaultNamespace #>.Extensions;
 using <#= ModelNamespace #>;
 
@@ -39,16 +39,13 @@ namespace <#=DefaultNamespace #>.Repositories
 {
   public static class <#= ModelName #>Repository  
     {
-        
-
-        
-        
+ 
         <# 
-    foreach (PropertyMetadata property in ModelMetadata.Properties) { 
-        if (property.IsForeignKey) {
+        foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+            if (property.IsForeignKey) {
 
-            #>
-         public IQueryable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(this IRepositoryAsync<<#= ModelName #>> repository, int <#= property.PropertyName.Replace("_","").ToLower() #>)
+        #>
+         public static IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(this IRepositoryAsync<<#= ModelName #>> repository, int <#= property.PropertyName.Replace("_","").ToLower() #>)
          {
              var query= repository
                 .Queryable()
@@ -56,13 +53,26 @@ namespace <#=DefaultNamespace #>.Repositories
              return query;
 
          }
-
-            
-                
-<#
+             
+        <#
+          }
         }
-    }
-#>
+        #>
+
+        <#
+		foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {           
+            if (property.AssociationDirection == AssociationDirection.OneToMany && property.RelatedModel.ShortTypeName != ModelName) 
+            {               
+        #>
+        public static IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (this IRepositoryAsync<<#= ModelName #>> repository,int <#= PrimaryKeyName.ToLower() #>)
+        {
+            return repository.Query(n => n.<#= PrimaryKeyName #> == <#= PrimaryKeyName.ToLower() #>).Include(x => x.<#= property.PropertyName #>).Select(x => x.<#= property.PropertyName #>).FirstOrDefault();
+        }
+        <#
+            }
+        }
+        #> 
 	}
 }
 

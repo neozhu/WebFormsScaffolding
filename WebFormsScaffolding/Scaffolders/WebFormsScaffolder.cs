@@ -484,7 +484,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             // Get pluralized name used for web forms folder name
             string pluralizedModelName = efMetadata.EntitySetName;
             var oneToManyNames = this.GetOneToManyModelNames(efMetadata);
-            var serviceTemplates = new[] { "IEntityService", "EntityService", "ControlExtensions" };
+            var serviceTemplates = new[] { "IEntityService", "EntityService" };
             var repositoryTemplatesPath = "Services";
 
 

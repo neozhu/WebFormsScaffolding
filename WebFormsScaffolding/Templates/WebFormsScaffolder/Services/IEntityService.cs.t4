@@ -32,10 +32,11 @@ using System.Linq.Expressions;
 using Repository.Pattern.Repositories;
 using Service.Pattern;
 using <#= ModelNamespace #>;
+using <#= DefaultNamespace #>.Repositories;
 
 namespace <#=DefaultNamespace #>.Services
 {
-    interface I<#= ModelName #>Service:IService<<#= ModelName #>>
+    public interface I<#= ModelName #>Service:IService<<#= ModelName #>>
     {
 
          <# 
@@ -43,11 +44,24 @@ namespace <#=DefaultNamespace #>.Services
                 if (property.IsForeignKey) {
 
          #>
-         IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(object  <#= property.PropertyName.Replace("_","").ToLower() #>);
+         IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(int  <#= property.PropertyName.Replace("_","").ToLower() #>);
         <#
                 }
             }
         #>
+
+        <#
+		foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {           
+            if (property.AssociationDirection == AssociationDirection.OneToMany && property.RelatedModel.ShortTypeName != ModelName) 
+            {               
+        #>
+         IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (int <#= PrimaryKeyName #>);
+         
+        <#
+            }
+        }
+        #> 
  
 	}
 }

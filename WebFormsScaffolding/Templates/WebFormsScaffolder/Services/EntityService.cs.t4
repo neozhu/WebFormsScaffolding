@@ -34,15 +34,17 @@ using Repository.Pattern.Repositories;
 using Service.Pattern;
 
 using <#= ModelNamespace #>;
-
+using <#= DefaultNamespace #>.Repositories;
 namespace <#=DefaultNamespace #>.Services
 {
-    public class <#= ModelName #>Services : Service< <#= ModelName #> >, IBaseCodeService
+    public class <#= ModelName #>Service : Service< <#= ModelName #> >, I<#= ModelName #>Service
     {
-        public  <#= ModelName #>Services(IRepositoryAsync< <#= ModelName #>> repository)
+
+        private readonly IRepositoryAsync<<#= ModelName #>> _repository;
+        public  <#= ModelName #>Service(IRepositoryAsync< <#= ModelName #>> repository)
             : base(repository)
         {
-
+            _repository=repository;
         }
         
         <# 
@@ -50,14 +52,28 @@ namespace <#=DefaultNamespace #>.Services
                 if (property.IsForeignKey) {
 
         #>
-         public  IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(object  <#= property.PropertyName.Replace("_","").ToLower() #>)
+         public  IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(int  <#= property.PropertyName.Replace("_","").ToLower() #>)
          {
-            
+            return _repository.GetBy<#= property.PropertyName.Replace("_","") #>(<#= property.PropertyName.Replace("_","").ToLower() #>);
          }
          <#
                 }
             }
          #>
+         <#
+		foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {           
+            if (property.AssociationDirection == AssociationDirection.OneToMany && property.RelatedModel.ShortTypeName != ModelName) 
+            {               
+        #>
+        public IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (int <#= PrimaryKeyName.ToLower() #>)
+        {
+            return _repository.Get<#= property.PropertyName #>(<#= PrimaryKeyName.ToLower() #>);
+        }
+        <#
+            }
+        }
+        #> 
         
     }
 }
