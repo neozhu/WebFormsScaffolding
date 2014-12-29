@@ -20,9 +20,9 @@
 <#@ parameter type="System.String" name="ModelNamespace" #>
 <#@ parameter type="System.String" name="FolderNamespace" #>
 <#@ parameter type="System.String" name="ModelName" #>
-<#@ parameter type="System.String" name="PluralizedModelName" #>             
-<#@ parameter type="System.String" name="PrimaryKeyName" #>           
+<#@ parameter type="System.String" name="PluralizedModelName" #>                    
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
+<#@ parameter type="System.String" name="PrimaryKeyName" #>      
 <#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModels" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="OneToManyNames" #>
 using System;
@@ -30,36 +30,40 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using Repository.Pattern.Repositories;
-using Service.Pattern;
-
+using Microsoft.AspNet.FriendlyUrls.ModelBinding;
+using <#= DefaultNamespace #>.Repositories.DataProvider;
+using <#= DefaultNamespace #>.Extensions;
 using <#= ModelNamespace #>;
 
-namespace <#=DefaultNamespace #>.Services
+namespace <#=DefaultNamespace #>.Repositories
 {
-    public class <#= ModelName #>Services : Service< <#= ModelName #> >, IBaseCodeService
+  public static class <#= ModelName #>Repository  
     {
-        public  <#= ModelName #>Services(IRepositoryAsync< <#= ModelName #>> repository)
-            : base(repository)
-        {
+        
 
-        }
+        
         
         <# 
-           foreach (PropertyMetadata property in ModelMetadata.Properties) { 
-                if (property.IsForeignKey) {
+    foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+        if (property.IsForeignKey) {
 
-        #>
-         public  IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(object  <#= property.PropertyName.Replace("_","").ToLower() #>)
+            #>
+         public IQueryable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(this IRepositoryAsync<<#= ModelName #>> repository, int <#= property.PropertyName.Replace("_","").ToLower() #>)
          {
-            
+             var query= repository
+                .Queryable()
+                .Where(x => x.<#= property.PropertyName #>==<#= property.PropertyName.Replace("_","").ToLower() #>);
+             return query;
+
          }
-         <#
-                }
-            }
-         #>
-        
+
+            
+                
+<#
+        }
     }
+#>
+	}
 }
 
 

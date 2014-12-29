@@ -449,6 +449,9 @@
     <None Include="Templates\WebFormsScaffolder\Repositories\DataProvider\RepositoryBase.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\WebFormsScaffolder\Repositories\EntityRepositoryExtension.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\WebFormsScaffolder\Repositories\EntityRepository.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -456,9 +459,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\Repositories\IEntityRepository.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\WebFormsScaffolder\Services\ControlExtensions.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\WebFormsScaffolder\Services\EntityService.cs.t4">

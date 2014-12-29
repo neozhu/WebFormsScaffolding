@@ -137,7 +137,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             // Ensure the Dynamic Data Field templates
             EnsureDynamicDataFieldTemplates(project, dbContextNamespace, dbContextTypeName);
 
-            EnsurePepositoriesTemplates(project, dbContextNamespace, dbContextTypeName);
+            //EnsurePepositoriesTemplates(project, dbContextNamespace, dbContextTypeName);
             EnsureExtensionsTemplates(project, dbContextNamespace, dbContextTypeName);
 
 
@@ -150,7 +150,17 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
            //     efMetadata,
            //     codeGeneratorViewModel.OverwriteViews
            //);
-
+            AddEntityRepositoryExtensionTemplates(
+                project,
+                selectionRelativePath,
+                dbContextNamespace,
+                dbContextTypeName,
+                modelType,
+                efMetadata,
+                codeGeneratorViewModel.OverwriteViews,
+                modelName:"",
+                oneToManyModels:oneToManyModels
+           );
             AddEntityServiceTemplates(
                 project,
                 selectionRelativePath,
@@ -158,7 +168,9 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 dbContextTypeName,
                 modelType,
                 efMetadata,
-                codeGeneratorViewModel.OverwriteViews
+                codeGeneratorViewModel.OverwriteViews,
+                modelName:"",
+                oneToManyModels:oneToManyModels
            );
             // Add Web Forms Pages from Templates
             AddWebFormsPages(
@@ -179,16 +191,16 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             {
                 var metadata = dicitem.Value;
                 var modelName = this.GetModelName(efMetadata, metadata.EntitySetName);
-                AddEntityRepositoryTemplates(
-                project,
-                selectionRelativePath,
-                dbContextNamespace,
-                dbContextTypeName,
-                modelType,
-                metadata,
-                codeGeneratorViewModel.OverwriteViews,
-                modelName
-           );
+                //AddEntityRepositoryTemplates(
+                //project,
+                //selectionRelativePath,
+                //dbContextNamespace,
+                //dbContextTypeName,
+                //modelType,
+                //metadata,
+                //codeGeneratorViewModel.OverwriteViews,
+                //modelName
+                //);
             }
 
             // Add Web Forms Pages from Templates
@@ -306,7 +318,77 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                     skipIfExists: true);
             }
         }
+        private void AddEntityRepositoryExtensionTemplates(
+          Project project,
+          string selectionRelativePath,
+          string dbContextNamespace,
+          string dbContextTypeName,
+          CodeType modelType,
+          ModelMetadata efMetadata,
+          bool overwriteViews = true,
+          string modelName = "",
+            IDictionary<string, ModelMetadata> oneToManyModels = null
+      )
+        {
 
+            if (modelType == null)
+            {
+                throw new ArgumentNullException("modelType");
+            }
+            if (modelName == "")
+            {
+                modelName = modelType.Name;
+            }
+            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            // Get pluralized name used for web forms folder name
+            string pluralizedModelName = efMetadata.EntitySetName;
+            var repositoryTemplates = new[] { "EntityRepositoryExtension" };
+            var repositoryTemplatesPath = "Repositories";
+            PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
+
+            // Add folder for views. This is necessary to display an error when the folder already exists but 
+            // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
+            string outputFolderPath = Path.Combine("Repositories", pluralizedModelName.Replace("_", ""));
+            //AddFolder(Context.ActiveProject, outputFolderPath);
+
+            var oneToManyNames = this.GetOneToManyModelNames(efMetadata);
+            AddFolder(Context.ActiveProject, outputFolderPath);
+
+            // Now add each view
+            foreach (string repository in repositoryTemplates)
+            {
+                var templatePath = Path.Combine(repositoryTemplatesPath, repository);
+                var outputFileName = "";
+                if (repository == "IEntityRepository")
+                    outputFileName = "I" + modelName + "Repository";
+                else
+                    outputFileName = modelName + "Repository";
+                var outputPath = Path.Combine(outputFolderPath, outputFileName);
+
+                var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
+                var folderNamespace = GetDefaultNamespace() + ".Repositories";
+                AddFileFromTemplate(
+                    project: project,
+                    outputPath: outputPath,
+                    templateName: templatePath,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()},
+                        {"DbContextNamespace", dbContextNamespace},
+                        {"DbContextTypeName", dbContextTypeName},
+                        {"ModelMetadata",efMetadata},
+                        {"PrimaryKeyName", primaryKey.PropertyName}, 
+                        {"ModelName", modelName}, // singular model name (e.g., Movie)
+                        {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
+                        {"PluralizedModelName",pluralizedModelName},
+                        {"OneToManyModels", oneToManyModels},
+                        {"OneToManyNames", oneToManyNames},
+                        {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
+                    },
+                    skipIfExists: true);
+
+            }
+        }
         private void AddEntityRepositoryTemplates(
            Project project,
            string selectionRelativePath,
@@ -384,7 +466,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
            CodeType modelType,
            ModelMetadata efMetadata,
            bool overwriteViews = true,
-           string modelName = ""
+           string modelName = "",
+           IDictionary<string, ModelMetadata> oneToManyModels = null
 
        )
         {
@@ -400,7 +483,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             // Get pluralized name used for web forms folder name
             string pluralizedModelName = efMetadata.EntitySetName;
-            var serviceTemplates = new[] { "IEntityService", "EntityService" };
+            var oneToManyNames = this.GetOneToManyModelNames(efMetadata);
+            var serviceTemplates = new[] { "IEntityService", "EntityService", "ControlExtensions" };
             var repositoryTemplatesPath = "Services";
 
 
@@ -417,7 +501,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             {
                 var templatePath = Path.Combine(repositoryTemplatesPath, service);
                 var outputFileName = "";
-                if (service == "IEntityRepository")
+                if (service == "IEntityService")
                     outputFileName = "I" + modelName + "Service";
                 else
                     outputFileName = modelName + "Service";
@@ -439,6 +523,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                         {"ModelName", modelName}, // singular model name (e.g., Movie)
                         {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"PluralizedModelName",pluralizedModelName},
+                        {"OneToManyModels", oneToManyModels},
+                        {"OneToManyNames", oneToManyNames},
                         {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
                     },
                     skipIfExists: true);

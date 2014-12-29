@@ -21,6 +21,9 @@
 <#@ parameter type="System.String" name="ModelName" #>
 <#@ parameter type="System.String" name="PluralizedModelName" #>
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModels" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="OneToManyNames" #>
+<#@ parameter type="System.String" name="PrimaryKeyName" #>      
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -40,7 +43,7 @@ namespace <#=DefaultNamespace #>.Services
                 if (property.IsForeignKey) {
 
          #>
-         IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(object  <#= property.PropertyName.Replace("_","").ToLower() #>)
+         IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(object  <#= property.PropertyName.Replace("_","").ToLower() #>);
         <#
                 }
             }
