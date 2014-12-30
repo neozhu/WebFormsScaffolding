@@ -10,6 +10,10 @@ using System.Web.UI.WebControls;
 using System.Data.Entity;
 using <#=DefaultNamespace #>.Repositories;
 using <#=DefaultNamespace #>.Extensions;
+using Microsoft.Practices.Unity;
+using Repository.Pattern.UnitOfWork;
+using  <#=DefaultNamespace #>.Services;
+
 <# if(!string.IsNullOrEmpty(ModelNamespace)) { #>
 using <#= ModelNamespace #>;
 <# } #>
@@ -21,15 +25,16 @@ namespace <#= FolderNamespace #>
 {
     public partial class Insert : System.Web.UI.Page
     {
-		protected <#=DbContextTypeName #> _db = new <#=DbContextTypeName #>();
-        protected readonly <#= ModelName #>Repository _repository =
-            new <#= ModelName #>Repository(new <#=DbContextTypeName #>());
+		[Dependency]
+        protected IUnitOfWorkAsync _unitofwork { get; set; }
+        [Dependency]
+        protected I<#= ModelName #>Service _<#= ModelName.ToLower() #>Service { get; set; }
 
         protected void Page_Init()
         {
             //TODO:添加页面标题
-            this.Title = "<#= ModelName #>";
-            <#= ModelName #>FormView.SetDataMethodsObject(_repository);
+            this.Title = "<#= PluralizedModelName #>";
+         
             <#= ModelName #>FormView.RedirectToRouteOnItemInserted("Default");
             <#= ModelName #>FormView.RedirectToRouteOnItemUpdated("Default");
             <#= ModelName #>FormView.RedirectToRouteOnItemDeleted("Default");
@@ -56,7 +61,14 @@ namespace <#= FolderNamespace #>
             
         }
 
-
+        public void Create<#= ModelName #>(<#= ModelName #> item)
+        {
+            if (this.TryUpdateModel(item))
+            {
+                _<#= ModelName.ToLower() #>Service.Insert(item);
+                _unitofwork.SaveChanges();
+            }
+        }
          
     }
 }

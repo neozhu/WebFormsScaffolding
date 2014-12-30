@@ -72,14 +72,15 @@ namespace <#= FolderNamespace #>
             
         }
         
-        protected <#= ModelName #> Get<#= ModelName #>ById([FriendlyUrlSegmentsAttribute(0)]int? id)
+        public  <#= ModelName #> Get<#= ModelName #>ById([FriendlyUrlSegmentsAttribute(0)]int id)
         {
             return  _<#= ModelName.ToLower() #>Service.Find(id);
         }
 
-        protected  void Delete<#= ModelName #> (object <#= PrimaryKeyName #>)
+        public  void Delete<#= ModelName #> (object <#= PrimaryKeyName.ToLower() #>)
         {
-            return  _<#= ModelName.ToLower() #>Service.Find(<#= PrimaryKeyName #>);
+              _<#= ModelName.ToLower() #>Service.Delete(<#= PrimaryKeyName.ToLower() #>);
+              _unitofwork.SaveChanges();
         }
 
          

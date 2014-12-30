@@ -83,8 +83,7 @@
 		        <p>&nbsp;</p>
                 <asp:FormView runat="server" ID="<#=ModelName #>FormView"
                     ItemType="<#=FullModelName#>" DefaultMode="Edit" DataKeyNames="<#= PrimaryKeyName #>"
-                    OnItemCreated="<#=        ModelName #>FormView_ItemCreated"
-                    UpdateMethod="UpdateItem" SelectMethod="GetById"
+                    UpdateMethod="Update<#=ModelName #>" SelectMethod="Get<#=ModelName #>ById"
                     RenderOuterTable="false">
                     <EmptyDataTemplate>
                         Cannot find the <#= ModelName #> with <#= PrimaryKeyName #> <%: Request.QueryString["<#= PrimaryKeyName #>"] %>
@@ -231,7 +230,7 @@
         {
             var modelmeta=OneToManyModels[property.PropertyName];
 #>
-        <asp:HiddenField ID="CurrentSub<#=        property.ShortTypeName #>IdField" runat="server" />
+        <asp:HiddenField ID="CurrentSub<#=        property.ShortTypeName #>IdField" Value="-1" runat="server" />
         <div class="modal fade " id="popup<#= property.PropertyName #>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -242,7 +241,6 @@
                     <div class="modal-body">
                         <asp:FormView runat="server" ID="popup<#= property.ShortTypeName #>FormView"
                             ItemType="<#=  property.TypeName #>" DefaultMode="Insert" DataKeyNames="<#=  modelmeta.PrimaryKeys[0].PropertyName #>"
-                            OnDataBound="popup<#= property.ShortTypeName #>FormView_DataBound"
                             UpdateMethod="Update<#= property.ShortTypeName #>RowItem" SelectMethod="GetSub<#= property.ShortTypeName #>ById"
                             InsertItemPosition="FirstItem" 
 							InsertMethod="Create<#= property.ShortTypeName #>RowItem"

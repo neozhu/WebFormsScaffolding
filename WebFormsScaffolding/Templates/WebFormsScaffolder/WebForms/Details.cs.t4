@@ -86,8 +86,8 @@
       
                 <asp:FormView runat="server"  ID="<#=        ModelName #>FormView"
                     ItemType="<#=        FullModelName#>" DataKeyNames="<#=        PrimaryKeyName #>"
-                    SelectMethod="GetById"
-                    OnDataBound="<#=        ModelName #>FormView_DataBound"
+                    SelectMethod="Get<#=  ModelName #>ById"
+                    
                     RenderOuterTable="false">
                     <EmptyDataTemplate>
                         Cannot find the <#=        ModelName #> with <#=        PrimaryKeyName #> <%: Request.QueryString["<#=        PrimaryKeyName #>"] %>

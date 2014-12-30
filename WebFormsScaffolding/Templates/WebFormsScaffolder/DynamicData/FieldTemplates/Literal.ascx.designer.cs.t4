@@ -16,7 +16,7 @@
 //------------------------------------------------------------------------------
 
 namespace <#= DefaultNamespace #> {
-    public partial class Literal1Field {
+    public partial class LiteralField {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
         protected global::System.Web.UI.WebControls.Label Label1;
          protected global::System.Web.UI.WebControls.Literal Literal1;

@@ -98,18 +98,15 @@ namespace <#= FolderNamespace #>
         }
 
 
-        protected IEnumerable<<#= ModelName #>> Get<#= PluralizedModelName #>(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount)
+        public IEnumerable<<#= ModelName #>> Get<#= PluralizedModelName #>(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount)
         {
-            if (string.IsNullOrEmpty(sortByExpression))
-            {
-                sortByExpression = "<#=  PrimaryKeyName #>";
-            }
+             sortByExpression=string.IsNullOrEmpty(sortByExpression)==true?"<#=  PrimaryKeyName #>":sortByExpression;
             var query = _<#= ModelName.ToLower() #>Service.Query().OrderBy(n => n.OrderBy(sortByExpression)).SelectPage(this.<#= ModelName #>GridView.PageIndex+1  , maximumRows, out totalRowCount);
       
             return query;
         }
 
-        protected void Delete<#= ModelName #>(object <#=  PrimaryKeyName.ToLower() #>)
+        public void Delete<#= ModelName #>(object <#=  PrimaryKeyName.ToLower() #>)
         {
             _<#= ModelName.ToLower() #>Service.Delete(<#=  PrimaryKeyName.ToLower() #>);
             _unitofwork.SaveChanges();

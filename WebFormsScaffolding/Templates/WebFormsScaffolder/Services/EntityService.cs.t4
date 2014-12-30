@@ -63,7 +63,7 @@ namespace <#=DefaultNamespace #>.Services
          <#
 		foreach (PropertyMetadata property in ModelMetadata.Properties) 
         {           
-            if (property.AssociationDirection == AssociationDirection.OneToMany && property.RelatedModel.ShortTypeName != ModelName) 
+            if (property.AssociationDirection == AssociationDirection.OneToMany ) 
             {               
         #>
         public IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (int <#= PrimaryKeyName.ToLower() #>)

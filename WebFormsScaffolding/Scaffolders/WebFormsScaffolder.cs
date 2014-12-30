@@ -231,6 +231,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
                 "Url", "Url.ascx.designer", "Url.ascx",
                 "Url_Edit", "Url_Edit.ascx.designer", "Url_Edit.ascx",
                 "Hidden", "Hidden.ascx.designer", "Hidden.ascx",
+                "Literal", "Literal.ascx.designer", "Literal.ascx",
                 "Hidden_Edit", "Hidden_Edit.ascx.designer", "Hidden_Edit.ascx",
                 "ForeignKeyLink", "ForeignKeyLink.ascx.designer", "ForeignKeyLink.ascx",
                 "ForeignKeyLiteral", "ForeignKeyLiteral.ascx.designer", "ForeignKeyLiteral.ascx"

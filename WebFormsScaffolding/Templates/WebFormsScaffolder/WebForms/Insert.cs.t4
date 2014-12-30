@@ -83,7 +83,7 @@
 		        <p>&nbsp;</p>
                 <asp:FormView runat="server" ID="<#=ModelName #>FormView"
                     ItemType="<#=FullModelName#>" DefaultMode="Insert"
-                    InsertItemPosition="FirstItem" InsertMethod="CreateItem"
+                    InsertItemPosition="FirstItem" InsertMethod="Create<#=ModelName #>"
                     RenderOuterTable="false">
                     <InsertItemTemplate>
                         <fieldset class="form-horizontal">

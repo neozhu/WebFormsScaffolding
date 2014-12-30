@@ -252,7 +252,7 @@
     <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Text.vb.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Literal.ascx.t4">
+    <None Include="Templates\WebFormsScaffolder\DynamicData\FieldTemplates\Literal.ascx.cs.t4">
       <LastGenOutput>Text_Edit.ascx.cs1.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
