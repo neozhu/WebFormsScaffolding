@@ -40,12 +40,13 @@ namespace <#=DefaultNamespace #>.Repositories
   public static class <#= ModelName #>Repository  
     {
  
-        <# 
+        <#
+        PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
         foreach (PropertyMetadata property in ModelMetadata.Properties) { 
             if (property.IsForeignKey) {
 
         #>
-         public static IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(this IRepositoryAsync<<#= ModelName #>> repository, int <#= property.PropertyName.Replace("_","").ToLower() #>)
+         public static IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(this IRepositoryAsync<<#= ModelName #>> repository, <#= primaryKey.ShortTypeName #> <#= property.PropertyName.Replace("_","").ToLower() #>)
          {
              var query= repository
                 .Queryable()
@@ -60,12 +61,13 @@ namespace <#=DefaultNamespace #>.Repositories
         #>
 
         <#
+        //PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
 		foreach (PropertyMetadata property in ModelMetadata.Properties) 
         {           
             if (property.AssociationDirection == AssociationDirection.OneToMany ) 
             {               
         #>
-        public static IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (this IRepositoryAsync<<#= ModelName #>> repository,int <#= PrimaryKeyName.ToLower() #>)
+        public static IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (this IRepositoryAsync<<#= ModelName #>> repository,<#= primaryKey.ShortTypeName #> <#= PrimaryKeyName.ToLower() #>)
         {
             return repository.Query(n => n.<#= PrimaryKeyName #> == <#= PrimaryKeyName.ToLower() #>).Include(x => x.<#= property.PropertyName #>).Select(x => x.<#= property.PropertyName #>).FirstOrDefault();
         }

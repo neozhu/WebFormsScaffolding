@@ -21,6 +21,9 @@ using <#= ModelNamespace #>;
 using <#= DbContextNamespace #>;
 <# } #>
 
+
+<# PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault(); #>
+
 namespace <#= FolderNamespace #>
 {
     public partial class Insert : System.Web.UI.Page

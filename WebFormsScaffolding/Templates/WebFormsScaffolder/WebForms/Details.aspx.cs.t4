@@ -24,7 +24,7 @@ using <#= ModelNamespace #>;
 <# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != ModelNamespace)) { #>
 using <#= DbContextNamespace #>;
 <# } #>
-
+<# PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault(); #>
 namespace <#= FolderNamespace #>
 {
     public partial class Details : System.Web.UI.Page
@@ -83,7 +83,7 @@ namespace <#= FolderNamespace #>
         {
             
         }
-        public <#=  ModelName #> Get<#=  ModelName #>ById([FriendlyUrlSegmentsAttribute(0)]int id)
+        public <#=  ModelName #> Get<#=  ModelName #>ById([FriendlyUrlSegmentsAttribute(0)]<#= primaryKey.ShortTypeName #> id)
         {
             return _<#= ModelName.ToLower() #>Service.Find(id);
         }
@@ -95,12 +95,12 @@ namespace <#= FolderNamespace #>
             if (property.AssociationDirection == AssociationDirection.OneToMany  ) 
             {
                     
-                   PropertyMetadata primaryKey = OneToManyModels[property.PropertyName].PrimaryKeys.FirstOrDefault();
+                   PropertyMetadata subprimaryKey = OneToManyModels[property.PropertyName].PrimaryKeys.FirstOrDefault();
         #>
         //TODO:根据外键获取<#= property.PropertyName #>明细表数据
-        public IQueryable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #>By<#= ModelName #>Id(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount, [FriendlyUrlSegmentsAttribute(0)]int id)
+        public IQueryable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #>By<#= ModelName #>Id(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount, [FriendlyUrlSegmentsAttribute(0)]<#= primaryKey.ShortTypeName #> id)
         {
-            sortByExpression=string.IsNullOrEmpty(sortByExpression)==true?"<#=  primaryKey.PropertyName #>":sortByExpression;
+            sortByExpression=string.IsNullOrEmpty(sortByExpression)==true?"<#=  subprimaryKey.PropertyName #>":sortByExpression;
             var query = _<#= ModelName.ToLower() #>Service.Get<#= property.PropertyName #>(id).AsQueryable().OrderByField(sortByExpression);
             totalRowCount = query.Count();
             query = query

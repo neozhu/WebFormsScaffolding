@@ -22,6 +22,8 @@ using <#= ModelNamespace #>;
 using <#= DbContextNamespace #>;
 <# } #>
 
+<# PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault(); #>
+
 namespace <#= FolderNamespace #>
 {
     public partial class Default : System.Web.UI.Page
@@ -106,7 +108,7 @@ namespace <#= FolderNamespace #>
             return query;
         }
 
-        public void Delete<#= ModelName #>(object <#=  PrimaryKeyName.ToLower() #>)
+        public void Delete<#= ModelName #>(<#= primaryKey.ShortTypeName #>  <#=  PrimaryKeyName.ToLower() #>)
         {
             _<#= ModelName.ToLower() #>Service.Delete(<#=  PrimaryKeyName.ToLower() #>);
             _unitofwork.SaveChanges();

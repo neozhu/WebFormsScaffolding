@@ -24,6 +24,10 @@ using <#= ModelNamespace #>;
 <# if(!string.IsNullOrEmpty(DbContextNamespace) && (DbContextNamespace != ModelNamespace)) { #>
 using <#= DbContextNamespace #>;
 <# } #>
+
+
+<# PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault(); #>
+
 namespace <#= FolderNamespace #>
 {
     public partial class Edit : System.Web.UI.Page
@@ -65,11 +69,11 @@ namespace <#= FolderNamespace #>
             
         }
         #endregion
-         public <#= ModelName #> Get<#= ModelName #>ById([FriendlyUrlSegmentsAttribute(0)]int id)
+         public <#= ModelName #> Get<#= ModelName #>ById([FriendlyUrlSegmentsAttribute(0)]<#= primaryKey.ShortTypeName #> id)
         {
             return _<#= ModelName.ToLower() #>Service.Find(id);
         }
-        public void Update<#= ModelName #>(object <#= PrimaryKeyName.ToLower() #>)
+        public void Update<#= ModelName #>(<#= primaryKey.ShortTypeName #> <#= PrimaryKeyName.ToLower() #>)
         {
             var item = _<#= ModelName.ToLower() #>Service.Find(<#= PrimaryKeyName.ToLower() #>);
             if (this.TryUpdateModel(item))
@@ -86,12 +90,12 @@ namespace <#= FolderNamespace #>
         {     
             if (property.AssociationDirection == AssociationDirection.OneToMany  ) 
             {
-                  PropertyMetadata primaryKey = OneToManyModels[property.PropertyName].PrimaryKeys.FirstOrDefault();
+                  PropertyMetadata subprimaryKey = OneToManyModels[property.PropertyName].PrimaryKeys.FirstOrDefault();
         #>
         //TODO:根据外键获取<#= property.PropertyName #>明细表数据
-        public IQueryable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #>By<#= ModelName #>Id(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount, [FriendlyUrlSegmentsAttribute(0)]int id)
+        public IQueryable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #>By<#= ModelName #>Id(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount, [FriendlyUrlSegmentsAttribute(0)]<#= primaryKey.ShortTypeName #>  id)
         {
-            sortByExpression=string.IsNullOrEmpty(sortByExpression)==true?"<#=  primaryKey.PropertyName #>":sortByExpression;
+            sortByExpression=string.IsNullOrEmpty(sortByExpression)==true?"<#=  subprimaryKey.PropertyName #>":sortByExpression;
             var query = _<#= ModelName.ToLower() #>Service.Get<#= property.PropertyName #>(id).AsQueryable().OrderByField(sortByExpression);
             totalRowCount = query.Count();
             query = query
@@ -116,7 +120,7 @@ namespace <#= FolderNamespace #>
                 {
                     ModelMetadata metamodel = OneToManyModels[property.PropertyName];
                     var _foreignKeyPropertyName = GetForeignKeyPropertyName(metamodel , ModelName );
-                    PropertyMetadata primaryKey = OneToManyModels[property.PropertyName].PrimaryKeys.FirstOrDefault();
+                    PropertyMetadata subprimaryKey = OneToManyModels[property.PropertyName].PrimaryKeys.FirstOrDefault();
         #>
         #region sub<#= property.ShortTypeName #>GridView
         //TODO:当明细GridView单击命令行触发事件，如编辑当前行数据时弹出编辑页面
@@ -124,8 +128,8 @@ namespace <#= FolderNamespace #>
         {
 			if (e.CommandName == "EditRow")
             {
-                var <#= primaryKey.PropertyName.ToLower() #> = Convert.ToInt32(e.CommandArgument);
-				CurrentSub<#= property.ShortTypeName #>IdField.Value = <#= primaryKey.PropertyName.ToLower() #>.ToString();
+                var <#= subprimaryKey.PropertyName.ToLower() #> = Convert.ToInt32(e.CommandArgument);
+				CurrentSub<#= property.ShortTypeName #>IdField.Value = <#= subprimaryKey.PropertyName.ToLower() #>.ToString();
 				popup<#= property.ShortTypeName #>FormView.ChangeMode(FormViewMode.Edit);
                 this.ClientScript.RegisterStartupScript(this.GetType(), "showPopup<#= property.PropertyName #>", "showPopup<#= property.PropertyName #>();",true);
                 popup<#= property.ShortTypeName #>FormView.DataBind();
@@ -150,10 +154,10 @@ namespace <#= FolderNamespace #>
         
         #region 弹出子窗体popup<#= property.ShortTypeName #>FormView 新增，修改查询
         //TODO:当弹出子表体编辑Form时，绑定当前编辑的数据
-		public <#= property.ShortTypeName #> GetSub<#= property.ShortTypeName #>ById([System.Web.ModelBinding.Control("CurrentSub<#= property.ShortTypeName #>IdField")] int <#= primaryKey.PropertyName.ToLower() #>)
+		public <#= property.ShortTypeName #> GetSub<#= property.ShortTypeName #>ById([System.Web.ModelBinding.Control("CurrentSub<#= property.ShortTypeName #>IdField")] <#= subprimaryKey.ShortTypeName #> <#= subprimaryKey.PropertyName.ToLower() #>)
 		{
             var _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository = _unitofwork.Repository<<#= property.ShortTypeName #>>();
-			return _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.Find(<#= primaryKey.PropertyName.ToLower() #>);
+			return _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.Find(<#= subprimaryKey.PropertyName.ToLower() #>);
 		}
         //TODO:新增子表体数据，保存到数据库
 		public void Create<#= property.ShortTypeName #>RowItem(<#= property.ShortTypeName #> item)
@@ -192,10 +196,10 @@ namespace <#= FolderNamespace #>
             }
         }
         //TODO:删除子表体数据，保存到数据库
-		public  void Delete<#= property.ShortTypeName #>RowItem(object <#= primaryKey.PropertyName.ToLower() #>)
+		public  void Delete<#= property.ShortTypeName #>RowItem(<#= subprimaryKey.ShortTypeName #> <#= subprimaryKey.PropertyName.ToLower() #>)
         {
             var _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository = _unitofwork.Repository<<#= property.ShortTypeName #>>();
-                _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.Delete(<#= primaryKey.PropertyName.ToLower() #>);
+                _<#= property.RelatedModel.ShortTypeName.ToLower() #>Repository.Delete(<#= subprimaryKey.PropertyName.ToLower() #>);
                 _unitofwork.SaveChanges();
             
         }

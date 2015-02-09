@@ -40,23 +40,25 @@ namespace <#=DefaultNamespace #>.Services
     {
 
          <# 
+             PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
            foreach (PropertyMetadata property in ModelMetadata.Properties) { 
                 if (property.IsForeignKey) {
 
          #>
-         IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(int  <#= property.PropertyName.Replace("_","").ToLower() #>);
+         IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(<#= primaryKey.ShortTypeName #>  <#= property.PropertyName.Replace("_","").ToLower() #>);
         <#
                 }
             }
         #>
 
         <#
+         //PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
 		foreach (PropertyMetadata property in ModelMetadata.Properties) 
         {           
             if (property.AssociationDirection == AssociationDirection.OneToMany ) 
             {               
         #>
-         IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (int <#= PrimaryKeyName #>);
+         IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (<#= primaryKey.ShortTypeName #> <#= PrimaryKeyName.ToLower() #>);
          
         <#
             }

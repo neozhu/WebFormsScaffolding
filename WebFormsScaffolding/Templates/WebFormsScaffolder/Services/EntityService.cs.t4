@@ -48,11 +48,12 @@ namespace <#=DefaultNamespace #>.Services
         }
         
         <# 
+            PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
            foreach (PropertyMetadata property in ModelMetadata.Properties) { 
                 if (property.IsForeignKey) {
 
         #>
-         public  IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(int  <#= property.PropertyName.Replace("_","").ToLower() #>)
+         public  IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(<#= primaryKey.ShortTypeName #>  <#= property.PropertyName.Replace("_","").ToLower() #>)
          {
             return _repository.GetBy<#= property.PropertyName.Replace("_","") #>(<#= property.PropertyName.Replace("_","").ToLower() #>);
          }
@@ -61,12 +62,13 @@ namespace <#=DefaultNamespace #>.Services
             }
          #>
          <#
+            //PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
 		foreach (PropertyMetadata property in ModelMetadata.Properties) 
         {           
             if (property.AssociationDirection == AssociationDirection.OneToMany ) 
             {               
         #>
-        public IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (int <#= PrimaryKeyName.ToLower() #>)
+        public IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (<#= primaryKey.ShortTypeName #> <#= PrimaryKeyName.ToLower() #>)
         {
             return _repository.Get<#= property.PropertyName #>(<#= PrimaryKeyName.ToLower() #>);
         }
