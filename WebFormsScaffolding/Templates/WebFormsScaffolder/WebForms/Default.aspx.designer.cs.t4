@@ -17,6 +17,8 @@
 
 namespace <#= FolderNamespace #> {
     public partial class Default {
+
+         protected global::System.Web.UI.WebControls.LinkButton newbtn;
          /// <summary>
         /// editbtn control.
         /// </summary>
@@ -35,32 +37,11 @@ namespace <#= FolderNamespace #> {
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton deletebtn;
 
-        /// <summary>
-        /// searchTextBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox searchTextBox;
+         
+        protected global::System.Web.UI.WebControls.HiddenField current<#= ModelName #>Id;
+         
 
-        /// <summary>
-        /// searchbtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton searchbtn;
-
-        /// <summary>
-        /// CustomValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
+         
 
         /// <summary>
         /// TransportShiftGridView control.
@@ -70,5 +51,8 @@ namespace <#= FolderNamespace #> {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView <#=ModelName #>GridView;
+
+
+        protected global::System.Web.UI.WebControls.FormView <#= ModelName #>FormView;
     }
 }

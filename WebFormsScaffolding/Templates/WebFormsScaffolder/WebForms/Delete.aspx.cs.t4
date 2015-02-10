@@ -53,6 +53,10 @@ namespace <#= FolderNamespace #>
         }
         
         //TODO:完成编辑FormView的记录
+        protected void newbtn_Click(object sender, EventArgs e)
+        {
+             
+        }
         protected void editbtn_Click(object sender, EventArgs e)
         {
             var id = Request.GetFriendlyUrlSegments()[0];
@@ -66,11 +70,7 @@ namespace <#= FolderNamespace #>
            _unitofwork.SaveChanges();
            Response.Redirect("../Default");
         }
-        //TODO:完成通过搜索关键字查询
-        protected void searchbtn_Click(object sender, EventArgs e)
-        {
-            
-        }
+       
         
         public  <#= ModelName #> Get<#= ModelName #>ById([FriendlyUrlSegmentsAttribute(0)]int id)
         {

@@ -37,32 +37,24 @@
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-              <li><a id="backbtn"   href="Javascript:history.back()"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
-              <li><a id="forwardbtn"   href="Javascript:history.go(1)"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
-              <li><a id="newbtn"   href="../Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
-              <li>
-                  <asp:LinkButton ID="editbtn" ValidationGroup="grid" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
-              </li>
-              <li>
-                  <asp:LinkButton ID="deletebtn" runat="server" ValidationGroup="grid" OnClientClick="return confirm('Are you sure you want to delete checked rows?');" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
-              </li>
-              <li class="divider"></li>
+           <ul class="nav navbar-nav">
+                    <li><a id="backbtn" href="Javascript:history.back()"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
+                    <li><a id="forwardbtn" href="Javascript:history.go(1)"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
+                    <li><asp:LinkButton ID="newbtn" OnClick="newbtn_Click" runat="server"><span class="glyphicon glyphicon-plus"></span>Add</asp:LinkButton>
+                         </li>
+                    <li>
+                        <asp:LinkButton ID="editbtn" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="deletebtn" runat="server" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                       <a id="filter" href="#"   ><span class="glyphicon glyphicon-filter"></span>Filter</a>
+                    </li>
+                </ul>
 
-          </ul>
-
-          <div class="col-sm-3 col-md-3">
-              <div class="navbar-form" role="search">
-                  <div class="input-group">
-                      <asp:TextBox ID="searchTextBox" CssClass="form-control" runat="server"></asp:TextBox>
-                      <div class="input-group-btn">
-                          <asp:LinkButton ID="searchbtn" runat="server" OnClick="searchbtn_Click" CssClass="btn  btn-default"><i class="glyphicon glyphicon-search"></i></asp:LinkButton>
-
-                      </div>
-                  </div>
-              </div>
-
-          </div>
+          
 
           <ul class="nav navbar-nav navbar-right">
 
@@ -82,6 +74,7 @@
 
 
   <div  class="container body-content">
+    <div class="box">
         <div class="row">
       
                 <asp:FormView runat="server"  ID="<#=        ModelName #>FormView"
@@ -199,6 +192,7 @@
                         </fieldset>
                     </ItemTemplate>
                 </asp:FormView>
+        </div>
         </div>
     </div>
 

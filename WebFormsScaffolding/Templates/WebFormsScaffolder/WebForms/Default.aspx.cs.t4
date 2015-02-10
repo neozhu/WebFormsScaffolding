@@ -53,6 +53,12 @@ namespace <#= FolderNamespace #>
         }
 
         //TODO:完成编辑GridView选中的记录
+        protected void newbtn_Click(object sender, EventArgs e)
+        {
+            this.<#= ModelName #>FormView.ChangeMode(FormViewMode.Insert);
+            this.ClientScript.RegisterStartupScript(this.GetType(), "showDialog<#= ModelName #>", "showDialog<#= ModelName #>();", true);
+        }
+
         protected void editbtn_Click(object sender, EventArgs e)
         {
             foreach (GridViewRow row in this.<#= ModelName #>GridView.Rows)
@@ -94,11 +100,7 @@ namespace <#= FolderNamespace #>
             <#= ModelName #>GridView.DataBind();
         }
         //TODO:完成通过搜索关键字查询
-        protected void searchbtn_Click(object sender, EventArgs e)
-        {
-            <#= ModelName #>GridView.DataBind();
-        }
-
+         
 
         public IEnumerable<<#= ModelName #>> Get<#= PluralizedModelName #>(string sortByExpression, int maximumRows, int startRowIndex, out int totalRowCount)
         {
@@ -112,6 +114,59 @@ namespace <#= FolderNamespace #>
         {
             _<#= ModelName.ToLower() #>Service.Delete(<#=  PrimaryKeyName.ToLower() #>);
             _unitofwork.SaveChanges();
+        }
+
+        public <#= ModelName #> Get<#= ModelName #>ById([System.Web.ModelBinding.Control("current<#= ModelName #>Id")] <#= primaryKey.ShortTypeName #> id)
+        {
+            return _<#= ModelName.ToLower() #>Service.Find(id);
+        }
+         public void Update<#= ModelName #>RowItem(<#= ModelName #> item)
+        {
+            TryUpdateModel(item);
+            if (!ModelState.IsValid)
+            {
+                //model is in an invalid state - stop all operations
+                return;
+            }
+            else
+            {
+                _<#= ModelName.ToLower() #>Service.Update(item);
+                _unitofwork.SaveChanges();
+
+
+            }
+            this.<#= ModelName #>GridView.DataBind();
+        }
+        public void Create<#= ModelName #>RowItem(<#= ModelName #> item)
+        {
+            TryUpdateModel(item);
+            if (!ModelState.IsValid)
+            {
+                //model is in an invalid state - stop all operations
+                return;
+            }
+            else
+            {
+                _<#= ModelName.ToLower() #>Service.Insert(item);
+                _unitofwork.SaveChanges();
+
+
+            }
+            this.<#= ModelName #>GridView.DataBind();
+        }
+        protected void <#= ModelName #>GridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            switch (e.CommandName)
+            {
+                case "EditRow":
+                    var id = e.CommandArgument;
+                    this.current<#= ModelName #>Id.Value = id.ToString();
+                    this.<#= ModelName #>FormView.ChangeMode(FormViewMode.Edit);
+                    this.ClientScript.RegisterStartupScript(this.GetType(), "showDialog<#= ModelName #>", "showDialog<#= ModelName #>();", true);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

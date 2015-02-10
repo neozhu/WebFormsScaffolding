@@ -41,31 +41,23 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a id="backbtn"  href="Javascript:history.back()"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
-                    <li><a id="forwardbtn"   href="Javascript:history.go(1)"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
-                    <li><a id="newbtn"   href="Insert.aspx"><span class="glyphicon glyphicon-plus"></span>Add</a></li>
+                    <li><a id="backbtn" href="Javascript:history.back()"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
+                    <li><a id="forwardbtn" href="Javascript:history.go(1)"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
+                    <li><asp:LinkButton ID="newbtn" OnClick="newbtn_Click" runat="server"><span class="glyphicon glyphicon-plus"></span>Add</asp:LinkButton>
+                         </li>
                     <li>
-                        <asp:LinkButton ID="editbtn"  OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
+                        <asp:LinkButton ID="editbtn" OnClick="editbtn_Click" runat="server"><span class="glyphicon glyphicon-pencil"></span>Edit</asp:LinkButton>
                     </li>
                     <li>
-                        <asp:LinkButton ID="deletebtn" runat="server"   OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
+                        <asp:LinkButton ID="deletebtn" runat="server" OnClick="deletebtn_Click"><span class="glyphicon glyphicon-remove"></span>Delete</asp:LinkButton>
                     </li>
                     <li class="divider"></li>
-
+                    <li>
+                       <a id="filter" href="#"   ><span class="glyphicon glyphicon-filter"></span>Filter</a>
+                    </li>
                 </ul>
 
-                <div class="col-sm-3 col-md-3">
-                    <div class="navbar-form" role="search">
-                        <div class="input-group">
-                            <asp:TextBox ID="searchTextBox" CssClass="form-control" runat="server"></asp:TextBox>
-                            <div class="input-group-btn">
-                                <asp:LinkButton ID="searchbtn" runat="server" OnClick="searchbtn_Click" CssClass="btn  btn-default"><i class="glyphicon glyphicon-search"></i></asp:LinkButton>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                 
 
                 <ul class="nav navbar-nav navbar-right">
 
@@ -83,11 +75,10 @@
             <!-- /.navbar-collapse -->
         </nav>
 
-        <div  class="container body-content" >
+    <div  class="container body-content" >
        
-     
-	    <div class="row">
-                
+        <div class="box">
+	        <div class="row">
                 <div class="alert alert-danger page-alert" id="alert-4" style="display:none;">
                     <button type="button" class="close"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
                     <strong>Warning!</strong> Please,Select record.
@@ -96,42 +87,16 @@
                 <div id="dialog-confirm" title="Delete?"  >
                     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure  delete these selected records!</p>
                 </div>
-                <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">Query</h4>
-                        </div>
-                        <div class="panel-body form-horizontal" role="form" >
-
-                           
-                                <div class="form-group form-group form-group-sm  col-sm-5 col-md-5 col-lg-5">
-                                    <span class="col-sm-3 col-md-3 control-label" for="textinput1">serach1</span>
-                                    <div class="col-sm-9 col-md-9">
-                                        <asp:TextBox ID="textBox1" class="form-control" runat="server"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <div class="form-group form-group form-group-sm  col-sm-5 col-md-5 col-lg-5">
-                                    <span class="col-sm-3 col-md-3 control-label" for="textinput2">serach2</span>
-                                    <div class="col-sm-9 col-md-9">
-                                        <asp:TextBox ID="textBox2" class="form-control" runat="server"></asp:TextBox>
-                                    </div>
-                                </div>
-                               <div class="col-sm-2 col-md-2 pull-right">
-                                          <asp:LinkButton ID="searcformhbtn" runat="server" OnClick="searchbtn_Click" CssClass="btn  btn-default btn-sm"><i class="glyphicon glyphicon-search"></i> Search</asp:LinkButton>
-                                </div>
-                                   
-                               
-                          
-                        </div>
-                    </div>
-           
-                </div>
-         
-               
-                    <h4><#=        PluralizedModelName #></h4>
-                    <div class="table-responsive">
+           </div>
+            
+           <div class="row">   
+             <div class="table-responsive">
                         <asp:GridView ID="<#=        ModelName #>GridView" runat="server" ItemType="<#=        FullModelName #>" GridLines="none"
+                        OnRowCommand = "<#= ModelName #>GridView_RowCommand"
+                         RowStyle-Wrap="false"
                         ShowHeaderWhenEmpty="true"
-                        SelectMethod="Get<#= PluralizedModelName #>" DeleteMethod="Delete<#= ModelName #>" AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" DataKeyNames="<#=        PrimaryKeyName #>"
+                        SelectMethod="Get<#= PluralizedModelName #>" DeleteMethod="Delete<#= ModelName #>" 
+                        AutoGenerateColumns="False" AllowSorting="true" AllowPaging="true" DataKeyNames="<#=        PrimaryKeyName #>"
                         PageSize="10" PagerStyle-CssClass="bs-pagination" CssClass="table table-hover table-striped">
                         <Columns>
                             <asp:TemplateField ShowHeader="true">
@@ -147,7 +112,21 @@
         if (ShouldDisplay(property) && !property.IsForeignKey) {
 
             #>
-                                     <asp:DynamicField DataField="<#=                property.PropertyName #>" />
+               <#
+            if(property.IsPrimaryKey){       
+               #>
+                            <asp:hyperlinkfield  DataTextField="<#= property.PropertyName #>" SortExpression="<#= property.PropertyName #>"
+                                        DataNavigateUrlFields="<#= property.PropertyName #>"
+                                        DataNavigateUrlFormatString="Edit\{0}"          
+                                        HeaderText="<#= property.PropertyName #>"
+                            />
+               <#
+            } else {
+               #>                  
+                                     <asp:DynamicField DataField="<#=                    property.PropertyName #>" />
+               <#
+                    }
+               #>
             <#
         }else if (property.AssociationDirection==AssociationDirection.ManyToOne) {
             #>
@@ -156,11 +135,22 @@
         }
     }
             #>
-                             <asp:TemplateField ShowHeader="False">
-                                <ItemTemplate>
-                                    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=        RelativePath#>/Details", Item.<#=        GetPrimaryKeyName() #>) %>' Text="Details" /> | 
-					                <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=        RelativePath#>/Edit", Item.<#=        GetPrimaryKeyName() #>) %>' Text="Edit" /> | 
-                                    <asp:LinkButton ID="deleteButton"   runat="server" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete this row?');" />
+                            <asp:TemplateField ShowHeader="false"  >
+                                 <ItemTemplate>
+                                    <asp:LinkButton ID="editbtn"
+                                        CommandName="EditRow" CommandArgument='<%#Eval("<#=     PrimaryKeyName #>")%>'
+                                        runat="server"
+                                        CssClass="btn btn-default btn-sm">
+                                        <i aria-hidden="true" class="glyphicon glyphicon-pencil"></i>
+                                    </asp:LinkButton>
+                                    <asp:LinkButton ID="delbtn"
+                                        CommandName="Delete"
+                                        OnClientClick="return confirm('Are you sure you want to delete this row?');"
+                                        runat="server"
+                                        CssClass="btn btn-default btn-sm">
+                                        <i aria-hidden="true" class="glyphicon glyphicon-remove"></i>
+                                    </asp:LinkButton>
+                                
                                 </ItemTemplate>
                             </asp:TemplateField>
                          </Columns>
@@ -169,29 +159,178 @@
                          <PagerSettings Mode="NumericFirstLast" PageButtonCount="5" Position="Bottom" PreviousPageText="Previous" NextPageText="Next" FirstPageText="First" LastPageText="Last" />
                        </asp:GridView>
                     </div>
-             
-       
+     
        </div>
+    </div>
 
+<!-- popup dialog form modal -->
+<asp:HiddenField ID="current<#= ModelName #>Id" runat="server" Value="0" />
+<div id="dialog-form" title="<#= ModelName  #>">
+         <asp:FormView runat="server" ID="<#= ModelName #>FormView"
+                    ItemType="<#=FullModelName#>" DefaultMode="Edit" DataKeyNames="<#= PrimaryKeyName #>"
+                    UpdateMethod="Update<#=ModelName #>RowItem" SelectMethod="Get<#= ModelName #>ById"
+                    InsertMethod="Create<#=ModelName #>RowItem"
+                    RenderOuterTable="false">
+                    <EmptyDataTemplate>
+                        Cannot find the <#= ModelName #> with <#= PrimaryKeyName #> <%: Request.QueryString["<#= PrimaryKeyName #>"] %>
+                    </EmptyDataTemplate>
+                    <EditItemTemplate>
+                        <fieldset class="form-horizontal">
+                            <legend>Edit <#= ModelName #></legend>
+                                <div class="row">
+					            <asp:ValidationSummary runat="server" CssClass="alert alert-danger"  />                 
+        <# 
+					                foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+					                    if (ShouldEdit(property)) {
+					                        if (property.IsForeignKey) { 
+							                var relatedModel = RelatedModels[property.PropertyName];
+        #>
+							        <asp:DynamicControl Mode="Edit" 
+								        DataField="<#=property.PropertyName#>" 
+								        DataTypeName="<#=relatedModel.TypeName#>" 
+								        DataTextField="<#=relatedModel.DisplayPropertyName#>" 
+								        DataValueField="<#=relatedModel.PrimaryKeyNames[0]#>" 
+								        UIHint="ForeignKey" runat="server" />
+        <# 
+					            } else { 
+        #>
+						            <asp:DynamicControl Mode="Edit" DataField="<#=property.PropertyName#>" runat="server" />
+        <#
+					            } 
+					          }
+					        } 
+        #>
+                            </div>
+                            <div class="row">
+					          &nbsp;</p>
+					        </div>
+                            </p>
+                            <div class="form-group">
+                                 <div class="text-center">
+							        <asp:Button runat="server" ID="UpdateButton" CommandName="Update" Text="Update" CssClass="btn btn-primary" />
+							        <asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn btn-default" />
+						        </div>
+					        </div>
+                        </fieldset>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <fieldset class="form-horizontal">
+				        <legend>Insert <#= ModelName #></legend>
+                         <div class="row">
+		                    <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />
+        <# 					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+					          if (ShouldEdit(property)) {
+					            if (property.IsForeignKey) { 
+							        var relatedModel = RelatedModels[property.PropertyName];
+        #>
+							        <asp:DynamicControl Mode="Insert" 
+								        DataField="<#=property.PropertyName#>" 
+								        DataTypeName="<#=relatedModel.TypeName#>" 
+								        DataTextField="<#=relatedModel.DisplayPropertyName#>" 
+								        DataValueField="<#=relatedModel.PrimaryKeyNames[0]#>" 
+								        UIHint="ForeignKey" runat="server" />
+        <# 
+					            } else { 
+        #>
+						            <asp:DynamicControl Mode="Insert" DataField="<#=property.PropertyName#>" runat="server" />
+        <#
+					            } 
+					          }
+					        } 
+        #>
+                            </div>
+                            <div class="row">
+					          &nbsp;</p>
+					        </div>
+                            </p>
+                            <div class="form-group">
+                                <div class="text-center">
+                                    <asp:Button runat="server" ID="InsertButton" CommandName="Insert" Text="Insert" CssClass="btn btn-primary" />
+                                    <asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn btn-default" />
+                                </div>
+					        </div>
+                        </fieldset>
+                    </InsertItemTemplate>
+                </asp:FormView>
+</div>
 
-
+<!-- popup filter modal -->
+<div id="dialog-filter" title="<#= ModelName #> Filter">
+                <div class="modal-body">
+                     <div class="form-group">
+                        <label for="name" class="control-label"><#= ModelName #>:</label>
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                </div>
+</div>
+</div>
 
 <script type="text/javascript">
-        function Validate(sender, args) {
-            if ($('table[id*=Shipping_ListGridView] input[type=checkbox]:checked').length > 0) {
-                $('.page-alert').slideUp();
-                return true;
-            } else {
-                $('.page-alert').slideDown();
-                return false;
+        var dialogfilter = {};
+        var dialogform = {};
+        var dialogform = $("#dialog-form").dialog({
+            bgiframe: true,
+            autoOpen: false,
+            height: 500,
+            width: 750,
+            modal: true,
+            show: {
+                effect: "slide",
+                duration: 500
+            },
+            hide: {
+                effect: "slide",
+                duration: 600
             }
+        });
+        dialogform.parent().appendTo(jQuery("form:first"));
+
+        function showDialog<#= ModelName #>() {
+            dialogform.dialog("open");
         }
 
 
-
-
-
         $(function () {
+
+            dialogfilter = $("#dialog-filter").dialog({
+                bgiframe: true,
+                autoOpen: false,
+                height: 300,
+                width: 460,
+                modal: true,
+                show: {
+                    effect: "slide",
+                    duration: 500
+                },
+                hide: {
+                    effect: "slide",
+                    duration: 600
+                },
+                buttons: {
+                    "Search": dofilter,
+                     Cancel: function () {
+                         dialogfilter.dialog("close");
+                    }
+                }
+            });
+            function dofilter() {
+                __doPostBack();
+            }
+            $("#filter").on('click', function () {
+
+                dialogfilter.dialog("open");
+            })
+
+            function Validate(sender, args) {
+                if ($('table[id*=<%=<#=        ModelName #>GridView.ClientID %> ] input[type=checkbox]:checked').length > 0) {
+                    $('.page-alert').slideUp();
+                    return true;
+                } else {
+                    $('.page-alert').slideDown();
+                    return false;
+                }
+            }
+
              $("#dialog-confirm").dialog({
                 autoOpen:false,
                 resizable: false,

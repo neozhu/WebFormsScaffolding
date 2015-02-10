@@ -49,6 +49,10 @@ namespace <#= FolderNamespace #>
         }
 
         //TODO:完成编辑GridView选中的记录
+        protected void newbtn_Click(object sender, EventArgs e)
+        {
+             
+        }
         protected void editbtn_Click(object sender, EventArgs e)
         {
 
